@@ -2,3 +2,4 @@
 #*#
 *.a
 *.o
+project/server/server
