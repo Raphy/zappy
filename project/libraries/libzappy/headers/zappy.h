@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:15:24 2014 raphael defreitas
-** Last update Mon May 12 15:52:00 2014 raphael defreitas
+** Last update Mon May 12 17:58:45 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -37,47 +37,46 @@
 # endif /* !RET_FAILURE */
 
 /*
-** +-------+
-** | Event |
-** +-------+
-*/
-
-typedef	enum
-  {
-    ZET_UNKNOWN,
-    ZET_TIMEOUT,
-    ZET_CLIENT_CONNECTED,
-    ZET_CLIENT_DISCONNECTED,
-    ZET_SERVER_DISCONNECTED
-  }		t_zet;
-
-typedef struct
-{
-  t_zet		type;
-  int		(*handler)();
-  void		*data;
-}		t_zeh;
-
-t_zeh		*zeh_new(t_zet, int (*)(), void *);
-int		zeh_ctor(t_zeh *, t_zet, int (*)(), void *);
-void		zeh_dtor(t_zeh *);
-void		zeh_delete(t_zeh *);
-
-/*
 ** +---------+
 ** | Command |
 ** +---------+
 */
+typedef	struct
+{
+  unsigned int	x;
+  unsigned int	y;
+}		t_cmd_msz;
+
+typedef	struct
+{
+  unsigned int	x;
+  unsigned int	y;
+  unsigned char	food;
+  unsigned char	linemate;
+  unsigned char	deraumere;
+  unsigned char	sibur;
+  unsigned char	mendiane;
+  unsigned char	phiras;
+  unsigned char	thystame;
+}		t_cmd_bct;
+
+/*
+** +-----------------------+
+** | Typedef client/server |
+** +-----------------------+
+*/
+typedef	struct	s_zs		t_zs;
+typedef	struct	s_zc		t_zc;
 
 /*
 ** +--------+
 ** | Server |
 ** +--------+
 */
-typedef	struct	s_zs		t_zs;
 struct		s_zs
 {
   t_socket	socket;
+  t_list	clients;
 };
 
 t_zs		*zs_new(int);
@@ -90,7 +89,6 @@ void		zs_delete(t_zs *);
 ** | Client |
 ** +--------+
 */
-typedef	struct	s_zc		t_zc;
 struct	s_zc
 {
   t_socket	socket;

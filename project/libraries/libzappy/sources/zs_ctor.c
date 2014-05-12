@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 15:33:31 2014 raphael defreitas
-** Last update Mon May 12 15:56:13 2014 raphael defreitas
+** Last update Mon May 12 17:55:25 2014 raphael defreitas
 */
 
 #include	"socket.h"
@@ -22,7 +22,8 @@ static int	init_socket(t_socket *sock, int port)
 
 int		zs_ctor(t_zs *this, int port)
 {
-  if (init_socket(&this->socket, port) == RET_FAILURE)
+  if (init_socket(&this->socket, port) == RET_FAILURE ||
+      list_ctor(&this->clients, &zc_delete) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }
