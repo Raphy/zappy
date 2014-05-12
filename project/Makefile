@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Mon May 12 14:06:10 2014 raphael defreitas
+## Last update Mon May 12 15:56:36 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -13,7 +13,7 @@ LIBS		=	liblist libsocket libzappy
 
 DIRECTORIES	=	./server
 
-all		:	reminder norm libs project
+all		:	reminder norm zappy
 
 reminder	:
 			@echo -e "\e[1;31mNe pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final !\e[0m"
@@ -30,13 +30,15 @@ libs		:
 			$(foreach lib, $(LIBS), make -C $(LIBS_PATH)/$(lib);)
 			@echo -en "\e[0m"
 
-project		:	libs
+zappy		:	libs
 			$(foreach dir, $(DIRECTORIES), make -C $(dir);)
 
 clean		:
+			$(foreach lib, $(LIBS), make fclean -C $(LIBS_PATH)/$(lib);)
 			$(foreach dir, $(DIRECTORIES), make clean -C $(dir);)
 
 fclean		:
+			$(foreach lib, $(LIBS), make fclean -C $(LIBS_PATH)/$(lib);)
 			$(foreach dir, $(DIRECTORIES), make fclean -C $(dir);)
 
-re		:	fclean project
+re		:	fclean zappy
