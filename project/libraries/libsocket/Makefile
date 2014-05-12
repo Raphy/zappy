@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ##
 ## Started on  Mon Dec 16 00:00:03 2013 Raphael De Freitas
-## Last update Mon May 12 13:09:18 2014 raphael defreitas
+## Last update Mon May 12 13:55:14 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -20,10 +20,10 @@ CFLAGS		=	-Wall -Wextra -ansi -pedantic
 CFLAGS		+=	-I ./headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
+all		:	$(NAME)
+
 $(NAME)		:	$(OBJECTS)
 			ar rsc $(NAME) $(OBJECTS)
-
-all		:	$(NAME)
 
 clean		:
 			rm -f $(OBJECTS)
