@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Mon May 12 16:24:34 2014 raphael defreitas
+** Last update Mon May 12 17:10:30 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -37,6 +37,7 @@ int		main(int argc, char **argv)
     {
       fprintf(stderr, "Initialization failed: %s\n",
 	      errno == 0 ? "Unknown error" : strerror(errno));
+      zs_dtor(&server);
       return (EXIT_FAILURE);
     }
   printf("Running on port: %d\n", argc > 1 ? atoi(argv[1]) : 4242);
