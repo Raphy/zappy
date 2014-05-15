@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:15:24 2014 raphael defreitas
-** Last update Mon May 12 17:58:45 2014 raphael defreitas
+** Last update Thu May 15 11:21:42 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -16,6 +16,9 @@
 ** | Includes |
 ** +----------+
 */
+# include	<sys/select.h>
+# include	<sys/time.h>
+
 # include	"list.h"
 # include	"socket.h"
 
@@ -35,6 +38,15 @@
 # ifndef	RET_FAILURE
 #  define	RET_FAILURE	1
 # endif /* !RET_FAILURE */
+
+/*
+** +----------+
+** | Typedefs |
+** +----------+
+*/
+typedef	struct	s_zs		t_zs;
+typedef	struct	s_zc		t_zc;
+typedef	struct	timeval		t_timeval;
 
 /*
 ** +---------+
@@ -61,12 +73,26 @@ typedef	struct
 }		t_cmd_bct;
 
 /*
-** +-----------------------+
-** | Typedef client/server |
-** +-----------------------+
+** +-------+
+** | Hooks |
+** +-------+
 */
-typedef	struct	s_zs		t_zs;
-typedef	struct	s_zc		t_zc;
+typedef	enum
+  {
+    ZHT_UNKNOWN,
+    ZHT_TIMEOUT,
+    ZHT_NEW_CLIENT,
+    ZHT_CMD_MSZ,
+    ZHT_CMD_BCT,
+    ZHT_MAX
+  }		t_zht;
+
+typedef	struct
+{
+  t_zht		type;
+  void		(*handler)();
+  void		*data;
+}		t_zh;
 
 /*
 ** +--------+
@@ -75,14 +101,37 @@ typedef	struct	s_zc		t_zc;
 */
 struct		s_zs
 {
-  t_socket	socket;
+  t_socket	*socket;
   t_list	clients;
+  t_zh		hooks[ZHT_MAX];
+  fd_set	rfds;
+  fd_set	wfds;
+  t_timeval	timeout;
 };
 
 t_zs		*zs_new(int);
 int		zs_ctor(t_zs *, int);
 void		zs_dtor(t_zs *);
 void		zs_delete(t_zs *);
+
+void		zs_main(t_zs *);
+
+void		zs_set_timeout(t_zs *, time_t, suseconds_t);
+t_timeval	zs_get_timeout(t_zs *);
+void		zs_disable_timeout(t_zs *);
+
+typedef	void	(*t_zsh_timeout)(t_zs *, void *);
+void		zs_hook_timeout(t_zs *, t_zsh_timeout, void *);
+
+typedef	void	(*t_zsh_new_client)(t_zs *, t_zc *, void *);
+void		zs_hook_new_client(t_zs *, t_zsh_new_client, void *);
+
+void		zs_hook(t_zs *, t_zht, void (*)(), void *);
+void		zs_handle_timeout(t_zs *);
+void		zs_handle_new_client(t_zs *, t_zc *);
+
+void		zs_treat_new_client(t_zs *);
+void		zs_treat_clients(t_zs *);
 
 /*
 ** +--------+
@@ -91,11 +140,11 @@ void		zs_delete(t_zs *);
 */
 struct	s_zc
 {
-  t_socket	socket;
+  t_socket	*socket;
 };
 
-t_zc		*zc_new(const char *, int);
-int		zc_ctor(t_zc *, const char *, int);
+t_zc		*zc_new(void);
+int		zc_ctor(t_zc *);
 void		zc_dtor(t_zc *);
 void		zc_delete(t_zc *);
 

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 16:40:45 2014 raphael defreitas
-** Last update Mon May 12 16:41:15 2014 raphael defreitas
+** Last update Thu May 15 10:59:46 2014 raphael defreitas
 */
 
 #include	"socket.h"
@@ -13,5 +13,6 @@
 
 void		zc_dtor(t_zc *this)
 {
-  socket_dtor(&this->socket);
+  if (this->socket)
+    socket_dtor(this->socket);
 }
