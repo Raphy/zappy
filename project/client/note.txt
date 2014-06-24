@@ -1,0 +1,89 @@
+### REGLES ###
+Victoire : équipe dont 6 joueurs atteignent l'élévation max
+
+
+### MAP ###
+sans reliefs
+plateau circulaire
+
+
+### Ressources ###
+Minières et alimentaires
+
+6 pierres: linemate, deraumere, sibur, mendiane, phiras, thystame
+Génération des ressources par le server et aléatoire
+
+1 unité de nouriture = 126 unités de temps de survie
+
+
+### Habitant (ia) ###
+actions -> se nourir
+		-> recherche et amasse pierres
+pacifique
+plusieurs individu sur la meme unité de terrain possible
+capacité visuelle limitée
+immateriel, flou, occupe toute la case
+on ne distingue pas son orientation
+
+### Élévation ###
+acroitre capacités physiques et mentales
+réunion sur un même unité de terrain :
+					-> combinaison de pierres
+					-> certains nbre de joueurs de meme niveau
+un joueur débute l'incantation
+équipe mixte (seul le lvl est important)
+tous les joueurs du groupe passent au lvl superieur
+(voir tableau page 4 du pfd)
+
+### Vision ###
++1 unité de mesure a chq level
+lvl 1: vision = 1 unité
+
+commande "voir" vers le client :
+reponse -> {objet-present-case0,objet-present-case1, ..., objet-present-caseP, ... }
+si plusieurs objects sir la meme case => separés par espace
+(voir pdf page 5)
+
+### Son ###
+broadcast (tout le monde entend)
+on ne sait pas qui emet
+connaissance de la direction de provenance + contenu du message
+(voir pdf schema p6)
+
+
+### Syntax arguments ###
+-n nom d’equipe
+-p port
+-h nom de la machine, par defaut localhost
+
+### Client ###
+autonome apres son lancement
+chq joueur controlé par un client
+les clients ne peuvent pas communiquer entre eux en dehors du jeu
+
+debut: 10 unité de vie (1260 unité de temps, soit 1260*1/t sec)
+
+
+### Commandes ###
+avance d'une case
+tourne a droite de 90°
+tourne a gauche de 90°
+voir
+inventaire
+prend object
+pose object
+expulse joueurs de cette case
+broadcast text
+debute incantation
+fork un joueur ?
+nombre de slot dispo pour l'equipe
+(reception) mort d'un joueur
+
+### FORK ###
+fork: pond un oeuf
+apres eclosion : nouveau joueur orienté au hasard, autorisant la connexion d'un nouveau client
+délai de ponte 42/t, d'eclosion 600/t
+
+### Inventaire ###
+retourne le nom
+{nourriture 345, sibur 3, phiras 5, ..., deraumere 0}\n

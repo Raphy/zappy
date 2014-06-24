@@ -1,0 +1,2 @@
+class Broadcast:
+    pass
