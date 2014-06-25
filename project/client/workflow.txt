@@ -1,0 +1,57 @@
+### Taches ###
+client
+
+bind
+Network
+
+Broadcast (send, traduction)
+Message(s)
+
+Drone
+StateMachine
+States (explore, famine, incantation, ...)
+Orientation fixe
+Fork
+
+Team
+DroneInfo
+
+Handlers
+
+modules non local
+
+
+### Work Flow ###
+
+Network <- bind
+
+Broadcast <- Network
+          <- Message(s)
+
+Drone <- Broadcast
+      <- StateMachine
+
+ 
+StateMachine <- states
+
+states <- orientation fix
+states <- Fork
+
+team <- drone info
+states <- team
+
+
+handlers <- Network
+drone <- handlers
+
+module non local
+
+client <- drone
+       <- Network
+
+
+
+
+
+
+
