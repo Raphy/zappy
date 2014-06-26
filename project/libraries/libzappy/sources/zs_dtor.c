@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:24:20 2014 raphael defreitas
-** Last update Thu Jun 26 11:25:31 2014 raphael defreitas
+** Last update Thu Jun 26 12:59:14 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -18,6 +18,7 @@ void		zs_dtor(t_zs *this)
 {
   if (this == NULL)
     return ;
-  socket_dtor(&this->socket);
-  list_dtor(&this->clients);
+  socket_delete(this->socket);
+  list_delete(this->clients);
+  free(this->hooks);
 }

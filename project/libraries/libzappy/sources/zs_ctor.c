@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Thu Jun 26 11:24:37 2014 raphael defreitas
+** Last update Thu Jun 26 13:03:35 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -18,31 +18,34 @@
 
 static int	init_socket(t_socket *sock, int port)
 {
-  if (socket_bind(sock, INADDR_ANY, port) == RET_FAILURE)
-    {
-      perror("error: socket bind");
-      return (RET_FAILURE);
-    }
-  if (socket_listen(sock, ZS_QUEUE_LEN) == RET_FAILURE)
-    {
-      perror("error: socket listen");
-      return (RET_FAILURE);
-    }
+  if (socket_bind(sock, INADDR_ANY, port) == RET_FAILURE ||
+      socket_listen(sock, ZS_QUEUE_LEN) == RET_FAILURE)
+    return (RET_FAILURE);
   return (RET_SUCCESS);
+}
+
+static void	default_values(t_zs *this)
+{
+  this->socket = NULL;
+  this->clients = NULL;
+  this->hooks = NULL;
+  FD_ZERO(&this->rfds);
+  FD_ZERO(&this->wfds);
+  zs_disable_timeout(this);
 }
 
 int		zs_ctor(t_zs *this, int port)
 {
   if (this == NULL)
     return (RET_FAILURE);
-  bzero(&this->hooks, sizeof(this->hooks));
-  FD_ZERO(&this->rfds);
-  FD_ZERO(&this->wfds);
-  zs_disable_timeout(this);
-  if (socket_ctor(&this->socket, AF_INET, SOCK_STREAM, 0) == RET_FAILURE ||
-      list_ctor(&this->clients, &zc_delete) == RET_FAILURE)
+  default_values(this);
+  if ((this->socket = socket_new()) == NULL ||
+      socket_ctor(this->socket, AF_INET, SOCK_STREAM, 0) == RET_FAILURE ||
+      (this->clients = list_new(&zc_delete)) == NULL)
     return (RET_FAILURE);
-  if (init_socket(&this->socket, port))
+  if (init_socket(this->socket, port) == RET_FAILURE)
+    return (RET_FAILURE);
+  if ((this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

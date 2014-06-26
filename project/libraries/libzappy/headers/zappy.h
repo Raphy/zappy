@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 11:57:40 2014 raphael defreitas
+** Last update Thu Jun 26 13:10:05 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -100,9 +100,9 @@ typedef	struct timeval		t_timeval;
 */
 struct		s_zs
 {
-  t_socket	socket;
-  t_list	clients;
-  t_zh		hooks[ZHT_MAX];
+  t_socket	*socket;
+  t_list	*clients;
+  t_zh		*hooks;
   fd_set	rfds;
   fd_set	wfds;
   t_timeval	timeout;
@@ -147,20 +147,24 @@ void		zs_handle_new_client(t_zs *, t_zc *);
 */
 struct		s_zc
 {
-  t_socket	socket;
+  t_socket	*socket;
+  t_zh		*hooks;
   char		is_graphic;
   t_timeval	timeout;
 };
 
 /* [Con|Des]structor */
-t_zc		*zc_new(const char *address, int port); /* ToDo */
-int		zc_ctor(t_zc *this, const char *address, int port); /* ToDo */
-void		zc_delete(t_zc *this); /* ToDo */
-void		zc_dtor(t_zc *zc); /* ToDo */
+t_zc		*zc_new(void);
+int		zc_ctor(t_zc *this);
+void		zc_delete(t_zc *this);
+void		zc_dtor(t_zc *zc);
 
 /* Actions */
 void		zc_main(t_zc *this); /* ToDo */
+int		zc_connect(t_zc *this, const char *host, int port);
 void		zc_disable_timeout(t_zc *this);
+char		zc_is_graphic(t_zc *this);
+char		zc_is_player(t_zc *this);
 
 /* [G/S]etters */
 void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
