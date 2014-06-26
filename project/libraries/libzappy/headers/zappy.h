@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 14:43:18 2014 raphael defreitas
+** Last update Thu Jun 26 18:47:00 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -14,9 +14,10 @@
 /*
 ** Required
 */
+# include	<glib.h>
+# include	<stdbool.h>
 # include	<sys/select.h>
 # include	<sys/time.h>
-# include	<glib.h>
 
 # include	"list.h"
 # include	"socket.h"
@@ -105,6 +106,7 @@ struct		s_zs
   fd_set	rfds;
   fd_set	wfds;
   t_timeval	timeout;
+  bool		has_to_stop;
 };
 
 /* [Con|Des]structor */
@@ -150,12 +152,22 @@ void		zs_handle_client_connected(t_zs *, t_zc *);
 ** | Client |
 ** +--------+
 */
+typedef	enum
+  {
+    ZCT_UNKNOWN,
+    ZCT_GRAPHIC,
+    ZCT_PLAYER
+  }		t_zct;
 struct		s_zc
 {
   t_socket	*socket;
   t_zh		*hooks;
-  char		is_graphic;
+  t_zct		type;
   t_timeval	timeout;
+  bool		has_to_disconnect;
+
+  t_list	*pckts_rcvd;
+  t_list	*pckts_to_snd;
 };
 
 /* [Con|Des]structor */
@@ -168,8 +180,6 @@ void		zc_dtor(t_zc *zc);
 void		zc_main(t_zc *this);
 int		zc_connect(t_zc *this, const char *host, int port);
 void		zc_disable_timeout(t_zc *this);
-char		zc_is_graphic(t_zc *this);
-char		zc_is_player(t_zc *this);
 
 /* [G/S]etters */
 void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
@@ -184,6 +194,10 @@ void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d);
 
 typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
 void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
+
+/* For Server Only */
+t_zct		zc_get_type(t_zc *this);
+void		zc_set_type(t_zc *this, t_zct type);
 
 /* PRIVATE */
 void		zc_hook(t_zc *, t_zht, void (*)(), void *);

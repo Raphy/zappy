@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Thu Jun 26 14:45:07 2014 raphael defreitas
+** Last update Thu Jun 26 16:24:33 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -30,7 +30,7 @@ static void	kikoo_header(void)
 
 static void	nc_handler(t_zs *this, t_zc *zc, void *data)
 {
-  printf("hook new client!\n");
+  printf("hook new client! fd:%d\n", zc->socket->fd);
 }
 
 static void	to_handler(t_zs *this, void *data)

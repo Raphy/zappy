@@ -5,9 +5,10 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Thu Jun 26 13:03:35 2014 raphael defreitas
+** Last update Thu Jun 26 18:49:27 2014 raphael defreitas
 */
 
+#include	<stdbool.h>
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<strings.h>
@@ -32,6 +33,7 @@ static void	default_values(t_zs *this)
   FD_ZERO(&this->rfds);
   FD_ZERO(&this->wfds);
   zs_disable_timeout(this);
+  this->has_to_stop = false;
 }
 
 int		zs_ctor(t_zs *this, int port)
@@ -41,11 +43,9 @@ int		zs_ctor(t_zs *this, int port)
   default_values(this);
   if ((this->socket = socket_new()) == NULL ||
       socket_ctor(this->socket, AF_INET, SOCK_STREAM, 0) == RET_FAILURE ||
-      (this->clients = list_new(&zc_delete)) == NULL)
-    return (RET_FAILURE);
-  if (init_socket(this->socket, port) == RET_FAILURE)
-    return (RET_FAILURE);
-  if ((this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL)
+      (this->clients = list_new(&zc_delete)) == NULL ||
+      init_socket(this->socket, port) == RET_FAILURE ||
+      (this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }
