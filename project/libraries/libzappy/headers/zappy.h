@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 14:19:33 2014 raphael defreitas
+** Last update Thu Jun 26 14:22:47 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -74,8 +74,6 @@ typedef	enum
     ZHT_CALLBACK,
     ZHT_NEW_CLIENT,
     ZHT_TIMEOUT,
-    ZHT_CMD_MSZ,
-    ZHT_CMD_BCT,
     ZHT_MAX
   }		t_zht;
 
