@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 14:43:18 2014 raphael defreitas
+** Last update Thu Jun 26 15:55:23 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
