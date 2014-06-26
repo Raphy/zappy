@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 14:22:47 2014 raphael defreitas
+** Last update Thu Jun 26 14:43:18 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -72,7 +72,7 @@ typedef	enum
     ZHT_UNKNOWN,
     ZHT_ERRNO,
     ZHT_CALLBACK,
-    ZHT_NEW_CLIENT,
+    ZHT_CLIENT_CONNECTED,
     ZHT_TIMEOUT,
     ZHT_MAX
   }		t_zht;
@@ -116,7 +116,7 @@ void		zs_dtor(t_zs *this);
 void		zs_main(t_zs *this);
 
 /* Actions */
-void		zs_main(t_zs *this); /* ToDo */
+void		zs_main(t_zs *this);
 void		zs_disable_timeout(t_zs *this);
 
 /* [G/S]etters */
@@ -133,15 +133,17 @@ void		zs_hook_callback(t_zs *this, t_zsh_callback h, void *d);
 typedef	void	(*t_zsh_timeout)(t_zs *zs, void *data);
 void		zs_hook_timeout(t_zs *this, t_zsh_timeout h, void *d);
 
-typedef	void	(*t_zsh_new_client)(t_zs *zs, t_zc *zc, void *data);
-void		zs_hook_new_client(t_zs *this, t_zsh_new_client h, void *d);
+typedef	void	(*t_zsh_client_connected)(t_zs *zs, t_zc *zc, void *data);
+void		zs_hook_client_connected(t_zs *this, t_zsh_client_connected h,
+					 void *d);
 
 /* PRIVATE */
+void		zs_treat_fds(t_zs *);
 void		zs_hook(t_zs *, t_zht, void (*)(), void *);
-void		zs_handle_errno(t_zs *, int);
+void		zs_handle_errno(t_zs *);
 void		zs_handle_callback(t_zs *, t_zht);
 void		zs_handle_timeout(t_zs *);
-void		zs_handle_new_client(t_zs *, t_zc *);
+void		zs_handle_client_connected(t_zs *, t_zc *);
 
 /*
 ** +--------+
@@ -185,7 +187,7 @@ void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
 
 /* PRIVATE */
 void		zc_hook(t_zc *, t_zht, void (*)(), void *);
-void		zc_handle_errno(t_zc *, int);
+void		zc_handle_errno(t_zc *);
 void		zc_handle_callback(t_zc *, t_zht);
 void		zc_handle_timeout(t_zc *);
 

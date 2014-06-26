@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Thu Jun 26 11:57:00 2014 raphael defreitas
+** Last update Thu Jun 26 14:45:07 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -43,7 +43,7 @@ static void	init_server(t_zs *server)
 {
   zs_set_timeout(server, 1, 500);
   zs_hook_timeout(server, &to_handler, NULL);
-  zs_hook_new_client(server, &nc_handler, NULL);
+  zs_hook_client_connected(server, &nc_handler, NULL);
 }
 
 int		main(int argc, char **argv)
@@ -60,7 +60,7 @@ int		main(int argc, char **argv)
     }
   printf("Running on port: %d\n", argc > 1 ? atoi(argv[1]) : 4242);
   init_server(&server);
-  //zs_main(&server);
+  zs_main(&server);
   zs_dtor(&server);
   return (EXIT_FAILURE);
 }

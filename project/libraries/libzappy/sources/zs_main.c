@@ -5,13 +5,11 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Thu Jun 26 13:57:26 2014 raphael defreitas
+** Last update Thu Jun 26 14:36:36 2014 raphael defreitas
 */
 
-#include	<errno.h>
-#include	<stdio.h>
 #include	<stdlib.h>
-#include	<string.h>
+#include	<sys/select.h>
 
 #include	"list.h"
 #include	"socket.h"
@@ -20,16 +18,16 @@
 static void	set_fds(t_zs *this)
 {
   t_iterator	it;
-  t_zc		*client;
+  t_zc		*zc;
 
   FD_ZERO(&this->rfds);
   FD_ZERO(&this->wfds);
   FD_SET(socket_fd(this->socket), &this->rfds);
   iterator_ctor(&it, this->clients, IT_DATA);
-  while ((client = iterator_current(&it)))
+  while ((zc = iterator_current(&it)))
     {
       iterator_next(&it);
-      FD_SET(socket_fd(client->socket), &this->rfds);
+      FD_SET(socket_fd(zc->socket), &this->rfds);
     }
 }
 
@@ -48,18 +46,18 @@ void		zs_main(t_zs *this)
 {
   int		select_ret;
 
+  if (this == NULL)
+    return ;
   while (42)
     {
       select_ret = zs_select(this);
       if (select_ret == RET_ERROR)
 	{
-	  if (errno != EINTR)
-	    fprintf(stderr, "[FATAL ERROR] %s\n", strerror(errno));
-	  else
-	    fprintf(stderr, "[ERROR]       %s\n", strerror(errno));
+	  zs_handle_errno(this);
+	  continue ;
 	}
       else if (select_ret == 0)
 	zs_handle_timeout(this);
-      //zs_treat_fds(this);
+      zs_treat_fds(this);
     }
 }
