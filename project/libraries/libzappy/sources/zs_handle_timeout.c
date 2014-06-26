@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Thu Jun 26 11:41:45 2014 raphael defreitas
+** Last update Thu Jun 26 12:01:11 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -21,4 +21,5 @@ void		zs_handle_timeout(t_zs *this)
   zh = this->hooks[ZHT_TIMEOUT];
   if (zh.handler)
     zh.handler(this, zh.data);
+  zs_handle_callback(this, ZHT_NEW_CLIENT);
 }
