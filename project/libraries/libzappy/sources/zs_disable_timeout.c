@@ -1,16 +1,20 @@
 /*
-** zs_disable_timeout.c for zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources
+** zs_disable_timeout.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources
 ** 
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
 ** 
-** Started on  Thu May 15 10:32:40 2014 raphael defreitas
-** Last update Thu May 15 10:33:07 2014 raphael defreitas
+** Started on  Thu Jun 26 11:30:50 2014 raphael defreitas
+** Last update Thu Jun 26 11:34:03 2014 raphael defreitas
 */
+
+#include	<stdlib.h>
 
 #include	"zappy.h"
 
 void		zs_disable_timeout(t_zs *this)
 {
+  if (this == NULL)
+    return ;
   zs_set_timeout(this, 0, 0);
 }

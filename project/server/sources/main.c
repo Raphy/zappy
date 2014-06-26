@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Thu May 15 11:09:00 2014 raphael defreitas
+** Last update Thu Jun 26 11:57:00 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -28,7 +28,7 @@ static void	kikoo_header(void)
   printf("+---------------------------------+\n");
 }
 
-static void	nc_handler(t_zs *this, t_zc *client, void *data)
+static void	nc_handler(t_zs *this, t_zc *zc, void *data)
 {
   printf("hook new client!\n");
 }
@@ -60,7 +60,7 @@ int		main(int argc, char **argv)
     }
   printf("Running on port: %d\n", argc > 1 ? atoi(argv[1]) : 4242);
   init_server(&server);
-  zs_main(&server);
+  //zs_main(&server);
   zs_dtor(&server);
   return (EXIT_FAILURE);
 }

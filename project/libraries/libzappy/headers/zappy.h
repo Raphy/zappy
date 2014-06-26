@@ -1,31 +1,30 @@
 /*
-** zappy.h for zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/headers
+** zappy.h for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/headers
 **
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
 **
-** Started on  Mon May 12 14:15:24 2014 raphael defreitas
-** Last update Thu May 15 11:21:42 2014 raphael defreitas
+** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
+** Last update Thu Jun 26 11:57:40 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
 # define	ZAPPY_H_
 
 /*
-** +----------+
-** | Includes |
-** +----------+
+** Required
 */
 # include	<sys/select.h>
 # include	<sys/time.h>
+# include	<glib.h>
 
 # include	"list.h"
 # include	"socket.h"
 
+G_BEGIN_DECLS
+
 /*
-** +-------------+
-** | Definitions |
-** +-------------+
+** Usefull definitions
 */
 # ifndef	RET_ERROR
 #  define	RET_ERROR	-1
@@ -39,24 +38,17 @@
 #  define	RET_FAILURE	1
 # endif /* !RET_FAILURE */
 
-/*
-** +----------+
-** | Typedefs |
-** +----------+
-*/
-typedef	struct	s_zs		t_zs;
-typedef	struct	s_zc		t_zc;
-typedef	struct	timeval		t_timeval;
+# ifndef	ZS_QUEUE_LEN
+#  define	ZS_QUEUE_LEN	100
+# endif /* !ZS_QUEUE_LEN */
 
 /*
-** +---------+
-** | Command |
-** +---------+
+** Commands
 */
 typedef	struct
 {
-  unsigned int	x;
-  unsigned int	y;
+  unsigned int	width;
+  unsigned int	height;
 }		t_cmd_msz;
 
 typedef	struct
@@ -73,15 +65,14 @@ typedef	struct
 }		t_cmd_bct;
 
 /*
-** +-------+
-** | Hooks |
-** +-------+
+** Evenemential
 */
 typedef	enum
   {
     ZHT_UNKNOWN,
-    ZHT_TIMEOUT,
+    ZHT_CALLBACK,
     ZHT_NEW_CLIENT,
+    ZHT_TIMEOUT,
     ZHT_CMD_MSZ,
     ZHT_CMD_BCT,
     ZHT_MAX
@@ -95,13 +86,21 @@ typedef	struct
 }		t_zh;
 
 /*
+** Typedefs
+*/
+typedef	struct s_zs		t_zs;
+typedef	struct s_zc		t_zc;
+typedef	struct s_zg		t_zg;
+typedef	struct timeval		t_timeval;
+
+/*
 ** +--------+
 ** | Server |
 ** +--------+
 */
 struct		s_zs
 {
-  t_socket	*socket;
+  t_socket	socket;
   t_list	clients;
   t_zh		hooks[ZHT_MAX];
   fd_set	rfds;
@@ -109,43 +108,67 @@ struct		s_zs
   t_timeval	timeout;
 };
 
-t_zs		*zs_new(int);
-int		zs_ctor(t_zs *, int);
-void		zs_dtor(t_zs *);
-void		zs_delete(t_zs *);
+/* [Con|Des]structor */
+t_zs		*zs_new(int port);
+int		zs_ctor(t_zs *this, int port);
+void		zs_delete(t_zs *this);
+void		zs_dtor(t_zs *this);
 
-void		zs_main(t_zs *);
+void		zs_main(t_zs *this);
 
-void		zs_set_timeout(t_zs *, time_t, suseconds_t);
-t_timeval	zs_get_timeout(t_zs *);
-void		zs_disable_timeout(t_zs *);
+/* Actions */
+void		zs_main(t_zs *this); /* ToDo */
+void		zs_disable_timeout(t_zs *this);
 
-typedef	void	(*t_zsh_timeout)(t_zs *, void *);
-void		zs_hook_timeout(t_zs *, t_zsh_timeout, void *);
+/* [G/S]etters */
+void		zs_set_timeout(t_zs *this, time_t sec, suseconds_t usec);
+t_timeval	zs_get_timeout(t_zs *this);
 
-typedef	void	(*t_zsh_new_client)(t_zs *, t_zc *, void *);
-void		zs_hook_new_client(t_zs *, t_zsh_new_client, void *);
+/* Hooks */
+typedef void	(t_zsh_callback)(t_zs *this, t_zht type, void *data);
+void		zs_hook_callback(t_zs *this, t_zsh_callback h, void *d);
 
+typedef	void	(*t_zsh_timeout)(t_zs *zs, void *data);
+void		zs_hook_timeout(t_zs *this, t_zsh_timeout h, void *d);
+
+typedef	void	(*t_zsh_new_client)(t_zs *zs, t_zc *zc, void *data);
+void		zs_hook_new_client(t_zs *this, t_zsh_new_client h, void *d);
+
+/* PRIVATE */
 void		zs_hook(t_zs *, t_zht, void (*)(), void *);
+void		zs_handle_callback(t_zs *, t_zht);
 void		zs_handle_timeout(t_zs *);
 void		zs_handle_new_client(t_zs *, t_zc *);
-
-void		zs_treat_new_client(t_zs *);
-void		zs_treat_clients(t_zs *);
 
 /*
 ** +--------+
 ** | Client |
 ** +--------+
 */
-struct	s_zc
+struct		s_zc
 {
-  t_socket	*socket;
+  t_socket	socket;
+  char		is_graphic;
+  t_timeval	timeout;
 };
 
-t_zc		*zc_new(void);
-int		zc_ctor(t_zc *);
-void		zc_dtor(t_zc *);
-void		zc_delete(t_zc *);
+/* [Con|Des]structor */
+t_zc		*zc_new(const char *address, int port); /* ToDo */
+int		zc_ctor(t_zc *this, const char *address, int port); /* ToDo */
+void		zc_delete(t_zc *this); /* ToDo */
+void		zc_dtor(t_zc *zc); /* ToDo */
+
+/* Actions */
+void		zc_main(t_zc *this); /* ToDo */
+void		zc_disable_timeout(t_zc *this);
+
+/* [G/S]etters */
+void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
+t_timeval	zc_get_timeout(t_zc *this);
+
+/* Hooks */
+
+
+G_END_DECLS
 
 #endif /* !ZAPPY_H_*/
