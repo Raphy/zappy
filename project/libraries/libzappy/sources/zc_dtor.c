@@ -5,11 +5,12 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:50:11 2014 raphael defreitas
-** Last update Thu Jun 26 12:58:34 2014 raphael defreitas
+** Last update Thu Jun 26 18:50:45 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
+#include	"list.h"
 #include	"socket.h"
 #include	"zappy.h"
 
@@ -19,4 +20,6 @@ void		zc_dtor(t_zc *this)
     return ;
   socket_delete(this->socket);
   free(this->hooks);
+  list_delete(this->pckts_rcvd);
+  list_delete(this->pckts_to_snd);
 }
