@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 13:10:05 2014 raphael defreitas
+** Last update Thu Jun 26 14:19:33 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -70,6 +70,7 @@ typedef	struct
 typedef	enum
   {
     ZHT_UNKNOWN,
+    ZHT_ERRNO,
     ZHT_CALLBACK,
     ZHT_NEW_CLIENT,
     ZHT_TIMEOUT,
@@ -125,7 +126,10 @@ void		zs_set_timeout(t_zs *this, time_t sec, suseconds_t usec);
 t_timeval	zs_get_timeout(t_zs *this);
 
 /* Hooks */
-typedef void	(t_zsh_callback)(t_zs *this, t_zht type, void *data);
+typedef	void	(t_zsh_errno)(t_zs *zs, int err, void *data);
+void		zs_hook_errno(t_zs *this, t_zsh_errno h, void *d);
+
+typedef	void	(t_zsh_callback)(t_zs *zs, t_zht type, void *data);
 void		zs_hook_callback(t_zs *this, t_zsh_callback h, void *d);
 
 typedef	void	(*t_zsh_timeout)(t_zs *zs, void *data);
@@ -136,6 +140,7 @@ void		zs_hook_new_client(t_zs *this, t_zsh_new_client h, void *d);
 
 /* PRIVATE */
 void		zs_hook(t_zs *, t_zht, void (*)(), void *);
+void		zs_handle_errno(t_zs *, int);
 void		zs_handle_callback(t_zs *, t_zht);
 void		zs_handle_timeout(t_zs *);
 void		zs_handle_new_client(t_zs *, t_zc *);
@@ -160,7 +165,7 @@ void		zc_delete(t_zc *this);
 void		zc_dtor(t_zc *zc);
 
 /* Actions */
-void		zc_main(t_zc *this); /* ToDo */
+void		zc_main(t_zc *this);
 int		zc_connect(t_zc *this, const char *host, int port);
 void		zc_disable_timeout(t_zc *this);
 char		zc_is_graphic(t_zc *this);
@@ -171,7 +176,20 @@ void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
 t_timeval	zc_get_timeout(t_zc *this);
 
 /* Hooks */
+typedef	void	(t_zch_errno)(t_zc *zc, int err, void *data);
+void		zc_hook_errno(t_zc *this, t_zch_errno h, void *d);
 
+typedef	void	(t_zch_callback)(t_zc *zc, t_zht type, void *data);
+void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d);
+
+typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
+void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
+
+/* PRIVATE */
+void		zc_hook(t_zc *, t_zht, void (*)(), void *);
+void		zc_handle_errno(t_zc *, int);
+void		zc_handle_callback(t_zc *, t_zht);
+void		zc_handle_timeout(t_zc *);
 
 G_END_DECLS
 
