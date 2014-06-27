@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Fri Jun 27 17:54:39 2014 raphael defreitas
+** Last update Fri Jun 27 19:14:07 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -43,6 +43,7 @@ static void	set_fds(t_zs *this)
 	    FD_SET(socket_fd(zc->socket), &this->wfds);
 	}
     }
+  iterator_dtor(&it);
 }
 
 static int	zs_select(t_zs *this)
@@ -56,31 +57,6 @@ static int	zs_select(t_zs *this)
   return (select(FD_SETSIZE, &this->rfds, &this->wfds, NULL, &to));
 }
 
-static void	print_pckts(t_zs *this)
-{
-  t_iterator	it;
-  t_iterator	it2;
-  t_zc		*zc;
-  char		*data;
-
-  printf("##### DUMP ######\n");
-  iterator_ctor(&it, this->clients, IT_DATA);
-  while ((zc = iterator_current(&it)))
-    {
-      iterator_next(&it);
-      printf("Client #%d\n", zc->socket->fd);
-      iterator_ctor(&it2, zc->pckts_rcvd, IT_DATA);
-      while ((data = iterator_current(&it2)))
-	{
-	  iterator_next(&it2);
-	  printf("\t%s\n", data);
-	}
-      iterator_dtor(&it2);
-    }
-  iterator_dtor(&it);
-  printf("#################\n");
-}
-
 void		zs_main(t_zs *this)
 {
   int		select_ret;
@@ -89,7 +65,6 @@ void		zs_main(t_zs *this)
     return ;
   while (!this->has_to_stop)
     {
-      print_pckts(this);
       select_ret = zs_select(this);
       if (select_ret == RET_ERROR)
 	{

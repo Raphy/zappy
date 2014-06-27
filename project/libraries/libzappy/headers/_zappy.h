@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Fri Jun 27 17:22:10 2014 raphael defreitas
+** Last update Fri Jun 27 19:06:42 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -30,6 +30,9 @@ G_BEGIN_DECLS
 
 void		zs_treat_fds(t_zs *);
 void		zs_treat_zc(t_zs *, t_zc *);
+void		zs_send(t_zs *, t_zc *, const char *);
+void		zs_send_to_client(t_zs *, t_zc *, const char *);
+void		zs_send_to_all(t_zs *, const char *);
 
 /*
 ** Event managing

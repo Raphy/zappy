@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jun 27 18:08:35 2014 raphael defreitas
+** Last update Fri Jun 27 18:54:48 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -44,31 +44,6 @@ G_BEGIN_DECLS
 # ifndef	RET_FAILURE
 #  define	RET_FAILURE	1
 # endif /* !RET_FAILURE */
-
-/*
-** +----------+
-** | Commands |
-** +----------+
-*/
-
-typedef	struct
-{
-  unsigned int	width;
-  unsigned int	height;
-}		t_cmd_msz;
-
-typedef	struct
-{
-  unsigned int	x;
-  unsigned int	y;
-  unsigned char	food;
-  unsigned char	linemate;
-  unsigned char	deraumere;
-  unsigned char	sibur;
-  unsigned char	mendiane;
-  unsigned char	phiras;
-  unsigned char	thystame;
-}		t_cmd_bct;
 
 /*
 ** +--------------+
@@ -210,11 +185,12 @@ void		zc_disconnect(t_zc *this);
 G_END_DECLS
 
 /*
-** +--------------+
-** | Hooks header |
-** +--------------+
+** +-------------------+
+** | Separated headers |
+** +-------------------+
 */
 
 # include	"zappy_hooks.h"
+# include	"zappy_commands.h"
 
 #endif /* !ZAPPY_H_*/

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:49:43 2014 raphael defreitas
-** Last update Thu Jun 26 18:40:34 2014 raphael defreitas
+** Last update Fri Jun 27 19:16:34 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -33,7 +33,7 @@ int		zc_ctor(t_zc *this)
   default_values(this);
   if ((this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL ||
       (this->pckts_rcvd = list_new(&free)) == NULL ||
-      (this->pckts_to_snd = list_new(&free)) == NULL)
+      (this->pckts_to_snd = list_new(NULL)) == NULL)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }
