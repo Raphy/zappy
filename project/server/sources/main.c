@@ -1,11 +1,11 @@
 /*
 ** main.c for zappy in /home/raphy/Epitech/Tech_2/zappy/project/server/sources
-** 
+**
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
-** 
+**
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Fri Jun 27 17:38:00 2014 raphael defreitas
+** Last update Fri Jun 27 19:17:08 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -14,6 +14,7 @@
 #include	<string.h>
 
 #include	"zappy.h"
+#include	"server.h"
 
 static void	kikoo_header(void)
 {
@@ -70,8 +71,13 @@ static void	init_server(t_zs *server)
 int		main(int argc, char **argv)
 {
   t_zs		server;
+  t_arg		arg;
 
   kikoo_header();
+  get_arg(argc, argv, &arg);
+
+  /* Faire le dump  des argument ICI */
+
   if (zs_ctor(&server, argc > 1 ? atoi(argv[1]) : 4242) == RET_FAILURE)
     {
       fprintf(stderr, "Initialization failed: %s\n",
