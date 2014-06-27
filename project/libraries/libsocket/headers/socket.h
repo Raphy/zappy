@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon Apr 14 16:45:01 2014 raphael defreitas
-** Last update Mon Apr 28 13:21:52 2014 raphael defreitas
+** Last update Fri Jun 27 15:13:09 2014 raphael defreitas
 */
 
 #ifndef		SOCKET_H_
@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 # endif /* !RET_FAILURE */
 
 # ifndef	SOCK_BUF_LEN
-#  define	SOCK_BUF_LEN	2048
+#  define	SOCK_BUF_LEN	10
 # endif /* !SOCK_BUF_LEN */
 
 typedef	struct	hostent		t_hostent;
