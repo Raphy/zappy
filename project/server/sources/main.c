@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Fri Jun 27 19:17:08 2014 damien sauvalle
+** Last update Fri Jun 27 23:18:41 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -72,11 +72,29 @@ int		main(int argc, char **argv)
 {
   t_zs		server;
   t_arg		arg;
+  t_item *tmp;
+
 
   kikoo_header();
+
   get_arg(argc, argv, &arg);
 
   /* Faire le dump  des argument ICI */
+  printf("PORT %d\n", arg.port);
+  printf("X_WORLD %d\n", arg.x_world);
+  printf("Y_WORLD %d\n", arg.y_world);
+
+  printf("LIMIT_CLIENT %d\n", arg.limit_client);
+  printf("TIME %d\n", arg.time);
+
+  tmp = arg.team_names->front;
+
+  while (tmp)
+    {
+      printf("NAME %s\n",(char*)tmp->data);
+      tmp = tmp->next;
+    }
+
 
   if (zs_ctor(&server, argc > 1 ? atoi(argv[1]) : 4242) == RET_FAILURE)
     {
