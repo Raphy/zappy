@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Thu Apr 17 18:52:55 2014 raphael defreitas
-## Last update Fri Jun 27 16:14:58 2014 raphael defreitas
+## Last update Fri Jun 27 20:29:28 2014 Barthelemy Delemotte
 ##
 
 CC		?=	clang
@@ -16,7 +16,7 @@ SOURCES		=	sources/item_ctor.c sources/item_data.c sources/item_delete.c sources
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -pedantic
+CFLAGS		=	-Wall -Wextra -ansi -pedantic -fPIC
 CFLAGS		+=	-I ./headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 

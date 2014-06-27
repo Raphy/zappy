@@ -1,6 +1,8 @@
-from client.drone.broadcast import Broadcast
-from client.drone.handlers import Handlers
-from client.drone.orientation import *
+print("initializing package {0} ...".format(__name__))
+
+from .broadcast import Broadcast
+from .orientation import *
+from .drone_id import DroneId
 
 class Drone:
     pass

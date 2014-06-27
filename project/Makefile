@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Mon May 12 17:12:47 2014 raphael defreitas
+## Last update Fri Jun 27 20:23:21 2014 Barthelemy Delemotte
 ##
 
 LIBS_PATH	=	./libraries/
@@ -26,6 +26,8 @@ norm		:
 			@echo -en "\e[0m"
 
 libs		:
+
+			make -C $(LIBS_PATH)
 			$(foreach lib, $(LIBS), make -C $(LIBS_PATH)/$(lib);)
 
 zappy		:	libs
@@ -36,6 +38,7 @@ clean		:
 			$(foreach dir, $(DIRECTORIES), make clean -C $(dir);)
 
 fclean		:
+			make fclean -C $(LIBS_PATH)
 			$(foreach lib, $(LIBS), make fclean -C $(LIBS_PATH)/$(lib);)
 			$(foreach dir, $(DIRECTORIES), make fclean -C $(dir);)
 

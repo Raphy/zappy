@@ -1,10 +1,12 @@
+print("initializing module {0} ...".format(__name__))
+
 from ctypes import *
 
-class _LibBind:
+class LibBind:
     """Make it easy to bind c library"""
     
     def __init__(self, libpath):
-        """raise an OSError if the lib could not be succesfully loaded"""
+        """Raise an OSError if the lib could not be succesfully loaded"""
         self._lib = CDLL(libpath)
         self._functions = {}
     
@@ -21,23 +23,9 @@ class _LibBind:
         funct.restypes = restypes
 
     def bind_funct(self, symbol, argtypes=[], restypes=[], used_name=None):
+        """Raise an AttributeError if the symbol is undefined"""
         if used_name is None:
             used_name = symbol
         funct = self.__get_symbol(symbol)
         self.__funct_config(funct, argtypes, restypes)
         self.__funct_add(used_name, funct)
-
-class Network:
-    """a bind to the client side of the zappy C librarie"""
-    pass
-
-
-if __name__ == '__main__':
-    try:
-        b = _LibBind("d")
-        assert(False)
-    except OSError as err:
-        pass
-    b = _LibBind('lib.so')
-    b.bind_funct('toto')
-    assert(b.toto() == 42)

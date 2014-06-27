@@ -1,3 +1,5 @@
+print("initializing module {0} ...".format(__name__))
+
 """ Constantes """
 Origin = None
 

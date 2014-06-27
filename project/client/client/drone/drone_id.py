@@ -1,3 +1,4 @@
+print("initializing module {0} ...".format(__name__))
 
 import os
 import uuid
@@ -21,6 +22,9 @@ class DroneId:
 
     def __str__(self):
         return self._hash
+
+    def __repr__(self):
+        return self.__str__()
 
     def __eq__(self, other):
         return self._hash == other._hash
