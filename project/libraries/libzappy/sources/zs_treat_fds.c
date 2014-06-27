@@ -5,15 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Fri Jun 27 18:12:47 2014 raphael defreitas
+** Last update Fri Jun 27 19:51:07 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
 #include	<errno.h>
-#include	<stdio.h>
-#include	<string.h>
-
 #include	<stdlib.h>
+#include	<string.h>
 #include	<sys/select.h>
 
 #include	"list.h"
@@ -47,7 +45,7 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
 
   rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
   if (rlen == RET_ERROR && errno != 0)
-    zs_handle_errno(this, "read failed");
+    zs_handle_errno(this, "socket read failed");
   else if (rlen == RET_ERROR)
     zc_disconnect(zc);
   else if (rlen > 0)
@@ -66,7 +64,6 @@ static void	treat_write_zc(t_zs *this, t_zc *zc)
 {
   int		wlen;
   char		*data;
-  size_t	data_len;
 
   if (list_length(zc->pckts_to_snd) == 0)
     return ;
@@ -74,7 +71,7 @@ static void	treat_write_zc(t_zs *this, t_zc *zc)
     return ;
   wlen = socket_write(zc->socket, data, strlen(data));
   if (wlen == RET_ERROR)
-    zs_handle_errno(this, "network data to send failed");
+    zs_handle_errno(this, "socket write failed");
 }
 
 void	zs_treat_fds(t_zs *this)
