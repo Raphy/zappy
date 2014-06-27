@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Fri Jun 27 23:25:23 2014 damien sauvalle
+** Last update Fri Jun 27 23:27:40 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -36,9 +36,7 @@ int		main(int argc, char **argv)
   t_arg		arg;
   t_item *tmp;
 
-
   kikoo_header();
-
   get_arg(argc, argv, &arg);
 
   /* Debut Debug */
