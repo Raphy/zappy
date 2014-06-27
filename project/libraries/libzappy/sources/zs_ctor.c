@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Thu Jun 26 18:49:27 2014 raphael defreitas
+** Last update Fri Jun 27 13:19:05 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -20,7 +20,7 @@
 static int	init_socket(t_socket *sock, int port)
 {
   if (socket_bind(sock, INADDR_ANY, port) == RET_FAILURE ||
-      socket_listen(sock, ZS_QUEUE_LEN) == RET_FAILURE)
+      socket_listen(sock, 4242) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

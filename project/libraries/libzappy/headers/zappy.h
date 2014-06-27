@@ -5,14 +5,16 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jun 26 18:47:00 2014 raphael defreitas
+** Last update Fri Jun 27 13:20:10 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
 # define	ZAPPY_H_
 
 /*
-** Required
+** +----------+
+** | Required |
+** +----------+
 */
 # include	<glib.h>
 # include	<stdbool.h>
@@ -25,8 +27,11 @@
 G_BEGIN_DECLS
 
 /*
-** Usefull definitions
+** +--------+
+** | Macros |
+** +--------+
 */
+
 # ifndef	RET_ERROR
 #  define	RET_ERROR	-1
 # endif /* !RET_ERROR */
@@ -39,13 +44,12 @@ G_BEGIN_DECLS
 #  define	RET_FAILURE	1
 # endif /* !RET_FAILURE */
 
-# ifndef	ZS_QUEUE_LEN
-#  define	ZS_QUEUE_LEN	100
-# endif /* !ZS_QUEUE_LEN */
-
 /*
-** Commands
+** +----------+
+** | Commands |
+** +----------+
 */
+
 typedef	struct
 {
   unsigned int	width;
@@ -66,8 +70,11 @@ typedef	struct
 }		t_cmd_bct;
 
 /*
-** Evenemential
+** +--------------+
+** | Evenemential |
+** +--------------+
 */
+
 typedef	enum
   {
     ZHT_UNKNOWN,
@@ -86,8 +93,11 @@ typedef	struct
 }		t_zh;
 
 /*
-** Typedefs
+** +----------+
+** | Typedefs |
+** +----------+
 */
+
 typedef	struct s_zs		t_zs;
 typedef	struct s_zc		t_zc;
 typedef	struct s_zg		t_zg;
@@ -98,6 +108,7 @@ typedef	struct timeval		t_timeval;
 ** | Server |
 ** +--------+
 */
+
 struct		s_zs
 {
   t_socket	*socket;
@@ -109,7 +120,9 @@ struct		s_zs
   bool		has_to_stop;
 };
 
-/* [Con|Des]structor */
+/*
+** [Con|Des]structors
+*/
 t_zs		*zs_new(int port);
 int		zs_ctor(t_zs *this, int port);
 void		zs_delete(t_zs *this);
@@ -117,15 +130,21 @@ void		zs_dtor(t_zs *this);
 
 void		zs_main(t_zs *this);
 
-/* Actions */
+/*
+** Actions
+*/
 void		zs_main(t_zs *this);
 void		zs_disable_timeout(t_zs *this);
 
-/* [G/S]etters */
+/*
+** [G/S]etters
+*/
 void		zs_set_timeout(t_zs *this, time_t sec, suseconds_t usec);
 t_timeval	zs_get_timeout(t_zs *this);
 
-/* Hooks */
+/*
+** Hooks
+*/
 typedef	void	(t_zsh_errno)(t_zs *zs, int err, void *data);
 void		zs_hook_errno(t_zs *this, t_zsh_errno h, void *d);
 
@@ -152,12 +171,14 @@ void		zs_handle_client_connected(t_zs *, t_zc *);
 ** | Client |
 ** +--------+
 */
+
 typedef	enum
   {
     ZCT_UNKNOWN,
     ZCT_GRAPHIC,
     ZCT_PLAYER
   }		t_zct;
+
 struct		s_zc
 {
   t_socket	*socket;
@@ -170,22 +191,30 @@ struct		s_zc
   t_list	*pckts_to_snd;
 };
 
-/* [Con|Des]structor */
+/*
+** [Con|Des]structors
+*/
 t_zc		*zc_new(void);
 int		zc_ctor(t_zc *this);
 void		zc_delete(t_zc *this);
 void		zc_dtor(t_zc *zc);
 
-/* Actions */
+/*
+** Actions
+*/
 void		zc_main(t_zc *this);
 int		zc_connect(t_zc *this, const char *host, int port);
 void		zc_disable_timeout(t_zc *this);
 
-/* [G/S]etters */
+/*
+** [G/S]etters
+*/
 void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
 t_timeval	zc_get_timeout(t_zc *this);
 
-/* Hooks */
+/*
+** Hooks
+*/
 typedef	void	(t_zch_errno)(t_zc *zc, int err, void *data);
 void		zc_hook_errno(t_zc *this, t_zch_errno h, void *d);
 
@@ -195,7 +224,9 @@ void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d);
 typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
 void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
 
-/* For Server Only */
+/*
+** For Server Only
+*/
 t_zct		zc_get_type(t_zc *this);
 void		zc_set_type(t_zc *this, t_zct type);
 
