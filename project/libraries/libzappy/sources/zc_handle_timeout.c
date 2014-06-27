@@ -5,10 +5,8 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Fri Jun 27 13:57:58 2014 raphael defreitas
+** Last update Fri Jun 27 19:10:57 2014 raphael defreitas
 */
-
-#include	<stdlib.h>
 
 #include	"zappy.h"
 #include	"_zappy.h"
@@ -17,8 +15,6 @@ void		zc_handle_timeout(t_zc *this)
 {
   t_zh		zh;
 
-  if (this == NULL)
-    return ;
   zh = this->hooks[ZHT_TIMEOUT];
   if (zh.handler)
     zh.handler(this, zh.data);
