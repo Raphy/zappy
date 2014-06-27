@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Fri Jun 27 14:01:15 2014 raphael defreitas
+** Last update Fri Jun 27 17:54:39 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -32,6 +32,7 @@ static void	set_fds(t_zs *this)
       zc = item_data(item);
       if (zc->has_to_disconnect)
 	{
+	  zs_handle_client_disconnected(this, zc);
 	  zc_delete(zc);
 	  list_unlink(this->clients, item);
 	}
@@ -83,7 +84,7 @@ static void	print_pckts(t_zs *this)
 void		zs_main(t_zs *this)
 {
   int		select_ret;
-  
+
   if (this == NULL)
     return ;
   while (!this->has_to_stop)
@@ -92,7 +93,7 @@ void		zs_main(t_zs *this)
       select_ret = zs_select(this);
       if (select_ret == RET_ERROR)
 	{
-	  zs_handle_errno(this);
+	  zs_handle_errno(this, "select failed");
 	  continue ;
 	}
       else if (select_ret == 0)

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jun 27 13:34:06 2014 raphael defreitas
+** Last update Fri Jun 27 17:19:25 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -16,6 +16,7 @@
 ** | Required |
 ** +----------+
 */
+
 # include	<glib.h>
 # include	<stdbool.h>
 # include	<sys/select.h>
@@ -81,6 +82,7 @@ typedef	enum
     ZHT_ERRNO,
     ZHT_CALLBACK,
     ZHT_CLIENT_CONNECTED,
+    ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
     ZHT_MAX
   }		t_zht;
@@ -143,22 +145,6 @@ void		zs_set_timeout(t_zs *this, time_t sec, suseconds_t usec);
 t_timeval	zs_get_timeout(t_zs *this);
 
 /*
-** Hooks
-*/
-typedef	void	(t_zsh_errno)(t_zs *zs, int err, void *data);
-void		zs_hook_errno(t_zs *this, t_zsh_errno h, void *d);
-
-typedef	void	(t_zsh_callback)(t_zs *zs, t_zht type, void *data);
-void		zs_hook_callback(t_zs *this, t_zsh_callback h, void *d);
-
-typedef	void	(*t_zsh_timeout)(t_zs *zs, void *data);
-void		zs_hook_timeout(t_zs *this, t_zsh_timeout h, void *d);
-
-typedef	void	(*t_zsh_client_connected)(t_zs *zs, t_zc *zc, void *data);
-void		zs_hook_client_connected(t_zs *this, t_zsh_client_connected h,
-					 void *d);
-
-/*
 ** +--------+
 ** | Client |
 ** +--------+
@@ -215,23 +201,19 @@ void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
 t_timeval	zc_get_timeout(t_zc *this);
 
 /*
-** Hooks
-*/
-typedef	void	(t_zch_errno)(t_zc *zc, int err, void *data);
-void		zc_hook_errno(t_zc *this, t_zch_errno h, void *d);
-
-typedef	void	(t_zch_callback)(t_zc *zc, t_zht type, void *data);
-void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d);
-
-typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
-void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
-
-/*
 ** For server operations only
 */
 t_zct		zc_get_type(t_zc *this);
 void		zc_set_type(t_zc *this, t_zct type);
 
 G_END_DECLS
+
+/*
+** +--------------+
+** | Hooks header |
+** +--------------+
+*/
+
+# include	"zappy_hooks.h"
 
 #endif /* !ZAPPY_H_*/

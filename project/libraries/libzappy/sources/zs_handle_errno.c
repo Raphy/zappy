@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Fri Jun 27 13:59:55 2014 raphael defreitas
+** Last update Fri Jun 27 17:22:57 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -14,7 +14,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_handle_errno(t_zs *this)
+void		zs_handle_errno(t_zs *this, const char *msg)
 {
   t_zh		zh;
 
@@ -22,6 +22,6 @@ void		zs_handle_errno(t_zs *this)
     return ;
   zh = this->hooks[ZHT_ERRNO];
   if (zh.handler)
-    zh.handler(this, errno, zh.data);
+    zh.handler(this, errno, msg, zh.data);
   zs_handle_callback(this, ZHT_ERRNO);
 }

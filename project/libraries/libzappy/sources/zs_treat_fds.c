@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Fri Jun 27 14:02:14 2014 raphael defreitas
+** Last update Fri Jun 27 17:53:42 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -32,7 +32,7 @@ static void	treat_client_connection(t_zs *this)
 	  list_enqueue(this->clients, zc) == RET_FAILURE)
 	{
 	  zc_delete(zc);
-	  zs_handle_errno(this);
+	  zs_handle_errno(this, "client connection failed");
 	  return ;
 	}
       zs_handle_client_connected(this, zc);
@@ -46,44 +46,44 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
   char		*tmp;
 
   rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
+  //printf("rlen:%d - (%s)\n", rlen, buf);
   if (rlen == RET_ERROR && errno != 0)
-    zs_handle_errno(this);
+    zs_handle_errno(this, "read failed");
   else if (rlen == RET_ERROR)
     zc->has_to_disconnect = true;
   else if (rlen > 0)
     {
-      buf[rlen - 1] = 0;
+      buf[rlen] = 0;
       if ((tmp = strdup(buf)) == NULL ||
 	  list_enqueue(zc->pckts_rcvd, tmp) == RET_FAILURE)
 	{
 	  free(tmp);
-	  zs_handle_errno(this);
-	  return ;
+	  zs_handle_errno(this, "network received data storage failed");
 	}
-      if (strcmp(tmp, "stop") == 0)
-	this->has_to_stop = true;
     }
 }
 
 static void	treat_write_zc(t_zs *this, t_zc *zc)
 {
-  //char		buf[SOCK_BUF_LEN + 1];
   int		wlen;
   char		*data;
+  size_t	data_len;
 
   if (list_length(zc->pckts_to_snd) == 0)
     return ;
-  data = list_front(zc->pckts_to_snd);
+  if ((data = list_pop(zc->pckts_to_snd)) == NULL)
+    return ;
   wlen = socket_write(zc->socket, data, strlen(data));
-  if (wlen == RET_ERROR && errno != 0)
-    zs_handle_errno(this);
+  if (wlen == RET_ERROR)
+    zs_handle_errno(this, "network data to send failed");
 }
 
-static void	treat_rwfds(t_zs *this)
+void	zs_treat_fds(t_zs *this)
 {
   t_iterator	it;
   t_zc		*zc;
 
+  treat_client_connection(this);
   iterator_ctor(&it, this->clients, IT_DATA);
   while ((zc = iterator_current(&it)))
     {
@@ -92,12 +92,7 @@ static void	treat_rwfds(t_zs *this)
 	treat_read_zc(this, zc);
       if (FD_ISSET(socket_fd(zc->socket), &this->wfds))
 	treat_write_zc(this, zc);
+      zs_treat_zc(this, zc);
     }
   iterator_dtor(&it);
-}
-
-void		zs_treat_fds(t_zs *this)
-{
-  treat_client_connection(this);
-  treat_rwfds(this);
 }
