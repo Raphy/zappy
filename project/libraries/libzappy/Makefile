@@ -16,11 +16,11 @@ SOURCES		=	$(shell find ./sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -pedantic -g
+CFLAGS		=	-Wall -Wextra -ansi -pedantic -g -fPIC
 CFLAGS		+=	-I ./headers -I ./../liblist/headers -I ./../libsocket/headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
-LFLAGS		=	
+LDFLAGS		=	-shared
 
 all		:	$(NAME)
 
