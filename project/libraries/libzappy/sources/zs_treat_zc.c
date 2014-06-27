@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Fri Jun 27 17:26:42 2014 raphael defreitas
+** Last update Fri Jun 27 18:25:45 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -19,5 +19,4 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
     return ;
   if (list_length(zc->pckts_rcvd) == 0)
     return ;
-  
 }

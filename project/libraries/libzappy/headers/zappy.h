@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jun 27 17:19:25 2014 raphael defreitas
+** Last update Fri Jun 27 18:08:35 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -205,6 +205,7 @@ t_timeval	zc_get_timeout(t_zc *this);
 */
 t_zct		zc_get_type(t_zc *this);
 void		zc_set_type(t_zc *this, t_zct type);
+void		zc_disconnect(t_zc *this);
 
 G_END_DECLS
 
