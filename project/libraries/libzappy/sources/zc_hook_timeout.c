@@ -5,12 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Thu Jun 26 13:30:45 2014 raphael defreitas
+** Last update Fri Jun 27 13:56:32 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d)
 {

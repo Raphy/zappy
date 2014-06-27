@@ -5,12 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Thu Jun 26 13:32:01 2014 raphael defreitas
+** Last update Fri Jun 27 14:00:00 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zs_handle_timeout(t_zs *this)
 {

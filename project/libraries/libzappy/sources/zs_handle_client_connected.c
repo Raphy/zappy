@@ -5,12 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Thu Jun 26 14:44:24 2014 raphael defreitas
+** Last update Fri Jun 27 14:00:55 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zs_handle_client_connected(t_zs *this, t_zc *zc)
 {

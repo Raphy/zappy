@@ -5,12 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Thu Jun 26 13:31:00 2014 raphael defreitas
+** Last update Fri Jun 27 13:57:28 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d)
 {

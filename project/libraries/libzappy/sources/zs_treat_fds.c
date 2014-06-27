@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Thu Jun 26 18:47:41 2014 raphael defreitas
+** Last update Fri Jun 27 14:02:14 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -19,6 +19,7 @@
 #include	"list.h"
 #include	"socket.h"
 #include	"zappy.h"
+#include	"_zappy.h"
 
 static void	treat_client_connection(t_zs *this)
 {

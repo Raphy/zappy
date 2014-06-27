@@ -5,13 +5,14 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Thu Jun 26 14:36:53 2014 raphael defreitas
+** Last update Fri Jun 27 13:59:55 2014 raphael defreitas
 */
 
 #include	<errno.h>
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zs_handle_errno(t_zs *this)
 {

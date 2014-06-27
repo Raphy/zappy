@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Thu Jun 26 18:47:57 2014 raphael defreitas
+** Last update Fri Jun 27 14:01:15 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,6 +14,7 @@
 #include	"list.h"
 #include	"socket.h"
 #include	"zappy.h"
+#include	"_zappy.h"
 
 static void	set_fds(t_zs *this)
 {

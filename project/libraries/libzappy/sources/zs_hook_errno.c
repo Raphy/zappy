@@ -5,12 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Thu Jun 26 14:16:13 2014 raphael defreitas
+** Last update Fri Jun 27 13:57:00 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		zs_hook_errno(t_zs *this, t_zsh_errno h, void *d)
 {

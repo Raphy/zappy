@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jun 27 13:20:10 2014 raphael defreitas
+** Last update Fri Jun 27 13:34:06 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -158,14 +158,6 @@ typedef	void	(*t_zsh_client_connected)(t_zs *zs, t_zc *zc, void *data);
 void		zs_hook_client_connected(t_zs *this, t_zsh_client_connected h,
 					 void *d);
 
-/* PRIVATE */
-void		zs_treat_fds(t_zs *);
-void		zs_hook(t_zs *, t_zht, void (*)(), void *);
-void		zs_handle_errno(t_zs *);
-void		zs_handle_callback(t_zs *, t_zht);
-void		zs_handle_timeout(t_zs *);
-void		zs_handle_client_connected(t_zs *, t_zc *);
-
 /*
 ** +--------+
 ** | Client |
@@ -181,12 +173,22 @@ typedef	enum
 
 struct		s_zc
 {
-  t_socket	*socket;
+  /*
+  ** Client only
+  */
   t_zh		*hooks;
-  t_zct		type;
   t_timeval	timeout;
+
+  /*
+  ** Server only
+  */
+  t_zct		type;
   bool		has_to_disconnect;
 
+  /*
+  ** Common
+  */
+  t_socket	*socket;
   t_list	*pckts_rcvd;
   t_list	*pckts_to_snd;
 };
@@ -225,16 +227,10 @@ typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
 void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
 
 /*
-** For Server Only
+** For server operations only
 */
 t_zct		zc_get_type(t_zc *this);
 void		zc_set_type(t_zc *this, t_zct type);
-
-/* PRIVATE */
-void		zc_hook(t_zc *, t_zht, void (*)(), void *);
-void		zc_handle_errno(t_zc *);
-void		zc_handle_callback(t_zc *, t_zht);
-void		zc_handle_timeout(t_zc *);
 
 G_END_DECLS
 
