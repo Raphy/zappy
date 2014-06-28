@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Fri Jun 27 19:51:07 2014 raphael defreitas
+** Last update Sat Jun 28 05:18:49 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -51,12 +51,15 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
   else if (rlen > 0)
     {
       buf[rlen] = 0;
-      if ((tmp = strdup(buf)) == NULL ||
-	  list_enqueue(zc->pckts_rcvd, tmp) == RET_FAILURE)
+      if (strcmp(buf, "stop\n") == 0)
+	zs_stop(this);
+      else if ((tmp = strdup(buf)) == NULL ||
+	       list_enqueue(zc->pckts_rcvd, tmp) == RET_FAILURE)
 	{
 	  free(tmp);
 	  zs_handle_errno(this, "network received data storage failed");
 	}
+
     }
 }
 

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Fri Jun 27 19:06:42 2014 raphael defreitas
+** Last update Sat Jun 28 03:07:37 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -43,6 +43,7 @@ void		zs_handle_callback(t_zs *, t_zht);
 void		zs_handle_timeout(t_zs *);
 void		zs_handle_client_connected(t_zs *, t_zc *);
 void		zs_handle_client_disconnected(t_zs *, t_zc *);
+void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 
 /*
 ** +--------+
@@ -57,6 +58,13 @@ void		zc_hook(t_zc *, t_zht, void (*)(), void *);
 void		zc_handle_errno(t_zc *, const char *);
 void		zc_handle_callback(t_zc *, t_zht);
 void		zc_handle_timeout(t_zc *);
+
+/*
+** +-------+
+** | Tools |
+** +-------+
+*/
+int		zt_get_command(t_list *packets, char **command);
 
 G_END_DECLS
 

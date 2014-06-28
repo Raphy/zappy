@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jun 28 01:46:10 2014 raphael defreitas
+** Last update Sat Jun 28 04:12:23 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -113,6 +113,7 @@ void		zs_main(t_zs *this);
 */
 void		zs_main(t_zs *this);
 void		zs_disable_timeout(t_zs *this);
+void		zs_stop(t_zs *this);
 
 /*
 ** [G/S]etters
