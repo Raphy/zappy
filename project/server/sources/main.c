@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Fri Jun 27 23:27:40 2014 damien sauvalle
+** Last update Sat Jun 28 01:58:22 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -58,14 +58,14 @@ int		main(int argc, char **argv)
 
 
 
-  if (zs_ctor(&zs, argc > 1 ? atoi(argv[1]) : 4242) == RET_FAILURE)
+  if (zs_ctor(&zs, arg.port, arg.team_names) == RET_FAILURE)
     {
       fprintf(stderr, "Initialization failed: %s\n",
 	      errno == 0 ? "Unknown error" : strerror(errno));
       zs_dtor(&zs);
       return (EXIT_FAILURE);
     }
-  printf("Running on port: %d\n", argc > 1 ? atoi(argv[1]) : 4242);
+  printf("Running on port: %d\n", arg.port);
   set_server_handlers(&zs, NULL);
   zs_main(&zs);
   zs_dtor(&zs);

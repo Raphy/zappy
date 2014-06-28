@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Fri Jun 27 13:19:05 2014 raphael defreitas
+** Last update Sat Jun 28 01:45:44 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -36,10 +36,11 @@ static void	default_values(t_zs *this)
   this->has_to_stop = false;
 }
 
-int		zs_ctor(t_zs *this, int port)
+int		zs_ctor(t_zs *this, int port, t_list *team_names)
 {
   if (this == NULL)
     return (RET_FAILURE);
+  this->team_names = team_names;
   default_values(this);
   if ((this->socket = socket_new()) == NULL ||
       socket_ctor(this->socket, AF_INET, SOCK_STREAM, 0) == RET_FAILURE ||

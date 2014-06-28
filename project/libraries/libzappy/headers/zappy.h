@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jun 27 18:54:48 2014 raphael defreitas
+** Last update Sat Jun 28 01:46:10 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -95,13 +95,14 @@ struct		s_zs
   fd_set	wfds;
   t_timeval	timeout;
   bool		has_to_stop;
+  t_list	*team_names;
 };
 
 /*
 ** [Con|Des]structors
 */
-t_zs		*zs_new(int port);
-int		zs_ctor(t_zs *this, int port);
+t_zs		*zs_new(int port, t_list *team_names);
+int		zs_ctor(t_zs *this, int port, t_list *team_names);
 void		zs_delete(t_zs *this);
 void		zs_dtor(t_zs *this);
 
