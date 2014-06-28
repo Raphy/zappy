@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Sat Jun 28 01:58:22 2014 raphael defreitas
+** Last update Sat Jun 28 04:14:34 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -14,6 +14,7 @@
 #include	<string.h>
 
 #include	"handlers.h"
+#include	"list.h"
 #include	"zappy.h"
 #include	"server.h"
 
@@ -69,5 +70,6 @@ int		main(int argc, char **argv)
   set_server_handlers(&zs, NULL);
   zs_main(&zs);
   zs_dtor(&zs);
+  list_delete(arg.team_names);
   return (EXIT_FAILURE);
 }
