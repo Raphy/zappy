@@ -5,24 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sun Jun 29 15:42:57 2014 damien sauvalle
+** Last update Sun Jun 29 15:52:09 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
 # define	PLAYER_H_
 
-typedef enum
-  {
-    LINEMATE,
-    DERAUMERE,
-    SIBUR,
-    MENDIANE,
-    PHIRAS,
-    THYSTANE,
-    FOOD
-  }	t_stock;
-
-# define	SIZE_STOCK 7
+# include	"stock.h"
 
 typedef enum
   {
@@ -41,7 +30,6 @@ typedef struct	s_coord
   int		y;
 }		t_coord;
 
-
 /*
 ** Raphy struct +++
 */
@@ -55,32 +43,11 @@ typedef struct	s_player
   unsigned int	life;
 }		t_player;
 
-
 /*
 ** Player
 */
 int			player_ctor(t_player *);
 void			player_dtor(t_player *);
-
-/*
-** Stock
-*/
-int			stock_ctor(t_stock *);
-void			stock_dtor(t_stock *);
-
-void			stock_set_linemate(t_stock *, unsigned int);
-void			stock_set_deraumere(t_stock *, unsigned int);
-void			stock_set_sibur(t_stock *, unsigned int);
-void			stock_set_phiras(t_stock *, unsigned int);
-void			stock_set_thystane(t_stock *, unsigned int);
-void			stock_set_food(t_stock *, unsigned int);
-
-unsigned int		stock_get_linemate(t_stock *);
-unsigned int		stock_get_deraumere(t_stock *);
-unsigned int		stock_get_sibur(t_stock *);
-unsigned int		stock_get_phiras(t_stock *);
-unsigned int		stock_get_thystane(t_stock *);
-unsigned int		stock_get_food(t_stock *);
 
 /*
 ** Direction
