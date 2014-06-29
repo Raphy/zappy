@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:33:33 2014 raphael defreitas
-** Last update Fri Jun 27 19:36:20 2014 raphael defreitas
+** Last update Sun Jun 29 02:12:36 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -26,5 +26,5 @@ void		errno_handler(__attribute__((unused))t_zs *zs,
     fprintf(stderr, "%s", strerror(err));
   else
     fprintf(stderr, "%s (%s)", strerror(err), msg);
-  fprintf(stderr, "\n");
+  fprintf(stderr, " (code: %d)\n", err);
 }
