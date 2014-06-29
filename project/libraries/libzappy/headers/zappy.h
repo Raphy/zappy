@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sun Jun 29 06:37:56 2014 raphael defreitas
+** Last update Sun Jun 29 08:42:05 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -163,6 +163,7 @@ struct		s_zc
   t_socket	*socket;
   t_list	*pckts_rcvd;
   t_list	*pckts_to_snd;
+  t_list	*commands;
 };
 
 /*

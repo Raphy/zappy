@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sun Jun 29 02:14:17 2014 raphael defreitas
+** Last update Sun Jun 29 08:33:49 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -67,8 +67,10 @@ static void	treat_write_zc(t_zs *this, t_zc *zc)
   if ((data = list_pop(zc->pckts_to_snd)) == NULL)
     return ;
   wlen = socket_write(zc->socket, data, strlen(data));
-  if (wlen == RET_ERROR)
+  if (wlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
     zs_handle_errno(this, "socket write failed");
+  else if (wlen == RET_ERROR)
+    zc_disconnect(zc);
 }
 
 void	zs_treat_fds(t_zs *this)
