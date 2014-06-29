@@ -2,34 +2,39 @@
 # This makefile build a shared library from all static libraries
 #
 
-TARGET = libzappy.so
+TARGET 		= 	libzappy.so
 
-LIBS =	liblist/liblist.a \
-		libsocket/libsocket.a \
-		libzappy/libzappy.a
+LIBS 		=	libmy/libmy.a \
+			liblist/liblist.a \
+			libsocket/libsocket.a \
+			libzappy/libzappy.a
 
 SOURCES		=	$(shell find ./libzappy/sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS = -fPIC 
-LDFLAGS = -shared -L liblist/ -llist -L libsocket/ -lsocket
+CFLAGS 		= 	-fPIC
+LDFLAGS 	= 	-shared -L libmy -lmy -L liblist/ -llist -L libsocket/ -lsocket
 
-$(TARGET): $(LIBS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LDFLAGS)
+$(TARGET)	: 	$(LIBS)
+			$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LDFLAGS)
+
+libmy/libmy.a:
+			make -C libmy/
 
 liblist/liblist.a:
-	make -C liblist/
+			make -C liblist/
 
 libsocket/libsocket.a:
-	make -C libsocket/
+			make -C libsocket/
+
 
 libzappy/libzappy.a:
-	make -C libzappy/
+			make -C libzappy/
 
-fclean:
-	$(RM) $(TARGET)
+fclean		:
+			$(RM) $(TARGET)
 
-re: fclean $(TARGET)
+re		: 	fclean $(TARGET)
 
 

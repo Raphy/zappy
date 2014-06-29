@@ -5,11 +5,11 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Sun Jun 29 08:05:28 2014 raphael defreitas
+## Last update Sun Jun 29 16:59:29 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
-LIBS		=	liblist libsocket libzappy
+LIBS		=	libmy liblist libsocket libzappy
 
 DIRECTORIES	=	./server ./test_client
 

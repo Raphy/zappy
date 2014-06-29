@@ -1,23 +1,23 @@
 ##
-## Makefile for zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy
+## Makefile for libmy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libmy
 ## 
 ## Made by raphael defreitas
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 12:31:25 2014 raphael defreitas
-## Last update Sun Jun 29 17:13:39 2014 raphael defreitas
+## Last update Sun Jun 29 16:54:50 2014 raphael defreitas
 ##
 
 CC		?=	clang
 
-NAME		=	libzappy.a
+NAME		=	libmy.a
 
 SOURCES		=	$(shell find ./sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
 CFLAGS		=	-Wall -Wextra -ansi -pedantic -g -fPIC
-CFLAGS		+=	-I ./headers -I ./../libmy/headers -I ./../liblist/headers -I ./../libsocket/headers
+CFLAGS		+=	-I ./headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
 LDFLAGS		=	-shared
