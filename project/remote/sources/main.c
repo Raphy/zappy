@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 18:03:14 2014 raphael defreitas
-** Last update Sun Jun 29 19:04:52 2014 raphael defreitas
+** Last update Sun Jun 29 20:08:51 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -54,6 +54,7 @@ static int	init_remote(t_remote *remote, t_zc *zc)
 {
   if (remote_ctor(remote, zc) == RET_FAILURE)
     return (RET_FAILURE);
+  remote_set_handlers(remote);
   return (RET_SUCCESS);
 }
 
