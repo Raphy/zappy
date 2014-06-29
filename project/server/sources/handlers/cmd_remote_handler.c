@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Sun Jun 29 10:38:57 2014 raphael defreitas
+** Last update Sun Jun 29 19:31:23 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -13,8 +13,8 @@
 #include	"zappy.h"
 
 void		cmd_remote_handler(__attribute__((unused))t_zs *zs,
-				      __attribute__((unused))t_zc *zc,
-				      __attribute__((unused))void *data)
+				   t_zc *zc,
+				   __attribute__((unused))void *data)
 {
-  printf("Client is remote\n");
+  printf("[%d] is remote\n", zc->socket->fd);
 }
