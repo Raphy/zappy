@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Apr 20 01:58:52 2014 raphael defreitas
-** Last update Sun Apr 20 02:04:09 2014 raphael defreitas
+** Last update Sun Jun 29 06:30:59 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -18,6 +18,10 @@ t_iterator	*iterator_new(t_list *list, t_it_type type)
 
   if ((this = malloc(sizeof(t_iterator))) == NULL)
     return (NULL);
-  iterator_ctor(this, list, type);
+  if (iterator_ctor(this, list, type) == RET_FAILURE)
+    {
+      iterator_delete(this);
+      return (NULL);
+    }
   return (this);
 }

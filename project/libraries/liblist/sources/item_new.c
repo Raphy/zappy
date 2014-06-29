@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Apr 17 19:57:52 2014 raphael defreitas
-** Last update Thu Apr 17 20:00:04 2014 raphael defreitas
+** Last update Sun Jun 29 06:29:58 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -18,6 +18,10 @@ t_item		*item_new(void *data, void (*data_free_fptr)())
 
   if ((this = malloc(sizeof(t_item))) == NULL)
     return (NULL);
-  item_ctor(this, data, data_free_fptr);
+  if (item_ctor(this, data, data_free_fptr) == RET_FAILURE)
+    {
+      item_delete(this);
+      return (NULL);
+    }
   return (this);
 }

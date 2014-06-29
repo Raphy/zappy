@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Apr 17 19:56:37 2014 raphael defreitas
-** Last update Sat Apr 19 02:31:23 2014 raphael defreitas
+** Last update Sun Jun 29 06:29:15 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -16,6 +16,8 @@ int		list_enqueue(t_list *this, void *data)
 {
   t_item	*item;
 
+  if (this == NULL)
+    return (RET_FAILURE);
   if ((item = item_new(data, this->data_free_fptr)) == NULL)
     return (RET_FAILURE);
   item->prev = this->back;

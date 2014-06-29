@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 16:07:35 2014 raphael defreitas
-** Last update Fri Jun 27 16:11:39 2014 raphael defreitas
+** Last update Sun Jun 29 06:33:00 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -16,6 +16,8 @@ void		*list_dequeue(t_list *this)
 {
   void		*data;
 
+  if (this == NULL)
+    return (NULL);
   if (this->back == NULL)
     return (NULL);
   data = item_data(this->back);

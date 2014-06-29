@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Apr 20 01:58:10 2014 raphael defreitas
-** Last update Sun Apr 20 01:59:04 2014 raphael defreitas
+** Last update Sun Jun 29 06:30:10 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,6 +14,8 @@
 
 void		iterator_dtor(t_iterator *this)
 {
+  if (this == NULL)
+    return ;
   this->list = NULL;
   this->current = NULL;
 }

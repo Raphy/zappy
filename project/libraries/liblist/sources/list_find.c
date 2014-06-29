@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Apr 17 20:42:12 2014 raphael defreitas
-** Last update Mon Apr 21 01:10:30 2014 raphael defreitas
+** Last update Sun Jun 29 06:28:15 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -18,6 +18,8 @@ void		*list_find(t_list *this, int (*find_fptr)(), const void *srch,
   t_iterator	iterator;
   t_item	*item;
 
+  if (this == NULL || find_fptr == NULL)
+    return (NULL);
   iterator_ctor(&iterator, this, IT_ITEM);
   while ((item = iterator_current(&iterator)))
     {

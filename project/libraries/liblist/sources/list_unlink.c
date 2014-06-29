@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Apr 17 20:29:00 2014 raphael defreitas
-** Last update Sat Apr 19 02:48:28 2014 raphael defreitas
+** Last update Sun Jun 29 06:31:27 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -16,6 +16,8 @@ void		*list_unlink(t_list *this, t_item *item)
 {
   void		*data;
 
+  if (this == NULL || item == NULL)
+    return (NULL);
   data = item->data;
   if (this->front == item)
     this->front = item->next;
