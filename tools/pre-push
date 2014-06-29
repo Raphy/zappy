@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd ./project/
+make fclean
+make -j4
+
+exit $?
