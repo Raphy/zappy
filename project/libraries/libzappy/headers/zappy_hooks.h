@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jun 29 06:59:51 2014 raphael defreitas
+** Last update Sun Jun 29 08:03:04 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -78,7 +78,8 @@ void		zs_hook_cmd_unknown(t_zs *this, t_zsh_cmd_unknown h, void *d);
 ** zc		The client which have sent the command
 ** team_name	The team name sent
 */
-typedef	void	(*t_zsh_cmd_team_name)(t_zs *zs, t_zc *zc, const char *team_name,
+typedef	void	(*t_zsh_cmd_team_name)(t_zs *zs, t_zc *zc,
+				       const char *team_name,
 				       void *data);
 void		zs_hook_cmd_team_name(t_zs *this, t_zsh_cmd_team_name h,
 				      void *d);
@@ -131,6 +132,5 @@ void		zc_hook_cmd_unknown(t_zc *this, t_zch_cmd_unknown h, void *d);
 ** When the server sends "BIENVENUE\n".
 */
 void		zc_hook_cmd_welcome(t_zc *this, t_zch_basic h, void *d);
-
 
 #endif /* !ZAPPY_HOOKS_H_*/
