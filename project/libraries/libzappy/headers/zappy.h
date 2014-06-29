@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sun Jun 29 01:29:27 2014 raphael defreitas
+** Last update Sun Jun 29 03:55:08 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -59,6 +59,8 @@ typedef	enum
     ZHT_CLIENT_CONNECTED,
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
+    ZHT_CMD_WELCOME,
+    ZHT_CMD_TEAM_NAME,
     ZHT_MAX
   }		t_zht;
 
@@ -131,7 +133,8 @@ typedef	enum
   {
     ZCT_UNKNOWN,
     ZCT_GRAPHIC,
-    ZCT_PLAYER
+    ZCT_PLAYER,
+    ZCT_REMOTE
   }		t_zct;
 
 struct		s_zc

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jun 28 02:08:43 2014 raphael defreitas
+** Last update Sun Jun 29 03:31:06 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -25,6 +25,8 @@
 ** +--------+
 */
 
+typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
+
 /*
 ** When an error occurs.
 ** err		The errno value.
@@ -43,8 +45,7 @@ void		zs_hook_callback(t_zs *this, t_zsh_callback h, void *d);
 /*
 ** When the select returns after a timeout.
 */
-typedef	void	(*t_zsh_timeout)(t_zs *zs, void *data);
-void		zs_hook_timeout(t_zs *this, t_zsh_timeout h, void *d);
+void		zs_hook_timeout(t_zs *this, t_zsh_basic h, void *d);
 
 /*
 ** When a client is connected.
@@ -78,6 +79,8 @@ void		zs_hook_cmd_team_name(t_zs *this, t_zsh_cmd_team_name h,
 ** +--------+
 */
 
+typedef	void	(t_zch_basic)(t_zc *zc, void *data);
+
 /*
 ** When an error occurs.
 ** err		The errno value.
@@ -96,7 +99,22 @@ void		zc_hook_callback(t_zc *this, t_zch_callback h, void *d);
 /*
 ** When the select returns after a timeout.
 */
-typedef	void	(*t_zch_timeout)(t_zc *zc, void *data);
-void		zc_hook_timeout(t_zc *this, t_zch_timeout h, void *d);
+void		zc_hook_timeout(t_zc *this, t_zch_basic h, void *d);
+
+/*
+** When the zappy client is connected to server
+*/
+void		zc_hook_connected(t_zc *this, t_zch_basic h, void *d);
+
+/*
+** When the zappy client is disconnected of server
+*/
+void		zc_hook_disconnected(t_zc *this, t_zch_basic h, void *d);
+
+/*
+** When the server sends "BIENVENUE\n".
+*/
+void		zc_hook_welcome(t_zc *this, t_zch_basic h, void *d);
+
 
 #endif /* !ZAPPY_HOOKS_H_*/
