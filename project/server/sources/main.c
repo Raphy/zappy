@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Sun Jun 29 03:37:25 2014 damien sauvalle
+** Last update Sun Jun 29 03:40:58 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -58,10 +58,12 @@ int		main(int argc, char **argv)
   t_arg		arg;
 
   kikoo_header();
-  if (arg_ctor(&arg) == RET_ERROR)
-    return (EXIT_FAILURE);
-  if (arg_parse(&arg, argc, argv) == RET_FAILURE)
-    return (EXIT_FAILURE);
+  if (arg_ctor(&arg) == RET_ERROR ||
+      arg_parse(&arg, argc, argv) == RET_FAILURE)
+    {
+      arg_dtor(&arg);
+      return (EXIT_FAILURE);
+    }
   if (zs_ctor(&zs, arg.port, arg.team_names) == RET_FAILURE)
     {
       fprintf(stderr, "Initialization failed: %s\n",
