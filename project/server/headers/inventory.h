@@ -5,13 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 15:45:28 2014 damien sauvalle
-** Last update Sun Jun 29 18:32:19 2014 damien sauvalle
+** Last update Sun Jun 29 19:36:28 2014 damien sauvalle
 */
 
 #ifndef		INVENTORY_H_
 # define	INVENTORY_H_
-
-typedef enum/* ? utile ?*/
+/*
+typedef enum
   {
     LINEMATE,
     DERAUMERE,
@@ -23,8 +23,9 @@ typedef enum/* ? utile ?*/
   }	t_stock;
 
 # define	SIZE_INVENTORY 7
+*/
 
-typedef struct	s_ inventory
+typedef struct	s_inventory
 {
   unsigned int	linemate;
   unsigned int	deraumere;
