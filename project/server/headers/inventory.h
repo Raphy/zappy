@@ -5,13 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 15:45:28 2014 damien sauvalle
-** Last update Sun Jun 29 18:01:39 2014 damien sauvalle
+** Last update Sun Jun 29 18:32:19 2014 damien sauvalle
 */
 
 #ifndef		INVENTORY_H_
 # define	INVENTORY_H_
 
-typedef enum
+typedef enum/* ? utile ?*/
   {
     LINEMATE,
     DERAUMERE,
@@ -20,28 +20,41 @@ typedef enum
     PHIRAS,
     THYSTANE,
     FOOD
-  }	t_inventory;
+  }	t_stock;
 
 # define	SIZE_INVENTORY 7
+
+typedef struct	s_ inventory
+{
+  unsigned int	linemate;
+  unsigned int	deraumere;
+  unsigned int	sibur;
+  unsigned int	mendiane;
+  unsigned int	phiras;
+  unsigned int	thystane;
+  unsigned int	food;
+}		t_inventory;
 
 /*
 ** Inventory
 */
-int			*inventory_ctor();
-void			inventory_dtor(unsigned int *);
+int			inventory_ctor(t_inventory *);
+void			inventory_dtor(t_inventory *);
 
-void			inventory_set_linemate(unsigned int *, unsigned int);
-void			inventory_set_deraumere(unsigned int *, unsigned int);
-void			inventory_set_sibur(unsigned int *, unsigned int);
-void			inventory_set_phiras(unsigned int *, unsigned int);
-void			inventory_set_thystane(unsigned int *, unsigned int);
-void			inventory_set_food(unsigned int *, unsigned int);
+void			inventory_set_linemate(t_inventory *, unsigned int);
+void			inventory_set_mendiane(t_inventory *, unsigned int);
+void			inventory_set_deraumere(t_inventory *, unsigned int);
+void			inventory_set_sibur(t_inventory *, unsigned int);
+void			inventory_set_phiras(t_inventory *, unsigned int);
+void			inventory_set_thystane(t_inventory *, unsigned int);
+void			inventory_set_food(t_inventory *, unsigned int);
 
-unsigned int		inventory_get_linemate(unsigned int *);
-unsigned int		inventory_get_deraumere(unsigned int *);
-unsigned int		inventory_get_sibur(unsigned int *);
-unsigned int		inventory_get_phiras(unsigned int *);
-unsigned int		inventory_get_thystane(unsigned int *);
-unsigned int		inventory_get_food(unsigned int *);
+unsigned int		inventory_get_linemate(t_inventory *);
+unsigned int		inventory_get_mendiane(t_inventory *);
+unsigned int		inventory_get_deraumere(t_inventory *);
+unsigned int		inventory_get_sibur(t_inventory *);
+unsigned int		inventory_get_phiras(t_inventory *);
+unsigned int		inventory_get_thystane(t_inventory *);
+unsigned int		inventory_get_food(t_inventory *);
 
 #endif /* !INVENTORY_H_ */
