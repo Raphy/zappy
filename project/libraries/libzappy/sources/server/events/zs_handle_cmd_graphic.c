@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Sun Jun 29 10:22:48 2014 raphael defreitas
+** Last update Sun Jun 29 18:50:28 2014 raphael defreitas
 */
 
 #include	"zappy.h"
@@ -15,7 +15,7 @@ void		zs_handle_cmd_graphic(t_zs *this, t_zc *zc)
 {
   t_zh		zh;
 
-  zh = this->hooks[ZHT_CMD_GRAPHIC];
+  zh = zc->hooks[ZHT_CMD_GRAPHIC];
   if (zh.handler)
     zh.handler(this, zc, zh.data);
   zs_handle_callback(this, ZHT_CMD_GRAPHIC);

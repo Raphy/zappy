@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Sun Jun 29 06:07:56 2014 raphael defreitas
+** Last update Sun Jun 29 18:50:06 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -13,9 +13,9 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_hook_cmd_unknown(t_zs *this, t_zsh_cmd_unknown h, void *d)
+void		zs_hook_cmd_unknown(t_zc *zc, t_zsh_cmd_unknown h, void *d)
 {
-  if (this == NULL)
+  if (zc == NULL)
     return ;
-  zs_hook(this, ZHT_CMD_UNKNOWN, h, d);
+  zc_hook(zc, ZHT_CMD_UNKNOWN, h, d);
 }
