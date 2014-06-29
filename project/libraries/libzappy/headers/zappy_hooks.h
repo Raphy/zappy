@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jun 29 08:03:04 2014 raphael defreitas
+** Last update Sun Jun 29 10:19:22 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -26,6 +26,8 @@
 */
 
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
+
+typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc*zc, void *data);
 
 /*
 ** When an error occurs.
@@ -49,19 +51,15 @@ void		zs_hook_timeout(t_zs *this, t_zsh_basic h, void *d);
 
 /*
 ** When a client is connected.
-** zc		The client which have been connected.
 */
-typedef	void	(*t_zsh_client_connected)(t_zs *zs, t_zc *zc, void *data);
-void		zs_hook_client_connected(t_zs *this, t_zsh_client_connected h,
+void		zs_hook_client_connected(t_zs *this, t_zsh_client_basic h,
 					 void *d);
 
 /*
 ** When a client is disconnected.
-** zc		The client which have been disconnected.
 */
-typedef	void	(*t_zsh_client_disconnected)(t_zs *zs, t_zc *zc, void *data);
 void		zs_hook_client_disconnected(t_zs *this,
-					    t_zsh_client_disconnected h,
+					    t_zsh_client_basic h,
 					    void *d);
 
 /*
@@ -83,6 +81,17 @@ typedef	void	(*t_zsh_cmd_team_name)(t_zs *zs, t_zc *zc,
 				       void *data);
 void		zs_hook_cmd_team_name(t_zs *this, t_zsh_cmd_team_name h,
 				      void *d);
+
+/*
+** When a client sends "GRAPHIC\n"
+*/
+void		zs_hook_cmd_graphic(t_zs *this, t_zsh_client_basic h, void *d);
+
+/*
+** When a client sends "REMOTE\n"
+*/
+void		zs_hook_cmd_remote(t_zs *this, t_zsh_client_basic h, void *d);
+
 /*
 ** +--------+
 ** | Client |
