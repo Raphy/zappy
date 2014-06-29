@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:46:18 2014 raphael defreitas
-** Last update Sun Jun 29 03:03:44 2014 raphael defreitas
+** Last update Sun Jun 29 06:57:18 2014 raphael defreitas
 */
 
 #include	"handlers.h"
@@ -19,4 +19,6 @@ void		set_handlers(t_zc *zc, void *data)
   zc_hook_timeout(zc, &timeout_handler, data);
   zc_hook_connected(zc, &connected_handler, data);
   zc_hook_disconnected(zc, &disconnected_handler, data);
+  zc_hook_cmd_unknown(zc, &cmd_unknown_handler, data);
+  zc_hook_cmd_welcome(zc, &cmd_welcome_handler, data);
 }
