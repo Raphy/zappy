@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jun 28 04:12:23 2014 raphael defreitas
+** Last update Sun Jun 29 01:29:27 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -140,7 +140,10 @@ struct		s_zc
   ** Client only
   */
   t_zh		*hooks;
+  fd_set	rfds;
+  fd_set	wfds;
   t_timeval	timeout;
+  bool		has_to_stop;
 
   /*
   ** Server only

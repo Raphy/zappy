@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jun 28 23:08:41 2014 raphael defreitas
+** Last update Sun Jun 29 02:14:17 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -43,7 +43,7 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
   int		rlen;
 
   rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
-  if (rlen == RET_ERROR && errno != 0)
+  if (rlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
     zs_handle_errno(this, "socket read failed");
   else if (rlen == RET_ERROR)
     zc_disconnect(zc);
