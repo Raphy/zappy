@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sun Jun 29 15:52:09 2014 damien sauvalle
+** Last update Sun Jun 29 16:03:28 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -41,6 +41,7 @@ typedef struct	s_player
   char		*team_name;
   int		level; /* level and view range*/
   unsigned int	life;
+  /*  ? handler --> action ?*/
 }		t_player;
 
 /*
