@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Sun Jun 29 01:22:17 2014 raphael defreitas
+## Last update Sun Jun 29 08:05:28 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -26,7 +26,6 @@ norm		:
 			@echo -en "\e[0m"
 
 libs		:
-
 			make -C $(LIBS_PATH)
 			$(foreach lib, $(LIBS), make -C $(LIBS_PATH)/$(lib);)
 
