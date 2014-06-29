@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Sun Jun 29 02:36:14 2014 damien sauvalle
+** Last update Sun Jun 29 03:37:25 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -20,15 +20,17 @@
 
 static void	kikoo_header(void)
 {
-  printf("+---------------------------------+\n");
-  printf("|    ______ _ _ __  _ __  _   _   |\n");
-  printf("|   |_  / _` | '_ \\| '_ \\| | | |  |\n");
-  printf("|    / / (_| | |_) | |_) | |_| |  |\n");
-  printf("|   /___\\__,_| .__/| .__/ \\__, |  |\n");
-  printf("|            | |   | |     __/ |  |\n");
-  printf("|            |_|   |_|    |___/   |\n");
-  printf("|                                 |\n");
-  printf("+---------------------------------+\n");
+  printf(" ______                             _____\n");
+  printf(" ___  /                            / ____|\n");
+  printf("   / / __ _ _ __  _ __  _   _     | (___   ___ _ ____   _____ _ __\n");
+  printf("  / / / _` | '_ \\| '_ \\| | | |     \\___ \\ / _ \\ '__\\ \\ / /");
+  printf("  _\\ __|\n");
+  printf(" / /_| (_| | |_) | |_) | |_| |     ____) |  __/ |   \\ V /  __/ |\n");
+  printf(" _____\\__,_| .__/| .__/ \\__, |    |_____/ \\___|_|    \\_/ \\");
+  printf("___|_|\n");
+  printf("           | |   | |     __/ |\n");
+  printf("           |_|   |_|    |___/\n");
+  printf("\n\n");
 }
 
 static void	print_info(t_arg arg)

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:49:43 2014 raphael defreitas
-** Last update Fri Jun 27 19:16:34 2014 raphael defreitas
+** Last update Sun Jun 29 01:23:32 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -24,6 +24,7 @@ static void	default_values(t_zc *this)
   this->has_to_disconnect = false;
   this->pckts_rcvd = NULL;
   this->pckts_to_snd = NULL;
+  this->has_to_stop = false;
 }
 
 int		zc_ctor(t_zc *this)

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Fri Jun 27 19:14:07 2014 raphael defreitas
+** Last update Sun Jun 29 01:13:15 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -43,7 +43,6 @@ static void	set_fds(t_zs *this)
 	    FD_SET(socket_fd(zc->socket), &this->wfds);
 	}
     }
-  iterator_dtor(&it);
 }
 
 static int	zs_select(t_zs *this)

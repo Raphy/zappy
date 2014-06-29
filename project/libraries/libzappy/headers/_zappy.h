@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sat Jun 28 03:07:37 2014 raphael defreitas
+** Last update Sun Jun 29 02:18:21 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -51,6 +51,8 @@ void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 ** +--------+
 */
 
+void		zc_treat_fds(t_zc *);
+
 /*
 ** Event managing
 */
@@ -64,7 +66,8 @@ void		zc_handle_timeout(t_zc *);
 ** | Tools |
 ** +-------+
 */
-int		zt_get_command(t_list *packets, char **command);
+int		zt_build_command(t_list *, char **);
+int		zt_append_buffer(t_list *, const char *);
 
 G_END_DECLS
 

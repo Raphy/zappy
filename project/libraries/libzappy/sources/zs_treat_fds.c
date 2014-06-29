@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jun 28 05:18:49 2014 raphael defreitas
+** Last update Sun Jun 29 02:14:17 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -41,10 +41,9 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
 {
   char		buf[SOCK_BUF_LEN + 1];
   int		rlen;
-  char		*tmp;
 
   rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
-  if (rlen == RET_ERROR && errno != 0)
+  if (rlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
     zs_handle_errno(this, "socket read failed");
   else if (rlen == RET_ERROR)
     zc_disconnect(zc);
@@ -53,13 +52,8 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
       buf[rlen] = 0;
       if (strcmp(buf, "stop\n") == 0)
 	zs_stop(this);
-      else if ((tmp = strdup(buf)) == NULL ||
-	       list_enqueue(zc->pckts_rcvd, tmp) == RET_FAILURE)
-	{
-	  free(tmp);
-	  zs_handle_errno(this, "network received data storage failed");
-	}
-
+      else if (zt_append_buffer(zc->pckts_rcvd, buf) == RET_FAILURE)
+	zs_handle_errno(this, "network received data storage failed");
     }
 }
 
