@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sun Jun 29 15:30:36 2014 damien sauvalle
+** Last update Sun Jun 29 15:42:57 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -65,22 +65,22 @@ void			player_dtor(t_player *);
 /*
 ** Stock
 */
-int			pl_stock_ctor(t_stock *);
-void			pl_stock_dtor(t_stock *);
+int			stock_ctor(t_stock *);
+void			stock_dtor(t_stock *);
 
-void			pl_stock_set_linemate(t_player *, unsigned int);
-void			pl_stock_set_deraumere(t_player *, unsigned int);
-void			pl_stock_set_sibur(t_player *, unsigned int);
-void			pl_stock_set_phiras(t_player *, unsigned int);
-void			pl_stock_set_thystane(t_player *, unsigned int);
-void			pl_stock_set_food(t_player *, unsigned int);
+void			stock_set_linemate(t_stock *, unsigned int);
+void			stock_set_deraumere(t_stock *, unsigned int);
+void			stock_set_sibur(t_stock *, unsigned int);
+void			stock_set_phiras(t_stock *, unsigned int);
+void			stock_set_thystane(t_stock *, unsigned int);
+void			stock_set_food(t_stock *, unsigned int);
 
-unsigned int		pl_stock_get_linemate(t_player *);
-unsigned int		pl_stock_get_deraumere(t_player *);
-unsigned int		pl_stock_get_sibur(t_player *);
-unsigned int		pl_stock_get_phiras(t_player *);
-unsigned int		pl_stock_get_thystane(t_player *);
-unsigned int		pl_stock_get_food(t_player *);
+unsigned int		stock_get_linemate(t_stock *);
+unsigned int		stock_get_deraumere(t_stock *);
+unsigned int		stock_get_sibur(t_stock *);
+unsigned int		stock_get_phiras(t_stock *);
+unsigned int		stock_get_thystane(t_stock *);
+unsigned int		stock_get_food(t_stock *);
 
 /*
 ** Direction
