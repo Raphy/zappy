@@ -4,3 +4,4 @@
 *.o
 *.so
 project/server/server
+project/test_client/client
