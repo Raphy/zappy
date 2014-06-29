@@ -5,17 +5,19 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 01:05:51 2014 damien sauvalle
-** Last update Sun Jun 29 03:28:59 2014 damien sauvalle
+** Last update Sun Jun 29 17:31:25 2014 raphael defreitas
 */
 
+#include	<stdbool.h>
 #include	<stdio.h>
 #include	<stdlib.h>
-#include	"server.h"
-#include	"zappy.h"
+
+#include	"arg.h"
+#include	"my.h"
 
 int	arg_parse_limit_client(char *av, t_arg *arg)
 {
-  if (check_int(av) == RET_FAILURE)
+  if (my_str_is_numeric(av) == false)
     {
       fprintf(stderr, "limit client must be numeric and positif\n");
       return (RET_FAILURE);

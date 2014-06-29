@@ -5,43 +5,28 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 19:00:24 2014 damien sauvalle
-** Last update Sun Jun 29 02:41:49 2014 damien sauvalle
+** Last update Sun Jun 29 17:23:55 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
-#include	<unistd.h>
-#include	<ctype.h>
 #include	<stdlib.h>
 #include	<stdio.h>
+#include	<unistd.h>
 
-#include	"server.h"
-#include	"zappy.h"
+#include	"arg.h"
+#include	"my.h"
 
-int	check_int(char *av)
-{
-  int	i;
-
-  i = 0;
-  while (av[i])
-    {
-      if (isdigit(av[i]) == 0)
-	return (RET_FAILURE);
-      i++;
-    }
-  return (RET_SUCCESS);
-}
-
-static int	usage(char *av)
+static int	usage(char *progname)
 {
   fprintf(stderr, "Usage: %s [-p port] [-x x_world] [-y y_world] \
- [-c limit_clients] [-t time] [-n team_name_1 team_name_2 ...]\n", av);
+ [-c limit_clients] [-t time] [-n team_name_1 team_name_2 ...]\n", progname);
   return (RET_FAILURE);
 }
 
-int	arg_parse(t_arg *arg, int ac, char **av)
+static int	process(t_arg *arg, int ac, char **av)
 {
-  int	opt;
-  int	ret;
+  int		opt;
+  int		ret;
 
   ret = 0;
   while ((opt = getopt(ac, av, "p:x:y:n:c:t:")) != -1)
@@ -61,6 +46,16 @@ int	arg_parse(t_arg *arg, int ac, char **av)
       else if (opt == '?' || opt == ':')
 	return (usage(av[0]));
     }
+  return (ret);
+}
+
+int		arg_parse(t_arg *arg, int ac, char **av)
+{
+  int		ret;
+
+  if (arg == NULL)
+    return (RET_FAILURE);
+  ret = process(arg, ac, av);
   if (ret != 126)
     return (usage(av[0]));
   return (RET_SUCCESS);
