@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Sat Jun 28 01:45:44 2014 raphael defreitas
+** Last update Sun Jun 29 06:09:04 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -16,6 +16,7 @@
 #include	"list.h"
 #include	"socket.h"
 #include	"zappy.h"
+#include	"_zappy.h"
 
 static int	init_socket(t_socket *sock, int port)
 {
@@ -34,6 +35,14 @@ static void	default_values(t_zs *this)
   FD_ZERO(&this->wfds);
   zs_disable_timeout(this);
   this->has_to_stop = false;
+  this->cmd_fptrs = NULL;
+}
+
+static int	init_cmd_fptrs(t_list *cmd_fptrs)
+{
+  if (list_enqueue(cmd_fptrs, (void *)&zs_cmd_team_name) == RET_FAILURE)
+    return (RET_FAILURE);
+  return (RET_SUCCESS);
 }
 
 int		zs_ctor(t_zs *this, int port, t_list *team_names)
@@ -46,7 +55,9 @@ int		zs_ctor(t_zs *this, int port, t_list *team_names)
       socket_ctor(this->socket, AF_INET, SOCK_STREAM, 0) == RET_FAILURE ||
       (this->clients = list_new(&zc_delete)) == NULL ||
       init_socket(this->socket, port) == RET_FAILURE ||
-      (this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL)
+      (this->hooks = calloc(ZHT_MAX, sizeof(t_zh))) == NULL ||
+      (this->cmd_fptrs = list_new(NULL)) == NULL ||
+      init_cmd_fptrs(this->cmd_fptrs) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

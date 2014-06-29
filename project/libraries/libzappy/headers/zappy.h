@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sun Jun 29 03:55:08 2014 raphael defreitas
+** Last update Sun Jun 29 06:37:56 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -59,6 +59,7 @@ typedef	enum
     ZHT_CLIENT_CONNECTED,
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
+    ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
     ZHT_MAX
@@ -98,6 +99,7 @@ struct		s_zs
   t_timeval	timeout;
   bool		has_to_stop;
   t_list	*team_names;
+  t_list	*cmd_fptrs;
 };
 
 /*
@@ -147,6 +149,7 @@ struct		s_zc
   fd_set	wfds;
   t_timeval	timeout;
   bool		has_to_stop;
+  t_list	*cmd_fptrs;
 
   /*
   ** Server only

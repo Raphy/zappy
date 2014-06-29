@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Sun Jun 29 00:25:59 2014 raphael defreitas
+** Last update Sun Jun 29 06:21:42 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -27,6 +27,7 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
 	 command != NULL)
     {
       printf("COMMAND: %s\n", command);
+      zs_dispatch_command(this, zc, command);
       free(command);
       command = NULL;
     }

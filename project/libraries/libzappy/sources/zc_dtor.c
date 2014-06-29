@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:50:11 2014 raphael defreitas
-** Last update Thu Jun 26 18:50:45 2014 raphael defreitas
+** Last update Sun Jun 29 06:38:32 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -22,4 +22,5 @@ void		zc_dtor(t_zc *this)
   free(this->hooks);
   list_delete(this->pckts_rcvd);
   list_delete(this->pckts_to_snd);
+  list_delete(this->cmd_fptrs);
 }

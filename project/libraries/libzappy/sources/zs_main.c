@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Sun Jun 29 01:13:15 2014 raphael defreitas
+** Last update Sun Jun 29 06:34:40 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -33,8 +33,7 @@ static void	set_fds(t_zs *this)
       if (zc->has_to_disconnect)
 	{
 	  zs_handle_client_disconnected(this, zc);
-	  zc_delete(zc);
-	  list_unlink(this->clients, item);
+	  zc_delete(list_unlink(this->clients, item));
 	}
       else
 	{

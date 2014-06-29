@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jun 29 03:31:06 2014 raphael defreitas
+** Last update Sun Jun 29 06:59:51 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -65,6 +65,15 @@ void		zs_hook_client_disconnected(t_zs *this,
 					    void *d);
 
 /*
+** When a command is unknown
+** zc		The client which have sent the unknown command
+** cmd		The unknown command received
+*/
+typedef	void	(t_zsh_cmd_unknown)(t_zs *zs, t_zc *zc, const char *cmd,
+				    void *data);
+void		zs_hook_cmd_unknown(t_zs *this, t_zsh_cmd_unknown h, void *d);
+
+/*
 ** When a client sends its team name (after "BIENVENUE\n" command)
 ** zc		The client which have sent the command
 ** team_name	The team name sent
@@ -112,9 +121,16 @@ void		zc_hook_connected(t_zc *this, t_zch_basic h, void *d);
 void		zc_hook_disconnected(t_zc *this, t_zch_basic h, void *d);
 
 /*
+** When a command is unknown
+** cmd		The unknown command received
+*/
+typedef	void	(t_zch_cmd_unknown)(t_zc *zc, const char *cmd, void *data);
+void		zc_hook_cmd_unknown(t_zc *this, t_zch_cmd_unknown h, void *d);
+
+/*
 ** When the server sends "BIENVENUE\n".
 */
-void		zc_hook_welcome(t_zc *this, t_zch_basic h, void *d);
+void		zc_hook_cmd_welcome(t_zc *this, t_zch_basic h, void *d);
 
 
 #endif /* !ZAPPY_HOOKS_H_*/
