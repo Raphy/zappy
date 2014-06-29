@@ -5,13 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sun Jun 29 16:03:28 2014 damien sauvalle
+** Last update Sun Jun 29 18:02:16 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
 # define	PLAYER_H_
 
-# include	"stock.h"
+# include	"inventory.h"
 
 typedef enum
   {
@@ -35,7 +35,7 @@ typedef struct	s_coord
 */
 typedef struct	s_player
 {
-  unsigned int	*stock;
+  unsigned int	*inventory;
   t_direction	direction;
   t_coord	coord;
   char		*team_name;
