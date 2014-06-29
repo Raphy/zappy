@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Fri Jun 27 15:25:43 2014 raphael defreitas
+** Last update Sun Jun 29 10:19:05 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,7 +14,7 @@
 #include	"_zappy.h"
 
 void		zs_hook_client_disconnected(t_zs *this,
-					    t_zsh_client_disconnected h,
+					    t_zsh_client_basic h,
 					    void *d)
 {
   if (this == NULL)

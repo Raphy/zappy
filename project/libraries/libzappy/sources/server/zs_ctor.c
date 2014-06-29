@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Sun Jun 29 06:09:04 2014 raphael defreitas
+** Last update Sun Jun 29 10:33:15 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -40,7 +40,9 @@ static void	default_values(t_zs *this)
 
 static int	init_cmd_fptrs(t_list *cmd_fptrs)
 {
-  if (list_enqueue(cmd_fptrs, (void *)&zs_cmd_team_name) == RET_FAILURE)
+  if (list_enqueue(cmd_fptrs, (void *)&zs_cmd_team_name) == RET_FAILURE ||
+      list_enqueue(cmd_fptrs, (void *)&zs_cmd_graphic) == RET_FAILURE ||
+      list_enqueue(cmd_fptrs, (void *)&zs_cmd_remote) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

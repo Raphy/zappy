@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 18:58:12 2014 raphael defreitas
-** Last update Sun Jun 29 09:03:10 2014 raphael defreitas
+** Last update Sun Jun 29 10:08:45 2014 raphael defreitas
 */
 
 #include	"list.h"

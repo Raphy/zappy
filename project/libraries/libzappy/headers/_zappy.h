@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sun Jun 29 06:51:57 2014 raphael defreitas
+** Last update Sun Jun 29 10:36:06 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -41,6 +41,8 @@ void		zs_send_to_all(t_zs *, const char *);
 typedef	bool	(*t_zs_cmd)(t_zs *, t_zc *, const char *);
 void		zs_dispatch_command(t_zs *, t_zc *, const char *);
 bool		zs_cmd_team_name(t_zs *, t_zc *, const char *);
+bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
+bool		zs_cmd_remote(t_zs *, t_zc *, const char *);
 
 /*
 ** Event managing
@@ -53,6 +55,8 @@ void		zs_handle_client_connected(t_zs *, t_zc *);
 void		zs_handle_client_disconnected(t_zs *, t_zc *);
 void		zs_handle_cmd_unknown(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_graphic(t_zs *, t_zc *);
+void		zs_handle_cmd_remote(t_zs *, t_zc *);
 
 /*
 ** +--------+
@@ -61,6 +65,7 @@ void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 */
 
 void		zc_treat_fds(t_zc *);
+void		zc_send(t_zc *, const char *);
 
 /*
 ** Command dispatcher
