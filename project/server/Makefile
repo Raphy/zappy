@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Thu Jun 26 18:48:57 2014 raphael defreitas
+## Last update Sun Jun 29 17:10:10 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -18,12 +18,15 @@ OBJECTS		=	$(SOURCES:.c=.o)
 
 CFLAGS		=	-Wall -Wextra -ansi -pedantic -g
 CFLAGS		+=	-I ./headers
+CFLAGS		+=	-I ./../libraries/libmy/headers
 CFLAGS		+=	-I ./../libraries/liblist/headers
 CFLAGS		+=	-I ./../libraries/libsocket/headers
 CFLAGS		+=	-I ./../libraries/libzappy/headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
-LFLAGS		=	-L ./../libraries/libzappy -l zappy
+LFLAGS		=
+LFLAGS		+=	-L ./../libraries/libmy -l my
+LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
 
