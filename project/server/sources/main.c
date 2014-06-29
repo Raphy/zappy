@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Sun Jun 29 17:40:19 2014 raphael defreitas
+** Last update Sun Jun 29 18:58:52 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -22,7 +22,7 @@ static void	kikoo_header(void)
 {
   printf(" ______                             _____\n");
   printf(" ___  /                            / ____|\n");
-  printf("   / / __ _ _ __  _ __  _   _     | (___   ___ _ ____   _____ _ __\n");
+  printf("   / / __ _ _ __  _ __  _   _     | (___   ___ _ ____   _____ ___\n");
   printf("  / / / _` | '_ \\| '_ \\| | | |     \\___ \\ / _ \\ '__\\ \\ / /");
   printf("  _\\ __|\n");
   printf(" / /_| (_| | |_) | |_) | |_| |     ____) |  __/ |   \\ V /  __/ |\n");

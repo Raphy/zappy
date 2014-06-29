@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Sun Jun 29 09:01:11 2014 raphael defreitas
+** Last update Sun Jun 29 18:55:47 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -14,7 +14,7 @@
 #include	"_zappy.h"
 
 void		cmd_unknown_handler(__attribute__((unused))t_zs *zs,
-				    t_zc *zc,
+				    __attribute__((unused))t_zc *zc,
 				    const char *cmd,
 				    __attribute__((unused))void *data)
 {
