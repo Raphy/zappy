@@ -23,7 +23,7 @@ CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers
 CXXFLAGS		+=	-I ./../libraries/libzappy/headers
 CXXFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
-CXXFLAGS		+=	-I /usr/include/irrlicht #TODO : ne pas mettre le path en dur
+CXXFLAGS		+=	-isystem /usr/include/irrlicht #TODO : ne pas mettre le path en dur
 
 LFLAGS		=
 LFLAGS		+=	-L ./../libraries/libmy -l my
