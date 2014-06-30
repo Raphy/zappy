@@ -2,6 +2,6 @@
 
 cd ./project/
 make fclean
-make -j4
+make zappy
 
 exit $?
