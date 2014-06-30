@@ -18,6 +18,8 @@ OBJECTS		=	$(SOURCES:.cpp=.o)
 
 CXXFLAGS		=	-Wall -Wextra -ansi -pedantic -g
 CXXFLAGS		+=	-I ./interfaces
+CXXFLAGS		+=	-I ./sources/engine
+CXXFLAGS		+=	-I ./sources/ressources
 CXXFLAGS		+=	-I ./../libraries/libmy/headers
 CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers
