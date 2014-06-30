@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Sun Jun 29 17:10:10 2014 raphael defreitas
+## Last update Mon Jun 30 16:21:42 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -30,12 +30,7 @@ LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
 
-all		:	kikoo_start $(NAME) kikoo_end
-
-kikoo_start	:
-			@echo -e "\e[1;32mCompiling « server »...\e[0;32m"
-kikoo_end	:
-			@echo -en "\e[0m"
+all		:	$(NAME
 
 $(NAME)		:	$(OBJECTS)
 			$(CC) -o $(NAME) $(OBJECTS) $(LFLAGS)

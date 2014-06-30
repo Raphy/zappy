@@ -5,7 +5,7 @@
 ## Login   <marie@epitech.net>
 ## 
 ## Started on  Mon Jun 30 12:30:44 2014 lefebv_z
-## Last update Mon Jun 30 15:27:59 2014 lefebv_z
+## Last update Mon Jun 30 16:22:10 2014 raphael defreitas
 ##
 
 CXX		?=	clang++
@@ -32,12 +32,7 @@ LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
 LFLAGS		+=	-l Irrlicht
 
-all		:	kikoo_start $(NAME) kikoo_end
-
-kikoo_start	:
-			@echo "[\33[1;32mCompiling « world »...[\33[0;32m"
-kikoo_end	:
-			@echo "[\33[0m"
+all		:	$(NAME)
 
 $(NAME)		:	$(OBJECTS)
 			$(CXX) -o $(NAME) $(OBJECTS) $(LFLAGS)
