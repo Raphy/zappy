@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Mon Jun 30 16:11:39 2014 damien sauvalle
+## Last update Mon Jun 30 23:59:30 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -16,11 +16,11 @@ DIRECTORIES	=	./server ./remote ./world
 all		:	reminder norm zappy
 
 reminder	:
-			@echo "[\33[1;31mNe pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final ![\33[0m"
-			@sleep 1
+			@echo "Ne pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final !"
+			@sleep 3
 
 norm		:
-			@echo "[\33[1;31mChecking basic norm...[\33[0;31m"
+			@echo "Checking basic norm..."
 			@find -name "*.c" -exec ../tools/norme.py {} \;
 			@find -name "*.h" -exec ../tools/norme.py {} \;
 			@echo -n "[\33[0m"
