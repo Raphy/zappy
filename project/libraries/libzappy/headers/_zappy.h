@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Mon Jun 30 17:16:00 2014 raphael defreitas
+** Last update Mon Jun 30 23:45:07 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -17,6 +17,7 @@
 ** +----------+
 */
 # include	<glib.h>
+# include	<openssl/rsa.h>
 # include	<stdbool.h>
 
 #include	"zappy.h"
@@ -94,6 +95,14 @@ void		zc_handle_cmd_welcome(t_zc *);
 */
 int		zt_build_command(t_list *, char **);
 int		zt_append_buffer(t_list *, const char *);
+
+/*
+** Plain -> Encryption -> Encoding | | Decoding -> Decryption -> Plain
+*/
+unsigned char	*zt_rsa_encrypt(RSA *, const char *, int *);
+char		*zt_b64_encode(const unsigned char *, int);
+unsigned char	*zt_b64_decode(const char *);
+char		*zt_rsa_decrypt(RSA *, const unsigned char *, int);
 
 G_END_DECLS
 

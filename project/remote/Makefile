@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Mon Jun 30 16:22:28 2014 raphael defreitas
+## Last update Mon Jun 30 22:05:43 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -29,6 +29,7 @@ LFLAGS		+=	-L ./../libraries/libmy -l my
 LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
+LFLAGS		+=	-lm $(shell pkg-config --libs openssl)
 
 all		:	$(NAME)
 
