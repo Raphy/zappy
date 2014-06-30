@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sun Jun 29 19:39:11 2014 damien sauvalle
+** Last update Mon Jun 30 17:22:42 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -21,9 +21,6 @@ typedef enum
     DIRECTION_WEST
   }	t_direction;
 
-/*
-** Raphy struct +++
-*/
 typedef struct	s_player
 {
   t_inventory	inventory;
@@ -51,9 +48,6 @@ t_direction		player_get_direction(t_player *);
 /*
 ** coord
 */
-int			player_coord_ctor(t_player *);
-void			player_coord_dtor(t_player *); /* Really util ?*/
-
 void			player_set_x(t_player *, int);
 void			player_set_y(t_player *, int);
 
@@ -75,7 +69,7 @@ int			player_get_level(t_player *);
 /*
 ** time life
 */
-int			pl_set_life(t_player *);
-unsigned int		pl_get_life(t_player *);
+int			player_set_life(t_player *);
+unsigned int		player_get_life(t_player *);
 
 #endif /* !PLAYER_H_ */
