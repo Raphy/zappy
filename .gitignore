@@ -5,3 +5,4 @@
 *.so
 project/server/server
 project/remote/remote
+project/world/world
