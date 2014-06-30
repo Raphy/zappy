@@ -5,13 +5,13 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Sun Jun 29 17:59:49 2014 raphael defreitas
+## Last update Mon Jun 30 12:30:17 2014 lefebv_z
 ##
 
 LIBS_PATH	=	./libraries/
 LIBS		=	libmy liblist libsocket libzappy
 
-DIRECTORIES	=	./server ./remote
+DIRECTORIES	=	./server ./remote ./world
 
 all		:	reminder norm zappy
 
