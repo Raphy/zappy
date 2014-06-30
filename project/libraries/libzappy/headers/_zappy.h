@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Mon Jun 30 23:45:07 2014 raphael defreitas
+** Last update Mon Jun 30 23:55:41 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -66,6 +66,7 @@ void		zs_handle_cmd_remote(t_zs *, t_zc *);
 */
 
 void		zc_treat_fds(t_zc *);
+void		zc_treat(t_zc *);
 void		zc_send(t_zc *, const char *);
 
 /*
