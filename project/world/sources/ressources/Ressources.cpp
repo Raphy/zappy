@@ -7,11 +7,12 @@
 
 #include "Ressources.hh"
 
-Ressources::Ressources()
-{
-}
-
-Ressources::~Ressources()
-{
-}
+//Ressources::Ressources(io::IFileSystem* fs, std::string const& path)
+//: _fs(fs), _path(path)
+//{
+//}
+//
+//Ressources::~Ressources()
+//{
+//}
 

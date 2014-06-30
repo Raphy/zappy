@@ -17,9 +17,14 @@ SOURCES		=	$(shell find ./sources -name "*.cpp")
 OBJECTS		=	$(SOURCES:.cpp=.o)
 
 CXXFLAGS		=	-Wall -Wextra -ansi -pedantic -g
+CXXFLAGS		=	-std=c++11
 CXXFLAGS		+=	-I ./interfaces
+CXXFLAGS		+=	-I ./sources
 CXXFLAGS		+=	-I ./sources/engine
 CXXFLAGS		+=	-I ./sources/ressources
+CXXFLAGS		+=	-I ./sources/map
+CXXFLAGS		+=	-I ./sources/gui
+CXXFLAGS		+=	-I ./sources/object
 CXXFLAGS		+=	-I ./../libraries/libmy/headers
 CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers

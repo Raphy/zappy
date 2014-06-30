@@ -7,6 +7,8 @@
 
 #include <string>
 #include "AEngine.hh"
+#include "Ressources.hh"
+#include "Binder.hh"
 
 AEngine::AEngine()
 {
@@ -17,6 +19,7 @@ AEngine::AEngine()
     _driver = _device->getVideoDriver();
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
+    _fs = _device->getFileSystem();
 }
 
 AEngine::~AEngine()
@@ -26,6 +29,8 @@ AEngine::~AEngine()
 
 bool AEngine::init()
 {
+    Ressources* ressources = Ressources::getInstance(_fs, "./world/assets/irrlicht");
+    (Binder::getInstance())->createMapViewer(_env, _smgr);
     return true;
 }
 bool AEngine::update()

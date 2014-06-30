@@ -6,6 +6,7 @@
  */
 
 #include "Binder.hh"
+#include "Ressources.hh"
 
 using namespace std;
 
@@ -13,8 +14,9 @@ int main(int argc, char** argv)
 {
     Binder* binder = Binder::getInstance();
     IEngine* engine = binder->createEngine();
-    engine->init();
-    engine->mainLoop();
+    if (engine->init())
+        engine->mainLoop();
+    delete engine;
     return 0;
 }
 

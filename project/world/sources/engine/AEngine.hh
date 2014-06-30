@@ -29,6 +29,7 @@ protected:
     video::IVideoDriver*    _driver;
     scene::ISceneManager*   _smgr;
     gui::IGUIEnvironment*   _env;
+    io::IFileSystem*	    _fs;
 };
 
 #endif	/* AENGINE_HH */
