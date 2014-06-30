@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 01:04:22 2014 raphael defreitas
-** Last update Mon Jun 30 17:17:26 2014 raphael defreitas
+** Last update Mon Jun 30 20:35:10 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -41,7 +41,7 @@ void		zc_main(t_zc *this)
 {
   int		select_ret;
 
-  if (this == NULL)
+  if (this == NULL || socket_fd(this->socket) == RET_ERROR)
     return ;
   zc_handle_connected(this);
   while (!this->has_to_stop)
