@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sun Jun 29 10:24:11 2014 raphael defreitas
+** Last update Mon Jun 30 17:32:01 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -59,6 +59,7 @@ typedef	enum
     ZHT_CLIENT_CONNECTED,
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
+    ZHT_STDIN,
     ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
@@ -152,12 +153,14 @@ struct		s_zc
   t_timeval	timeout;
   bool		has_to_stop;
   t_list	*cmd_fptrs;
+  t_list	*stdin;
 
   /*
   ** Server only
   */
   t_zct		type;
   bool		has_to_disconnect;
+  t_list	*commands;
 
   /*
   ** Common
@@ -165,7 +168,6 @@ struct		s_zc
   t_socket	*socket;
   t_list	*pckts_rcvd;
   t_list	*pckts_to_snd;
-  t_list	*commands;
 };
 
 /*
