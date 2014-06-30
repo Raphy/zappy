@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jun 29 18:53:10 2014 raphael defreitas
+** Last update Mon Jun 30 17:13:41 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -98,7 +98,16 @@ void		zs_hook_cmd_remote(t_zc *zc, t_zsh_client_basic h, void *d);
 ** +--------+
 */
 
+/*
+** Basic handler
+*/
 typedef	void	(t_zch_basic)(t_zc *zc, void *data);
+
+/*
+** Basic string handler
+** str		The string of the hook
+*/
+typedef	void	(t_zch_str_basic)(t_zc *zc, const char *str, void *data);
 
 /*
 ** When an error occurs.
@@ -131,11 +140,14 @@ void		zc_hook_connected(t_zc *this, t_zch_basic h, void *d);
 void		zc_hook_disconnected(t_zc *this, t_zch_basic h, void *d);
 
 /*
-** When a command is unknown
-** cmd		The unknown command received
+** When the binary have something in STDIN
 */
-typedef	void	(t_zch_cmd_unknown)(t_zc *zc, const char *cmd, void *data);
-void		zc_hook_cmd_unknown(t_zc *this, t_zch_cmd_unknown h, void *d);
+void		zc_hook_stdin(t_zc *this, t_zch_str_basic h, void *d);
+
+/*
+** When a command is unknown
+*/
+void		zc_hook_cmd_unknown(t_zc *this, t_zch_str_basic h, void *d);
 
 /*
 ** When the server sends "BIENVENUE\n".

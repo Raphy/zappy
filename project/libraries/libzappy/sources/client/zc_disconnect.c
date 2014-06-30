@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 18:08:49 2014 raphael defreitas
-** Last update Fri Jun 27 18:09:26 2014 raphael defreitas
+** Last update Mon Jun 30 17:46:22 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -18,4 +18,5 @@ void		zc_disconnect(t_zc *this)
   if (this == NULL)
     return ;
   this->has_to_disconnect = true;
+  this->has_to_stop = true;
 }

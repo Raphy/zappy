@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 02:17:37 2014 raphael defreitas
-** Last update Sun Jun 29 06:46:28 2014 raphael defreitas
+** Last update Mon Jun 30 17:33:13 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -51,22 +51,19 @@ static void	treat_write(t_zc *this)
     zc_handle_errno(this, "socket write failed");
 }
 
-/* To Remove Later */
 static void	treat_stdin(t_zc *this)
 {
   char		buf[SOCK_BUF_LEN + 1];
   int		rlen;
 
   rlen = read(0, buf, SOCK_BUF_LEN);
-  if (rlen == RET_ERROR/* && errno != 0 && errno != ECONNRESET*/)
+  if (rlen == RET_ERROR)
     zc_handle_errno(this, "stdin read failed");
   else if (rlen > 0)
     {
       buf[rlen] = 0;
-      if (strcmp(buf, "exit\n") == 0)
-	this->has_to_stop = true;
-      else if (list_enqueue(this->pckts_to_snd, strdup(buf)) == RET_FAILURE)
-	zc_handle_errno(this, "stdin command storage failed");
+      if (zt_append_buffer(this->stdin, buf) == RET_FAILURE)
+	zc_handle_errno(this, "stdin data storage failed");
     }
 }
 
@@ -89,13 +86,33 @@ static void	treat_command(t_zc *this)
     zc_handle_errno(this, "command parsing failed");
 }
 
+static void	treat_stdin_buffer(t_zc *this)
+{
+  char		*command;
+  int		ret;
+
+  if (list_length(this->stdin) == 0)
+    return ;
+  command = NULL;
+  while ((ret = zt_build_command(this->stdin, &command)) == RET_SUCCESS &&
+	 command != NULL)
+    {
+      zc_handle_stdin(this, command);
+      free(command);
+      command = NULL;
+    }
+  if (ret == RET_FAILURE)
+    zc_handle_errno(this, "stdin parsing failed");
+}
+
 void		zc_treat_fds(t_zc *this)
 {
   if (FD_ISSET(0, &this->rfds))
-    treat_stdin(this); /* To Remove Later */
+    treat_stdin(this);
   if (FD_ISSET(socket_fd(this->socket), &this->rfds))
     treat_read(this);
   if (FD_ISSET(socket_fd(this->socket), &this->wfds))
     treat_write(this);
+  treat_stdin_buffer(this);
   treat_command(this);
 }

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 01:04:22 2014 raphael defreitas
-** Last update Sun Jun 29 03:55:50 2014 raphael defreitas
+** Last update Mon Jun 30 20:35:10 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -21,7 +21,7 @@ static void	set_fds(t_zc *this)
   FD_ZERO(&this->rfds);
   FD_ZERO(&this->wfds);
   FD_SET(socket_fd(this->socket), &this->rfds);
-  FD_SET(0, &this->rfds); /* To Remove */
+  FD_SET(0, &this->rfds);
   if (list_length(this->pckts_to_snd) > 0)
     FD_SET(socket_fd(this->socket), &this->wfds);
 }
@@ -41,7 +41,7 @@ void		zc_main(t_zc *this)
 {
   int		select_ret;
 
-  if (this == NULL)
+  if (this == NULL || socket_fd(this->socket) == RET_ERROR)
     return ;
   zc_handle_connected(this);
   while (!this->has_to_stop)
