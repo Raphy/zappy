@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Apr 17 20:00:14 2014 raphael defreitas
-** Last update Sun Jun 29 06:28:46 2014 raphael defreitas
+** Last update Mon Jun 30 14:28:16 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,8 +14,6 @@
 
 void		item_delete(t_item *this)
 {
-  if (this == NULL)
-    return ;
   item_dtor(this);
   free(this);
 }

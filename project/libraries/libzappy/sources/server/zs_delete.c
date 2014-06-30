@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:27:26 2014 raphael defreitas
-** Last update Thu Jun 26 11:27:57 2014 raphael defreitas
+** Last update Mon Jun 30 14:29:37 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,8 +14,6 @@
 
 void		zs_delete(t_zs *this)
 {
-  if (this == NULL)
-    return ;
   zs_dtor(this);
   free(this);
 }

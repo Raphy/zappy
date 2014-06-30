@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:50:28 2014 raphael defreitas
-** Last update Thu Jun 26 11:50:53 2014 raphael defreitas
+** Last update Mon Jun 30 14:29:18 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -14,8 +14,6 @@
 
 void		zc_delete(t_zc *this)
 {
-  if (this == NULL)
-    return ;
   zc_dtor(this);
   free(this);
 }

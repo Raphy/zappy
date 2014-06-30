@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Apr 15 00:03:17 2014 raphael defreitas
-** Last update Sat Apr 19 02:33:15 2014 raphael defreitas
+** Last update Mon Jun 30 14:22:58 2014 raphael defreitas
 */
 
 #include	<sys/socket.h>
@@ -18,6 +18,8 @@ t_socket	*socket_accept(t_socket *this)
 {
   t_socket	*client;
 
+  if (this == NULL)
+    return (NULL);
   if ((client = socket_new()) == NULL)
     return (NULL);
   client->addr_len = sizeof(struct sockaddr_in);
