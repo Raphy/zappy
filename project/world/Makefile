@@ -5,7 +5,7 @@
 ## Login   <marie@epitech.net>
 ## 
 ## Started on  Mon Jun 30 12:30:44 2014 lefebv_z
-## Last update Mon Jun 30 12:41:27 2014 lefebv_z
+## Last update Mon Jun 30 14:56:05 2014 raphael defreitas
 ##
 
 CXX		?=	clang++
@@ -23,14 +23,14 @@ CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers
 CXXFLAGS		+=	-I ./../libraries/libzappy/headers
 CXXFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
-CXXFLAGS		+=	-I /usr/local/include/irrlicht #TODO : ne pas mettre le path en dur
+CXXFLAGS		+=	-I /usr/include/irrlicht #TODO : ne pas mettre le path en dur
 
 LFLAGS		=
 LFLAGS		+=	-L ./../libraries/libmy -l my
 LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
-LFLAGS		+=	-L /usr/local/lib/irrlicht -l Irrlicht
+LFLAGS		+=	-l Irrlicht
 
 all		:	kikoo_start $(NAME) kikoo_end
 
