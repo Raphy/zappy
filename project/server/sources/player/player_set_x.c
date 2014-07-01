@@ -8,6 +8,7 @@
 ** Last update Mon Jun 30 17:00:25 2014 damien sauvalle
 */
 
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 

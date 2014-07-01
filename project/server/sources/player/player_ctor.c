@@ -23,9 +23,9 @@ int	player_ctor(t_player *player)
   player->direction = rand()%4;
   player->x = rand()%10; /* Voir avec la taille de la map */
   player->y = rand()%10; /* Voir avec la taille de la map */
-  player->team_name; /* Voir avec les params*/
+  player->team_name = NULL; /* Voir avec les params*/
   player->level = 1;
-  player->life = pl_set_life(player);
+  player->life = player_set_life(player);
 
   return (RET_SUCCESS);
 }
