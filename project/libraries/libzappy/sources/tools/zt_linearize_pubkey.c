@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 03:03:20 2014 raphael defreitas
-** Last update Tue Jul  1 03:36:13 2014 raphael defreitas
+** Last update Tue Jul  1 17:55:44 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -43,7 +43,6 @@ int		zt_linearize_pubkey(char **pubkey)
   FILE		*rstream;
   size_t	pubkey_len;
   char		*res;
-
 
   if (pubkey == NULL || *pubkey == NULL)
     return (RET_FAILURE);

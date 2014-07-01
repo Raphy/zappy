@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Sun Jun 29 08:51:28 2014 raphael defreitas
+** Last update Tue Jul  1 17:40:54 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -23,7 +23,6 @@ static void	treat_commands(t_zs *this, t_zc *zc)
     return ;
   while ((cmd = list_pop(zc->commands)))
     {
-      printf("COMMAND: %s\n", cmd);
       zs_dispatch_command(this, zc, cmd);
       free(cmd);
     }
