@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Tue Jul  1 17:40:54 2014 raphael defreitas
+** Last update Tue Jul  1 19:35:34 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -40,6 +40,7 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
   while ((ret = zt_build_command(zc->pckts_rcvd, &command)) == RET_SUCCESS &&
 	 command != NULL)
     {
+      printf("PTR: %p\n", (void *)command);
       if (list_enqueue(zc->commands, command) == RET_FAILURE)
 	zs_handle_errno(this, "command storing failed");
       if (list_length(zc->commands) >= 10)

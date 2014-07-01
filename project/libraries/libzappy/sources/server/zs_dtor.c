@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:24:20 2014 raphael defreitas
-** Last update Tue Jul  1 17:50:00 2014 raphael defreitas
+** Last update Tue Jul  1 19:15:47 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -23,7 +23,5 @@ void		zs_dtor(t_zs *this)
   list_delete(this->clients);
   list_delete(this->cmd_fptrs);
   free(this->hooks);
-  zt_rsa_delete(this->public_key);
-  zt_rsa_delete(this->public_key);
   free(this->public_key_str);
 }
