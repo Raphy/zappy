@@ -58,6 +58,9 @@ class Network:
         self._clib.bind_funct('zc_disconnect', [c_void_p])
         self._clib.bind_funct('zc_disable_timeout', [c_void_p])
         self._clib.bind_funct('zc_set_timeout', [c_void_p, c_long, c_long])
+
+        self._clib.bind_funct('zc_send_team_name', [c_void_p, c_char_p])
+
         self._clib.bind_funct('zc_hook_errno', [c_void_p, Network._ErrorCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_callback', [c_void_p, Network._ReturnCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_timeout', [c_void_p, Network._BasicCallbackType, c_void_p])
@@ -86,6 +89,11 @@ class Network:
     def disable_timeout(self):
         self._clib.zc_disable_timeout(self._cstruct)
 
+
+    """ commands """
+
+    def send_team_name(self, team_name):
+        self._clib.zc_send_team_name(self._cstruct, team_name.encode('utf-8'))
 
     """ handlers and tools """
 
