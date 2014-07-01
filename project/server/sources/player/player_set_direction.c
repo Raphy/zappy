@@ -8,11 +8,13 @@
 ** Last update Mon Jun 30 16:55:43 2014 damien sauvalle
 */
 
+#include        <assert.h>
 #include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 void		player_set_direction(t_player *player, t_direction direction)
 {
+  assert(player != NULL);
   player->direction = direction;
 }

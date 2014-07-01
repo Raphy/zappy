@@ -8,11 +8,13 @@
 ** Last update Mon Jun 30 17:20:15 2014 damien sauvalle
 */
 
+#include        <assert.h>
 #include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 char	*player_get_team_name(t_player *player)
 {
+  assert(player != NULL);
   return (player->team_name);
 }

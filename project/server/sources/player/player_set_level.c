@@ -8,11 +8,13 @@
 ** Last update Mon Jun 30 17:21:42 2014 damien sauvalle
 */
 
+#include        <assert.h>
 #include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 void	player_set_level(t_player *player, int value)
 {
+  assert(player != NULL);
   player->level = value;
 }

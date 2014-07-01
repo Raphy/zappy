@@ -8,6 +8,7 @@
 ** Last update Mon Jun 30 17:29:21 2014 damien sauvalle
 */
 
+#include        <assert.h>
 #include        "player.h"
 #include	"inventory.h"
 #include	"zappy.h"
@@ -15,6 +16,7 @@
 
 int	player_set_life(t_player *player)
 {
+  assert(player != NULL);
   player->life = inventory_get_food(&player->inventory); /* 126; add 1/t */
   return (RET_SUCCESS);
 }

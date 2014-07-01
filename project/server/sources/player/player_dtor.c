@@ -14,5 +14,5 @@
 
 void		player_dtor(t_player *player)
 {
-    (void) player;
+  (void) player;
 }

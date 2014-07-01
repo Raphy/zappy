@@ -8,11 +8,13 @@
 ** Last update Mon Jun 30 17:30:32 2014 damien sauvalle
 */
 
+#include        <assert.h>
 #include        "player.h"
 #include	"my.h"
 #include	"zappy.h"
 
 unsigned int player_get_life(t_player *player)
 {
+  assert(player != NULL);
   return (player->life);
 }
