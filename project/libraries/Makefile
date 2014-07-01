@@ -14,7 +14,7 @@ SOURCES		=	$(shell find ./libzappy/sources -name "*.c")
 OBJECTS		=	$(SOURCES:.c=.o)
 
 CFLAGS 		= 	-fPIC
-LDFLAGS 	= 	-shared -L libmy -lmy -L liblist/ -llist -L libsocket/ -lsocket
+LDFLAGS 	= 	-shared -L libmy -lmy -L liblist/ -llist -L libsocket/ -lsocket -lssl
 
 $(TARGET)	: 	$(LIBS)
 			$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LDFLAGS)
