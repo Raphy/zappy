@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Tue Jul  1 04:41:41 2014 raphael defreitas
+** Last update Tue Jul  1 19:43:23 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -61,12 +61,17 @@ typedef	enum
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
     ZHT_STDIN,
+    ZHT_CMD_MIN,
     ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
     ZHT_CMD_GRAPHIC,
     ZHT_CMD_RMT,
+    ZHT_CMD_MAX,
+    ZHT_RMT_MIN,
     ZHT_RMT_PUBKEY,
+    ZHT_RMT_STOP,
+    ZHT_RMT_MAX,
     ZHT_MAX
   }		t_zht;
 
@@ -85,7 +90,6 @@ typedef	struct
 
 typedef	struct s_zs		t_zs;
 typedef	struct s_zc		t_zc;
-typedef	struct s_zg		t_zg;
 typedef	struct timeval		t_timeval;
 
 /*
