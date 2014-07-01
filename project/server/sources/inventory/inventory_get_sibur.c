@@ -8,9 +8,12 @@
 ** Last update Sun Jun 29 18:58:00 2014 damien sauvalle
 */
 
+#include        <stdlib.h>
+#include        "assert.h"
 #include	"inventory.h"
 
 unsigned int	inventory_get_sibur(t_inventory *inventory)
 {
+  assert(inventory != NULL);
   return (inventory->sibur);
 }

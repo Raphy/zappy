@@ -8,9 +8,12 @@
 ** Last update Sun Jun 29 18:36:35 2014 damien sauvalle
 */
 
+#include        <stdlib.h>
+#include        "assert.h"
 #include	"inventory.h"
 
 void	inventory_set_mendiane(t_inventory *inventory, unsigned int val)
 {
+  assert(inventory != NULL);
   inventory->mendiane = val;
 }
