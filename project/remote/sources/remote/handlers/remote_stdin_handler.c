@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Tue Jul  1 05:02:34 2014 raphael defreitas
+** Last update Tue Jul  1 16:35:15 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -28,6 +28,11 @@ void		remote_stdin_handler(t_zc *zc,
     {
       zc_hook_callback(zc, NULL, data);
       zc_disconnect(zc);
+      return ;
+    }
+  else if (strcmp(str, "stop") == 0)
+    {
+      zc_send_rmt_stop(zc);
       return ;
     }
   encrypted = zt_rsa_encrypt(zc->pubkey, str, &encrypted_len);
