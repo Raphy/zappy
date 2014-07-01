@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 19:00:24 2014 damien sauvalle
-** Last update Sun Jun 29 17:23:55 2014 raphael defreitas
+** Last update Tue Jul  1 17:52:52 2014 damien sauvalle
 */
 
 #define		_GNU_SOURCE
@@ -23,28 +23,45 @@ static int	usage(char *progname)
   return (RET_FAILURE);
 }
 
+static void     fill_map(t_parser_map *map)
+{
+  int           i;
+
+  i = 0;
+  map[i].index = 'p';
+  map[i++].function = &arg_parse_port;
+  map[i].index = 'x';
+  map[i++].function = &arg_parse_x_world;
+  map[i].index = 'y';
+  map[i++].function = &arg_parse_y_world;
+  map[i].index = 'n';
+  map[i++].function = &arg_parse_team_names;
+  map[i].index = 'c';
+  map[i++].function = &arg_parse_limit_client;
+  map[i].index = 't';
+  map[i++].function = &arg_parse_time;
+}
+
 static int	process(t_arg *arg, int ac, char **av)
 {
+  t_parser_map  map[6];
   int		opt;
   int		ret;
+  int		i;
 
   ret = 0;
+  fill_map(map);
   while ((opt = getopt(ac, av, "p:x:y:n:c:t:")) != -1)
     {
-      if (opt == 'p')
-	ret += arg_parse_port(av[optind - 1], arg);
-      else if (opt == 'x')
-	ret += arg_parse_x_world(av[optind - 1], arg);
-      else if (opt == 'y')
-	ret += arg_parse_y_world(av[optind - 1], arg);
-      else if (opt == 'n')
-	ret += arg_parse_team_names(ac, av, arg, optind - 1);
-      else if (opt == 'c')
-	ret += arg_parse_limit_client(av[optind - 1], arg);
-      else if (opt == 't')
-	ret += arg_parse_time(av[optind - 1], arg);
-      else if (opt == '?' || opt == ':')
+      if (opt == '?' || opt == ':')
 	return (usage(av[0]));
+      i = 0;
+      while (i < 6)
+	{
+	  if (opt == map[i].index)
+	    ret += map[i].function(av, arg, optind - 1);
+	  i++;
+	}
     }
   return (ret);
 }

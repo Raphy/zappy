@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Sun Jun 29 18:58:52 2014 raphael defreitas
+** Last update Tue Jul  1 02:23:18 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -33,6 +33,25 @@ static void	kikoo_header(void)
   printf("\n\n");
 }
 
+static int	init_zappy(t_zs *zs, t_arg *arg)
+{
+if (zs_ctor(zs, arg->port, arg->team_names) == RET_FAILURE)
+    {
+      fprintf(stderr, "Initialization failed: %s\n",
+	      errno == 0 ? "Unknown error" : strerror(errno));
+      return (RET_FAILURE);
+    }
+ if (zs_set_rsa_keys(zs, "./keys/public.pem", "./keys/private.pem") ==
+     RET_FAILURE)
+   {
+     fprintf(stderr, "+------------------------------------------+\n");
+     fprintf(stderr, "| Initialization of RSA key pairing failed |\n");
+     fprintf(stderr, "| The server won't accept remote client    |\n");
+     fprintf(stderr, "+------------------------------------------+\n\n");
+   }
+ return (RET_SUCCESS);
+}
+
 int		main(int argc, char **argv)
 {
   t_zs		zs;
@@ -45,10 +64,8 @@ int		main(int argc, char **argv)
       arg_dtor(&arg);
       return (EXIT_FAILURE);
     }
-  if (zs_ctor(&zs, arg.port, arg.team_names) == RET_FAILURE)
+  if (init_zappy(&zs, &arg) == RET_FAILURE)
     {
-      fprintf(stderr, "Initialization failed: %s\n",
-	      errno == 0 ? "Unknown error" : strerror(errno));
       arg_dtor(&arg);
       zs_dtor(&zs);
       return (EXIT_FAILURE);

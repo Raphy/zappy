@@ -8,10 +8,13 @@
 ** Last update Mon Jun 30 17:00:25 2014 damien sauvalle
 */
 
+#include        <assert.h>
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 void		player_set_x(t_player *player, int value)
 {
+  assert(player != NULL);
   player->x = value;
 }

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Mon Jun 30 23:45:07 2014 raphael defreitas
+** Last update Tue Jul  1 17:31:25 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -30,6 +30,8 @@ G_BEGIN_DECLS
 ** +--------+
 */
 
+int		zs_ctor_cmd_fptrs(t_zs *);
+
 void		zs_treat_fds(t_zs *);
 void		zs_treat_zc(t_zs *, t_zc *);
 void		zs_send(t_zs *, t_zc *, const char *);
@@ -43,7 +45,8 @@ typedef	bool	(*t_zs_cmd)(t_zs *, t_zc *, const char *);
 void		zs_dispatch_command(t_zs *, t_zc *, const char *);
 bool		zs_cmd_team_name(t_zs *, t_zc *, const char *);
 bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
-bool		zs_cmd_remote(t_zs *, t_zc *, const char *);
+bool		zs_cmd_rmt(t_zs *, t_zc *, const char *);
+bool		zs_rmt_stop(t_zs *, t_zc *, const char *);
 
 /*
 ** Event managing
@@ -57,7 +60,8 @@ void		zs_handle_client_disconnected(t_zs *, t_zc *);
 void		zs_handle_cmd_unknown(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_graphic(t_zs *, t_zc *);
-void		zs_handle_cmd_remote(t_zs *, t_zc *);
+void		zs_handle_cmd_rmt(t_zs *, t_zc *);
+void		zs_handle_rmt_stop(t_zs *, t_zc *);
 
 /*
 ** +--------+
@@ -65,7 +69,10 @@ void		zs_handle_cmd_remote(t_zs *, t_zc *);
 ** +--------+
 */
 
+int		zc_ctor_cmd_fptrs(t_zc *);
+
 void		zc_treat_fds(t_zc *);
+void		zc_treat(t_zc *);
 void		zc_send(t_zc *, const char *);
 
 /*
@@ -74,6 +81,7 @@ void		zc_send(t_zc *, const char *);
 typedef	bool	(*t_zc_cmd)(t_zc *, const char *);
 void		zc_dispatch_command(t_zc *, const char *);
 bool		zc_cmd_welcome(t_zc *, const char *);
+bool		zc_rmt_pubkey(t_zc *, const char *);
 
 /*
 ** Event managing
@@ -87,6 +95,7 @@ void		zc_handle_disconnected(t_zc *);
 void		zc_handle_stdin(t_zc *, const char *);
 void		zc_handle_cmd_unknown(t_zc *, const char *);
 void		zc_handle_cmd_welcome(t_zc *);
+void		zc_handle_rmt_pubkey(t_zc *, const char *);
 
 /*
 ** +-------+
@@ -95,6 +104,7 @@ void		zc_handle_cmd_welcome(t_zc *);
 */
 int		zt_build_command(t_list *, char **);
 int		zt_append_buffer(t_list *, const char *);
+int		zt_linearize_pubkey(char **);
 
 /*
 ** Plain -> Encryption -> Encoding | | Decoding -> Decryption -> Plain
@@ -103,6 +113,8 @@ unsigned char	*zt_rsa_encrypt(RSA *, const char *, int *);
 char		*zt_b64_encode(const unsigned char *, int);
 unsigned char	*zt_b64_decode(const char *);
 char		*zt_rsa_decrypt(RSA *, const unsigned char *, int);
+int		zt_rmt_encrypt(RSA *, const char *, char **);
+int		zt_rmt_decrypt(RSA *, const char *, char **);
 
 G_END_DECLS
 

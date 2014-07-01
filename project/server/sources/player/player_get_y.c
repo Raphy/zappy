@@ -8,10 +8,13 @@
 ** Last update Mon Jun 30 17:02:59 2014 damien sauvalle
 */
 
+#include        <assert.h>
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 int	player_get_y(t_player *player)
 {
+  assert(player != NULL);
   return (player->y);
 }

@@ -8,11 +8,14 @@
 ** Last update Sun Jun 29 18:23:54 2014 damien sauvalle
 */
 
+#include        <stdlib.h>
+#include        "assert.h"
 #include	"my.h"
 #include	"inventory.h"
 
 int	inventory_ctor(t_inventory *inventory)
 {
+  assert(inventory != NULL);
   if (inventory == NULL)
     return (RET_FAILURE);
   inventory->linemate = 0;

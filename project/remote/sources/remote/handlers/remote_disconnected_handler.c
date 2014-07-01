@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Sun Jun 29 20:11:46 2014 raphael defreitas
+** Last update Tue Jul  1 19:50:36 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -15,5 +15,5 @@
 void		remote_disconnected_handler(__attribute__((unused))t_zc *zc,
 					    __attribute__((unused))void *data)
 {
-  printf("Disconnected from server!\n");
+  printf("\nDisconnected from server!\n");
 }

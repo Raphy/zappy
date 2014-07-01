@@ -5,13 +5,15 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Sun Jun 29 20:06:01 2014 raphael defreitas
+** Last update Tue Jul  1 19:50:03 2014 raphael defreitas
 */
 
+#include	"remote.h"
 #include	"zappy.h"
 
 void		remote_cmd_welcome_handler(t_zc *zc,
 					   __attribute__((unused))void *data)
 {
-  zc_send_remote(zc);
+  zc_send_rmt(zc);
+  zc_hook_rmt_pubkey(zc, &remote_rmt_pubkey_handler, data);
 }

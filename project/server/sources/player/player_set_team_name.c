@@ -8,12 +8,16 @@
 ** Last update Mon Jun 30 17:19:05 2014 damien sauvalle
 */
 
+#include        <assert.h>
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 int		player_set_team_name(t_player *player, char *name)
 {
-  /*  player->team_name = name; REally ?
-*/
- return (RET_SUCCESS)
+    (void) player;
+    (void) name;
+    /*  player->team_name = name; REally ? */
+    /* Wow effectivement... damien ?*/
+    return (RET_SUCCESS);
 }

@@ -5,15 +5,18 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Sun Jun 29 20:11:24 2014 raphael defreitas
+** Last update Tue Jul  1 04:51:36 2014 raphael defreitas
 */
 
 #include	<stdio.h>
 
+#include	"remote.h"
 #include	"zappy.h"
 
-void		remote_connected_handler(__attribute__((unused))t_zc *zc,
-					 __attribute__((unused))void *data)
+void		remote_connected_handler(t_zc *zc,
+					 void *data)
 {
   printf("Connected to server!\n");
+  fflush(stdout);
+  zc_hook_cmd_welcome(zc, &remote_cmd_welcome_handler, data);
 }

@@ -10,6 +10,7 @@
 
 #include	<stdio.h>
 
+#include        "handlers.h"
 #include	"zappy.h"
 
 void		client_connected_handler(t_zs *zs, t_zc *zc,

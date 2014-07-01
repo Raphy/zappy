@@ -8,9 +8,12 @@
 ** Last update Sun Jun 29 18:59:09 2014 damien sauvalle
 */
 
+#include        <stdlib.h>
+#include        "assert.h"
 #include	"inventory.h"
 
 unsigned int	inventory_get_thystane(t_inventory *inventory)
 {
+  assert(inventory != NULL);
   return (inventory->thystane);
 }

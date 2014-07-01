@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Mon Jun 30 17:13:41 2014 raphael defreitas
+** Last update Tue Jul  1 17:56:48 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -27,7 +27,7 @@
 
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
 
-typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc*zc, void *data);
+typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc *zc, void *data);
 
 /*
 ** When an error occurs.
@@ -88,9 +88,14 @@ void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_cmd_team_name h,
 void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
 
 /*
-** When a client sends "REMOTE\n"
+** When a client sends "RMT\n"
 */
-void		zs_hook_cmd_remote(t_zc *zc, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
+
+/*
+** When the remote sends stop
+*/
+void		zs_hook_rmt_stop(t_zc *zc, t_zsh_client_basic, void *d);
 
 /*
 ** +--------+
@@ -153,5 +158,10 @@ void		zc_hook_cmd_unknown(t_zc *this, t_zch_str_basic h, void *d);
 ** When the server sends "BIENVENUE\n".
 */
 void		zc_hook_cmd_welcome(t_zc *this, t_zch_basic h, void *d);
+
+/*
+** When the server sends "RMT PUBKEY <pubkey>\n".
+*/
+void		zc_hook_rmt_pubkey(t_zc *this, t_zch_str_basic h, void *d);
 
 #endif /* !ZAPPY_HOOKS_H_*/

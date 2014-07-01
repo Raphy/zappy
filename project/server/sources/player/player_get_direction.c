@@ -8,10 +8,13 @@
 ** Last update Mon Jun 30 16:58:58 2014 damien sauvalle
 */
 
+#include        <assert.h>
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 t_direction	player_get_direction(t_player *player)
 {
+  assert(player != NULL);
   return (player->direction);
 }

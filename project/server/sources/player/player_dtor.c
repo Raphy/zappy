@@ -8,10 +8,11 @@
 ** Last update Mon Jun 30 16:54:06 2014 damien sauvalle
 */
 
+#include        "player.h"
 #include	"zappy.h"
 #include	"my.h"
 
 void		player_dtor(t_player *player)
 {
-
+  (void) player;
 }
