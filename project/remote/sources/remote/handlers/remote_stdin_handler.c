@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Tue Jul  1 04:50:27 2014 raphael defreitas
+** Last update Tue Jul  1 05:02:34 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -20,7 +20,9 @@ void		remote_stdin_handler(t_zc *zc,
 				     __attribute__((unused))void *data)
 {
   char		*b64_encoded;
-  char		*b64_decoded;
+  /*char		*b64_decoded;*/
+  unsigned char	*encrypted;
+  int		encrypted_len;
 
   if (strcmp(str, "exit") == 0)
     {
@@ -28,9 +30,11 @@ void		remote_stdin_handler(t_zc *zc,
       zc_disconnect(zc);
       return ;
     }
-  b64_encoded = zt_b64_encode((unsigned char *)str, strlen(str));
-  b64_decoded = zt_b64_decode(b64_encoded);
-  printf("STDIN: [%s] [%s] [%s]\n", str, b64_encoded, b64_decoded);
+  encrypted = zt_rsa_encrypt(zc->pubkey, str, &encrypted_len);
+  b64_encoded = zt_b64_encode((unsigned char *)str, encrypted_len);
+  /*b64_decoded = zt_b64_decode(b64_encoded);*/
+  printf("STDIN: [%s] [%s]\n", str, b64_encoded);
   free(b64_encoded);
-  free(b64_decoded);
+  free(encrypted);
+  /*free(b64_decoded);*/
 }
