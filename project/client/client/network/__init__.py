@@ -54,7 +54,7 @@ class Network:
         self._clib.bind_funct('zc_new', [], c_void_p)
         self._clib.bind_funct('zc_delete', [c_void_p])
         self._clib.bind_funct('zc_main', [c_void_p])
-        self._clib.bind_funct('zc_connect', [c_void_p, c_char_p, c_int], c_int)
+        self._clib.bind_funct('zc_connect',  [c_void_p, c_char_p, c_int], c_int)
         self._clib.bind_funct('zc_disconnect', [c_void_p])
         self._clib.bind_funct('zc_disable_timeout', [c_void_p])
         self._clib.bind_funct('zc_set_timeout', [c_void_p, c_long, c_long])
