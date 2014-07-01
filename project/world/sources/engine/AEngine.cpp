@@ -12,8 +12,12 @@
 
 AEngine::AEngine()
 {
-    _device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(640, 480),
-	    16, false, false, false, 0);
+    irr::SIrrlichtCreationParameters params;
+    params.DriverType=video::EDT_OPENGL;
+    params.WindowSize=core::dimension2d<u32>(640, 480);
+    _device = createDeviceEx(params);
+    //    _device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(640, 480),
+    //	    16, false, false, false, 0);
     if (!_device)
 	throw std::string("Can't create Irrlicht Device.");
     _driver = _device->getVideoDriver();
@@ -29,8 +33,9 @@ AEngine::~AEngine()
 
 bool AEngine::init()
 {
-    Ressources* ressources = Ressources::getInstance(_fs, "./world/assets/irrlicht");
+    Ressources* ressources = Ressources::getInstance(_smgr, "./world/assets/irrlicht");
     (Binder::getInstance())->createMapViewer(_env, _smgr);
+    _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
     return true;
 }
 bool AEngine::update()
