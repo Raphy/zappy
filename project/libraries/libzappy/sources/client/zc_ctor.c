@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:49:43 2014 raphael defreitas
-** Last update Mon Jun 30 17:36:23 2014 raphael defreitas
+** Last update Tue Jul  1 04:42:39 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -27,6 +27,7 @@ static void	default_values(t_zc *this)
   this->has_to_stop = false;
   this->cmd_fptrs = NULL;
   this->stdin = NULL;
+  this->pubkey = NULL;
 }
 
 int		zc_ctor(t_zc *this)

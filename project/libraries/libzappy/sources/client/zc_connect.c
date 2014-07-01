@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:13:58 2014 raphael defreitas
-** Last update Mon Jun 30 17:35:18 2014 raphael defreitas
+** Last update Tue Jul  1 01:55:11 2014 raphael defreitas
 */
 
 #include	<netdb.h>
@@ -14,13 +14,6 @@
 #include	"list.h"
 #include	"zappy.h"
 #include	"_zappy.h"
-
-static int	init_cmd_fptrs(t_list *cmd_fptrs)
-{
-  if (list_enqueue(cmd_fptrs, (void *)&zc_cmd_welcome) == RET_FAILURE)
-    return (RET_FAILURE);
-  return (RET_SUCCESS);
-}
 
 int		zc_connect(t_zc *this, const char *host, int port)
 {
@@ -38,7 +31,7 @@ int		zc_connect(t_zc *this, const char *host, int port)
   if (socket_connect(this->socket, address, port) == RET_FAILURE)
     return (RET_FAILURE);
   if ((this->cmd_fptrs = list_new(NULL)) == NULL ||
-      init_cmd_fptrs(this->cmd_fptrs) == RET_FAILURE ||
+      zc_ctor_cmd_fptrs(this) == RET_FAILURE ||
       (this->stdin = list_new(&free)) == NULL)
     return (RET_FAILURE);
   return (RET_SUCCESS);

@@ -5,16 +5,32 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Mon Jun 30 17:20:18 2014 raphael defreitas
+** Last update Tue Jul  1 04:50:27 2014 raphael defreitas
 */
 
 #include	<stdio.h>
+#include	<string.h>
+#include	<stdlib.h>
 
 #include	"zappy.h"
+#include	"_zappy.h"
 
 void		remote_stdin_handler(t_zc *zc,
 				     const char *str,
 				     __attribute__((unused))void *data)
 {
-  printf("STDIN: [%s]\n", str);
+  char		*b64_encoded;
+  char		*b64_decoded;
+
+  if (strcmp(str, "exit") == 0)
+    {
+      zc_hook_callback(zc, NULL, data);
+      zc_disconnect(zc);
+      return ;
+    }
+  b64_encoded = zt_b64_encode((unsigned char *)str, strlen(str));
+  b64_decoded = zt_b64_decode(b64_encoded);
+  printf("STDIN: [%s] [%s] [%s]\n", str, b64_encoded, b64_decoded);
+  free(b64_encoded);
+  free(b64_decoded);
 }

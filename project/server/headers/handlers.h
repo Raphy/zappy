@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:39:18 2014 raphael defreitas
-** Last update Sun Jun 29 18:56:32 2014 raphael defreitas
+** Last update Tue Jul  1 01:16:12 2014 raphael defreitas
 */
 
 #ifndef		HANDLERS_H_
@@ -30,6 +30,6 @@ void		set_client_handlers(t_zc *, void *);
 void		cmd_unknown_handler(t_zs *, t_zc *, const char *, void *);
 void		cmd_team_name_handler(t_zs *, t_zc *, const char *, void *);
 void		cmd_graphic_handler(t_zs *, t_zc *, void *);
-void		cmd_remote_handler(t_zs *, t_zc *, void *);
+void		cmd_rmt_handler(t_zs *, t_zc *, void *);
 
 #endif /* !HANDLERS_H_*/
