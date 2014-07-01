@@ -13,6 +13,14 @@
 
 # include	"list.h"
 
+typedef void (*function)(void);
+
+typedef struct
+{
+  char          index;
+  function      function;
+}               t_parser_map;
+
 typedef struct
 {
   int		port;

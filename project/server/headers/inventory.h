@@ -25,15 +25,21 @@ typedef enum
 # define	SIZE_INVENTORY 7
 */
 
+/*
+** unsigned char optimisation
+** structure size less than a pointer
+** 7 Vs 8
+*/
+
 typedef struct	s_inventory
 {
-  unsigned int	linemate;
-  unsigned int	deraumere;
-  unsigned int	sibur;
-  unsigned int	mendiane;
-  unsigned int	phiras;
-  unsigned int	thystane;
-  unsigned int	food;
+  unsigned char	linemate;
+  unsigned char	deraumere;
+  unsigned char	sibur;
+  unsigned char	mendiane;
+  unsigned char	phiras;
+  unsigned char	thystane;
+  unsigned char	food;
 }		t_inventory;
 
 /*

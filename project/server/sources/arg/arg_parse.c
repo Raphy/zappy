@@ -23,12 +23,32 @@ static int	usage(char *progname)
   return (RET_FAILURE);
 }
 
+void            test(void) 
+{
+  
+}
+
+static void     fill_map(t_parser_map *map)
+{
+  int           i;
+  
+  i = 0;
+  map[i++] = (t_parser_map){'p', &test};
+  map[i++] = (t_parser_map){'x', &test};
+  map[i++] = (t_parser_map){'y', &test};
+  map[i++] = (t_parser_map){'n', &test};
+  map[i++] = (t_parser_map){'c', &test};
+  map[i++] = (t_parser_map){'t', &test};
+}
+
 static int	process(t_arg *arg, int ac, char **av)
 {
+  t_parser_map  map[6];
   int		opt;
   int		ret;
 
   ret = 0;
+  fill_map(map);
   while ((opt = getopt(ac, av, "p:x:y:n:c:t:")) != -1)
     {
       if (opt == 'p')
