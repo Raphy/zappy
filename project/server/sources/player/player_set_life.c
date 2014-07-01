@@ -17,6 +17,6 @@
 int	player_set_life(t_player *player)
 {
   assert(player != NULL);
-  player->life = inventory_get_food(&player->inventory); /* 126; add 1/t */
+  player->life = 126;
   return (RET_SUCCESS);
 }
