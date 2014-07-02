@@ -5,9 +5,10 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 16:36:04 2014 raphael defreitas
+** Last update Wed Jul  2 16:40:07 2014 raphael defreitas
 */
 
+#include	<openssl/err.h>
 #include	<stdbool.h>
 #include	<stdio.h>
 #include	<stdlib.h>
@@ -43,6 +44,11 @@ static int	load_public_key(t_zs *this, const char *public_key_filename)
   if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
     {
       printf("zt_rsa_new failed\n");
+      char * err = malloc(130);;
+      ERR_load_crypto_strings();
+      ERR_error_string(ERR_get_error(), err);
+      printf("OPENSSL ERROR: %s\n", err);
+      free(err);
       free(this->pubkey);
       this->pubkey = NULL;
       return (RET_FAILURE);
