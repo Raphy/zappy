@@ -33,8 +33,8 @@ protected:
     
     Binder*		    _binder;
     Ressources*		    _ressources;
-    IObject*		    _parent;
     scene::ISceneManager*   _smgr;    
+    IObject*		    _parent;
     scene::ISceneNode*	    _node;  
 };
 

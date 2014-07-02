@@ -10,7 +10,7 @@
 #include "Ressources.hh"
 
 AObject::AObject(scene::ISceneManager* smgr, IObject* parent)
-: _smgr(smgr), _parent(parent), _node(nullptr), _binder(Binder::getInstance()), _ressources(Ressources::getInstance())
+: _binder(Binder::getInstance()), _ressources(Ressources::getInstance()), _smgr(smgr), _parent(parent), _node(nullptr)
 {
 }
 
