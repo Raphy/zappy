@@ -13,12 +13,21 @@ class DroneId:
     existing player.
     """
 
-    def __init__(self, s=None):
+    """ Multiple constructors """
+    @classmethod
+    def from_str(cls, s):
+        instance = cls()
+        instance.__build_from_str(s)
+        return instance
 
-        if type(s) == str:
-            self.__build_from_str(s)
-        else:
-            self.__build_from_machine()
+    @classmethod
+    def from_machine(cls):
+        instance = cls()
+        instance.__build_from_machine()
+        return instance
+
+    def __init__(self):
+        self._hash = None
 
     def __str__(self):
         return self._hash
