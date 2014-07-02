@@ -4,16 +4,46 @@ echo "Updating the pre-push hook..."
 cp ./tools/pre-push ./.git/hooks/
 
 echo "Changing to .« /project » directory..."
-cd ./project/
+cd ./project
 
 echo "Cleaning the project..."
 make fclean > /dev/null
 find -name "*~" -delete
 find -name "*.o" -delete
 
-echo "Compiling..."
-make zappy > /dev/null
+compile_directory() {
+    cd $1
+    make fclean > /dev/null
+    make -j4 -s
+    if [ $? -ne 0 ]
+    then
+	exit $?
+    fi
+    cd - > /dev/null
+}
 
 make norm
 
-exit $?
+echo "Compiling libraries..."
+echo "Compiling « libmy »..."
+compile_directory ./libraries/libmy
+
+echo "Compiling « liblist »..."
+compile_directory ./libraries/liblist
+
+echo "Compiling « libsocket »..."
+compile_directory ./libraries/libsocket
+
+echo "Compiling « libzappy »..."
+compile_directory ./libraries/libzappy
+
+echo "Compiling  « server »..."
+compile_directory ./server
+
+echo "Compiling  « remote »..."
+compile_directory ./remote
+
+echo "Compiling  « world »..."
+compile_directory ./world
+
+exit 0
