@@ -30,6 +30,7 @@
 MapObject::MapObject(scene::ISceneManager* smgr, IObject* parent)
 : AAnimatedMeshObject(smgr, parent)
 {
+    _persos.push_back(_binder->createPersoObject(smgr, this));
 }
 
 MapObject::MapObject(const MapObject& orig)
@@ -43,9 +44,44 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    if (_parent)
-        _node = (Ressources::getInstance())->getMapNode(_smgr, _parent->getNode());
-    else
-        _node = (Ressources::getInstance())->getMapNode(_smgr, _smgr->getRootSceneNode());
+    std::string const& heightmap = _ressources->getFileName(FOOD, HEIGHT_MAP);//FOOD pour test
+    
+//    std::string const& texture = _ressources->getMapTextureFile();
+    _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
+	    core::vector3df(0.f, 0.f, 0.f),		// position
+		core::vector3df(0.f, 0.f, 0.f),		// rotation
+		core::vector3df(40.f, 4.4f, 40.f),	// scale
+		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+		5,					// maxLOD
+		scene::ETPS_17,				// patchSize
+		4					// smoothFactor
+	    );
+//    _node->setScale(core::vector3df(20.0f, 2.0f, 20.0f));
+////    _node->setMaterialTexture(video::MATERIAL_MAX_TEXTURES - 1, _ressources->getMapTexture());
+//	_node->setMaterialFlag(video::EMF_LIGHTING, false);
+//	_node->setMaterialTexture(0, _ressources->getMapTexture());
+//	_node->setMaterialTexture(1, _ressources->getMapTexture());
+//	_node->setMaterialType(video::EMT_DETAIL_MAP);
+//	(static_cast<scene::ITerrainSceneNode*>(_node))->scaleTexture(1.0f, 20.0f);
+//
+////	scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode(
+////		"../media/terrain-heightmap.bmp",
+////		0,					// parent node
+////		-1,					// node id
+////		core::vector3df(0.f, 0.f, 0.f),		// position
+////		core::vector3df(0.f, 0.f, 0.f),		// rotation
+////		core::vector3df(40.f, 4.4f, 40.f),	// scale
+////		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+////		5,					// maxLOD
+////		scene::ETPS_17,				// patchSize
+////		4					// smoothFactor
+////		);
+//
+//
+//	//	terrain->setMaterialTexture(0, _driver->getTexture("../media/terrain-texture.jpg"));
+////	terrain->setMaterialTexture(1, _driver->getTexture("../media/detailmap3.jpg"));
+	
+
+	return true;
 }
 

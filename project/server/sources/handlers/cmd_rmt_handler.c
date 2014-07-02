@@ -5,24 +5,27 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Tue Jul  1 03:50:50 2014 raphael defreitas
+** Last update Wed Jul  2 02:20:32 2014 raphael defreitas
 */
 
 #include	<stdio.h>
 #include	<stdlib.h>
 
+#include	"handlers.h"
 #include	"zappy.h"
 
 void		cmd_rmt_handler(t_zs *zs,
 				t_zc *zc,
-				__attribute__((unused))void *data)
+				void *data)
 {
   printf("[%d] is remote\n", zc->socket->fd);
-  if (zs->public_key == NULL || zs->private_key == NULL)
+  if (zs->key_encrypt == NULL || zs->key_decrypt == NULL)
     {
       printf("No RSA key pairing found!\n");
       zc_disconnect(zc);
+      return ;
     }
-  else
-    zs_send_rmt_pubkey(zs, zc);
+  zc_set_type(zc, ZCT_RMT);
+  zs_send_rmt_pubkey(zs, zc);
+  zs_hook_rmt_stop(zc, &rmt_stop_handler, data);
 }

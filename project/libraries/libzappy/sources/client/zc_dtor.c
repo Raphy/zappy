@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:50:11 2014 raphael defreitas
-** Last update Tue Jul  1 04:42:57 2014 raphael defreitas
+** Last update Wed Jul  2 02:09:11 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -25,5 +25,6 @@ void		zc_dtor(t_zc *this)
   list_delete(this->cmd_fptrs);
   list_delete(this->commands);
   list_delete(this->stdin);
-  zt_rsa_delete(this->pubkey);
+  zt_rsa_delete(this->key_encrypt);
+  zt_rsa_delete(this->key_decrypt);
 }

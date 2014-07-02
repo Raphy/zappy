@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Tue Jul  1 03:04:21 2014 raphael defreitas
+** Last update Wed Jul  2 04:02:11 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -38,12 +38,12 @@ static char	*get_file_contents(const char *filename)
 
 static int	load_public_key(t_zs *this, const char *public_key_filename)
 {
-  if ((this->public_key_str = get_file_contents(public_key_filename)) == NULL)
+  if ((this->pubkey = get_file_contents(public_key_filename)) == NULL)
     return (RET_FAILURE);
-  if ((this->public_key = zt_rsa_new(this->public_key_str, true)) == NULL)
+  if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
     {
-      free(this->public_key_str);
-      this->public_key_str = NULL;
+      free(this->pubkey);
+      this->pubkey = NULL;
       return (RET_FAILURE);
     }
   return (RET_SUCCESS);
@@ -55,7 +55,7 @@ static int	load_private_key(t_zs *this, const char *private_key_filename)
 
   if ((private_key_str = get_file_contents(private_key_filename)) == NULL)
     return (RET_FAILURE);
-  if ((this->private_key = zt_rsa_new(private_key_str, false)) == NULL)
+  if ((this->key_decrypt = zt_rsa_new(private_key_str, false)) == NULL)
     {
       free(private_key_str);
       return (RET_FAILURE);
@@ -72,7 +72,7 @@ int		zs_set_rsa_keys(t_zs *this, const char *pub_key_filename,
   if (load_public_key(this, pub_key_filename) == RET_FAILURE ||
       load_private_key(this, priv_key_filename) == RET_FAILURE)
     return (RET_FAILURE);
-  if (zt_linearize_pubkey(&this->public_key_str) == RET_FAILURE)
+  if ((this->pubkey = zt_linearize_pubkey(this->pubkey)) == NULL)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

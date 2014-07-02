@@ -11,10 +11,15 @@
 #ifndef MAP_H_
 # define MAP_H_
 
-# include	"stock.h"
-# include	"player.h"
+# include "inventory.h"
+# include "list.h"
 
 
+typedef struct
+{
+  t_inventory   **map;
+  t_list        **players;
+}         t_map;
 
 
 

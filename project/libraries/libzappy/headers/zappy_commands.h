@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Tue Jul  1 03:45:02 2014 raphael defreitas
+** Last update Wed Jul  2 04:06:54 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -48,7 +48,13 @@ void		zs_send_rmt_pubkey(t_zs *this, t_zc *zc);
 ** team_name	The team name to send.
 */
 void		zc_send_team_name(t_zc *this, const char *team_name);
+
 void		zc_send_graphic(t_zc *this);
+
 void		zc_send_rmt(t_zc *this);
+
+void		zc_send_rmt_stop(t_zc *this);
+
+void		zc_send_rmt_teams(t_zc *this);
 
 #endif /* !ZAPPY_COMMANDS_H_*/

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Sun Jun 29 18:38:50 2014 raphael defreitas
-** Last update Tue Jul  1 04:48:16 2014 raphael defreitas
+** Last update Wed Jul  2 04:11:05 2014 raphael defreitas
 */
 
 #ifndef		REMOTE_H_
@@ -26,6 +26,7 @@ void		remote_set_handlers(t_remote *this);
 void		remote_errno_handler(t_zc *, int , const char *, void *);
 void		remote_connected_handler(t_zc *, void *);
 void		remote_disconnected_handler(t_zc *, void *);
+void		remote_timeout_handler(t_zc *, void *);
 void		remote_callback_handler(t_zc *, t_zht, void *);
 void		remote_stdin_handler(t_zc *, const char *, void *);
 void		remote_cmd_welcome_handler(t_zc *, void *);

@@ -1,7 +1,19 @@
 #!/bin/sh
 
+echo "Updating the pre-push hook..."
+cp ./tools/pre-push ./.git/hooks/
+
+echo "Changing to .« /project » directory..."
 cd ./project/
-make fclean
-make zappy
+
+echo "Cleaning the project..."
+make fclean > /dev/null
+find -name "*~" -delete
+find -name "*.o" -delete
+
+echo "Compiling..."
+make zappy > /dev/null
+
+make norm
 
 exit $?

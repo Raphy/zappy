@@ -23,6 +23,7 @@ public:
     virtual scene::ISceneManager*   getSceneManager() const = 0;
     virtual scene::ISceneNode*	    getNode() const = 0;
     virtual IObject*		    getParent() const = 0;
+    virtual scene::ISceneNode*	    getParentNode() const = 0;
 };
 
 #endif	/* IOBJECT_HH */

@@ -8,7 +8,7 @@ The server must be robust and never quit as most as possible.
 # The group
 To develop this project we make the following student group.
 
-## Marie Lefebvre (lfebrv_z)
+## Marie Lefebvre (lefebv_z)
 She has developed the « world » part.
 She has used Irrlicht as 3D engine in C++.
 

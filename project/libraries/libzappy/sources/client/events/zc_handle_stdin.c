@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Mon Jun 30 17:15:35 2014 raphael defreitas
+** Last update Tue Jul  1 16:42:36 2014 raphael defreitas
 */
 
 #include	"zappy.h"
@@ -18,5 +18,4 @@ void		zc_handle_stdin(t_zc *this, const char *str)
   zh = this->hooks[ZHT_STDIN];
   if (zh.handler)
     zh.handler(this, str, zh.data);
-  zc_handle_callback(this, ZHT_STDIN);
 }
