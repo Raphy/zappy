@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 04:02:11 2014 raphael defreitas
+** Last update Wed Jul  2 16:05:15 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -69,10 +69,20 @@ int		zs_set_rsa_keys(t_zs *this, const char *pub_key_filename,
 {
   if (this == NULL || pub_key_filename == NULL || priv_key_filename == NULL)
     return (RET_FAILURE);
-  if (load_public_key(this, pub_key_filename) == RET_FAILURE ||
-      load_private_key(this, priv_key_filename) == RET_FAILURE)
-    return (RET_FAILURE);
+  if (load_public_key(this, pub_key_filename) == RET_FAILURE)
+    {
+      printf("Public key loading failed!\n");
+      return (RET_FAILURE);
+    }
+  if (load_private_key(this, priv_key_filename) == RET_FAILURE)
+    {
+      printf("Private key loading failed!\n");
+      return (RET_FAILURE);
+    }
   if ((this->pubkey = zt_linearize_pubkey(this->pubkey)) == NULL)
-    return (RET_FAILURE);
+    {
+      printf("Public key linearization failed\n");
+      return (RET_FAILURE);
+    }
   return (RET_SUCCESS);
 }
