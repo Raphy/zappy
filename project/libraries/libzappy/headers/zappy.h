@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Tue Jul  1 19:43:23 2014 raphael defreitas
+** Last update Wed Jul  2 02:21:27 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -109,9 +109,9 @@ struct		s_zs
   bool		has_to_stop;
   t_list	*team_names;
   t_list	*cmd_fptrs;
-  char		*public_key_str;
-  RSA		*public_key;
-  RSA		*private_key;
+  char		*pubkey;
+  RSA		*key_encrypt;
+  RSA		*key_decrypt;
 };
 
 /*
@@ -165,7 +165,8 @@ struct		s_zc
   bool		has_to_stop;
   t_list	*cmd_fptrs;
   t_list	*stdin;
-  RSA		*pubkey;
+  char		*pubkey;
+  RSA		*key_encrypt;
 
   /*
   ** Server only
@@ -173,6 +174,7 @@ struct		s_zc
   t_zct		type;
   bool		has_to_disconnect;
   t_list	*commands;
+  
 
   /*
   ** Common
@@ -180,6 +182,7 @@ struct		s_zc
   t_socket	*socket;
   t_list	*pckts_rcvd;
   t_list	*pckts_to_snd;
+  RSA		*key_decrypt;
 };
 
 /*

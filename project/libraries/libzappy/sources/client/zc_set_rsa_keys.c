@@ -1,11 +1,11 @@
 /*
-** zs_set_rsa_keys.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources/server
+** zc_set_rsa_keys.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources/server
 ** 
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 02:12:28 2014 raphael defreitas
+** Last update Wed Jul  2 02:09:58 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -36,20 +36,14 @@ static char	*get_file_contents(const char *filename)
   return (contents);
 }
 
-static int	load_public_key(t_zs *this, const char *public_key_filename)
+static int	load_public_key(t_zc *this, const char *public_key_filename)
 {
   if ((this->pubkey = get_file_contents(public_key_filename)) == NULL)
     return (RET_FAILURE);
-  if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
-    {
-      free(this->pubkey);
-      this->pubkey = NULL;
-      return (RET_FAILURE);
-    }
   return (RET_SUCCESS);
 }
 
-static int	load_private_key(t_zs *this, const char *private_key_filename)
+static int	load_private_key(t_zc *this, const char *private_key_filename)
 {
   char		*private_key_str;
 
@@ -64,7 +58,7 @@ static int	load_private_key(t_zs *this, const char *private_key_filename)
   return (RET_SUCCESS);
 }
 
-int		zs_set_rsa_keys(t_zs *this, const char *pub_key_filename,
+int		zc_set_rsa_keys(t_zc *this, const char *pub_key_filename,
 				const char *priv_key_filename)
 {
   if (this == NULL || pub_key_filename == NULL || priv_key_filename == NULL)

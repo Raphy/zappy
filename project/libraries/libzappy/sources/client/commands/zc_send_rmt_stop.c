@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 16:32:11 2014 raphael defreitas
-** Last update Tue Jul  1 19:21:31 2014 raphael defreitas
+** Last update Wed Jul  2 02:05:40 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -19,7 +19,7 @@ void		zc_send_rmt_stop(t_zc *this)
 
   if (this == NULL)
     return ;
-  if (zt_rmt_encrypt(this->pubkey, "stop", &tmp) == RET_FAILURE ||
+  if (zt_rmt_encrypt(this->key_encrypt, "stop", &tmp) == RET_FAILURE ||
       tmp == NULL)
     {
       zc_handle_errno(this, "encryption failed");
@@ -28,4 +28,5 @@ void		zc_send_rmt_stop(t_zc *this)
   zc_send(this, "RMT CMD ");
   zc_send(this, tmp);
   zc_send(this, "\n");
+  free(tmp);
 }

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 05:53:47 2014 raphael defreitas
-** Last update Tue Jul  1 17:42:27 2014 raphael defreitas
+** Last update Wed Jul  2 02:19:42 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -21,7 +21,7 @@ bool		zs_rmt_stop(t_zs *this, t_zc *zc, const char *cmd)
 
   cmdd = NULL;
   if (!my_match(cmd, "RMT CMD * *") ||
-      (zt_rmt_decrypt(this->private_key, cmd, &cmdd) == RET_SUCCESS &&
+      (zt_rmt_decrypt(this->key_decrypt, cmd, &cmdd) == RET_SUCCESS &&
        cmdd == NULL) || strcmp(cmdd, "stop") != 0)
     return (false);
   zs_handle_rmt_stop(this, zc);

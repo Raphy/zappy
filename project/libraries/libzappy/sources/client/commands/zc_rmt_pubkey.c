@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Tue Jul  1 04:41:18 2014 raphael defreitas
+** Last update Wed Jul  2 02:07:31 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -82,7 +82,7 @@ bool		zc_rmt_pubkey(t_zc *this, const char *cmd)
   build = NULL;
   if ((pubkey = strdup((cmd + 11))) == NULL ||
       (build = build_pubkey(pubkey)) == NULL ||
-      (this->pubkey = zt_rsa_new(build, true)) == NULL)
+      (this->key_encrypt = zt_rsa_new(build, true)) == NULL)
     {
       free(pubkey);
       free(build);
