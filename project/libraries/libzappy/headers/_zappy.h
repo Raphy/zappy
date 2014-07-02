@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Tue Jul  1 17:31:25 2014 raphael defreitas
+** Last update Wed Jul  2 03:59:15 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -104,7 +104,8 @@ void		zc_handle_rmt_pubkey(t_zc *, const char *);
 */
 int		zt_build_command(t_list *, char **);
 int		zt_append_buffer(t_list *, const char *);
-int		zt_linearize_pubkey(char **);
+char		*zt_linearize_pubkey(const char *);
+char		*zt_unlinearize_pubkey(const char *);
 
 /*
 ** Plain -> Encryption -> Encoding | | Decoding -> Decryption -> Plain
