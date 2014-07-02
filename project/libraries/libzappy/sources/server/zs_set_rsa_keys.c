@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 16:05:15 2014 raphael defreitas
+** Last update Wed Jul  2 16:36:04 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -42,6 +42,7 @@ static int	load_public_key(t_zs *this, const char *public_key_filename)
     return (RET_FAILURE);
   if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
     {
+      printf("zt_rsa_new failed\n");
       free(this->pubkey);
       this->pubkey = NULL;
       return (RET_FAILURE);
