@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Tue Jul  1 17:56:48 2014 raphael defreitas
+** Last update Wed Jul  2 15:45:00 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -28,6 +28,8 @@
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
 
 typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc *zc, void *data);
+
+typedef	void	(t_zsh_str_basic)(t_zs *zs, t_zc *zc, const char *str, void *d);
 
 /*
 ** When an error occurs.
@@ -76,11 +78,7 @@ void		zs_hook_cmd_unknown(t_zc *zc, t_zsh_cmd_unknown h, void *d);
 ** zc		The client which have sent the command
 ** team_name	The team name sent
 */
-typedef	void	(*t_zsh_cmd_team_name)(t_zs *zs, t_zc *zc,
-				       const char *team_name,
-				       void *data);
-void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_cmd_team_name h,
-				      void *d);
+void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_str_basic h, void *d);
 
 /*
 ** When a client sends "GRAPHIC\n"
@@ -91,6 +89,11 @@ void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
 ** When a client sends "RMT\n"
 */
 void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
+
+/*
+** When the remote sends its public key
+*/
+void		zs_hook_rmt_pubkey(t_zc *zc, t_zsh_str_basic, void *d);
 
 /*
 ** When the remote sends stop

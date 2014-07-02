@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Wed Jul  2 03:59:15 2014 raphael defreitas
+** Last update Wed Jul  2 15:53:52 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -46,6 +46,7 @@ void		zs_dispatch_command(t_zs *, t_zc *, const char *);
 bool		zs_cmd_team_name(t_zs *, t_zc *, const char *);
 bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
 bool		zs_cmd_rmt(t_zs *, t_zc *, const char *);
+bool		zs_rmt_pubkey(t_zs *, t_zc *, const char *);
 bool		zs_rmt_stop(t_zs *, t_zc *, const char *);
 
 /*
@@ -61,6 +62,7 @@ void		zs_handle_cmd_unknown(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_graphic(t_zs *, t_zc *);
 void		zs_handle_cmd_rmt(t_zs *, t_zc *);
+void		zs_handle_rmt_pubkey(t_zs *, t_zc *, const char *);
 void		zs_handle_rmt_stop(t_zs *, t_zc *);
 
 /*
@@ -116,6 +118,7 @@ unsigned char	*zt_b64_decode(const char *);
 char		*zt_rsa_decrypt(RSA *, const unsigned char *, int);
 int		zt_rmt_encrypt(RSA *, const char *, char **);
 int		zt_rmt_decrypt(RSA *, const char *, char **);
+bool		zt_get_rmt_cmd(RSA *, const char *, char **, int *);
 
 G_END_DECLS
 
