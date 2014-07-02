@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Tue Jul  1 02:23:18 2014 raphael defreitas
+** Last update Wed Jul  2 14:04:49 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -52,6 +52,19 @@ if (zs_ctor(zs, arg->port, arg->team_names) == RET_FAILURE)
  return (RET_SUCCESS);
 }
 
+static int return_arg_fail(t_arg *arg)
+{
+  arg_dtor(arg);
+  return (EXIT_FAILURE);
+}
+
+static int return_zs_fail(t_zs *zs, t_arg *arg)
+{
+  arg_dtor(arg);
+  zs_dtor(zs);
+  return (EXIT_FAILURE);
+}
+
 int		main(int argc, char **argv)
 {
   t_zs		zs;
@@ -60,19 +73,14 @@ int		main(int argc, char **argv)
   kikoo_header();
   if (arg_ctor(&arg) == RET_ERROR ||
       arg_parse(&arg, argc, argv) == RET_FAILURE)
-    {
-      arg_dtor(&arg);
-      return (EXIT_FAILURE);
-    }
+    return (return_arg_fail(&arg));
   if (init_zappy(&zs, &arg) == RET_FAILURE)
-    {
-      arg_dtor(&arg);
-      zs_dtor(&zs);
-      return (EXIT_FAILURE);
-    }
+    return (return_zs_fail(&zs, &arg));
   arg_dump(&arg);
+
   set_server_handlers(&zs, NULL);
   zs_main(&zs);
+
   zs_dtor(&zs);
   arg_dtor(&arg);
   return (EXIT_SUCCESS);

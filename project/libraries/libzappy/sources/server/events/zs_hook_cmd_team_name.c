@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Sun Jun 29 18:49:46 2014 raphael defreitas
+** Last update Wed Jul  2 15:47:03 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -13,7 +13,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_cmd_team_name h, void *d)
+void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_str_basic h, void *d)
 {
   if (zc == NULL)
     return ;

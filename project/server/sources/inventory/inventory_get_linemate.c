@@ -12,7 +12,7 @@
 #include        "assert.h"
 #include	"inventory.h"
 
-unsigned int	inventory_get_linemate(t_inventory *inventory)
+unsigned char	inventory_get_linemate(t_inventory *inventory)
 {
   assert(inventory != NULL);
   return (inventory->linemate);

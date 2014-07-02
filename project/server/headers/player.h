@@ -11,7 +11,11 @@
 #ifndef		PLAYER_H_
 # define	PLAYER_H_
 
+typedef struct s_player t_player;
+
 # include	"inventory.h"
+# include       "bundle.h"
+# include       "event.h"
 
 typedef enum
   {
@@ -21,17 +25,17 @@ typedef enum
     DIRECTION_WEST
   }	t_direction;
 
-typedef struct	s_player
+struct	s_player
 {
   t_inventory	inventory;
   t_direction	direction;
-  int		x;
-  int		y;
+  unsigned int	x;
+  unsigned int	y;
   char		*team_name;
-  int		level; /* level and view range*/
+  char		level; /* level and view range*/
   unsigned int	life;
   /*  ? handler --> action ?*/
-}		t_player;
+};
 
 /*
 ** Player
@@ -71,5 +75,19 @@ int			player_get_level(t_player *);
 */
 int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
+
+void                    player_apply_action(t_player *, t_bundle *, t_event *);
+void                    player_action_goahead(t_player *, void *);
+void                    player_action_right(t_player *, void *);
+void                    player_action_left(t_player *, void *);
+void                    player_action_see(t_player *, void *);
+void                    player_action_inventory(t_player *, void *);
+void                    player_action_pick(t_player *, void *);
+void                    player_action_put(t_player *, void *);
+void                    player_action_expel(t_player *, void *);
+void                    player_action_broacast(t_player *, void *);
+void                    player_action_incantation(t_player *, void *);
+void                    player_action_fork(t_player *, void *);
+void                    player_action_slot_number(t_player *, void *);
 
 #endif /* !PLAYER_H_ */
