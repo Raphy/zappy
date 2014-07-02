@@ -11,7 +11,11 @@
 #ifndef		PLAYER_H_
 # define	PLAYER_H_
 
+typedef struct s_player t_player;
+
 # include	"inventory.h"
+# include       "bundle.h"
+# include       "event.h"
 
 typedef enum
   {
@@ -21,7 +25,7 @@ typedef enum
     DIRECTION_WEST
   }	t_direction;
 
-typedef struct	s_player
+struct	s_player
 {
   t_inventory	inventory;
   t_direction	direction;
@@ -31,7 +35,7 @@ typedef struct	s_player
   char		level; /* level and view range*/
   unsigned int	life;
   /*  ? handler --> action ?*/
-}		t_player;
+};
 
 /*
 ** Player
@@ -71,5 +75,8 @@ int			player_get_level(t_player *);
 */
 int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
+
+void                    player_apply_action(t_player *, t_bundle *, t_event *);
+void                    player_action_goahead(t_player *, void *);
 
 #endif /* !PLAYER_H_ */

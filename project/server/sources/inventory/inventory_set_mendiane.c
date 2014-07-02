@@ -12,7 +12,7 @@
 #include        "assert.h"
 #include	"inventory.h"
 
-void	inventory_set_mendiane(t_inventory *inventory, unsigned int val)
+void	inventory_set_mendiane(t_inventory *inventory, unsigned char val)
 {
   assert(inventory != NULL);
   inventory->mendiane = val;
