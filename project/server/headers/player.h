@@ -78,5 +78,16 @@ unsigned int		player_get_life(t_player *);
 
 void                    player_apply_action(t_player *, t_bundle *, t_event *);
 void                    player_action_goahead(t_player *, void *);
+void                    player_action_right(t_player *, void *);
+void                    player_action_left(t_player *, void *);
+void                    player_action_see(t_player *, void *);
+void                    player_action_inventory(t_player *, void *);
+void                    player_action_pick(t_player *, void *);
+void                    player_action_put(t_player *, void *);
+void                    player_action_expel(t_player *, void *);
+void                    player_action_broacast(t_player *, void *);
+void                    player_action_incantation(t_player *, void *);
+void                    player_action_fork(t_player *, void *);
+void                    player_action_slot_number(t_player *, void *);
 
 #endif /* !PLAYER_H_ */
