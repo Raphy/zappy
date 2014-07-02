@@ -13,6 +13,8 @@ AGameElement::AGameElement()
 
 AGameElement::AGameElement(const AGameElement& orig)
 {
+    (void)orig;
+    //TODO
 }
 
 AGameElement::~AGameElement()

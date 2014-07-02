@@ -5,6 +5,7 @@
  * Created on June 30, 2014, 4:10 PM
  */
 
+#include <iostream>
 #include "Ressources.hh"
 
 
@@ -16,20 +17,27 @@ Ressources*	Ressources::getInstance(scene::ISceneManager* smgr,
 }
 
 Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
-: _smgr(smgr), _fs(smgr->getFileSystem()), _driver(smgr->getVideoDriver()), _path(path)
-{
-    _dummyTextureFile = "wall.bmp";
-    _dummyMeshFile = "faerie2.bmp";
+: _smgr(smgr), _driver(smgr->getVideoDriver()), _fs(smgr->getFileSystem()), _path(path)
+{    
+    //TODO : utiliser un algo de la STL ?
+    for (int i = 0; i <= GAME_ELEMENT_TYPE_COUNT; i++)
+	for (int j = 0; j <= RESSOURCE_TYPE_COUNT; j++)
+	    for (int k = 0; k < LEVEL_MAX; k++)
+	    {
+		_filenames[i][j][k] = "";
+		_textures[i][j][k] = nullptr;
+		_meshs[i][j][k] = nullptr;
+	    }
     
-    _mapHeight = "terrain-heightmap.bmp";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0] = "wall.bmp";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "faerie.md2";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "terrain-heightmap.bmp";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "wall.bmp";
     
-    _mapTextureFile = _dummyTextureFile;//"terrain-texture.jpg";
-    
-    
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < LEVEL_MAX; i++)
     {
-	_persoTextureFile[i] = "faerie.md2";
-	_persoMeshFile[i] = _dummyMeshFile;
+	_filenames[PERSO][MESH][i] = "faerie.md2";
+	_filenames[PERSO][TEXTURE][i] = "faerie2.bmp";
     }
     
     load(path);
@@ -37,26 +45,67 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
 Ressources::~Ressources()
 {}
 
-void Ressources::load(std::string const& path)
+bool Ressources::load(std::string const& path)
 {
+    std::cout << "FILE ARCHIVE : " << path
+	    << " with working repertory = " << _fs->getWorkingDirectory().c_str() << std::endl;
     _fs->addFileArchive(path.c_str());
     
-    _mapHeightTexture = loadTexture(_mapHeight);
-//    _mapTexture = loadTexture(_mapHeight);
-//    loadTexture(getMapTextureFile());
+    for (int i = 0; i <= RESSOURCE_TYPE_COUNT; i++)
+    {
+	switch(i)
+	{
+	    case TEXTURE: case HEIGHT_MAP:
+		_textures[GAME_ELEMENT_TYPE_COUNT][i][0] = loadTexture(_filenames[GAME_ELEMENT_TYPE_COUNT][i][0]);
+		break;
+	    case MESH:
+		_meshs[GAME_ELEMENT_TYPE_COUNT][i][0] = loadMesh(_filenames[GAME_ELEMENT_TYPE_COUNT][i][0]);
+		break;
+	}
+	if (!_textures[GAME_ELEMENT_TYPE_COUNT][i][0] || !_meshs[GAME_ELEMENT_TYPE_COUNT][i][0])
+	    return false;
+    }
+    
+    //TODO : utiliser un algo de la STL ?
+    for (int i = 0; i < GAME_ELEMENT_TYPE_COUNT; i++)
+	for (int j = 0; j < RESSOURCE_TYPE_COUNT; j++)
+	    for (int k = 0; k < LEVEL_MAX; k++)
+	    {
+		switch(j)
+		{
+		    case TEXTURE: case HEIGHT_MAP:
+			_textures[i][j][k] = (!_filenames[i][j][k].empty()) ?
+			    (loadTexture(_filenames[i][j][k])) :
+			    (_textures[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0]);
+		    case MESH:
+			_meshs[i][j][k] = (!_filenames[i][j][k].empty()) ?
+			    (loadMesh(_filenames[i][j][k])) :
+			    (_meshs[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0]);
+			break;
+		}
+	    }
+    return true;
 }
-void Ressources::reload(std::string const& path)
+bool Ressources::reload(std::string const& path)
 {
+    (void)path;
     //TODO
+    return false;
 }
 
 video::ITexture* Ressources::loadTexture(const std::string& filename)
 {
-    return _smgr->getVideoDriver()->addTexture(core::dimension2du(32, 32), filename.c_str());
+    video::ITexture* tmp = _smgr->getVideoDriver()->addTexture(core::dimension2du(32, 32), filename.c_str());
+    if (!tmp)
+	std::cout << "NULL TEXTURE : " << filename << std::endl;
+    return tmp;
 }
 scene::IMesh* Ressources::loadMesh(const std::string& filename)
 {
-    return nullptr;
+    scene::IMesh* tmp = _smgr->getMesh(filename.c_str());
+    if (!tmp)
+	std::cout << "NULL MESH : " << filename << std::endl;
+    return tmp;
 }
 
 
@@ -64,53 +113,23 @@ scene::IMesh* Ressources::loadMesh(const std::string& filename)
 
 /* GETTERS */
 
-const std::string& Ressources::getFileName(GameElementType egType, RessourceType rType) const
+const std::string& Ressources::getFileName(GameElementType egType, RessourceType rType, int level) const
 {
-    return _mapHeight;
+    return _filenames[static_cast<int>(egType)][static_cast<int>(rType)][level];
 }
-scene::IMesh* Ressources::getMesh(GameElementType, RessourceType rType, int level) const
+scene::IMesh* Ressources::getMesh(GameElementType egType, RessourceType rType, int level) const
 {
-    return nullptr;
+    assert(rType == MESH);
+    scene::IMesh* tmp =  _meshs[static_cast<int>(egType)][static_cast<int>(rType)][level];
+    if (!tmp)
+	std::cout << "NULL MESH : " << std::endl;
+    return tmp;    
 }
-video::ITexture* Ressources::getTexture(GameElementType, RessourceType rType, int level) const
+video::ITexture* Ressources::getTexture(GameElementType egType, RessourceType rType, int level) const
 {
-    return nullptr;
+    assert(rType == TEXTURE || rType == HEIGHT_MAP);
+    video::ITexture* tmp = _textures[static_cast<int>(egType)][static_cast<int>(rType)][level];
+    if (!tmp)
+	std::cout << "NULL TEXTURE : " << std::endl;
+    return tmp;    
 }
-
-
-
-
-//scene::IMesh*  Ressources::getPersoMesh(int level) const
-//{
-//    return nullptr;
-//}
-//
-//std::string const&	Ressources::getMapHeightFile() const
-//{
-//    return _mapHeight;
-//}
-//
-//const std::string& Ressources::getMapTextureFile() const
-//{
-//    return _mapTextureFile;
-//}
-//const std::string& Ressources::getPersoTextureFile() const
-//{
-//    return _persoTextureFile[0];
-//}
-//
-//video::ITexture* Ressources::getMapTexture() const
-//{
-//    return _mapTexture;
-//}
-//video::ITexture* Ressources::getPersoTexture() const
-//{
-//    return _persoTexture[0];
-//}
-//
-//const std::string& Ressources::getPersoMeshFile() const
-//{
-//    return _persoMeshFile[0];
-//}
-
-

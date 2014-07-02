@@ -10,13 +10,16 @@
 #include "Ressources.hh"
 #include "Binder.hh"
 
+using namespace core;
+using namespace gui;
+
 AEngine::AEngine()
 {
     irr::SIrrlichtCreationParameters params;
     params.DriverType=video::EDT_OPENGL;
-    params.WindowSize=core::dimension2d<u32>(640, 480);
+    params.WindowSize=dimension2d<u32>(640, 480);
     _device = createDeviceEx(params);
-    //    _device = createDevice(video::EDT_OPENGL, core::dimension2d<u32>(640, 480),
+    //    _device = createDevice(video::EDT_OPENGL, dimension2d<u32>(640, 480),
     //	    16, false, false, false, 0);
     if (!_device)
 	throw std::string("Can't create Irrlicht Device.");
@@ -33,9 +36,23 @@ AEngine::~AEngine()
 
 bool AEngine::init()
 {
-    Ressources* ressources = Ressources::getInstance(_smgr, "./world/assets/irrlicht");
-    (Binder::getInstance())->createMapViewer(_env, _smgr);
+    Ressources::getInstance(_smgr, "./world/assets/irrlicht");
+
+    //ASSETS
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
+
+    //WINDOW
+    _device->setWindowCaption(L"Irrlicht Engine - User Interface Demo");
+    _device->setResizable(true);
+
+    // FONT
+//    IGUISkin* skin = _env->getSkin();
+//    IGUIFont* font = _env->getFont("../../media/fonthaettenschweiler.bmp");
+//    if (font)
+//	skin->setFont(font);
+//    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
+
+    _mapViewer = (Binder::getInstance())->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
     return true;
 }
 bool AEngine::update()

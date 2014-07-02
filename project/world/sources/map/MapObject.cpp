@@ -5,6 +5,7 @@
  * Created on June 30, 2014, 8:34 PM
  */
 
+#include <algorithm>
 #include "MapObject.hh"
 #include "Ressources.hh"
 //bool loadTheNode(IrrlichtDevice* device, IVideoDriver* driver, ISceneManager* smgr)
@@ -44,7 +45,11 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    std::string const& heightmap = _ressources->getFileName(FOOD, HEIGHT_MAP);//FOOD pour test
+    std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
+
+    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
+	perso->init();
+    });
     
 //    std::string const& texture = _ressources->getMapTextureFile();
     _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,

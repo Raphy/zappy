@@ -30,6 +30,11 @@ protected:
     scene::ISceneManager*   _smgr;
     gui::IGUIEnvironment*   _env;
     io::IFileSystem*	    _fs;
+
+//    SAppContext		    _context;
+    IEventReceiver*	    _eventReceiver;    
+
+    gui::IGUIElement*	    _mapViewer;
 };
 
 #endif	/* AENGINE_HH */

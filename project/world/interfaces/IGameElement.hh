@@ -19,7 +19,10 @@ enum	GameElementType
     SIBUR,
     MENDIANE,
     PHIRAS,
-    THYSTAME
+    THYSTAME,
+    PERSO,
+    MAP,
+    GAME_ELEMENT_TYPE_COUNT,
 };
 
 class	IGameElement : public IPosition, public ILevel

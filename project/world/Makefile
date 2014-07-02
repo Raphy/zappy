@@ -5,7 +5,7 @@
 ## Login   <marie@epitech.net>
 ## 
 ## Started on  Mon Jun 30 12:30:44 2014 lefebv_z
-## Last update Mon Jun 30 16:22:10 2014 raphael defreitas
+## Last update Wed Jul  2 11:01:56 2014 lefebv_z
 ##
 
 CXX		?=	clang++
@@ -17,7 +17,7 @@ SOURCES		=	$(shell find ./sources -name "*.cpp")
 OBJECTS		=	$(SOURCES:.cpp=.o)
 
 CXXFLAGS		=	-Wall -Wextra -ansi -pedantic -g
-CXXFLAGS		=	-std=c++11
+CXXFLAGS		+=	-std=c++11
 CXXFLAGS		+=	-I ./interfaces
 CXXFLAGS		+=	-I ./sources
 CXXFLAGS		+=	-I ./sources/engine
