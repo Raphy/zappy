@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Tue Jul  1 02:03:06 2014 raphael defreitas
+** Last update Wed Jul  2 02:12:58 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -36,9 +36,9 @@ static void	default_values(t_zs *this)
   zs_disable_timeout(this);
   this->has_to_stop = false;
   this->cmd_fptrs = NULL;
-  this->public_key_str = NULL;
-  this->public_key = NULL;
-  this->private_key = NULL;
+  this->pubkey = NULL;
+  this->key_encrypt = NULL;
+  this->key_decrypt = NULL;
 }
 
 int		zs_ctor(t_zs *this, int port, t_list *team_names)

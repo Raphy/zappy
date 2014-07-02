@@ -21,7 +21,16 @@ _smgr(smgr)
     _mapObject->init();
     //la map est l'object racine donc son parent est null
 //    smgr->addCameraSceneNode(0, vector3df(0,30,-400), vector3df(0,5,0));// TODO : deplacer dans CameraManager
-    smgr->addCameraSceneNodeFPS();
+    auto camera = smgr->addCameraSceneNodeFPS();
+
+    	camera->setPosition(core::vector3df(2700*2,255*2,2600*2));
+	camera->setTarget(core::vector3df(2397*2,343*2,2700*2));
+	camera->setFarValue(42000.0f);
+
+	//    smgr->addLightSceneNode();
+        scene::ILightSceneNode* light1 =
+	    smgr->addLightSceneNode(0, core::vector3df(0,0,0),
+	    video::SColorf(0.5f, 1.0f, 0.5f, 0.0f), 1200.0f);
 }
 
 MapViewer::MapViewer(const MapViewer& orig)

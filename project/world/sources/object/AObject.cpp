@@ -6,9 +6,11 @@
  */
 
 #include "AObject.hh"
+#include "Binder.hh"
+#include "Ressources.hh"
 
 AObject::AObject(scene::ISceneManager* smgr, IObject* parent)
-: _smgr(smgr), _parent(parent), _node(nullptr)
+: _smgr(smgr), _parent(parent), _node(nullptr), _binder(Binder::getInstance()), _ressources(Ressources::getInstance())
 {
 }
 

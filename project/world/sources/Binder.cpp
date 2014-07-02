@@ -9,6 +9,10 @@
  */
 
 #include "Binder.hh"
+#include "WorldEngine.hh"
+#include "MapViewer.hh"
+#include "MapObject.hh"
+#include "PersoObject.hh"
 
 Binder* Binder::getInstance(int winW, int winH,
 	bool realUserMode)
@@ -22,3 +26,32 @@ Binder::Binder(int winW, int winH, bool realUserMode)
 {}
 Binder::~Binder()
 {}
+
+
+IEngine*	Binder::createEngine() const
+{
+    return new WorldEngine();
+}
+
+
+/* GUI */
+gui::IGUIMeshViewer*    Binder::createMapViewer(gui::IGUIEnvironment* env,
+	scene::ISceneManager* smgr) const
+{
+    return new MapViewer(env, smgr);
+}
+
+/* SCENE */
+//    scene::ISceneNode*	    createMapNode(scene::ISceneNode* parent, scene::ISceneManager* smgr) const
+//    { return new MapNode(parent, smgr); }
+IObject*	Binder::createMapObject(scene::ISceneManager* smgr,
+	IObject* parent) const
+{
+    return new MapObject(smgr, parent);
+}
+IObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
+	IObject* parent) const
+{
+    return new PersoObject(smgr, parent);
+}
+

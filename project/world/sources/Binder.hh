@@ -11,11 +11,12 @@
 #ifndef		BINDER_HH_
 # define	BINDER_HH_
 
-# include	"WorldEngine.hh"
-# include	"MapViewer.hh"
-# include	"MapObject.hh"
+#include	"IEngine.hh"
+#include	"IObject.hh"
 
 using namespace irr;
+
+//TODO : faire une factory pour les Objects et une pour les GUIElem
 
 class Binder
 {
@@ -23,19 +24,18 @@ public:
     static Binder * getInstance(int winW = 800, int winH = 600,
 	    bool realUserMode = false);
     
-    //retournera GameEngine au lieu de WorldEngine si realUserMode est activé
-    IEngine*		    createEngine() const { return new WorldEngine(); }
-
+    IEngine*		    createEngine() const;
+    
     /* GUI */
-    gui::IGUIMeshViewer*    createMapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr) const
-    { return new MapViewer(env, smgr); }
-
+    gui::IGUIMeshViewer*    createMapViewer(gui::IGUIEnvironment* env,
+					    scene::ISceneManager* smgr) const;
+    
     /* SCENE */
-//    scene::ISceneNode*	    createMapNode(scene::ISceneNode* parent, scene::ISceneManager* smgr) const
-//    { return new MapNode(parent, smgr); }
-    IObject*	createMapObject(scene::ISceneManager* smgr, IObject* parent) const
-    { return new MapObject(smgr, parent); }
-
+    IObject*	createMapObject(scene::ISceneManager* smgr,
+				IObject* parent) const;
+    IObject*	createPersoObject(scene::ISceneManager* smgr,
+				IObject* parent) const;
+    
 private:
     Binder(int winW = 800, int winH = 600, bool realUserMode = false);
     ~Binder();

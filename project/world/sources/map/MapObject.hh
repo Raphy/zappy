@@ -8,6 +8,7 @@
 #ifndef MAPOBJECT_HH
 #define	MAPOBJECT_HH
 
+#include <list>
 #include "AAnimatedMeshObject.hh"
 
 class MapObject : public AAnimatedMeshObject
@@ -19,7 +20,7 @@ public:
     
     bool    init();
 private:
-
+    std::list<IObject*>  _persos;
 };
 
 #endif	/* MAPOBJECT_HH */

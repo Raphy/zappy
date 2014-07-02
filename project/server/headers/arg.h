@@ -5,21 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 16:16:21 2014 damien sauvalle
-** Last update Sun Jun 29 17:39:04 2014 raphael defreitas
+** Last update Tue Jul  1 17:49:54 2014 damien sauvalle
 */
 
 #ifndef		ARG_H_
 # define	ARG_H_
 
 # include	"list.h"
-
-typedef void (*function)(void);
-
-typedef struct
-{
-  char          index;
-  function      function;
-}               t_parser_map;
 
 typedef struct
 {
@@ -30,6 +22,14 @@ typedef struct
   int		limit_client;
   int		time;
 }		t_arg;
+
+typedef int (*function)(char **, t_arg *, int);
+
+typedef struct
+{
+  char          index;
+  function      function;
+}               t_parser_map;
 
 int		arg_ctor(t_arg *);
 void		arg_dtor(t_arg *);
@@ -44,11 +44,11 @@ int		arg_get_time(t_arg *);
 int		arg_parse(t_arg *, int, char **);
 void		arg_dump(t_arg *);
 
-int		arg_parse_port(char *, t_arg *);
-int		arg_parse_x_world(char *, t_arg *);
-int		arg_parse_y_world(char *, t_arg *);
-int		arg_parse_team_names(int, char **, t_arg *, int);
-int		arg_parse_limit_client(char *, t_arg *);
-int		arg_parse_time(char *, t_arg *);
+int		arg_parse_port(char **, t_arg *, int);
+int		arg_parse_x_world(char **, t_arg *, int);
+int		arg_parse_y_world(char **, t_arg *, int);
+int		arg_parse_team_names(char **, t_arg *, int);
+int		arg_parse_limit_client(char **, t_arg *, int);
+int		arg_parse_time(char **, t_arg *, int);
 
 #endif /* !ARG_H_*/

@@ -42,6 +42,9 @@ class DroneInfo:
         self._messages = []
         self._orientation = None
 
+    def __repr__(self):
+        return "toto"
+
     @property
     def id(self):
         return self._id
@@ -73,30 +76,33 @@ class DroneInfo:
         return self._messages[-1].time
 
 
-
 class Team:
     def __init__(self):
         self._teammates = []
 
+    def __repr__(self):
+        return '\n'.join((repr(t) for t in self._teammates))
+
     def __addDrone(self, message):
         drone = DroneInfo(message.drone_id)
-        drone.messages(message)
+        drone.messages = message
         self._teammates.append(drone)
 
     def __removeDrone(self, drone_id):
         self._teammates = [drone for drone in self._teammates if drone.id != drone_id]
 
-    def teamManager(self, message):
+    def manage(self, message):
         """ Send to the team a message and he'll update the team information """
         drone = next((drone for drone in self._teammates if drone.id == message.drone_id), None)
 
         if drone == None:
             self.__addDrone(message)
         else:
-            drone.messages(message)
+            drone.messages = message
 
 if __name__ == "__main__":
     import datetime
+    import time
 
     """ DroneInfo testing """
     drone = DroneInfo(1)
@@ -108,7 +114,19 @@ if __name__ == "__main__":
     drone.level = 5
     drone.messages = TestMessage(1, datetime.datetime.now())
     assert drone.messages != []
+    print (drone.messages)
 
+    print ("Please Wait...")
+    time.sleep(1)
+
+    drone.messages = TestMessage(1, datetime.datetime.now())
     print (drone.messages)
 
     """ Team testing """
+    team = Team()
+    team.manage(TestMessage(1, datetime.datetime.now()))
+    team.manage(TestMessage(1, datetime.datetime.now()))
+    team.manage(TestMessage(2, datetime.datetime.now()))
+    team.manage(TestMessage(2, datetime.datetime.now()))
+
+    print (team)

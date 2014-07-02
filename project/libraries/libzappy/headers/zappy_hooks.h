@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Tue Jul  1 16:01:33 2014 raphael defreitas
+** Last update Tue Jul  1 17:56:48 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -27,7 +27,7 @@
 
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
 
-typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc*zc, void *data);
+typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc *zc, void *data);
 
 /*
 ** When an error occurs.
@@ -163,6 +163,5 @@ void		zc_hook_cmd_welcome(t_zc *this, t_zch_basic h, void *d);
 ** When the server sends "RMT PUBKEY <pubkey>\n".
 */
 void		zc_hook_rmt_pubkey(t_zc *this, t_zch_str_basic h, void *d);
-
 
 #endif /* !ZAPPY_HOOKS_H_*/
