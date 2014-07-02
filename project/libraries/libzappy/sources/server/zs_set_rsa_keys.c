@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 16:40:07 2014 raphael defreitas
+** Last update Wed Jul  2 16:45:40 2014 raphael defreitas
 */
 
 #include	<openssl/err.h>
@@ -43,12 +43,6 @@ static int	load_public_key(t_zs *this, const char *public_key_filename)
     return (RET_FAILURE);
   if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
     {
-      printf("zt_rsa_new failed\n");
-      char * err = malloc(130);;
-      ERR_load_crypto_strings();
-      ERR_error_string(ERR_get_error(), err);
-      printf("OPENSSL ERROR: %s\n", err);
-      free(err);
       free(this->pubkey);
       this->pubkey = NULL;
       return (RET_FAILURE);
@@ -77,15 +71,9 @@ int		zs_set_rsa_keys(t_zs *this, const char *pub_key_filename,
   if (this == NULL || pub_key_filename == NULL || priv_key_filename == NULL)
     return (RET_FAILURE);
   if (load_public_key(this, pub_key_filename) == RET_FAILURE)
-    {
-      printf("Public key loading failed!\n");
-      return (RET_FAILURE);
-    }
+    return (RET_FAILURE);
   if (load_private_key(this, priv_key_filename) == RET_FAILURE)
-    {
-      printf("Private key loading failed!\n");
-      return (RET_FAILURE);
-    }
+    return (RET_FAILURE);
   if ((this->pubkey = zt_linearize_pubkey(this->pubkey)) == NULL)
     {
       printf("Public key linearization failed\n");
