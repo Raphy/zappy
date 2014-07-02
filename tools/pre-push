@@ -14,4 +14,6 @@ find -name "*.o" -delete
 echo "Compiling..."
 make zappy > /dev/null
 
+make norm
+
 exit $?
