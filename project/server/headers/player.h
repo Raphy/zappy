@@ -25,10 +25,10 @@ typedef struct	s_player
 {
   t_inventory	inventory;
   t_direction	direction;
-  int		x;
-  int		y;
+  unsigned int	x;
+  unsigned int	y;
   char		*team_name;
-  int		level; /* level and view range*/
+  char		level; /* level and view range*/
   unsigned int	life;
   /*  ? handler --> action ?*/
 }		t_player;
