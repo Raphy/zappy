@@ -2,13 +2,17 @@ MaxMessages = 100
 
 """ For testing purpouses """
 class TestMessage:
-    def __init__(self, drone_id, time, message = None):
+    def __init__(self, drone_id, time, message = None, level = None):
         self._drone_id = drone_id
         self._time = time
         self._message = message
+        self._level = level
 
     def __repr__(self):
-        return "{0}: [{1}]".format(self._time, self._drone_id)
+        return "[{0} {1}]".format(self._drone_id, self.time)
+
+    def __str__(self):
+        return repr(self)
 
     @property
     def drone_id(self):
@@ -43,7 +47,10 @@ class DroneInfo:
         self._orientation = None
 
     def __repr__(self):
-        return "toto"
+        return "{0}:\tlvl: {1}\n\tmessages: {2}]".format(self._id, self._level, self._messages)
+
+    def __str__(self):
+        return repr(self)
 
     @property
     def id(self):
@@ -117,7 +124,7 @@ if __name__ == "__main__":
     print (drone.messages)
 
     print ("Please Wait...")
-    time.sleep(1)
+    time.sleep(0.5)
 
     drone.messages = TestMessage(1, datetime.datetime.now())
     print (drone.messages)
