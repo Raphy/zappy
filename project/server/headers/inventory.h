@@ -48,13 +48,13 @@ typedef struct	s_inventory
 int			inventory_ctor(t_inventory *);
 void			inventory_dtor(t_inventory *);
 
-void			inventory_set_linemate(t_inventory *, unsigned int);
-void			inventory_set_mendiane(t_inventory *, unsigned int);
-void			inventory_set_deraumere(t_inventory *, unsigned int);
-void			inventory_set_sibur(t_inventory *, unsigned int);
-void			inventory_set_phiras(t_inventory *, unsigned int);
-void			inventory_set_thystane(t_inventory *, unsigned int);
-void			inventory_set_food(t_inventory *, unsigned int);
+void			inventory_set_linemate(t_inventory *, unsigned char);
+void			inventory_set_mendiane(t_inventory *, unsigned char);
+void			inventory_set_deraumere(t_inventory *, unsigned char);
+void			inventory_set_sibur(t_inventory *, unsigned char);
+void			inventory_set_phiras(t_inventory *, unsigned char);
+void			inventory_set_thystane(t_inventory *, unsigned char);
+void			inventory_set_food(t_inventory *, unsigned char);
 
 unsigned int		inventory_get_linemate(t_inventory *);
 unsigned int		inventory_get_mendiane(t_inventory *);
