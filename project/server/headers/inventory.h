@@ -56,12 +56,12 @@ void			inventory_set_phiras(t_inventory *, unsigned char);
 void			inventory_set_thystane(t_inventory *, unsigned char);
 void			inventory_set_food(t_inventory *, unsigned char);
 
-unsigned int		inventory_get_linemate(t_inventory *);
-unsigned int		inventory_get_mendiane(t_inventory *);
-unsigned int		inventory_get_deraumere(t_inventory *);
-unsigned int		inventory_get_sibur(t_inventory *);
-unsigned int		inventory_get_phiras(t_inventory *);
-unsigned int		inventory_get_thystane(t_inventory *);
-unsigned int		inventory_get_food(t_inventory *);
+unsigned char		inventory_get_linemate(t_inventory *);
+unsigned char		inventory_get_mendiane(t_inventory *);
+unsigned char		inventory_get_deraumere(t_inventory *);
+unsigned char		inventory_get_sibur(t_inventory *);
+unsigned char		inventory_get_phiras(t_inventory *);
+unsigned char		inventory_get_thystane(t_inventory *);
+unsigned char		inventory_get_food(t_inventory *);
 
 #endif /* !INVENTORY_H_ */
