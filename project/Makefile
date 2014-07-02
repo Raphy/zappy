@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Mon Jun 30 23:59:30 2014 raphael defreitas
+## Last update Wed Jul  2 16:13:43 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -23,7 +23,6 @@ norm		:
 			@echo "Checking basic norm..."
 			@find -name "*.c" -exec ../tools/norme.py {} \;
 			@find -name "*.h" -exec ../tools/norme.py {} \;
-			@echo -n "[\33[0m"
 
 libs		:
 			make -C $(LIBS_PATH)
