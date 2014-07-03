@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Sun Dec 15 23:20:11 2013 Raphael De Freitas
-** Last update Sun Jun 29 17:13:17 2014 raphael defreitas
+** Last update Thu Jul  3 23:39:16 2014 raphael defreitas
 */
 
 #ifndef		MY_H_
@@ -48,6 +48,7 @@ G_BEGIN_DECLS
 
 bool		my_str_is_numeric(const char *str);
 bool		my_match(const char *str, const char *pattern);
+char		*my_get_file_contents(const char *filename, const char *dir);
 
 G_END_DECLS
 
