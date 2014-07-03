@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Wed Jul  2 02:51:25 2014 raphael defreitas
+** Last update Thu Jul  3 19:09:21 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -118,26 +118,26 @@ struct		s_zs
 ** [Con|Des]structors
 */
 t_zs		*zs_new(int port, t_list *team_names);
-int		zs_ctor(t_zs *this, int port, t_list *team_names);
-void		zs_delete(t_zs *this);
-void		zs_dtor(t_zs *this);
+int		zs_ctor(t_zs *, int port, t_list *team_names);
+void		zs_delete(t_zs *);
+void		zs_dtor(t_zs *);
 
-void		zs_main(t_zs *this);
+void		zs_main(t_zs *);
 
 /*
 ** Actions
 */
-void		zs_main(t_zs *this);
-int		zs_set_rsa_keys(t_zs *this, const char *public_key_filename,
+void		zs_main(t_zs *);
+int		zs_set_rsa_keys(t_zs *, const char *public_key_filename,
 				const char *private_key_filename);
-void		zs_disable_timeout(t_zs *this);
-void		zs_stop(t_zs *this);
+void		zs_disable_timeout(t_zs *);
+void		zs_stop(t_zs *);
 
 /*
 ** [G/S]etters
 */
-void		zs_set_timeout(t_zs *this, time_t sec, suseconds_t usec);
-t_timeval	zs_get_timeout(t_zs *this);
+void		zs_set_timeout(t_zs *, time_t sec, suseconds_t usec);
+t_timeval	zs_get_timeout(t_zs *);
 
 /*
 ** +--------+
@@ -188,29 +188,29 @@ struct		s_zc
 ** [Con|Des]structors
 */
 t_zc		*zc_new(void);
-int		zc_ctor(t_zc *this);
-void		zc_delete(t_zc *this);
+int		zc_ctor(t_zc *);
+void		zc_delete(t_zc *);
 void		zc_dtor(t_zc *zc);
 
 /*
 ** Actions
 */
-void		zc_main(t_zc *this);
-int		zc_connect(t_zc *this, const char *host, int port);
-void		zc_disconnect(t_zc *this);
-void		zc_disable_timeout(t_zc *this);
+void		zc_main(t_zc *);
+int		zc_connect(t_zc *, const char *host, int port);
+void		zc_disconnect(t_zc *);
+void		zc_disable_timeout(t_zc *);
 
 /*
 ** [G/S]etters
 */
-void		zc_set_timeout(t_zc *this, time_t sec, suseconds_t usec);
-t_timeval	zc_get_timeout(t_zc *this);
+void		zc_set_timeout(t_zc *, time_t sec, suseconds_t usec);
+t_timeval	zc_get_timeout(t_zc *);
 
 /*
 ** For server operations only
 */
-t_zct		zc_get_type(t_zc *this);
-void		zc_set_type(t_zc *this, t_zct type);
+t_zct		zc_get_type(t_zc *);
+void		zc_set_type(t_zc *, t_zct type);
 
 /*
 ** +-------+

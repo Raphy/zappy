@@ -53,6 +53,7 @@ bool AEngine::init()
 //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
 
     _mapViewer = (Binder::getInstance())->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    /*_mapToolbar = */(Binder::getInstance())->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
     return true;
 }
 bool AEngine::update()

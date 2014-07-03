@@ -63,7 +63,7 @@ bool Ressources::load(std::string const& path)
 		break;
 	}
 	if (!_textures[GAME_ELEMENT_TYPE_COUNT][i][0] || !_meshs[GAME_ELEMENT_TYPE_COUNT][i][0])
-	    return false;
+	    return false;//TODO : checker la valeur de retour !!!
     }
     
     //TODO : utiliser un algo de la STL ?
