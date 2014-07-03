@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Wed Jul  2 04:06:54 2014 raphael defreitas
+** Last update Thu Jul  3 19:09:37 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -29,13 +29,13 @@
 ** Sends "BIENVENUE\n" to a specific client.
 ** zc		The client. If NULL sends to all clients.
 */
-void		zs_send_welcome(t_zs *this, t_zc *zc);
+void		zs_send_welcome(t_zs *, t_zc *zc);
 
 /*
 ** Sends the pubkey to a specific client.
 ** zc		The client. If NULL sends to all clients.
 */
-void		zs_send_rmt_pubkey(t_zs *this, t_zc *zc);
+void		zs_send_rmt_pubkey(t_zs *, t_zc *zc);
 
 /*
 ** +--------+
@@ -47,14 +47,14 @@ void		zs_send_rmt_pubkey(t_zs *this, t_zc *zc);
 ** Sends "TEAM_NAME\n" to server.
 ** team_name	The team name to send.
 */
-void		zc_send_team_name(t_zc *this, const char *team_name);
+void		zc_send_team_name(t_zc *, const char *team_name);
 
-void		zc_send_graphic(t_zc *this);
+void		zc_send_graphic(t_zc *);
 
-void		zc_send_rmt(t_zc *this);
+void		zc_send_rmt(t_zc *);
 
-void		zc_send_rmt_stop(t_zc *this);
+void		zc_send_rmt_stop(t_zc *);
 
-void		zc_send_rmt_teams(t_zc *this);
+void		zc_send_rmt_teams(t_zc *);
 
 #endif /* !ZAPPY_COMMANDS_H_*/
