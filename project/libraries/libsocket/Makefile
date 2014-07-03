@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ##
 ## Started on  Mon Dec 16 00:00:03 2013 Raphael De Freitas
-## Last update Sun Jun 29 01:27:13 2014 raphael defreitas
+## Last update Thu Jul  3 19:15:00 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -16,7 +16,7 @@ SOURCES		=	sources/socket_accept.c sources/socket_bind.c sources/socket_connect.
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -pedantic -fPIC -g
+CFLAGS		=	-Wall -Wextra -ansi -fPIC -g
 CFLAGS		+=	-I ./headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
