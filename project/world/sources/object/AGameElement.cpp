@@ -5,6 +5,7 @@
  * Created on July 1, 2014, 4:12 PM
  */
 
+#include <iostream>
 #include "AGameElement.hh"
 
 AGameElement::AGameElement()
@@ -40,6 +41,7 @@ void AGameElement::setMaxLevel(int _maxLevel)
 }
 bool AGameElement::setLevel(int level)
 {
+    std::cout << "set Level !! " << std::endl;
     if (level > _maxLevel)
 	return false;
     _level = level;
