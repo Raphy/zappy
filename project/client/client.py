@@ -23,18 +23,13 @@ def parse_arguments():
 def main():
     args = parse_arguments()
 
-    hostname = args.address
-    port = args.port
-    team_name = args.team_name
-    verbose = args.verbose
-
-    print('Connecting on {0}:{1}'.format(hostname, port))
-    print('Team name =', team_name)
-    print('Verbose =', verbose)
+    print('Connecting on {0}:{1}'.format(args.address, args.port))
+    print('Team name =', args.team_name)
+    print('Verbose =', args.verbose)
 
     nw = client.network.Network()
-    nw.connect(hostname, port)
-    nw.hook_connected(connected_callback, (team_name, nw))
+    nw.connect(args.address, args.port)
+    nw.hook_connected(connected_callback, (args.team_name, nw))
     nw.hook_disconnected(disconnected_callback, None)
     nw.run()
 
