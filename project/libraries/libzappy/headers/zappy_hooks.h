@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Thu Jul  3 19:09:32 2014 raphael defreitas
+** Last update Fri Jul  4 00:16:13 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -166,5 +166,8 @@ void		zc_hook_cmd_welcome(t_zc *, t_zch_basic h, void *d);
 ** When the server sends "RMT PUBKEY <pubkey>\n".
 */
 void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);
+
+void		zc_hook_rmt_authorized(t_zc *, t_zch_basic h, void *d);
+void		zc_hook_rmt_unauthorized(t_zc *, t_zch_basic h, void *d);
 
 #endif /* !ZAPPY_HOOKS_H_*/
