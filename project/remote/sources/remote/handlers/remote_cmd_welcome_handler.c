@@ -5,8 +5,10 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 20:02:10 2014 raphael defreitas
-** Last update Tue Jul  1 19:50:03 2014 raphael defreitas
+** Last update Thu Jul  3 22:50:44 2014 raphael defreitas
 */
+
+#include	<stdio.h>
 
 #include	"remote.h"
 #include	"zappy.h"
@@ -16,4 +18,5 @@ void		remote_cmd_welcome_handler(t_zc *zc,
 {
   zc_send_rmt(zc);
   zc_hook_rmt_pubkey(zc, &remote_rmt_pubkey_handler, data);
+  printf("Waiting the server public key...\n");
 }
