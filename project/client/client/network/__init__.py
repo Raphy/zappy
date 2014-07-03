@@ -95,6 +95,9 @@ class Network:
     def send_team_name(self, team_name):
         self._clib.zc_send_team_name(self._cstruct, team_name.encode('utf-8'))
 
+    def broadcast(self, msg_str):
+        pass
+
     """ handlers and tools """
 
     def __get_real_data(received_data):
@@ -158,6 +161,9 @@ class Network:
 
     def hook_cmd_welcome(self, callback, data):
         self.__hook_basic('cmd_welcome', callback, data)
+
+    def hook_broadcast(self, callback, data):
+        pass
 
 
 
