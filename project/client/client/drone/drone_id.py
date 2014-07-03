@@ -19,7 +19,7 @@ class DroneId:
         instance = cls()
         instance.__build_from_str(s)
         return instance
-
+ 
     @classmethod
     def from_machine(cls):
         instance = cls()

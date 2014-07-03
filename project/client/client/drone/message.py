@@ -37,7 +37,7 @@ class Base:
         instance = cls()
         for f_name, f_ctor in instance.fields_order:
             if f_name in kwargs:
-                    setattr(instance, f_name, kwargs[f_name])
+                setattr(instance, f_name, kwargs[f_name])
         return instance
 
     def __init__(self):
