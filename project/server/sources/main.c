@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Wed Jul  2 17:51:28 2014 damien sauvalle
+** Last update Thu Jul  3 19:25:48 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -17,7 +17,7 @@
 #include	"handlers.h"
 #include	"list.h"
 #include	"zappy.h"
-#include	"serveur.h"
+#include	"server.h"
 
 static void	kikoo_header(void)
 {
@@ -70,7 +70,7 @@ int		main(int argc, char **argv)
 {
   t_zs		zs;
   t_arg		arg;
-  t_serveur	serveur;
+  t_server	server;
 
   kikoo_header();
   if (arg_ctor(&arg) == RET_ERROR ||
@@ -81,12 +81,14 @@ int		main(int argc, char **argv)
   arg_dump(&arg);
   set_server_handlers(&zs, NULL);
 
-  serveur_ctor(&serveur, &arg);
+  server_ctor(&server, &arg);
 
+  generate_ressource(&server, &arg);
+
+  dump_map(&server, &arg);
   zs_main(&zs);
 
-  serveur_dtor(&serveur, &arg);
-
+  server_dtor(&server, &arg);
   zs_dtor(&zs);
   arg_dtor(&arg);
   return (EXIT_SUCCESS);
