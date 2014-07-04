@@ -35,5 +35,5 @@ void Mutex::unlock(void)
 }
 bool Mutex::trylock(void)
 {
-	return ((pthread_mutex_trylock(&_mutex) == 0) ? (true) : (false));
+	return (pthread_mutex_trylock(&_mutex) == 0);
 }

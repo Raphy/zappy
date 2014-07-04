@@ -39,6 +39,16 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
 	_filenames[PERSO][MESH][i] = "faerie.md2";
 	_filenames[PERSO][TEXTURE][i] = "faerie2.bmp";
     }
+//    _filenames[PERSO][TEXTURE][2] = "enano.jpg";
+    _filenames[PERSO][MESH][3] = "dwarf.x";
+    _filenames[PERSO][TEXTURE][3] = "dwarf.jpg";
+    _filenames[PERSO][MESH][4] = "ninja.b3d";
+    _filenames[PERSO][TEXTURE][4] = "nskinbl.jpg";
+    _filenames[PERSO][MESH][5] = "ninja.b3d";
+    _filenames[PERSO][TEXTURE][5] = "nskinrd.jpg";
+    _filenames[PERSO][MESH][6] = "sydney.md2";
+    _filenames[PERSO][TEXTURE][6] = "sydney.bmp";
+    
     
     load(path);
 }

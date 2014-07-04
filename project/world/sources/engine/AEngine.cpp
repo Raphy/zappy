@@ -9,6 +9,7 @@
 #include "AEngine.hh"
 #include "Ressources.hh"
 #include "Binder.hh"
+#include "Worker.hh"
 
 using namespace core;
 using namespace gui;
@@ -27,10 +28,13 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
+    _binder = (Binder::getInstance());
 }
 
 AEngine::~AEngine()
 {
+    delete _eventQueue;
+    delete _networkThread;
     _device->drop();
 }
 
@@ -52,8 +56,12 @@ bool AEngine::init()
 //	skin->setFont(font);
 //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
 
-    _mapViewer = (Binder::getInstance())->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
-    /*_mapToolbar = */(Binder::getInstance())->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
+    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
+
+    _networkThread = _binder->createNetworkThread();
+    _eventQueue = _binder->createNetworkEventQueue();
+		      
     return true;
 }
 bool AEngine::update()
@@ -66,12 +74,28 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
+    _networkThread->start();
     while (_device->run())
     {
+	if (!_eventQueue->isEmpty())
+	    this->callHandler(_eventQueue->pop());
 	if (_device->isWindowActive())
 	    this->update();
 	else
 	    _device->yield();
     }
     return true;
+}
+
+bool AEngine::callHandler(void* data)
+{
+//    t_real_data *   real_data = data;
+//
+//    if (real_data->game_element_type == ENGINE_CLASS
+//	    || real_data->game_element_type == MAP_CLASS)
+//	this->(*(real_data->realptr))(/*??*/);
+//    else
+//	_mapViewer->callHandler(data);
+    //TODO : recuperer le mapObject au lieu du mapViewer
+    return false;
 }

@@ -10,6 +10,8 @@
 
 #include "Binder.hh"
 #include "WorldEngine.hh"
+#include "Worker.hh"
+#include "SafeQueue.hh"
 #include "MapViewer.hh"
 //#include "MenuToolBar.hh"
 #include "MapObject.hh"
@@ -34,6 +36,16 @@ IEngine*	Binder::createEngine() const
     return new WorldEngine();
 }
 
+IThread* Binder::createNetworkThread() const
+{
+    return new Worker();
+}
+
+ISafeQueue<void *>* Binder::createNetworkEventQueue() const
+{
+    return new SafeQueue<void *>();
+}
+
 
 /* GUI */
 gui::IGUIElement*    Binder::createMapViewer(gui::IGUIEnvironment* env,
@@ -45,6 +57,7 @@ gui::IGUIElement*	    Binder::createMenuToolbar(gui::IGUIEnvironment* env,
 				    scene::ISceneManager* smgr) const
 {
     (void) smgr;
+    (void) env;
 //    return new MenuToolBar(env);
     return nullptr;
 }
