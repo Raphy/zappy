@@ -92,7 +92,7 @@ class Messenger:
         if message is None:
             self.__unreconized_msg(msg_str, direction)
         elif message.team_name != self._team_name:
-            self.__unreconized_msg(msg, direction)
+            self.__unreconized_msg(msg_str, direction)
         elif message.time.is_expired():
             self.__fraud_attempt(msg_str, direction)
         else:
