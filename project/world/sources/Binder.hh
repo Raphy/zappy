@@ -12,6 +12,8 @@
 # define	BINDER_HH_
 
 #include	"IEngine.hh"
+#include	"IThread.hh"
+#include	"ISafeQueue.hh"
 #include	"IObject.hh"
 
 using namespace irr;
@@ -25,6 +27,8 @@ public:
 	    bool realUserMode = false);
     
     IEngine*		    createEngine() const;
+    IThread*		    createNetworkThread() const;
+    ISafeQueue<void *>*	    createNetworkEventQueue() const;
     
     /* GUI */
     gui::IGUIElement*	    createMapViewer(gui::IGUIEnvironment* env,

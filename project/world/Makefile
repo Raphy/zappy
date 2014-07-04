@@ -26,6 +26,7 @@ CXXFLAGS		+=	-I ./sources/map
 CXXFLAGS		+=	-I ./sources/gui
 CXXFLAGS		+=	-I ./sources/object
 CXXFLAGS		+=	-I ./sources/wrappers
+CXXFLAGS		+=	-I ./sources/network
 CXXFLAGS		+=	-I ./../libraries/libmy/headers
 CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers
@@ -39,6 +40,7 @@ LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
 LFLAGS		+=	-l Irrlicht
+LFLAGS		+=	-l pthread
 
 all		:	$(NAME)
 

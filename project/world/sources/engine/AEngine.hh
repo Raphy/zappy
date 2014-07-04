@@ -10,6 +10,9 @@
 
 #include <irrlicht.h>
 #include "IEngine.hh"
+#include "Binder.hh"
+#include "IThread.hh"
+#include "ISafeQueue.hh"
 
 using namespace irr;
 
@@ -21,6 +24,8 @@ public:
     virtual bool init();
     virtual bool update();
     virtual bool mainLoop();
+    
+    virtual bool callHandler(void * data);
  
 protected:
     AEngine();
@@ -35,6 +40,10 @@ protected:
     IEventReceiver*	    _eventReceiver;    
 
     gui::IGUIElement*	    _mapViewer;
+    
+    Binder*		    _binder;
+    IThread*		    _networkThread;
+    ISafeQueue<void *>*	    _eventQueue;
 };
 
 #endif	/* AENGINE_HH */
