@@ -15,7 +15,7 @@ using namespace irr;
 class MenuToolBar : public gui::IGUIToolBar
 {
 public:
-    MenuToolBar(gui::IGUIEnvironment *env, gui::IGUIElement *parent, s32 id, core::rect<s32> rectangle);
+    MenuToolBar(gui::IGUIEnvironment *env);
     MenuToolBar(MenuToolBar const& orig);
     virtual ~MenuToolBar();
 private:

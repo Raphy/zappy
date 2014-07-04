@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Tue Jul  1 16:41:13 2014 raphael defreitas
+## Last update Thu Jul  3 19:15:24 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -16,7 +16,7 @@ SOURCES		=	$(shell find ./sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -pedantic -g
+CFLAGS		=	-Wall -Wextra -ansi -g
 CFLAGS		+=	-I ./headers
 CFLAGS		+=	-I ./../libraries/libmy/headers
 CFLAGS		+=	-I ./../libraries/liblist/headers

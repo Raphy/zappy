@@ -27,7 +27,9 @@ public:
     IEngine*		    createEngine() const;
     
     /* GUI */
-    gui::IGUIMeshViewer*    createMapViewer(gui::IGUIEnvironment* env,
+    gui::IGUIElement*	    createMapViewer(gui::IGUIEnvironment* env,
+					    scene::ISceneManager* smgr) const;
+    gui::IGUIElement*	    createMenuToolbar(gui::IGUIEnvironment* env,
 					    scene::ISceneManager* smgr) const;
     
     /* SCENE */

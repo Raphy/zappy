@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 02:03:24 2014 raphael defreitas
-** Last update Wed Jul  2 16:45:40 2014 raphael defreitas
+** Last update Thu Jul  3 23:41:31 2014 raphael defreitas
 */
 
 #include	<openssl/err.h>
@@ -13,33 +13,13 @@
 #include	<stdio.h>
 #include	<stdlib.h>
 
+#include	"my.h"
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static char	*get_file_contents(const char *filename)
-{
-  FILE		*stream;
-  long		fsize;
-  char		*contents;
-
-  if ((stream = fopen(filename, "r")) == NULL)
-    return (NULL);
-  fseek(stream, 0, SEEK_END);
-  fsize = ftell(stream);
-  fseek(stream, 0, SEEK_SET);
-  if ((contents = calloc(fsize + 1, sizeof (char))) == NULL)
-    {
-      fclose(stream);
-      return (NULL);
-    }
-  fread(contents, fsize, 1, stream);
-  fclose(stream);
-  return (contents);
-}
-
 static int	load_public_key(t_zs *this, const char *public_key_filename)
 {
-  if ((this->pubkey = get_file_contents(public_key_filename)) == NULL)
+  if ((this->pubkey = my_get_file_contents(public_key_filename, NULL)) == NULL)
     return (RET_FAILURE);
   if ((this->key_encrypt = zt_rsa_new(this->pubkey, true)) == NULL)
     {
@@ -52,16 +32,16 @@ static int	load_public_key(t_zs *this, const char *public_key_filename)
 
 static int	load_private_key(t_zs *this, const char *private_key_filename)
 {
-  char		*private_key_str;
+  char		*privkey;
 
-  if ((private_key_str = get_file_contents(private_key_filename)) == NULL)
+  if ((privkey = my_get_file_contents(private_key_filename, NULL)) == NULL)
     return (RET_FAILURE);
-  if ((this->key_decrypt = zt_rsa_new(private_key_str, false)) == NULL)
+  if ((this->key_decrypt = zt_rsa_new(privkey, false)) == NULL)
     {
-      free(private_key_str);
+      free(privkey);
       return (RET_FAILURE);
     }
-  free(private_key_str);
+  free(privkey);
   return (RET_SUCCESS);
 }
 

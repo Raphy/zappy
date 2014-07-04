@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jul  3 19:09:21 2014 raphael defreitas
+** Last update Fri Jul  4 00:32:41 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -69,6 +69,8 @@ typedef	enum
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,
     ZHT_RMT_MIN,
+    ZHT_RMT_AUTHORIZED,
+    ZHT_RMT_UNAUTHORIZED,
     ZHT_RMT_PUBKEY,
     ZHT_RMT_STOP,
     ZHT_RMT_MAX,
@@ -174,7 +176,6 @@ struct		s_zc
   t_zct		type;
   bool		has_to_disconnect;
   t_list	*commands;
-  RSA		*key_encrypt;
 
   /*
   ** Common
@@ -182,6 +183,7 @@ struct		s_zc
   t_socket	*socket;
   t_list	*pckts_rcvd;
   t_list	*pckts_to_snd;
+  RSA		*key_encrypt;
 };
 
 /*
@@ -196,6 +198,8 @@ void		zc_dtor(t_zc *zc);
 ** Actions
 */
 void		zc_main(t_zc *);
+int		zc_set_rsa_keys(t_zc *, const char *public_key_filename,
+				const char *private_key_filename);
 int		zc_connect(t_zc *, const char *host, int port);
 void		zc_disconnect(t_zc *);
 void		zc_disable_timeout(t_zc *);

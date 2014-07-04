@@ -25,6 +25,7 @@ CXXFLAGS		+=	-I ./sources/ressources
 CXXFLAGS		+=	-I ./sources/map
 CXXFLAGS		+=	-I ./sources/gui
 CXXFLAGS		+=	-I ./sources/object
+CXXFLAGS		+=	-I ./sources/wrappers
 CXXFLAGS		+=	-I ./../libraries/libmy/headers
 CXXFLAGS		+=	-I ./../libraries/liblist/headers
 CXXFLAGS		+=	-I ./../libraries/libsocket/headers

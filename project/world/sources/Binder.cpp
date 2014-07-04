@@ -11,6 +11,7 @@
 #include "Binder.hh"
 #include "WorldEngine.hh"
 #include "MapViewer.hh"
+//#include "MenuToolBar.hh"
 #include "MapObject.hh"
 #include "PersoObject.hh"
 
@@ -35,10 +36,17 @@ IEngine*	Binder::createEngine() const
 
 
 /* GUI */
-gui::IGUIMeshViewer*    Binder::createMapViewer(gui::IGUIEnvironment* env,
+gui::IGUIElement*    Binder::createMapViewer(gui::IGUIEnvironment* env,
 	scene::ISceneManager* smgr) const
 {
     return new MapViewer(env, smgr);
+}
+gui::IGUIElement*	    Binder::createMenuToolbar(gui::IGUIEnvironment* env,
+				    scene::ISceneManager* smgr) const
+{
+    (void) smgr;
+//    return new MenuToolBar(env);
+    return nullptr;
 }
 
 /* SCENE */
