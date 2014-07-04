@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   bundle.h
  * Author: svirch_n
  *
@@ -8,13 +8,12 @@
 #ifndef BUNDLE_H
 # define	BUNDLE_H
 
-# include       "serveur.h"
+# include       "server.h"
 
 typedef struct  s_bundle
 {
-  t_serveur     *serveur;
+  t_server     *server;
   t_player      *player;
 }               t_bundle;
 
 #endif	/* BUNDLE_H */
-

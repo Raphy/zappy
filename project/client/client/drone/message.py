@@ -1,6 +1,7 @@
 print("initializing module {0} ...".format(__name__))
 
 from .drone_id import DroneId
+from .msg_time import MsgTime
 
 class Base:
 
@@ -46,6 +47,7 @@ class Base:
         self.add_field('magic', self.__ctor_magic, str)
         self.add_field('emitter_id', DroneId.from_str, DroneId)
         self.add_field('counter', int)
+        self.add_field('time', MsgTime.from_str, MsgTime)
 
     def __str__(self):
         return self._separator.join((str(getattr(self, name)) for name, _ in self.fields_order))
@@ -89,13 +91,13 @@ class Extended(Base):
 """
 d = DroneId.from_machine()
 print(d, hex(id(d)))
-m = Base.from_scratch(emitter_id=d, counter="24")
+m = Base.from_scratch(emitter_id=d, counter=24, time=MsgTime.now())
 print(m)
 s = str(m)
 m2 = Base.from_str(s)
 print (m2)
 
-m3 = Extended.from_scratch(emitter_id=d, counter=1, added="toto")
+m3 = Extended.from_scratch(emitter_id=d, counter=1, added="toto", time=MsgTime.from_str("654657"))
 print(m3)
 m4 = Extended.from_str("sqdqsdqs+qsdqsdd465d4dq")
 print(m4)

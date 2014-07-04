@@ -5,12 +5,12 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 15:45:28 2014 damien sauvalle
-** Last update Sun Jun 29 19:36:28 2014 damien sauvalle
+** Last update Thu Jul  3 22:54:42 2014 damien sauvalle
 */
 
 #ifndef		INVENTORY_H_
 # define	INVENTORY_H_
-/*
+
 typedef enum
   {
     LINEMATE,
@@ -20,16 +20,10 @@ typedef enum
     PHIRAS,
     THYSTANE,
     FOOD
-  }	t_stock;
+  }	t_type_inventory;
 
 # define	SIZE_INVENTORY 7
-*/
 
-/*
-** unsigned char optimisation
-** structure size less than a pointer
-** 7 Vs 8
-*/
 
 typedef struct	s_inventory
 {
@@ -48,6 +42,7 @@ typedef struct	s_inventory
 int			inventory_ctor(t_inventory *);
 void			inventory_dtor(t_inventory *);
 
+/* Really util ?*/
 void			inventory_set_linemate(t_inventory *, unsigned char);
 void			inventory_set_mendiane(t_inventory *, unsigned char);
 void			inventory_set_deraumere(t_inventory *, unsigned char);
@@ -56,6 +51,7 @@ void			inventory_set_phiras(t_inventory *, unsigned char);
 void			inventory_set_thystane(t_inventory *, unsigned char);
 void			inventory_set_food(t_inventory *, unsigned char);
 
+/* Really util ?*/
 unsigned char		inventory_get_linemate(t_inventory *);
 unsigned char		inventory_get_mendiane(t_inventory *);
 unsigned char		inventory_get_deraumere(t_inventory *);

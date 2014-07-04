@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 18:03:14 2014 raphael defreitas
-** Last update Tue Jul  1 02:19:55 2014 raphael defreitas
+** Last update Thu Jul  3 22:42:33 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -39,6 +39,12 @@ static int	init_zappy(t_zc *zc, char *host, int port)
     {
       fprintf(stderr, "Initialization failed: %s\n",
 	      errno == 0 ? "Unknown error" : strerror(errno));
+      return (RET_FAILURE);
+    }
+  if (zc_set_rsa_keys(zc, "./keys/public.pem", "./keys/private.pem") ==
+      RET_FAILURE)
+    {
+      printf("Inititialization of RSA key pairing failed\n");
       return (RET_FAILURE);
     }
   printf("Connecting to %s %d...\n", host, port);

@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 12:31:25 2014 raphael defreitas
-## Last update Mon Jun 30 22:04:30 2014 raphael defreitas
+## Last update Thu Jul  3 19:14:29 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -16,7 +16,7 @@ SOURCES		=	$(shell find ./sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -pedantic -g -fPIC
+CFLAGS		=	-Wall -Wextra -ansi -g -fPIC
 CFLAGS		+=	-I ./headers -I ./../libmy/headers -I ./../liblist/headers -I ./../libsocket/headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0) $(shell pkg-config --cflags openssl)
 

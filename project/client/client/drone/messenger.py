@@ -1,6 +1,7 @@
 print("initializing module {0} ...".format(__name__))
 
 from . import message
+from .msg_time import MsgTime
 
 """"""
 _type_id_len = 4
@@ -42,6 +43,7 @@ class Messenger:
     def send(self, message):
         message.counter = self._counter
         self._counter += 1
+        message.time = MsgTime.now()
         type_id = self.__type_id_of(message)
         msg_str = str(message)
         if type_id is None or msg_str is None:
@@ -53,6 +55,14 @@ class Messenger:
     def receive(self, msg_str, direction, unused_data):
         self.__receive(msg_str, direction, unused_data)
 
+    def __unreconized_msg(self, msg_str, direction):
+        if self._default is not None:
+            callback, data = self._default
+            callback(msg_str, direction, data)
+
+    def __fraud_attempt(self, message, direction):
+        pass
+
     def __receive(self, msg_str, direction, unused_data):
         type_id, content = _extract_type_id(msg_str)
         try:
@@ -60,13 +70,14 @@ class Messenger:
             callback, data = self._callbacks[msg_type]
             message = msg_type.from_str(content)
             if message is not None:
-                callback(message, direction, data)
+                if message.time.is_expired():
+                    self.__fraud_attempt(msg_str, direction)
+                else:
+                    callback(message, direction, data)
             else:
-                raise KeyError
+                self.__unreconized_msg(msg_str, direction)
         except KeyError:
-            if self._default is not None:
-                callback, data = self._default
-                callback(msg_str, direction, data)
+            self.__unreconized_msg(msg_str, direction)
 
     @staticmethod
     def __type_id_of(msg_type):
