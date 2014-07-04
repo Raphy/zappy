@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Sun Jun 29 06:34:40 2014 raphael defreitas
+** Last update Fri Jul  4 18:31:26 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -63,6 +63,7 @@ void		zs_main(t_zs *this)
     return ;
   while (!this->has_to_stop)
     {
+      zs_handle_before_select(this);
       select_ret = zs_select(this);
       if (select_ret == RET_ERROR)
 	{
@@ -72,5 +73,6 @@ void		zs_main(t_zs *this)
       else if (select_ret == 0)
 	zs_handle_timeout(this);
       zs_treat_fds(this);
+      zs_handle_after_select(this);
     }
 }
