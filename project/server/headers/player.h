@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Wed Jul  2 21:24:20 2014 damien sauvalle
+** Last update Fri Jul  4 15:14:57 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -63,7 +63,7 @@ int			player_get_y(t_player *);
 ** Team Name
 */
 int			player_set_team_name(t_player *, char *); /* Here ? || ctor*/
-char			*player_get_team_name(t_player *);/* Really util ?*/
+char			*player_get_team_name(t_player *); /* Really util ?*/
 
 /*
 ** Level / Range view
