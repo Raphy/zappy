@@ -1,12 +1,10 @@
-print("initializing package {0} ...".format(__name__))
+print("initializing module {0} ...".format(__name__))
+
+from ..network import Network
 
 from .orientation import *
 from .drone_id import DroneId
-from ..network import Network
 from .inventory import Inventory
-
-from .messenger import Messenger
-from . import message
 
 class BaseDrone:
     START_LEVEL = 1
@@ -97,9 +95,10 @@ class Drone(BaseDrone):
 
 
 """ test """
-
+"""
 nw = Network()
 
 drone = Drone(nw, "toto")
 
 print(drone)
+"""
