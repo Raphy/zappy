@@ -36,7 +36,7 @@ class Base:
     @classmethod
     def from_scratch(cls, *args, **kwargs):
         instance = cls()
-        for f_name, f_ctor in instance.fields_order:
+        for f_name, _, _ in instance.fields_order:
             if f_name in kwargs:
                 setattr(instance, f_name, kwargs[f_name])
         return instance
@@ -44,18 +44,19 @@ class Base:
     def __init__(self):
         print("base init for", hex(id(self)))
         self.fields_order = []
-        self.add_field('magic', self.__ctor_magic, str)
-        self.add_field('emitter_id', DroneId.from_str, DroneId)
+        self.add_field('magic', str, self.__ctor_magic)
+        self.add_field('emitter_id', DroneId, DroneId.from_str)
         self.add_field('counter', int)
-        self.add_field('time', MsgTime.from_str, MsgTime)
+        self.add_field('time', MsgTime, MsgTime.from_str)
         self.add_field('team_name', str)
 
     def __str__(self):
-        return self._separator.join((str(getattr(self, name)) for name, _ in self.fields_order))
+        return self._separator.join((f_str(getattr(self, name)) for name, _, f_str in self.fields_order))
 
-    def add_field(self, name, ctor, field_type=None):
-        field_type = ctor if field_type is None else field_type  
+    def add_field(self, name, field_type, field_ctor=None, field_str=str):
         assert type(field_type) == type
+        if field_ctor is None:
+            field_ctor = field_type
 
         def fget(self):
             return getattr(self, '_' + name)
@@ -67,7 +68,7 @@ class Base:
             setattr(self, '_' + name, value)
 
         setattr(self.__class__, name, property(fget, fset))
-        self.fields_order += [(name, ctor)]
+        self.fields_order += [(name, field_ctor, field_str)]
 
     """ getters """
     @property
@@ -92,13 +93,13 @@ class Extended(Base):
 """
 d = DroneId.from_machine()
 print(d, hex(id(d)))
-m = Base.from_scratch(emitter_id=d, counter=24, time=MsgTime.now())
+m = Base.from_scratch(emitter_id=d, counter=24, team_name='titi',time=MsgTime.now())
 print(m)
 s = str(m)
 m2 = Base.from_str(s)
 print (m2)
 
-m3 = Extended.from_scratch(emitter_id=d, counter=1, added="toto", time=MsgTime.from_str("654657"))
+m3 = Extended.from_scratch(emitter_id=d, counter=1, team_name='titi2', added="toto", time=MsgTime.from_str("654657"))
 print(m3)
 m4 = Extended.from_str("sqdqsdqs+qsdqsdd465d4dq")
 print(m4)

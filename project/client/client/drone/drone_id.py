@@ -56,12 +56,12 @@ class DroneId:
                 hexa = "0" + hexa
             self._hash += hexa
 
-if __name__ == "__main__":
 
-    """ Tests """
-
-    d1 = DroneId()
-    d2 = DroneId(str(d1))
-    d3 = DroneId()
-    assert(d1 == d2)
-    assert(d1 != d3)
+""" Tests """
+"""
+d1 = DroneId.from_machine()
+d2 = DroneId.from_str(str(d1))
+d3 = DroneId.from_machine()
+assert(d1 == d2)
+assert(d1 != d3)
+"""

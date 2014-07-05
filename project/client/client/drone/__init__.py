@@ -5,6 +5,7 @@ from .orientation import *
 from .drone_id import DroneId
 from ..network import Network
 from . import message
+from . import inventory
 
 class Drone:
     

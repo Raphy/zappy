@@ -75,36 +75,36 @@ class Orientation8(Orientation4):
             relative.value = relative._value - drone_o._value
         return relative
 
-if __name__ == "__main__":
 
-    """ Tests """
 
-    o = Orientation4(Origin)
-    assert(o.value == Origin)
-    o.value = South
-    assert(o.value == South)
+""" Tests """
+"""
+o = Orientation4(Origin)
+assert(o.value == Origin)
+o.value = South
+assert(o.value == South)
 
-    o = Orientation8(South)
-    assert(o.value == (South, Zero))
-    o = Orientation8(North, Trigo45)
-    assert(o.value == (North, Trigo45))
-    o.value = South
-    assert(o.value == (South, Trigo45))
-    o.value = (South, Clock45)
-    assert(o.value == (South, Clock45))
+o = Orientation8(South)
+assert(o.value == (South, Zero))
+o = Orientation8(North, Trigo45)
+assert(o.value == (North, Trigo45))
+o.value = South
+assert(o.value == (South, Trigo45))
+o.value = (South, Clock45)
+assert(o.value == (South, Clock45))
 
-    drone_o = Orientation4(North)
-    rel_o = Orientation8(West, Trigo45)
-    abs_o = rel_o.to_absolute(drone_o)
-    assert(abs_o.value == (West, Trigo45))
-    rel2_o  = abs_o.to_relative(drone_o)
-    assert(rel2_o.value == (West, Trigo45))
+drone_o = Orientation4(North)
+rel_o = Orientation8(West, Trigo45)
+abs_o = rel_o.to_absolute(drone_o)
+assert(abs_o.value == (West, Trigo45))
+rel2_o  = abs_o.to_relative(drone_o)
+assert(rel2_o.value == (West, Trigo45))
 
-    drone_o.value = West
-    abs_o = rel_o.to_absolute(drone_o)
-    assert(abs_o.value == (South, Trigo45))
-    abs_o.value = (North, Zero)
-    rel_o = abs_o.to_relative(drone_o)
-    assert(rel_o.value == (East, Zero))
-
+drone_o.value = West
+abs_o = rel_o.to_absolute(drone_o)
+assert(abs_o.value == (South, Trigo45))
+abs_o.value = (North, Zero)
+rel_o = abs_o.to_relative(drone_o)
+assert(rel_o.value == (East, Zero))
+"""
 
