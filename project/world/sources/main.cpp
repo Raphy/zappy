@@ -5,6 +5,7 @@
  * Created on June 30, 2014, 12:45 PM
  */
 
+#include <iostream>
 #include "Binder.hh"
 #include "Ressources.hh"
 
@@ -14,8 +15,18 @@ int main(int argc, char** argv)
 {
     (void)argc;
     (void)argv;
-    Binder* binder = Binder::getInstance();
-    IEngine* engine = binder->createEngine();
+    Binder* binder = nullptr;  
+    IEngine* engine = nullptr;  
+    try
+    {
+        binder = Binder::getInstance();
+	engine = binder->createEngine();	
+    }
+    catch (std::string& msg)
+    {
+	std::cout << "Initialization error : " << msg << std::endl;
+	return 1;
+    }
     if (engine->init())
         engine->mainLoop();
     delete engine;

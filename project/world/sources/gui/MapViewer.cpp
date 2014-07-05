@@ -19,21 +19,31 @@ _smgr(smgr)
 {
     _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
     _mapObject->init();// TODO : appeler le init autre part ?
-    //la map est l'object racine donc son parent est null
-//    smgr->addCameraSceneNode(0, vector3df(0,30,-400), vector3df(0,5,0));// TODO : deplacer dans CameraManager
-    auto camera = smgr->addCameraSceneNodeFPS();
 
-//    	camera->setPosition(core::vector3df(2700*2,255*2,2600*2));
-    	camera->setPosition(core::vector3df(0,1000,0));
-	camera->setTarget(core::vector3df(2397*2,343*2,2700*2));
-	camera->setFarValue(42000.0f);
+    /*
+     To look at the mesh, we place a camera into 3d space at the position
+     (0, 30, -40). The camera looks from there to (0,5,0), which is
+     approximately the place where our md2 model is.
+     */
+    smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
+    //    smgr->addLightSceneNode(smgr->getRootSceneNode(), vector3df(0,30,0), SColor(0,255,0,0), 1000);
 
-	//    smgr->addLightSceneNode();
-        /*scene::ILightSceneNode* light1 =*/
+
+//    //la map est l'object racine donc son parent est null
+////    smgr->addCameraSceneNode(0, vector3df(0,30,-400), vector3df(0,5,0));// TODO : deplacer dans CameraManager
+//    auto camera = smgr->addCameraSceneNodeFPS();
+//
+////    	camera->setPosition(core::vector3df(2700*2,255*2,2600*2));
+//    	camera->setPosition(core::vector3df(0,1000,0));
+//	camera->setTarget(core::vector3df(2397*2,343*2,2700*2));
+//	camera->setFarValue(42000.0f);
+//
+//	//    smgr->addLightSceneNode();
+//        /*scene::ILightSceneNode* light1 =*/
+////	    smgr->addLightSceneNode(0, core::vector3df(0,1000,0),
+////	    video::SColorf(0.5f, 1.0f, 0.5f, 0.0f), 1200.0f);
 //	    smgr->addLightSceneNode(0, core::vector3df(0,1000,0),
-//	    video::SColorf(0.5f, 1.0f, 0.5f, 0.0f), 1200.0f);
-	    smgr->addLightSceneNode(0, core::vector3df(0,1000,0),
-	    video::SColorf(1.0f, 1.0f, 1.0f, 0.0f), 1200.0f);
+//	    video::SColorf(1.0f, 1.0f, 1.0f, 0.0f), 1200.0f);
 }
 
 MapViewer::MapViewer(const MapViewer& orig)

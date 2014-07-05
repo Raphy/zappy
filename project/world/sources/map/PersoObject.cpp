@@ -9,6 +9,7 @@
 #include "PersoObject.hh"
 
 using namespace video;
+using namespace scene;
 
 PersoObject::PersoObject(scene::ISceneManager* smgr, IObject* parent)
 : AAnimatedMeshObject(smgr, parent)
@@ -27,19 +28,21 @@ PersoObject::~PersoObject()
 
 bool    PersoObject::init()
 {
-////    _smgr->getSceneNodeFactory(0)->addSceneNode(scene::ESNT_SPHERE, getParentNode());
-//    _node = _smgr->addMeshSceneNode(_ressources->getMesh(PERSO, MESH));
-//
-//    std::cout << "perso init..." << std::endl;
-//
-//    if (_node)
-//    {
-//        _node->setScale(core::vector3df(20,20,20));
-//	_node->setMaterialFlag(EMF_LIGHTING, true);
-//	_node->setMaterialFlag(EMF_FOG_ENABLE, true);
-////	_node->setMD2Animation(scene::EMAT_STAND);
-//	_node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE));
-//    } 
- 
-    return true;
+    std::cout << "perso init..." << std::endl;
+
+    IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_ressources->getMesh(PERSO, MESH, 0));
+    if (!mesh)
+	return false;
+
+    IAnimatedMeshSceneNode* node = _smgr->addAnimatedMeshSceneNode(mesh);
+    _node = node;
+    if (node)
+    {
+	node->setMaterialFlag(EMF_LIGHTING, false);
+//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
+	node->setMD2Animation(scene::EMAT_STAND);
+	node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE, 0));
+	return true;
+    }    
+    return false;
 }

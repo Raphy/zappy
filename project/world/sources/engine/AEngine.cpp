@@ -7,6 +7,7 @@
 
 #include <string>
 #include <iostream>
+#include <driverChoice.h>
 #include "AEngine.hh"
 #include "Ressources.hh"
 #include "Binder.hh"
@@ -21,12 +22,19 @@ AEngine::AEngine()
     _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
     _networkThread->start();
 
-        irr::SIrrlichtCreationParameters params;
-    params.DriverType=video::EDT_OPENGL;
-    params.WindowSize=dimension2d<u32>(640, 480);
-    _device = createDeviceEx(params);
-//        _device = createDevice(video::EDT_OPENGL, dimension2d<u32>(640, 480),
-//    	    16, false, false, false, 0);
+    video::E_DRIVER_TYPE driverType=driverChoiceConsole();
+    if (driverType==video::EDT_COUNT)
+    {
+	std::cout << "WARNING : invalid driver type, Software choose by default." << std::endl;
+        driverType = video::EDT_SOFTWARE;
+    }
+    
+//        irr::SIrrlichtCreationParameters params;
+//    params.DriverType=video::EDT_OPENGL;
+//    params.WindowSize=dimension2d<u32>(640, 480);
+//    _device = createDeviceEx(params);
+    _device = createDevice(driverType, dimension2d<u32>(800, 600),
+    	    16, false, false, false, 0);
     if (!_device)
 	throw std::string("Can't create Irrlicht Device.");
     _driver = _device->getVideoDriver();
@@ -52,7 +60,7 @@ bool AEngine::init()
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
 
     //WINDOW
-    _device->setWindowCaption(L"Irrlicht Engine - User Interface Demo");
+    _device->setWindowCaption(L"Zappy !!!");
     //_device->setResizable(true);
 
     // FONT
