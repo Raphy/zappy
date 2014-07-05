@@ -36,14 +36,14 @@ IEngine*	Binder::createEngine() const
     return new WorldEngine();
 }
 
-IThread* Binder::createNetworkThread() const
+IThread* Binder::createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const
 {
-    return new Worker();
+    return new Worker(eventQueue, commandQueue);
 }
 
-ISafeQueue<void *>* Binder::createNetworkEventQueue() const
+ISafeQueue<t_data *>* Binder::createNetworkEventQueue() const
 {
-    return new SafeQueue<void *>();
+    return new SafeQueue<t_data *>();
 }
 
 

@@ -29,9 +29,11 @@ _smgr(smgr)
 	camera->setFarValue(42000.0f);
 
 	//    smgr->addLightSceneNode();
-        scene::ILightSceneNode* light1 =
+        /*scene::ILightSceneNode* light1 =*/
+//	    smgr->addLightSceneNode(0, core::vector3df(0,1000,0),
+//	    video::SColorf(0.5f, 1.0f, 0.5f, 0.0f), 1200.0f);
 	    smgr->addLightSceneNode(0, core::vector3df(0,1000,0),
-	    video::SColorf(0.5f, 1.0f, 0.5f, 0.0f), 1200.0f);
+	    video::SColorf(1.0f, 1.0f, 1.0f, 0.0f), 1200.0f);
 }
 
 MapViewer::MapViewer(const MapViewer& orig)

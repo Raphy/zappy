@@ -27,8 +27,8 @@ public:
 	    bool realUserMode = false);
     
     IEngine*		    createEngine() const;
-    IThread*		    createNetworkThread() const;
-    ISafeQueue<void *>*	    createNetworkEventQueue() const;
+    ISafeQueue<t_data *>*   createNetworkEventQueue() const;
+    IThread*		    createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const;
     
     /* GUI */
     gui::IGUIElement*	    createMapViewer(gui::IGUIEnvironment* env,

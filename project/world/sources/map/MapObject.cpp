@@ -28,6 +28,8 @@
 //    return true;
 //}
 
+using namespace video;
+
 MapObject::MapObject(scene::ISceneManager* smgr, IObject* parent)
 : AAnimatedMeshObject(smgr, parent)
 {
@@ -46,47 +48,67 @@ MapObject::~MapObject()
 bool    MapObject::init()
 {
     std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
-
+    
     std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
 	perso->init();
     });
     
-//    std::string const& texture = _ressources->getMapTextureFile();
+    //    std::string const& texture = _ressources->getMapTextureFile();
     _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
 	    core::vector3df(0.f, 0.f, 0.f),		// position
-		core::vector3df(0.f, 0.f, 0.f),		// rotation
-		core::vector3df(40.f, 4.4f, 40.f),	// scale
-		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-		5,					// maxLOD
-		scene::ETPS_17,				// patchSize
-		4					// smoothFactor
+	    core::vector3df(0.f, 0.f, 0.f),		// rotation
+	    core::vector3df(40.f, 4.4f, 40.f),	// scale
+	    video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+	    5,					// maxLOD
+	    scene::ETPS_17,				// patchSize
+	    4					// smoothFactor
 	    );
-//    _node->setScale(core::vector3df(20.0f, 2.0f, 20.0f));
-////    _node->setMaterialTexture(video::MATERIAL_MAX_TEXTURES - 1, _ressources->getMapTexture());
-//	_node->setMaterialFlag(video::EMF_LIGHTING, false);
-//	_node->setMaterialTexture(0, _ressources->getMapTexture());
-//	_node->setMaterialTexture(1, _ressources->getMapTexture());
-//	_node->setMaterialType(video::EMT_DETAIL_MAP);
-//	(static_cast<scene::ITerrainSceneNode*>(_node))->scaleTexture(1.0f, 20.0f);
-//
-////	scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode(
-////		"../media/terrain-heightmap.bmp",
-////		0,					// parent node
-////		-1,					// node id
-////		core::vector3df(0.f, 0.f, 0.f),		// position
-////		core::vector3df(0.f, 0.f, 0.f),		// rotation
-////		core::vector3df(40.f, 4.4f, 40.f),	// scale
-////		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-////		5,					// maxLOD
-////		scene::ETPS_17,				// patchSize
-////		4					// smoothFactor
-////		);
-//
-//
-//	//	terrain->setMaterialTexture(0, _driver->getTexture("../media/terrain-texture.jpg"));
-////	terrain->setMaterialTexture(1, _driver->getTexture("../media/detailmap3.jpg"));
-	
-
-	return true;
+    
+    _node->setMaterialFlag(EMF_LIGHTING, true);
+//    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
+//    _node->setMaterialType(video::EMT_DETAIL_MAP);
+    _node->setMaterialTexture(0, _ressources->getTexture(MAP, TEXTURE, 0));
+    _node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 0));
+    
+    //    _smgr->addT
+    //    _node->setScale(core::vector3df(20.0f, 2.0f, 20.0f));
+    ////    _node->setMaterialTexture(video::MATERIAL_MAX_TEXTURES - 1, _ressources->getMapTexture());
+    //	_node->setMaterialFlag(video::EMF_LIGHTING, false);
+    //	_node->setMaterialTexture(0, _ressources->getMapTexture());
+    //	_node->setMaterialTexture(1, _ressources->getMapTexture());
+    //	_node->setMaterialType(video::EMT_DETAIL_MAP);
+    //	(static_cast<scene::ITerrainSceneNode*>(_node))->scaleTexture(1.0f, 20.0f);
+    //
+    ////	scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode(
+    ////		"../media/terrain-heightmap.bmp",
+    ////		0,					// parent node
+    ////		-1,					// node id
+    ////		core::vector3df(0.f, 0.f, 0.f),		// position
+    ////		core::vector3df(0.f, 0.f, 0.f),		// rotation
+    ////		core::vector3df(40.f, 4.4f, 40.f),	// scale
+    ////		video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+    ////		5,					// maxLOD
+    ////		scene::ETPS_17,				// patchSize
+    ////		4					// smoothFactor
+    ////		);
+    //
+    //
+    //	//	terrain->setMaterialTexture(0, _driver->getTexture("../media/terrain-texture.jpg"));
+    ////	terrain->setMaterialTexture(1, _driver->getTexture("../media/detailmap3.jpg"));
+    
+    
+    return true;
 }
 
+bool MapObject::callHandler(t_data * data)
+{
+    (void)data;
+    //    if (data->game_element_type == PERSO_CLASS
+    //	    || data->game_element_type == RESSOURCE_CLASS
+    //	    || data->game_element_type == EGG_CLASS)
+    //	this->(*(data->realptr))(/*??*/);// ex : setLevel
+    //    else
+    //	_perso->callHandler(data);
+    //TODO : recuperer le mapObject au lieu du mapViewer
+    return false;
+}

@@ -12,6 +12,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+    (void)argc;
+    (void)argv;
     Binder* binder = Binder::getInstance();
     IEngine* engine = binder->createEngine();
     if (engine->init())
