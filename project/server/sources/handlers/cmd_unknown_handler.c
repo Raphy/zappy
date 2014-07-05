@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Mon Jun 30 23:56:35 2014 raphael defreitas
+** Last update Fri Jul  4 19:35:49 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -19,6 +19,7 @@ void		cmd_unknown_handler(__attribute__((unused))t_zs *zs,
 				    __attribute__((unused))void *data)
 {
   printf("Unknown command: [%s]\n", cmd);
-  zs_send(zs, NULL, cmd); /* PRIVATE fucntion, only for test*/
-  zs_send(zs, NULL, "\n"); /* PRIVATE fucntion, only for test*/
+  zc_disconnect(zc);
+  //zs_send(zs, NULL, cmd); /* PRIVATE fucntion, only for test*/
+  //zs_send(zs, NULL, "\n"); /* PRIVATE fucntion, only for test*/
 }
