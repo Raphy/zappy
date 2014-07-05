@@ -2,7 +2,7 @@ from datetime import datetime
 
 class MsgTime:
 
-    _validity_duration = 60.0
+    _validity_duration = 60
 
     @classmethod
     def from_str(cls, s_timestamp):

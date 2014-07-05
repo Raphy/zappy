@@ -48,6 +48,7 @@ class Base:
         self.add_field('emitter_id', DroneId.from_str, DroneId)
         self.add_field('counter', int)
         self.add_field('time', MsgTime.from_str, MsgTime)
+        self.add_field('team_name', str)
 
     def __str__(self):
         return self._separator.join((str(getattr(self, name)) for name, _ in self.fields_order))

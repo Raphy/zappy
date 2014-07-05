@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jul  4 00:32:41 2014 raphael defreitas
+** Last update Fri Jul  4 18:23:11 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -60,6 +60,8 @@ typedef	enum
     ZHT_CLIENT_CONNECTED,
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
+    ZHT_BEFORE_SELECT,
+    ZHT_AFTER_SELECT,
     ZHT_STDIN,
     ZHT_CMD_MIN,
     ZHT_CMD_UNKNOWN,

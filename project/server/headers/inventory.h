@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 15:45:28 2014 damien sauvalle
-** Last update Thu Jul  3 22:54:42 2014 damien sauvalle
+** Last update Fri Jul  4 15:14:21 2014 damien sauvalle
 */
 
 #ifndef		INVENTORY_H_
@@ -23,7 +23,6 @@ typedef enum
   }	t_type_inventory;
 
 # define	SIZE_INVENTORY 7
-
 
 typedef struct	s_inventory
 {
