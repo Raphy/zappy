@@ -17,6 +17,7 @@ class Messenger:
 
     _msg_types = {
         _make_type_id('base'): message.Base,
+        _make_type_id('inve'): message.InventoryMsg,
         _make_type_id('exte'): message.Extended,
     }
 
@@ -109,22 +110,31 @@ class Messenger:
 """
 from .. import network
 from . import drone_id
+from .inventory import Inventory
 
 nw = network.Network()
 msgr = Messenger(nw, "toto team")
 d = drone_id.DroneId.from_machine()
-msg = message.Extended.from_scratch(emitter_id=d, added='42')
+i=Inventory()
+i.food_pocket.update(42)
+msg = message.InventoryMsg.from_scratch(emitter_id=d, inventory=i.to_sendable_str())
 msgr.send(msg)
+
+def inv_callback(message, direction, data):
+    inv = Inventory()
+    inv.update_from_str(message.inventory)
+    print (inv)
+
 
 def callback(message, direction, data):
     print(message, direction, data)
 
-msgr.register(message.Extended, callback, "extended data")
+msgr.register(message.InventoryMsg, inv_callback, "inventory data")
 msgr.register(None, callback, "default data")
 
-msgr.receive('exte' + str(msg), "dir")
+msgr.receive('inve' + str(msg), "dir")
 msgr.receive('qsdf64fq6df56qsd4f:65qs4f:56d4f65qsd4f65sd4qf', 'dir')
 
 msg.team_name ="titi"
-msgr.receive('exte' + str(msg), "dir")
+msgr.receive('inve' + str(msg), "dir")
 """
