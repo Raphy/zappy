@@ -4,6 +4,7 @@
 #include "Mutex.hh"
 #include "CondVar.hh"
 #include "ScopedLock.hh"
+#include "Worker.hh"
 
 template <typename T>
 SafeQueue<T>::SafeQueue()
@@ -101,4 +102,4 @@ T&	SafeQueue<T>::back(void)
     return this->_queue.back();
 }
 
-template class	SafeQueue<void *>;
+template class	SafeQueue<t_data *>;

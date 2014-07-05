@@ -8,6 +8,7 @@
  ** Last update Mon May  19 14:43:04 2014 Marie Lefebvre
  */
 
+#include <sstream>
 #include "Binder.hh"
 #include "WorldEngine.hh"
 #include "Worker.hh"
@@ -15,35 +16,62 @@
 #include "MapViewer.hh"
 //#include "MenuToolBar.hh"
 #include "MapObject.hh"
+#include "AnimatedPersoObject.hh"
 #include "PersoObject.hh"
 
-Binder* Binder::getInstance(int winW, int winH,
-	bool realUserMode)
+//Binder* Binder::getInstance(int winW, int winH,
+//	bool realUserMode)
+//{
+//    static Binder instance(winW, winH, realUserMode);
+//    return (&instance);
+//}
+Binder* Binder::getInstance(int ac, char **av)
 {
-    static Binder instance(winW, winH, realUserMode);
+    static Binder instance(ac, av);
     return (&instance);
 }
 
-Binder::Binder(int winW, int winH, bool realUserMode)
-: _winW(winW), _winH(winH), _realUserMode(realUserMode)
-{}
+//Binder::Binder(int winW, int winH, bool realUserMode)
+//: _winW(winW), _winH(winH), _realUserMode(realUserMode)
+//{}
+Binder::Binder(int ac, char **av)
+: _winW(800), _winH(600), _realUserMode(false)
+{
+    if (ac != 2 && ac != 4)
+	throw std::string("Bad options.\nUsage : ./world assetsFolder [windowWidth windowHeight]");
+    _path = av[1];
+    if (ac == 4)
+    {
+	std::stringstream str;
+	str << av[2];
+	str >> _winW;
+	str << av[3];
+	str >> _winH;
+	//TODO : recuperer la taille de l'ecran
+	if (_winW < 1 || _winW > 1000 || _winH < 1 || _winH > 800)
+	    throw std::string("Bad window size.");
+    }
+}
 Binder::~Binder()
 {}
 
 
 IEngine*	Binder::createEngine() const
 {
-    return new WorldEngine();
+    IEngine* engine = new WorldEngine();
+    Ressources::getInstance(engine->getDevice()->getSceneManager(), _path);
+//    Ressources::getInstance(engine->getDevice()->getSceneManager(), "./world/assets/irrlicht");
+    return engine;
 }
 
-IThread* Binder::createNetworkThread() const
+IThread* Binder::createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const
 {
-    return new Worker();
+    return new Worker(eventQueue, commandQueue);
 }
 
-ISafeQueue<void *>* Binder::createNetworkEventQueue() const
+ISafeQueue<t_data *>* Binder::createNetworkEventQueue() const
 {
-    return new SafeQueue<void *>();
+    return new SafeQueue<t_data *>();
 }
 
 
@@ -73,6 +101,7 @@ IObject*	Binder::createMapObject(scene::ISceneManager* smgr,
 IObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
 	IObject* parent) const
 {
+//    return new AnimatedPersoObject(smgr, parent);
     return new PersoObject(smgr, parent);
 }
 

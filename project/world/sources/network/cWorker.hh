@@ -20,7 +20,7 @@
 G_BEGIN_DECLS
 
 void worker_basic_callback(void *data); // doit respecter typedef callback zappy
-void worker_int_callback(void *data, int level); // doit respecter typedef callback zappy
+void worker_level_callback(void *data, int level); // doit respecter typedef callback zappy
 
 G_END_DECLS
 

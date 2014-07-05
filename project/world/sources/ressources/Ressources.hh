@@ -45,6 +45,7 @@ private:
     
     bool		load(std::string const& path = "./assets");
     video::ITexture*	loadTexture(std::string const& filename);
+    video::ITexture*	loadHeightMap(const std::string& filename);
     scene::IMesh*	loadMesh(std::string const& filename);
     
 
