@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Fri Jul  4 18:31:26 2014 raphael defreitas
+** Last update Fri Jul  4 19:07:59 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -30,7 +30,7 @@ static void	set_fds(t_zs *this)
     {
       iterator_next(&it);
       zc = item_data(item);
-      if (zc->has_to_disconnect)
+      if (zc->has_to_disconnect || zc->has_to_stop)
 	{
 	  zs_handle_client_disconnected(this, zc);
 	  zc_delete(list_unlink(this->clients, item));
