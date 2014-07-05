@@ -11,6 +11,7 @@
 #ifndef		BINDER_HH_
 # define	BINDER_HH_
 
+#include	<string>
 #include	"IEngine.hh"
 #include	"IThread.hh"
 #include	"ISafeQueue.hh"
@@ -23,8 +24,9 @@ using namespace irr;
 class Binder
 {
 public:
-    static Binder * getInstance(int winW = 800, int winH = 600,
-	    bool realUserMode = false);
+//    static Binder* getInstance(int winW = 800, int winH = 600,
+//	    bool realUserMode = false);
+    static Binder* getInstance(int ac = 0, char **av = nullptr);
     
     IEngine*		    createEngine() const;
     ISafeQueue<t_data *>*   createNetworkEventQueue() const;
@@ -43,11 +45,13 @@ public:
 				IObject* parent) const;
     
 private:
-    Binder(int winW = 800, int winH = 600, bool realUserMode = false);
+//    Binder(int winW = 800, int winH = 600, bool realUserMode = false);
+    Binder(int ac, char **av);
     ~Binder();
     
     int		_winW, _winH;
     bool	_realUserMode;
+    std::string	_path;
 };
 
 #endif

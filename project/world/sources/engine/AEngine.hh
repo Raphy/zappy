@@ -24,6 +24,8 @@ public:
     virtual bool init();
     virtual bool update();
     virtual bool mainLoop();
+
+    virtual irr::IrrlichtDevice* getDevice() const;
     
     virtual bool callHandler(t_data * data);
 

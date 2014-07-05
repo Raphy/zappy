@@ -29,20 +29,21 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
 		_meshs[i][j][k] = nullptr;
 	    }
     
-    _filenames[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0] = "wall.bmp";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "faerie.md2";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "terrain-heightmap.bmp";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "wall.bmp";
-    
-    for (int i = 0; i < LEVEL_MAX; i++)
-    {
-	_filenames[PERSO][MESH][0] = "faerie.md2";
-	_filenames[PERSO][TEXTURE][0] = "faerie2.bmp";
-    }
+//    _filenames[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0] = "wall.bmp";
+//    _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "faerie.md2";
+//    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "terrain-heightmap.bmp";
+//    _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "wall.bmp";
+//    
+//    for (int i = 0; i < LEVEL_MAX; i++)
+//    {
+//	_filenames[PERSO][MESH][0] = "faerie.md2";
+//	_filenames[PERSO][TEXTURE][0] = "faerie2.bmp";
+//    }
+//
+//    _filenames[MAP][HEIGHT_MAP][0] = "terrain-heightmap.bmp";
+//    _filenames[MAP][TEXTURE][0] = "terrain-texture.jpg";
+//    _filenames[MAP][TEXTURE][1] = "detailmap3.jpg";
 
-    _filenames[MAP][HEIGHT_MAP][0] = "terrain-heightmap.bmp";
-    _filenames[MAP][TEXTURE][0] = "terrain-texture.jpg";
-    _filenames[MAP][TEXTURE][1] = "detailmap3.jpg";
     //    _filenames[PERSO][TEXTURE][2] = "enano.jpg";
     //    _filenames[PERSO][MESH][3] = "dwarf.x";
     //    _filenames[PERSO][TEXTURE][3] = "dwarf.jpg";
@@ -52,6 +53,12 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
     //    _filenames[PERSO][TEXTURE][5] = "nskinrd.jpg";
     //    _filenames[PERSO][MESH][6] = "sydney.md2";
     //    _filenames[PERSO][TEXTURE][6] = "sydney.bmp";
+
+    for (int i = 0; i < LEVEL_MAX; i++)
+    {
+	_filenames[PERSO][MESH][0] = "FFX Auron/model.obj";
+	_filenames[PERSO][TEXTURE][0] = "FFX Auron/0.tga";
+    }
     
     
     load(path);

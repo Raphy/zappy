@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     IEngine* engine = nullptr;  
     try
     {
-        binder = Binder::getInstance();
+        binder = Binder::getInstance(argc, argv);
 	engine = binder->createEngine();	
     }
     catch (std::string& msg)

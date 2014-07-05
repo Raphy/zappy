@@ -97,6 +97,11 @@ bool AEngine::mainLoop()
     return true;
 }
 
+irr::IrrlichtDevice* AEngine::getDevice() const
+{
+    return _device;
+}
+
 //typedef bool (AEngine::*engine_handler_t)(t_infos *);
 typedef bool (/*AEngine::*/*engine_handler_t)(/*t_infos **/);
 

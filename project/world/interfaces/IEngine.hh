@@ -8,6 +8,7 @@
 #ifndef IENGINE_HH
 #define	IENGINE_HH
 
+#include <irrlicht.h>
 #include "INetworkEventHandler.hh"
 #include "ids.hh"
 
@@ -15,11 +16,13 @@ class IEngine : public INetworkEventHandler
 {
 public:
     virtual ~IEngine() {}
-    
+
     virtual bool init() = 0;
     virtual bool update() = 0;
     virtual bool mainLoop() = 0;
 
+    virtual irr::IrrlichtDevice* getDevice() const = 0;
+    
     virtual bool setCameraMode(Ids id) = 0;
     virtual bool setTheme(Ids id) = 0;
     virtual bool setTimeUnit(int value) = 0;
