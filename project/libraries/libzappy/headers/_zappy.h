@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Fri Jul  4 18:22:44 2014 raphael defreitas
+** Last update Sat Jul  5 15:50:49 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -48,6 +48,9 @@ bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
 bool		zs_cmd_rmt(t_zs *, t_zc *, const char *);
 bool		zs_rmt_pubkey(t_zs *, t_zc *, const char *);
 bool		zs_rmt_stop(t_zs *, t_zc *, const char *);
+bool		zs_cmd_forward(t_zs *, t_zc *, const char *);
+bool		zs_cmd_left(t_zs *, t_zc *, const char *);
+bool		zs_cmd_right(t_zs *, t_zc *, const char *);
 
 /*
 ** Event managing
@@ -61,8 +64,14 @@ void		zs_handle_after_select(t_zs *);
 void		zs_handle_client_connected(t_zs *, t_zc *);
 void		zs_handle_client_disconnected(t_zs *, t_zc *);
 void		zs_handle_cmd_unknown(t_zs *, t_zc *, const char *);
+
 void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_forward(t_zs *, t_zc *);
+void		zs_handle_cmd_left(t_zs *, t_zc *);
+void		zs_handle_cmd_right(t_zs *, t_zc *);
+
 void		zs_handle_cmd_graphic(t_zs *, t_zc *);
+
 void		zs_handle_cmd_rmt(t_zs *, t_zc *);
 void		zs_handle_rmt_pubkey(t_zs *, t_zc *, const char *);
 void		zs_handle_rmt_stop(t_zs *, t_zc *);

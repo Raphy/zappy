@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jul  4 18:23:11 2014 raphael defreitas
+** Last update Sat Jul  5 15:54:09 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -67,6 +67,9 @@ typedef	enum
     ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
+    ZHT_CMD_FORWARD,
+    ZHT_CMD_LEFT,
+    ZHT_CMD_RIGHT,
     ZHT_CMD_GRAPHIC,
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,

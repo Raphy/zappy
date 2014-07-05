@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Fri Jul  4 18:27:50 2014 raphael defreitas
+** Last update Sat Jul  5 15:58:34 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -103,6 +103,9 @@ void		zs_hook_rmt_stop(t_zc *zc, t_zsh_client_basic, void *d);
 void		zs_hook_before_select(t_zs *zc, t_zsh_basic h, void *d);
 void		zs_hook_after_select(t_zs *zc, t_zsh_basic h, void *d);
 
+void		zs_hook_cmd_forward(t_zs *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_left(t_zs *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_right(t_zs *, t_zsh_client_basic h, void *d);
 
 /*
 ** +--------+

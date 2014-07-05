@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Fri Jul  4 00:21:03 2014 raphael defreitas
+** Last update Sat Jul  5 15:45:15 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -61,5 +61,9 @@ void		zc_send_rmt_pubkey(t_zc *);
 void		zc_send_rmt_stop(t_zc *);
 
 void		zc_send_rmt_teams(t_zc *);
+
+void		zc_send_cmd_forward(t_zc *);
+void		zc_send_cmd_left(t_zc *);
+void		zc_send_cmd_right(t_zc *);
 
 #endif /* !ZAPPY_COMMANDS_H_*/
