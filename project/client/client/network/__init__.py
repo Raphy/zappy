@@ -1,11 +1,12 @@
 print("initializing package {0} ...".format(__name__))
+from ctypes import *
+from enum import Enum, unique
 
 from .lib_bind import LibBind
 from . import callback_datas as cbdatas
 
-from ctypes import *
-
-class HookTypes:
+@unique
+class HookType(Enum):
     UNKNOWN = 0
     ERRNO = 1
     CALLBACK = 2
@@ -20,13 +21,6 @@ class HookTypes:
     CMD_RMT = 11
     RMT_PUBKEY = 12
     MAX = 13
-
-    def nameof(hook_type):
-        for attr in HookTypes.__dict__:
-            value = getattr(HookTypes, attr)
-            if type(value) == int and value == hook_type:
-                return attr
-        return None
 
 class Network:
     """A bind to the client side of the zappy C library"""
@@ -60,6 +54,10 @@ class Network:
         self._clib.bind_funct('zc_set_timeout', [c_void_p, c_long, c_long])
 
         self._clib.bind_funct('zc_send_team_name', [c_void_p, c_char_p])
+        self._clib.bind_funct('zc_send_cmd_forward', [c_void_p])
+        self._clib.bind_funct('zc_send_cmd_left', [c_void_p])
+        self._clib.bind_funct('zc_send_cmd_right', [c_void_p])
+
 
         self._clib.bind_funct('zc_hook_errno', [c_void_p, Network._ErrorCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_callback', [c_void_p, Network._ReturnCallbackType, c_void_p])
@@ -98,8 +96,18 @@ class Network:
     def broadcast(self, msg_str):
         pass
 
+    def send_cmd_forward(self):
+        self._clib.zc_send_cmd_forward(self._cstruct)
+
+    def send_cmd_left(self):
+        self._clib.zc_send_cmd_left(self._cstruct)
+
+    def send_cmd_right(self):
+        self._clib.zc_send_cmd_right(self._cstruct)
+        
     """ handlers and tools """
 
+    @staticmethod
     def __get_real_data(received_data):
         key = 0 if received_data is None else received_data
         try:
@@ -107,6 +115,7 @@ class Network:
         except KeyError:
             return None
 
+    @staticmethod
     def __error_handler(cstruct, errno, msg, d):
         data = Network.__get_real_data(d)
         msg = None
@@ -116,9 +125,15 @@ class Network:
             pass
         Network._callbacks['error'](errno, msg, data)
 
+    @staticmethod
     def __return_handler(cstruct, typ, d):
         data = Network.__get_real_data(d)
-        Network._callbacks['return'](typ, data)
+        try:
+            hook_type = HookType(typ)
+        except ValueError:
+            hook_type = None
+        finally:
+            Network._callbacks['return'](hook_type, data)
 
 
     """ hooker """
@@ -165,19 +180,15 @@ class Network:
     def hook_broadcast(self, callback, data):
         pass
 
-
-
-
-
 """ test, to be removed """
-"""
+
 nw = Network()
 r_data ="r data"
 e_data = 'e data'
 t_data = 't data'
 
 def return_callback(typ, data):
-    print("return callback: type={0}, data={1}".format(HookTypes.nameof(typ), data))
+    print("return callback: type={0}, data={1}".format(None if typ is None else typ.name, data))
 
 def error_callback(errno, msg, data):
     print("error callback: errno={0}, msg={1}, data={2}".format(errno, msg, data))
@@ -191,7 +202,7 @@ def stdin_callback(nw):
 def disconnected_callback(nw):
     print("disconnected callback")
 
-
+"""
 nw.hook_timeout(timeout_callback, nw)
 nw.hook_return(return_callback, r_data)
 nw.hook_error(error_callback, e_data)
@@ -200,6 +211,12 @@ nw.hook_disconnected(disconnected_callback, nw)
 nw.set_timeout(2,1)
 nw.disable_timeout()
 nw.set_timeout(2,1)
+
 nw.connect('localhost', 4242)
+nw.send_team_name('toto')
+nw.send_cmd_forward()
+nw.send_cmd_left()
+nw.send_cmd_right()
+
 nw.run()
 """
