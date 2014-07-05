@@ -14,6 +14,9 @@ class FoodPocket:
         return "{0}(delay:{1})".format(self.remaining,
             int(datetime.now().timestamp()) - self.update_time)
 
+    def start_supplying(self):
+        self.update(self.START_NUMBER)
+
     def update(self, remaining, update_time=None):
         self.remaining = remaining
         self.update_time = update_time
@@ -115,7 +118,7 @@ class Inventory:
         self._stones_pocket = StonesPocket()
 
     def __str__(self):
-        return "Inventory(x{0}):\n\tfood: {1}\n\tstones: {2}"\
+        return "Inventory({0}):\n\tfood: {1}\n\tstones: {2}"\
             .format(hex(id(self)), self.food_pocket, self.stones_pocket)
 
     def update_from_str(self, s, time=None):
