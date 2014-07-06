@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jul  6 10:41:19 2014 raphael defreitas
+** Last update Sun Jul  6 18:49:55 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -56,6 +56,8 @@ typedef	struct
 */
 
 void		zs_send_welcome(t_zs *, t_zc *zc);
+void		zs_send_ok(t_zs *, t_zc *zc);
+void		zs_send_ko(t_zs *, t_zc *zc);
 
 void		zs_send_rmt_pubkey(t_zs *, t_zc *zc);
 void		zs_send_rmt_authorized(t_zs *, t_zc *zc);

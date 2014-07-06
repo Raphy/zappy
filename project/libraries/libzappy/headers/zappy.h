@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul  5 16:33:14 2014 raphael defreitas
+** Last update Sun Jul  6 18:52:53 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -63,6 +63,8 @@ typedef	enum
     ZHT_BEFORE_SELECT,
     ZHT_AFTER_SELECT,
     ZHT_STDIN,
+    ZHT_OK,
+    ZHT_KO,
     ZHT_CMD_MIN,
     ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
