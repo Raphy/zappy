@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul  5 16:32:57 2014 raphael defreitas
+** Last update Sun Jul  6 09:28:55 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -66,71 +66,32 @@ void		zs_hook_rmt_stop(t_zc *zc, t_zsh_client_basic, void *d);
 ** +--------+
 */
 
-/*
-** Basic handler
-*/
 typedef	void	(t_zch_basic)(t_zc *zc, void *data);
-
-/*
-** Basic string handler
-** str		The string of the hook
-*/
 typedef	void	(t_zch_str_basic)(t_zc *zc, const char *str, void *data);
 
-/*
-** When an error occurs.
-** err		The errno value.
-** msg		The custom message. It can be NULL if not provided.
-*/
 typedef	void	(t_zch_errno)(t_zc *zc, int err, const char *msg, void *data);
 void		zc_hook_errno(t_zc *, t_zch_errno h, void *d);
-
-/*
-** When a hook is handled.
-** type		The hook type of the previous hook handled.
-*/
 typedef	void	(t_zch_callback)(t_zc *zc, t_zht type, void *data);
 void		zc_hook_callback(t_zc *, t_zch_callback h, void *d);
-
-/*
-** When the select returns after a timeout.
-*/
 void		zc_hook_timeout(t_zc *, t_zch_basic h, void *d);
-
-/*
-** When the zappy client is connected to server
-*/
+void		zc_hook_before_select(t_zc *, t_zch_basic h, void *d);
+void		zc_hook_after_select(t_zc *, t_zch_basic h, void *d);
 void		zc_hook_connected(t_zc *, t_zch_basic h, void *d);
-
-/*
-** When the zappy client is disconnected of server
-*/
 void		zc_hook_disconnected(t_zc *, t_zch_basic h, void *d);
-
-/*
-** When the binary have something in STDIN
-*/
 void		zc_hook_stdin(t_zc *, t_zch_str_basic h, void *d);
-
-/*
-** When a command is unknown
-*/
 void		zc_hook_cmd_unknown(t_zc *, t_zch_str_basic h, void *d);
 
-/*
-** When the server sends "BIENVENUE\n".
-*/
 void		zc_hook_cmd_welcome(t_zc *, t_zch_basic h, void *d);
 
-/*
-** When the server sends "RMT PUBKEY <pubkey>\n".
-*/
-void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);
+typedef	void	(t_zch_cmd_msz)(t_zc *zc, t_msz msz, void *d);
+void		zc_hook_cmd_msz(t_zc *, t_zch_cmd_msz h, void *d);
+typedef	void	(t_zch_cmd_bct)(t_zc *zc, t_bct bct, void *d);
+void		zc_hook_cmd_bct(t_zc *, t_zch_cmd_bct h, void *d);
 
+void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);
 void		zc_hook_rmt_authorized(t_zc *, t_zch_basic h, void *d);
 void		zc_hook_rmt_unauthorized(t_zc *, t_zch_basic h, void *d);
 
-void		zc_hook_before_select(t_zc *, t_zch_basic h, void *d);
-void		zc_hook_after_select(t_zc *, t_zch_basic h, void *d);
+
 
 #endif /* !ZAPPY_HOOKS_H_*/
