@@ -5,11 +5,12 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sun Jul  6 11:06:12 2014 raphael defreitas
+** Last update Sun Jul  6 11:08:15 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
 #include	<stdbool.h>
+#include	<stdlib.h>
 #include	<string.h>
 
 #include	"my.h"
@@ -26,6 +27,11 @@ static unsigned int get_next_token(char **ptr, bool *has_error)
     return (0);
   tok = *ptr;
   end = strchr(tok, ' ');
+  if (end == NULL)
+    {
+      *has_error = true;
+      return (0);
+    }
   tok[end - tok] = 0;
   end++;
   *ptr = end;
