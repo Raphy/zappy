@@ -134,6 +134,41 @@ class PutFood(_PutObject):
         super().__init__('nourriture')
 
 """ Others """
+class TeamName(Base):
+    def __init__(self, team_name):
+        super().__init__()
+        self.team_name = team_name
+        self.slot_number = None
+        self.dimension = None
+
+    def send(self, network):
+        network.send_team_name(self.team_name)
+
+    def intern_accept(self, response):
+        if self.slot_number is None:
+            return self.__accept_slot_number(response)
+        else:
+            return self.__accept_dimension(response)
+
+    def __accept_slot_number(self, response):
+        try:
+            self.slot_number = int(response.strip())
+        except ValueError:
+            return False
+        return True
+
+    def __accept_dimension(self, response):
+        tab = response.strip().split()
+        if len(tab) != 2:
+            return False
+        try:
+            self.dimension = (int(tab[0]), int(tab[1]))
+        except ValueError:
+            return False
+        self.answered = True
+        return True
+
+
 class LookUp(Base):
     def __init__(self):
         super().__init__()

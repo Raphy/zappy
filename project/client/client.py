@@ -2,15 +2,8 @@
 print("running ./client.py ...")
 
 import argparse
-import client
 
-def connected_callback(data):
-    print('client connected')
-    team_name, nw = data
-    nw.send_team_name(team_name)
-
-def disconnected_callback(data):
-    print('client disconnected')
+from client import Client
 
 def parse_arguments():
     parser = argparse.ArgumentParser(conflict_handler='resolve')
@@ -27,11 +20,9 @@ def main():
     print('Team name =', args.team)
     print('Verbose =', args.verbose)
 
-    nw = client.network.Network()
-    nw.hook_connected(connected_callback, (args.team, nw))
-    nw.hook_disconnected(disconnected_callback, None)
-    nw.connect(args.hostname, args.port)
-    nw.run()
+    client = Client(args.team, args.hostname, args.port)
+    if client.connect():
+        client.run()
 
 if __name__ == '__main__':
     main()
