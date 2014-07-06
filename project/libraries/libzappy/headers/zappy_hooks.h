@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul  5 15:58:34 2014 raphael defreitas
+** Last update Sat Jul  5 16:32:57 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -26,86 +26,39 @@
 */
 
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
-
 typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc *zc, void *data);
-
 typedef	void	(t_zsh_str_basic)(t_zs *zs, t_zc *zc, const char *str, void *d);
 
-/*
-** When an error occurs.
-** err		The errno value.
-** msg		The custom message. It can be NULL if not provided.
-*/
 typedef	void	(t_zsh_errno)(t_zs *zs, int err, const char *msg, void *data);
 void		zs_hook_errno(t_zs *, t_zsh_errno h, void *d);
-
-/*
-** When a hook is handled.
-** type		The hook type of the previous hook handled.
-*/
 typedef	void	(t_zsh_callback)(t_zs *zs, t_zht type, void *data);
 void		zs_hook_callback(t_zs *, t_zsh_callback h, void *d);
-
-/*
-** When the select returns after a timeout.
-*/
 void		zs_hook_timeout(t_zs *, t_zsh_basic h, void *d);
-
-/*
-** When a client is connected.
-*/
+void		zs_hook_before_select(t_zs *zc, t_zsh_basic h, void *d);
+void		zs_hook_after_select(t_zs *zc, t_zsh_basic h, void *d);
 void		zs_hook_client_connected(t_zs *, t_zsh_client_basic h,
 					 void *d);
-
-/*
-** When a client is disconnected.
-*/
 void		zs_hook_client_disconnected(t_zs *,
 					    t_zsh_client_basic h,
 					    void *d);
-
-/*
-** When a command is unknown
-** zc		The client which have sent the unknown command
-** cmd		The unknown command received
-*/
 typedef	void	(t_zsh_cmd_unknown)(t_zs *zs, t_zc *zc, const char *cmd,
 				    void *data);
 void		zs_hook_cmd_unknown(t_zc *zc, t_zsh_cmd_unknown h, void *d);
 
-/*
-** When a client sends its team name (after "BIENVENUE\n" command)
-** zc		The client which have sent the command
-** team_name	The team name sent
-*/
 void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_str_basic h, void *d);
-
-/*
-** When a client sends "GRAPHIC\n"
-*/
-void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
-
-/*
-** When a client sends "RMT\n"
-*/
-void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
-
-/*
-** When the remote sends its public key
-*/
-void		zs_hook_rmt_pubkey(t_zc *zc, t_zsh_str_basic, void *d);
-
-/*
-** When the remote sends stop
-*/
-void		zs_hook_rmt_stop(t_zc *zc, t_zsh_client_basic, void *d);
-
-void		zs_hook_before_select(t_zs *zc, t_zsh_basic h, void *d);
-void		zs_hook_after_select(t_zs *zc, t_zsh_basic h, void *d);
-
 void		zs_hook_cmd_forward(t_zs *, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_left(t_zs *, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_right(t_zs *, t_zsh_client_basic h, void *d);
+
+void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_msz(t_zc *zc, t_zsh_client_basic h, void *d);
+typedef	void	(t_zsh_cmd_bct)(t_zs *zs, t_zc *zc, t_position pos, void *d);
+void		zs_hook_cmd_bct(t_zc *zc, t_zsh_cmd_bct h, void *d);
+void		zs_hook_cmd_mct(t_zc *zc, t_zsh_client_basic h, void *d);
+
+void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
+void		zs_hook_rmt_pubkey(t_zc *zc, t_zsh_str_basic, void *d);
+void		zs_hook_rmt_stop(t_zc *zc, t_zsh_client_basic, void *d);
 
 /*
 ** +--------+

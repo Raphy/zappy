@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul  5 15:54:09 2014 raphael defreitas
+** Last update Sat Jul  5 16:33:14 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -71,6 +71,9 @@ typedef	enum
     ZHT_CMD_LEFT,
     ZHT_CMD_RIGHT,
     ZHT_CMD_GRAPHIC,
+    ZHT_CMD_MSZ,
+    ZHT_CMD_BCT,
+    ZHT_CMD_MCT,
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,
     ZHT_RMT_MIN,
@@ -241,7 +244,7 @@ G_END_DECLS
 ** +-------------------+
 */
 
-# include	"zappy_hooks.h"
 # include	"zappy_commands.h"
+# include	"zappy_hooks.h"
 
 #endif /* !ZAPPY_H_*/
