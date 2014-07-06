@@ -181,7 +181,7 @@ class Network:
         pass
 
 """ test, to be removed """
-
+"""
 nw = Network()
 r_data ="r data"
 e_data = 'e data'
@@ -202,7 +202,7 @@ def stdin_callback(nw):
 def disconnected_callback(nw):
     print("disconnected callback")
 
-"""
+
 nw.hook_timeout(timeout_callback, nw)
 nw.hook_return(return_callback, r_data)
 nw.hook_error(error_callback, e_data)

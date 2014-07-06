@@ -2,6 +2,7 @@ print("initializing module {0} ...".format(__name__))
 
 from ..network import Network
 from .drone import Drone
+from .team import Team
 
 class Pilot:
     def __init__(self, network, drone):
@@ -76,5 +77,7 @@ class Pilot:
 
 
 """ test """
+"""
 network = Network()
 p = Pilot(network, Drone(network, "toto"))
+"""

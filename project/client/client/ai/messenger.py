@@ -2,6 +2,7 @@ print("initializing module {0} ...".format(__name__))
 
 from . import message
 from .msg_time import MsgTime
+from . import command
 
 """"""
 _type_id_len = 4
@@ -23,8 +24,8 @@ class Messenger:
 
     _msg_types_items_view = _msg_types.items()
 
-    def __init__(self, network, team_name):
-        self._network = network
+    def __init__(self, network, cmd_tracer, team_name):
+        self._cmd_tracer = cmd_tracer
         self._counter = 0
         self._callbacks = {}
         self._default = None
@@ -53,8 +54,9 @@ class Messenger:
             return True
 
     def send_str(self, msg_str):
-        self._network.broadcast(msg_str)
-
+        cmd = command.Broadcast(msg_str)
+        key = self._cmd_tracer.push(cmd, force=True)
+        return key
 
     def receive(self, msg_str, direction):
         self.__receive(msg_str, direction, None)
@@ -111,14 +113,16 @@ class Messenger:
 from .. import network
 from . import drone_id
 from .inventory import Inventory
+from .cmd_tracer import CmdTracer
 
 nw = network.Network()
+cmd_tracer = CmdTracer(network)
 msgr = Messenger(nw, "toto team")
 d = drone_id.DroneId.from_machine()
 i=Inventory()
 i.food_pocket.update(42)
 msg = message.InventoryMsg.from_scratch(emitter_id=d, inventory=i.to_sendable_str())
-msgr.send(msg)
+key = msgr.send(msg)
 
 def inv_callback(message, direction, data):
     inv = Inventory()

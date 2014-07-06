@@ -1,18 +1,7 @@
 print("initializing module {0} ...".format(__name__))
 
 from collections import deque
-
-class BaseCmd:
-
-    def __init__(self):
-        pass
-
-    def send(self, network):
-        pass
-
-    def accept(self, response):
-        return True
-
+from . import command
 
 class CmdTracer:
 
@@ -34,10 +23,13 @@ class CmdTracer:
         if len(self.waiting_queue) > 0:
             key, cmd = self.waiting_queue[0]
             if cmd.accept(response):
-                self.out_queue[key] = cmd
-                self.waiting_queue.popleft()
-                if len(self.over_queue) > 0:
-                    self.__unload_over_queue()
+                if cmd.answered:
+                    self.out_queue[key] = cmd
+                    self.waiting_queue.popleft()
+                    if len(self.over_queue) > 0:
+                        self.__unload_over_queue()
+                return True
+        return False
 
     def __reserve_key(self):
         key = None
@@ -70,7 +62,7 @@ class CmdTracer:
         cmd.send(self.network)
 
     def push(self, cmd, force=False):
-        assert isinstance(cmd, BaseCmd)
+        assert isinstance(cmd, command.Base)
         if len(self.waiting_queue) >= self.MAX_CMD_NUMBER:
             if force == False:
                 return None
@@ -107,7 +99,7 @@ from ..network import Network
 network = Network()
 tracer = CmdTracer(network)
 
-keys = [tracer.push(BaseCmd(), force=True) for i in range(15)]
+keys = [tracer.push(command.TurnLeft(), force=True) for i in range(15)]
 print (tracer)
 
 for key in keys:
