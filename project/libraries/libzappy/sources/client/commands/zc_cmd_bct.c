@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sun Jul  6 09:52:06 2014 raphael defreitas
+** Last update Sun Jul  6 11:06:12 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -16,47 +16,54 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static bool	parse_position_food(char **ptr, t_bct *bct)
+static unsigned int get_next_token(char **ptr, bool *has_error)
 {
-  char		*x;
-  char		*y;
-  char		*food;
-  char		*delim;
+  char		*tok;
+  char		*end;
+  unsigned int	res;
 
-  x = *ptr;
-  y = strchr(x, ' ');
-  x[y - x] = 0;
-  y++;
-  food = strchr(y, ' ');
-  y[food - y] = 0;
-  food++;
-  delim = strchr(food, ' ');
-  delim++;
-  food[delim - food] = 0;
-  if (!my_str_is_numeric(x) || !my_str_is_numeric(y) || !my_str_is_numeric(food))
-    return (false);
-  bct->position.x = strtoul(x, NULL, 0);
-  bct->position.y = strtoul(y, NULL, 0);
-  bct->food = strtoul(food, NULL, 0);
-  *ptr = delim;
-  return (true);
+  if (*has_error)
+    return (0);
+  tok = *ptr;
+  end = strchr(tok, ' ');
+  tok[end - tok] = 0;
+  end++;
+  *ptr = end;
+  if (!my_str_is_numeric(tok))
+    {
+      *has_error = true;
+      return (0);
+    }
+  res = strtoul(tok, NULL, 0);
+  return (res);
+}
+
+static bool	fill(char **ptr, t_bct *bct)
+{
+  bool		has_error;
+
+  has_error = false;
+  bct->position.x = get_next_token(ptr, &has_error);
+  bct->position.y = get_next_token(ptr, &has_error);
+  bct->food = get_next_token(ptr, &has_error);
+  bct->linemate = get_next_token(ptr, &has_error);
+  bct->deraumere = get_next_token(ptr, &has_error);
+  bct->sibur = get_next_token(ptr, &has_error);
+  bct->mendiane = get_next_token(ptr, &has_error);
+  bct->phiras = get_next_token(ptr, &has_error);
+  bct->thystame = get_next_token(ptr, &has_error);
+  return (has_error);
 }
 
 static bool	parse(const char *cmd, t_bct *bct)
 {
   char		*tmp;
   char		*ptr;
-  char		*linemate;
-  char		*deraumere;
-  char		*sibur;
-  char		*mendiane;
-  char		*phiras;
-  char		*thystame;
 
   if ((tmp = strdup(cmd + 4)) == NULL)
     return (false);
   ptr = tmp;
-  if (!parse_position_food(&ptr, bct))
+  if (!fill(&ptr, bct))
     {
       free(tmp);
       return (false);
