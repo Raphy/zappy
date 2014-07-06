@@ -29,6 +29,7 @@ public:
     static Binder* getInstance(int ac = 0, char **av = nullptr);
     
     IEngine*		    createEngine() const;
+    IEventReceiver*	    createEventReceiver(EventContext const& context) const;
     ISafeQueue<t_data *>*   createNetworkEventQueue() const;
     IThread*		    createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const;
     

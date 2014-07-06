@@ -10,7 +10,7 @@
 
 #include <irrlicht.h>
 #include "INetworkEventHandler.hh"
-#include "ids.hh"
+#include "enums.hh"
 
 class IEngine : public INetworkEventHandler
 {

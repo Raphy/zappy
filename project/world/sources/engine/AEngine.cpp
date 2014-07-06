@@ -17,6 +17,8 @@ using namespace gui;
 
 AEngine::AEngine()
 {
+    _binder = (Binder::getInstance());
+
     _eventQueue = _binder->createNetworkEventQueue();
     _commandQueue = _binder->createNetworkEventQueue();
     _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
@@ -41,7 +43,11 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
-    _binder = (Binder::getInstance());
+
+    EventContext context;
+    context.device = _device;
+    _eventReceiver = _binder->createEventReceiver(context);
+    _device->setEventReceiver(_eventReceiver);
 }
 
 AEngine::~AEngine()

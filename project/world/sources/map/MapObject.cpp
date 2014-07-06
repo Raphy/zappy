@@ -28,27 +28,53 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-//    std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
-//    _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
-//	    core::vector3df(0.f, 0.f, 0.f),		// position
-//	    core::vector3df(0.f, 0.f, 0.f),		// rotation
-//	    core::vector3df(40.f, 4.4f, 40.f),	// scale
-//	    video::SColor ( 255, 255, 255, 255 ),	// vertexColor
-//	    5,					// maxLOD
-//	    scene::ETPS_17,				// patchSize
-//	    4					// smoothFactor
-//	    );    
-//    _node->setMaterialFlag(EMF_LIGHTING, true);
-////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
-////    _node->setMaterialType(video::EMT_DETAIL_MAP);
-//    _node->setMaterialTexture(0, _ressources->getTexture(MAP, TEXTURE, 0));
-//    _node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 1));    
+    //    std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
+    //    _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
+    //	    core::vector3df(0.f, 0.f, 0.f),		// position
+    //	    core::vector3df(0.f, 0.f, 0.f),		// rotation
+    //	    core::vector3df(40.f, 4.4f, 40.f),	// scale
+    //	    video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+    //	    5,					// maxLOD
+    //	    scene::ETPS_17,				// patchSize
+    //	    4					// smoothFactor
+    //	    );    
+    //    _node->setMaterialFlag(EMF_LIGHTING, true);
+    ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
+    ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
+    //    _node->setMaterialTexture(0, _ressources->getTexture(MAP, TEXTURE, 0));
+    //    _node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 1));    
+    
+    createGround(20,20);//test
     
     std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
 	perso->init();
     });
     return true;
 }
+
+bool MapObject::createGround(int x, int y)
+{
+    std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
+    _node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
+	    core::vector3df(0.f, 0.f, 0.f),		// position
+	    core::vector3df(0.f, 0.f, 0.f),		// rotation
+	    core::vector3df(x, 1.f, y),	// scale
+	    video::SColor ( 255, 255, 255, 255 ),	// vertexColor
+	    5,					// maxLOD
+	    scene::ETPS_17,				// patchSize
+	    4					// smoothFactor
+	    );
+    if (_node)
+    {
+	_node->setMaterialTexture(0, _ressources->getTexture(MAP, TEXTURE, 0));
+	_node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 1));        
+	return true;
+    }
+    return false;
+}
+
+
+
 
 bool MapObject::callHandler(t_data * data)
 {

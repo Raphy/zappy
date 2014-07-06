@@ -12,7 +12,7 @@
 # include   <string>
 # include   <array>
 # include   <irrlicht.h>
-# include   "ids.hh"
+# include   "enums.hh"
 # include   "IGameElement.hh"
 
 using namespace irr;

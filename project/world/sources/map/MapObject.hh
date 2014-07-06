@@ -22,6 +22,8 @@ public:
     bool    callHandler(t_data * data);
     
     bool    init();
+    
+    bool    createGround(int x, int y);
 private:
     std::list<IObject*>  _persos;
 };

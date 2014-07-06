@@ -18,6 +18,7 @@
 #include "MapObject.hh"
 #include "AnimatedPersoObject.hh"
 #include "PersoObject.hh"
+#include "MyEventReceiver.hh"
 
 //Binder* Binder::getInstance(int winW, int winH,
 //	bool realUserMode)
@@ -64,6 +65,11 @@ IEngine*	Binder::createEngine() const
     return engine;
 }
 
+IEventReceiver* Binder::createEventReceiver(EventContext const& context) const
+{
+    return new MyEventReceiver(context);
+}
+
 IThread* Binder::createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const
 {
     return new Worker(eventQueue, commandQueue);
@@ -101,7 +107,7 @@ IObject*	Binder::createMapObject(scene::ISceneManager* smgr,
 IObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
 	IObject* parent) const
 {
-//    return new AnimatedPersoObject(smgr, parent);
-    return new PersoObject(smgr, parent);
+    return new AnimatedPersoObject(smgr, parent);
+//    return new PersoObject(smgr, parent);
 }
 

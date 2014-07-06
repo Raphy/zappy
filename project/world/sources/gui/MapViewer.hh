@@ -10,6 +10,7 @@
 
 #include <irrlicht.h>
 #include "AAnimatedMeshObject.hh"
+#include "CameraManager.hh"
 
 using namespace irr;
 
@@ -27,11 +28,14 @@ public:
     
     virtual const video::SMaterial & getMaterial () const { return _material; }
     virtual scene::IAnimatedMesh * getMesh () const { return _mapObject->getAnimatedMeshNode()->getMesh(); }
+
+    bool    createGround(int x, int y);
     
 private:
     scene::ISceneManager*	_smgr;
     video::SMaterial		_material;
     AAnimatedMeshObject*	_mapObject;
+    CameraManager		_cameraManager;
 };
 
 #endif	/* MAPVIEWER_HH */

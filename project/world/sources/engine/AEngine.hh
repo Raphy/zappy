@@ -53,7 +53,7 @@ protected:
     io::IFileSystem*	    _fs;
 
 //    SAppContext		    _context;
-    IEventReceiver*	    _eventReceiver;    
+    IEventReceiver*	    _eventReceiver;
 
     gui::IGUIElement*	    _mapViewer;
     
