@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Thu Jul  3 19:15:17 2014 raphael defreitas
+## Last update Sun Jul  6 10:42:59 2014 raphael defreitas
 ##
 
 CC		?=	clang
@@ -25,10 +25,10 @@ CFLAGS		+=	-I ./../libraries/libzappy/headers
 CFLAGS		+=	$(shell pkg-config --cflags glib-2.0)
 
 LFLAGS		=
-LFLAGS		+=	-L ./../libraries/libmy -l my
 LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
+LFLAGS		+=	-L ./../libraries/libmy -l my
 LFLAGS		+=	-lm $(shell pkg-config --libs openssl)
 
 all		:	$(NAME)
