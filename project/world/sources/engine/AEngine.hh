@@ -13,6 +13,7 @@
 #include "Binder.hh"
 #include "IThread.hh"
 #include "ISafeQueue.hh"
+#include "MapViewer.hh"
 
 using namespace irr;
 
@@ -28,6 +29,7 @@ public:
     virtual irr::IrrlichtDevice* getDevice() const;
     
     virtual bool callHandler(t_data * data);
+    virtual bool callHandlerCreateMap(int x, int y);//VERSION SIMPLE
 
     /* SETTINGS */
 
@@ -55,7 +57,8 @@ protected:
 //    SAppContext		    _context;
     IEventReceiver*	    _eventReceiver;
 
-    gui::IGUIElement*	    _mapViewer;
+//    gui::IGUIElement*	    _mapViewer;
+    MapViewer*	    _mapViewer;
     
     Binder*		    _binder;
     IThread*		    _networkThread;

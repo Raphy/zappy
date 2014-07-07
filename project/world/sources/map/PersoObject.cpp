@@ -10,6 +10,7 @@
 
 using namespace video;
 using namespace scene;
+using namespace core;
 
 PersoObject::PersoObject(scene::ISceneManager* smgr, IObject* parent)
 : AMeshObject(smgr, parent)
@@ -38,6 +39,8 @@ bool    PersoObject::init()
     _node = node;
     if (node)
     {
+	node->setPosition(vector3df(0,0,0));
+	node->setScale(node->getScale() / 2.0);
 	node->setMaterialFlag(EMF_LIGHTING, false);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	    node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE, 0));

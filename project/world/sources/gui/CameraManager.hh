@@ -11,6 +11,8 @@
 #include    <irrlicht.h>
 #include    "AObject.hh"
 
+using namespace irr;
+
 enum CameraMode
 {
     STATIC = 0,
@@ -29,15 +31,17 @@ public:
     bool    init(int x, int y);
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
-        
+
+    bool    addCollision(scene::ITriangleSelector* selector);
+
 private:	    
-    irr::scene::ISceneManager*	    _smgr;
-    irr::scene::ISceneNode*	    _node;
+    scene::ISceneManager*	    _smgr;
+    scene::ISceneNode*	    _node;
 
     Ids				    _guiIds[CAMERA_MODE_COUNT];
     CameraMode			    _currentMode;
-    irr::scene::ICameraSceneNode*   _camera[CAMERA_MODE_COUNT];
-    irr::scene::ILightSceneNode*    _light[CAMERA_MODE_COUNT];
+    scene::ICameraSceneNode*   _camera[CAMERA_MODE_COUNT];
+    scene::ILightSceneNode*    _light[CAMERA_MODE_COUNT];
 };
 
 #endif	/* CAMERAMANAGER_HH */
