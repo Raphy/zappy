@@ -7,7 +7,8 @@ class CmdTracer:
 
     MAX_CMD_NUMBER = 10
 
-    def __init__(self, network):
+    def __init__(self, network, verbose=False):
+        self.verbose = verbose
         self.network = network
         self.waiting_queue = deque()
         self.out_queue = {}
@@ -15,11 +16,32 @@ class CmdTracer:
         self.free_keys = []
         self.next_new_key = 0
 
+        self.__setup_handlers()
+
+    def __setup_handlers(self):
+        self.network.hook_ok(self.__handler_ok, self)
+        self.network.hook_ko(self.__handler_ko, self)
+        self.network.hook_cmd_unknown(self.__handler_unknown, self)
+
+    @staticmethod
+    def __handler_ok(cmd_tracer):
+        cmd_tracer.receive('OK')
+
+    @staticmethod
+    def __handler_ko(cmd_tracer):
+        cmd_tracer.receive('KO')
+
+    @staticmethod
+    def __handler_unknown(s, cmd_tracer):
+        cmd_tracer.receive(s)
+
     def __str__(self):
         return "waiting: {0}\nout: {1}\nover: {2}"\
             .format(self.waiting_queue, self.out_queue, self.over_queue)
 
     def receive(self, response):
+        if self.verbose:
+            print("receive cmd: '{0}'".format(response))
         if len(self.waiting_queue) > 0:
             key, cmd = self.waiting_queue[0]
             if cmd.accept(response):

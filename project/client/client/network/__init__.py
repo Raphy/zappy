@@ -28,6 +28,7 @@ class Network:
     _ErrorCallbackType = CFUNCTYPE(None, c_void_p, c_int, c_char_p, c_void_p)
     _ReturnCallbackType = CFUNCTYPE(None, c_void_p, c_uint, c_void_p)
     _BasicCallbackType = CFUNCTYPE(None, c_void_p, c_void_p)
+    _StrBasicCallbackType = CFUNCTYPE(None, c_void_p, c_char_p, c_void_p)
 
     _callbacks = {}
 
@@ -64,9 +65,12 @@ class Network:
         self._clib.bind_funct('zc_hook_timeout', [c_void_p, Network._BasicCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_connected', [c_void_p, Network._BasicCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_disconnected', [c_void_p, Network._BasicCallbackType, c_void_p])
-        self._clib.bind_funct('zc_hook_stdin', [c_void_p, Network._BasicCallbackType, c_void_p])
-        self._clib.bind_funct('zc_hook_cmd_unknown', [c_void_p, Network._BasicCallbackType, c_void_p])
+        self._clib.bind_funct('zc_hook_stdin', [c_void_p, Network._StrBasicCallbackType, c_void_p])
+        self._clib.bind_funct('zc_hook_cmd_unknown', [c_void_p, Network._StrBasicCallbackType, c_void_p])
         self._clib.bind_funct('zc_hook_cmd_welcome', [c_void_p, Network._BasicCallbackType, c_void_p])
+        self._clib.bind_funct('zc_hook_ok', [c_void_p, Network._BasicCallbackType, c_void_p])
+        self._clib.bind_funct('zc_hook_ko', [c_void_p, Network._BasicCallbackType, c_void_p])
+
 
     """ interface """
 
@@ -115,14 +119,20 @@ class Network:
         except KeyError:
             return None
 
+
+    @staticmethod
+    def __decode_cstr(cstr):
+        msg = ''
+        try:
+            msg = cstr.decode('utf-8')
+        except:
+            pass
+        return msg
+
     @staticmethod
     def __error_handler(cstruct, errno, msg, d):
         data = Network.__get_real_data(d)
-        msg = None
-        try:
-            msg = msg.decode('utf-8')
-        except:
-            pass
+        msg = self.__decode_cstr(msg)
         Network._callbacks['error'](errno, msg, data)
 
     @staticmethod
@@ -150,6 +160,18 @@ class Network:
         Network._callbacks['return'] = callback
         self._clib.zc_hook_callback(self._cstruct, self._return_handler, key)
 
+
+    def __hook_str_basic(self, name, callback, data):
+        key = cbdatas.add(data)
+        def str_basic_handler(cstruct, s, d):
+            s = self.__decode_cstr(s)
+            callback(s, Network.__get_real_data(d))
+        handler = Network._StrBasicCallbackType(str_basic_handler)
+        setattr(self, '_' + name + "_handler", handler)
+        Network._callbacks[name] = str_basic_handler
+        getattr(self._clib, 'zc_hook_' + name)(self._cstruct, handler, key)
+
+
     def __hook_basic(self, name, callback, data):
         key = cbdatas.add(data)
         def basic_handler(cstruct, d):
@@ -169,13 +191,19 @@ class Network:
         self.__hook_basic('disconnected', callback, data)
 
     def hook_stdin(self, callback, data):
-        self.__hook_basic('stdin', callback, data)
+        self.__hook_str_basic('stdin', callback, data)
 
     def hook_cmd_unknown(self, callback, data):
-        self.__hook_basic('cmd_unknown', callback, data)
+        self.__hook_str_basic('cmd_unknown', callback, data)
 
     def hook_cmd_welcome(self, callback, data):
         self.__hook_basic('cmd_welcome', callback, data)
+
+    def hook_ok(self, callback, data):
+        self.__hook_basic('ok', callback, data)
+
+    def hook_ko(self, callback, data):
+        self.__hook_basic('ko', callback, data)
 
     def hook_broadcast(self, callback, data):
         pass
