@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Sun Jul  6 09:20:56 2014 raphael defreitas
+** Last update Mon Jul  7 18:03:45 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -45,6 +45,6 @@ bool		zs_cmd_bct(t_zs *this, t_zc *zc, const char *cmd)
     return (false);
   if (!parse(cmd, &position))
     return (false);
-  zs_handle_cmd_bct(this, zc, position);
+  zs_handle_cmd_bct(this, zc, &position);
   return (true);
 }

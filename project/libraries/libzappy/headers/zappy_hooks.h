@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Mon Jul  7 10:27:35 2014 raphael defreitas
+** Last update Mon Jul  7 17:58:30 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -52,7 +52,7 @@ void		zs_hook_cmd_right(t_zs *, t_zsh_client_basic h, void *d);
 
 void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_msz(t_zc *zc, t_zsh_client_basic h, void *d);
-typedef	void	(t_zsh_cmd_bct)(t_zs *zs, t_zc *zc, t_position pos, void *d);
+typedef	void	(t_zsh_cmd_bct)(t_zs *zs, t_zc *zc, t_position *pos, void *d);
 void		zs_hook_cmd_bct(t_zc *zc, t_zsh_cmd_bct h, void *d);
 void		zs_hook_cmd_mct(t_zc *zc, t_zsh_client_basic h, void *d);
 
@@ -86,9 +86,9 @@ void		zc_hook_cmd_welcome(t_zc *, t_zch_basic h, void *d);
 void		zc_hook_ok(t_zc *, t_zch_basic h, void *d);
 void		zc_hook_ko(t_zc *, t_zch_basic h, void *d);
 
-typedef	void	(t_zch_cmd_msz)(t_zc *zc, t_msz msz, void *d);
+typedef	void	(t_zch_cmd_msz)(t_zc *zc, t_msz *msz, void *d);
 void		zc_hook_cmd_msz(t_zc *, t_zch_cmd_msz h, void *d);
-typedef	void	(t_zch_cmd_bct)(t_zc *zc, t_bct bct, void *d);
+typedef	void	(t_zch_cmd_bct)(t_zc *zc, t_bct *bct, void *d);
 void		zc_hook_cmd_bct(t_zc *, t_zch_cmd_bct h, void *d);
 
 void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);

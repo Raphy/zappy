@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Tue Jul  1 19:29:23 2014 raphael defreitas
+** Last update Mon Jul  7 17:53:11 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -42,6 +42,8 @@ static void	treat_read_zc(t_zs *this, t_zc *zc)
   char		buf[SOCK_BUF_LEN + 1];
   int		rlen;
 
+  if (zc->has_to_disconnect || zc->has_to_stop)
+    return ;
   rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
   if (rlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
     zs_handle_errno(this, "socket read failed");
@@ -62,6 +64,8 @@ static void	treat_write_zc(t_zs *this, t_zc *zc)
   int		wlen;
   char		*data;
 
+  if (zc->has_to_disconnect || zc->has_to_stop)
+    return ;
   if (list_length(zc->pckts_to_snd) == 0)
     return ;
   data = NULL;

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sun Jul  6 11:08:15 2014 raphael defreitas
+** Last update Mon Jul  7 18:03:08 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -85,9 +85,6 @@ bool		zc_cmd_bct(t_zc *this, const char *cmd)
     return (false);
   if (!parse(cmd, &bct))
     return (false);
-  printf("bct %u %u %u %u %u %u %u %u %u\n", bct.position.x, bct.position.y,
-	 bct.food, bct.linemate, bct.deraumere, bct.sibur, bct.mendiane,
-	 bct.phiras, bct.thystame);
-  zc_handle_cmd_bct(this, bct);
+  zc_handle_cmd_bct(this, &bct);
   return (true);
 }

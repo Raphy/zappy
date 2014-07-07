@@ -5,13 +5,13 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Sun Jul  6 09:25:39 2014 raphael defreitas
+** Last update Mon Jul  7 18:02:27 2014 raphael defreitas
 */
 
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zc_handle_cmd_msz(t_zc *this, t_msz msz)
+void		zc_handle_cmd_msz(t_zc *this, t_msz *msz)
 {
   t_zh		zh;
 
