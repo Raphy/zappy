@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Fri Jul  4 16:50:12 2014 damien sauvalle
+** Last update Sat Jul  5 18:17:27 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -25,6 +25,13 @@ typedef enum
     DIRECTION_WEST
   }	t_direction;
 
+typedef enum
+  {
+    NORMAL,
+    INCANTATION,
+    FORK
+  }	t_etat;
+
 struct	s_player
 {
   t_inventory	inventory;
@@ -34,8 +41,9 @@ struct	s_player
   char		*team_name;
   char		level; /* level and view range*/
   unsigned int	life;
+  char		etat;
   /* int ID */
-  /*  ? handler --> action ?*/
+
 };
 
 /*
