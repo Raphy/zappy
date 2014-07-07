@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 15:23:11 2014 damien sauvalle
-** Last update Mon Jul  7 17:02:05 2014 damien sauvalle
+** Last update Mon Jul  7 22:28:41 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -38,18 +38,18 @@ static void	set_fill(t_fill_map *fill)
   fill[FOOD].fill = &fill_food;
 }
 
-void		generate_ressource(t_server *server, t_arg *arg)
+void		generate_ressource(t_server *server)
 {
   unsigned int	tab[7];
   t_fill_map	fill[7];
   int		i;
 
-  define_density(tab, arg->x_world * arg->y_world);
+  define_density(tab, server->arg->x_world * server->arg->y_world);
   set_fill(fill);
   i = 0;
   while (i < SIZE_INVENTORY)
     {
-      fill[i].fill(server->map, arg, tab[i]);
+      fill[i].fill(server->map, server->arg, tab[i]);
       i++;
     }
 }
