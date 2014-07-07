@@ -5,13 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jul  4 14:23:18 2014 damien sauvalle
-** Last update Fri Jul  4 14:24:22 2014 damien sauvalle
+** Last update Mon Jul  7 17:06:01 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
 #include	"server.h"
 
-void	fill_phiras(t_inventory **map, t_arg *arg, int v)
+void	fill_phiras(t_case **map, t_arg *arg, int v)
 {
   int	i;
   int	x;
@@ -22,8 +22,8 @@ void	fill_phiras(t_inventory **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].phiras < 250)
-	map[x][y].phiras += 1;
+      if (map[x][y].inventory.phiras < 250)
+	map[x][y].inventory.phiras += 1;
       i++;
     }
 }

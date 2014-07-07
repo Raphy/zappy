@@ -25,11 +25,11 @@ class fork:
         subprocess.Popen(tab)
 
 def test_fork_launch():
-        f = fork('python3 ./fork.py')
+        f = fork('python3')
         loops = int(sys.argv[3])
         while (loops > 0):
             print("Father: Loops left: {0}".format(loops))
-            f.new_process('2', '5')
+            f.new_process('./fork.py', '2', '5')
             time.sleep(int(sys.argv[2]))
             loops -= 1
 

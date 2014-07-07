@@ -24,8 +24,12 @@ public:
     bool    init();
     
     bool    createGround(int x, int y);
+
+    scene::ITriangleSelector* getSelector() const { return _selector; }
+
 private:
-    std::list<IObject*>  _persos;
+    scene::ITriangleSelector*	_selector;
+    std::list<IObject*>		_persos;
 };
 
 #endif	/* MAPOBJECT_HH */

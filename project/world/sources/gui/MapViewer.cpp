@@ -17,9 +17,10 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr)
 	rect<s32>(vector2di(42, 42), vector2di(42, 42))),
 	_smgr(smgr), _cameraManager(smgr)
 {
-    _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
+    //    _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
+    _mapObject = new MapObject(_smgr, nullptr);
     _mapObject->init();// TODO : appeler le init autre part ?
-    _cameraManager.init(20,20);
+    _cameraManager.init(20,20);//??
 }
 
 MapViewer::MapViewer(const MapViewer& orig)
@@ -43,7 +44,8 @@ void MapViewer::setMesh(scene::IAnimatedMesh *mesh)
 
 bool MapViewer::createGround(int x, int y)
 {
-    
-//    return _mapObject->createGround(x,y);
-    return false;
+    if (!_cameraManager.init(x,y)
+	    || !_mapObject->createGround(x,y))
+	return false;
+    return _cameraManager.addCollision(_mapObject->getSelector());
 }
