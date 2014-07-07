@@ -4,33 +4,28 @@ import subprocess
 import sys
 
 class fork:
-    def __init__(self, path = ".", binary = "client.py"):
-        self._binary = None
-        self.binary = path, binary
+    def __init__(self, cmd = "./client.py"):
+        self._cmd = cmd
 
     @property
-    def binary(self):
-        return self._binary
+    def cmd(self):
+        return self._cmd
 
-    @binary.setter
-    def binary(self, path = ".", binary = "client.py"):
-        self._binary = None
-        if path is not None:
-            self._binary = path + '/'
-        if binary is not None:
-            self._binary += binary
+    @cmd.setter
+    def cmd(self, cmd):
+        self._cmd = cmd
 
     def new_process(self, *arg):
-        assert (self._binary != None)
+        assert (self._cmd != None)
         tab = []
-        tab.append(self._binary)
+        tab.append(self._cmd)
         for item in arg:
             tab.append(item)
         print (tab)
         subprocess.Popen(tab)
 
 def test_fork_launch():
-        f = fork(path = None, binary = 'python3 fork.py')
+        f = fork('python3 ./fork.py')
         loops = int(sys.argv[3])
         while (loops > 0):
             print("Father: Loops left: {0}".format(loops))
