@@ -18,12 +18,12 @@ using namespace gui;
 AEngine::AEngine()
 {
     _binder = (Binder::getInstance());
-
+    
     _eventQueue = _binder->createNetworkEventQueue();
     _commandQueue = _binder->createNetworkEventQueue();
     _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
     _networkThread->start();
-
+    
     video::E_DRIVER_TYPE driverType=driverChoiceConsole();
     if (driverType==video::EDT_COUNT)
     {
@@ -31,10 +31,10 @@ AEngine::AEngine()
         driverType = video::EDT_SOFTWARE;
     }
     
-//        irr::SIrrlichtCreationParameters params;
-//    params.DriverType=video::EDT_OPENGL;
-//    params.WindowSize=dimension2d<u32>(640, 480);
-//    _device = createDeviceEx(params);
+    //        irr::SIrrlichtCreationParameters params;
+    //    params.DriverType=video::EDT_OPENGL;
+    //    params.WindowSize=dimension2d<u32>(640, 480);
+    //    _device = createDeviceEx(params);
     _device = createDevice(driverType, dimension2d<u32>(800, 600),
     	    16, false, false, false, 0);
     if (!_device)
@@ -43,7 +43,7 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
-
+    
     EventContext context;
     context.device = _device;
     _eventReceiver = _binder->createEventReceiver(context);
@@ -61,25 +61,25 @@ AEngine::~AEngine()
 bool AEngine::init()
 {
     Ressources::getInstance(_smgr, "./world/assets/irrlicht");
-
+    
     //ASSETS
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
-
+    
     //WINDOW
     _device->setWindowCaption(L"Zappy !!!");
     //_device->setResizable(true);
-
+    
     // FONT
-//    IGUISkin* skin = _env->getSkin();
-//    IGUIFont* font = _env->getFont("../../media/fonthaettenschweiler.bmp");
-//    if (font)
-//	skin->setFont(font);
-//    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
-
-//    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    //    IGUISkin* skin = _env->getSkin();
+    //    IGUIFont* font = _env->getFont("../../media/fonthaettenschweiler.bmp");
+    //    if (font)
+    //	skin->setFont(font);
+    //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
+    
+    //    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
     _mapViewer = new MapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
-//    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
-		      
+    //    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
+    
     return true;
 }
 bool AEngine::update()
@@ -92,11 +92,12 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
-    this->callHandlerCreateMap(5,3);
+    //    this->callHandlerCreateMap(5,3);
+    
     while (_device->run())
     {
-//	if (!_eventQueue->isEmpty())
-//	    this->callHandler(_eventQueue->pop());
+	while (!_eventQueue->isEmpty())
+	    this->callHandler(_eventQueue->pop());
 	if (_device->isWindowActive())
 	    this->update();
 	else
@@ -118,24 +119,34 @@ typedef bool (/*AEngine::*/*engine_handler_t)(/*t_infos **/);
 
 bool AEngine::callHandler(t_data* data)
 {
+    std::cout << "EVENT RECEIVED ..." << std::endl;
     if (data->game_element_type == ENGINE_CLASS
 	    || data->game_element_type == MAP_CLASS)
     {
-	engine_handler_t ptr = reinterpret_cast<engine_handler_t>(data->realptr);
-	(void)ptr;
-	//(this->*ptr)(/*data->infos*/);// ex : setLevel(t_infos *infos)
+	switch (data->event_type)
+	{
+	    case MAP_SIZE_EVENT:
+		_mapViewer->createGround(data->infos->x, data->infos->y);
+		break;
+	    case CONNECTED_EVENT:
+		std::cout << "Connected event not implemented..." << std::endl;
+		break;
+	    default:
+		std::cout << "UNKNOWN SERVER EVENT !" << std::endl;
+		break;
+	}
     }
-//    else
-//	_mapViewer->callHandler(data);
+    //    else
+    //	_mapViewer->callHandler(data);
     //TODO : recuperer le mapObject au lieu du mapViewer
     return false;
 }
 
-bool AEngine::callHandlerCreateMap(int x, int y)
-{
-    //AEngine est le dernier relais pour ce handler, donc on appelle la methode finale
-    return _mapViewer->createGround(x, y);
-}
+//bool AEngine::callHandlerCreateMap(int x, int y)
+//{
+//    //AEngine est le dernier relais pour ce handler, donc on appelle la methode finale
+//    return _mapViewer->createGround(x, y);
+//}
 
 
 

@@ -29,7 +29,7 @@ public:
     virtual irr::IrrlichtDevice* getDevice() const;
     
     virtual bool callHandler(t_data * data);
-    virtual bool callHandlerCreateMap(int x, int y);//VERSION SIMPLE
+//    virtual bool callHandlerCreateMap(int x, int y);//VERSION SIMPLE
 
     /* SETTINGS */
 

@@ -4,7 +4,7 @@
 #include "Mutex.hh"
 #include "CondVar.hh"
 #include "ScopedLock.hh"
-#include "Worker.hh"
+#include "World.hh"
 
 template <typename T>
 SafeQueue<T>::SafeQueue()

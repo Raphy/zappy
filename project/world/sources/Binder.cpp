@@ -11,7 +11,7 @@
 #include <sstream>
 #include "Binder.hh"
 #include "WorldEngine.hh"
-#include "Worker.hh"
+#include "World.hh"
 #include "SafeQueue.hh"
 #include "MapViewer.hh"
 //#include "MenuToolBar.hh"
@@ -72,7 +72,7 @@ IEventReceiver* Binder::createEventReceiver(EventContext const& context) const
 
 IThread* Binder::createNetworkThread(ISafeQueue<t_data *>* eventQueue, ISafeQueue<t_data *>* commandQueue) const
 {
-    return new Worker(eventQueue, commandQueue);
+    return new World(eventQueue, commandQueue);
 }
 
 ISafeQueue<t_data *>* Binder::createNetworkEventQueue() const

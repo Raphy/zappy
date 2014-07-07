@@ -8,7 +8,7 @@
 #ifndef	    INETWORKEVENTHANDLER_HH
 # define    INETWORKEVENTHANDLER_HH
 
-# include   "Worker.hh"
+# include   "World.hh"
 
 class	    INetworkEventHandler
 {
