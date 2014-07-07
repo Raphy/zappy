@@ -47,10 +47,6 @@ bool    AnimatedPersoObject::init()
 	//	node->setMD2Animation(EMAT_RUN);
 
 	vector3df extent= node->getTransformedBoundingBox().getExtent();
-//	std::cout << extent.X << std::endl;
-//	std::cout << extent.Y << std::endl;
-//	std::cout << extent.Z << std::endl;
-	//now extent.X is the X size of the box, .Y is Y etc.
 	node->setScale(vector3df(1.0 / extent.X, 1.0 / extent.Y, 1.0 / extent.Z));
 	
 	vector3df pos = node->getPosition();

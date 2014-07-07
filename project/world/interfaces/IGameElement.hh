@@ -22,6 +22,7 @@ enum	GameElementType
     THYSTAME,
     PERSO,
     MAP,
+    SKYBOX,
     GAME_ELEMENT_TYPE_COUNT,
 };
 

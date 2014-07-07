@@ -10,6 +10,7 @@
 
 #include    <irrlicht.h>
 #include    "AObject.hh"
+#include    "Ressources.hh"
 
 using namespace irr;
 
@@ -36,6 +37,9 @@ public:
 
 private:	    
     scene::ISceneManager*	    _smgr;
+    video::IVideoDriver*	    _driver;
+    Ressources*			    _ressources;
+
     scene::ISceneNode*	    _node;
 
     Ids				    _guiIds[CAMERA_MODE_COUNT];

@@ -45,6 +45,30 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
     _filenames[MAP][HEIGHT_MAP][0] = "heightmap.bmp";
     _filenames[MAP][TEXTURE][0] = "terrain-texture.jpg";
     _filenames[MAP][TEXTURE][1] = "detailmap3.jpg";
+
+//        _driver->getTexture("../../media/irrlicht2_up.jpg"),
+//        _driver->getTexture("../../media/irrlicht2_dn.jpg"),
+//        _driver->getTexture("../../media/irrlicht2_lf.jpg"),
+//        _driver->getTexture("../../media/irrlicht2_rt.jpg"),
+//        _driver->getTexture("../../media/irrlicht2_ft.jpg"),
+//        _driver->getTexture("../../media/irrlicht2_bk.jpg"));
+//    scene::ISceneNode* skydome = _smgr->addSkyDomeSceneNode(_driver->getTexture("../../media/skydome.jpg"),16,8,0.95f,2.0f);
+
+
+        _filenames[SKYBOX][TEXTURE][0] = "irrlicht2_up.jpg";
+        _filenames[SKYBOX][TEXTURE][1] = "irrlicht2_dn.jpg";
+        _filenames[SKYBOX][TEXTURE][2] = "irrlicht2_lf.jpg";
+        _filenames[SKYBOX][TEXTURE][3] = "irrlicht2_rt.jpg";
+        _filenames[SKYBOX][TEXTURE][4] = "irrlicht2_ft.jpg";
+        _filenames[SKYBOX][TEXTURE][5] = "irrlicht2_bk.jpg";
+        _filenames[SKYBOX][TEXTURE][6] = "";//?
+//        _filenames[SKYBOX][TEXTURE][0] = "skybox/up.psd";
+//        _filenames[SKYBOX][TEXTURE][1] = "skybox/bot.psd";
+//        _filenames[SKYBOX][TEXTURE][2] = "skybox/l.psd";
+//        _filenames[SKYBOX][TEXTURE][3] = "skybox/r.psd";
+//        _filenames[SKYBOX][TEXTURE][4] = "skybox/front.psd";
+//        _filenames[SKYBOX][TEXTURE][5] = "skybox/down.psd";
+//        _filenames[SKYBOX][TEXTURE][6] = "skybox/up.psd";//?
     
     //        _filenames[PERSO][TEXTURE][2] = "enano.jpg";
     _filenames[PERSO][MESH][3] = "perso/dwarf.x";

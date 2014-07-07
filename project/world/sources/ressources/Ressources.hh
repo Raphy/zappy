@@ -32,8 +32,8 @@ public:
     static const int	LEVEL_MAX = 8;
 
     static Ressources*	getInstance(scene::ISceneManager* smgr = nullptr,
-	    std::string const& path = "./assets");
-    bool reload(std::string const& path = "./assets");
+	    std::string const& path = "./assets/irrlicht/assets.zip");
+    bool reload(std::string const& path = "./assets/irrlicht/assets.zip");
     
     std::string const&	getFileName(GameElementType, RessourceType, int level) const;
     scene::IMesh*	getMesh(GameElementType, RessourceType rType = MESH, int level = 0) const;
@@ -43,7 +43,7 @@ private:
     Ressources(scene::ISceneManager* smgr, std::string const& path);
     ~Ressources();
     
-    bool		load(std::string const& path = "./assets");
+    bool		load(std::string const& path = "./assets/irrlicht/assets.zip");
     video::ITexture*	loadTexture(std::string const& filename);
     video::ITexture*	loadHeightMap(const std::string& filename);
     scene::IMesh*	loadMesh(std::string const& filename);

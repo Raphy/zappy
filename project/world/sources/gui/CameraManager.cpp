@@ -14,7 +14,7 @@ using namespace video;
 using namespace scene;
 
 CameraManager::CameraManager(scene::ISceneManager* smgr)
-: _smgr(smgr)
+: _smgr(smgr), _driver(_smgr->getVideoDriver()), _ressources(Ressources::getInstance())
 {
     _guiIds[STATIC] = GUI_ID_MENU_CAMERA_CLASSIC_BUTTON;
     //	    _guiIds[CLASSIC] = GUI_ID_MENU_CAMERA_CLASSIC_BUTTON;
@@ -27,11 +27,25 @@ CameraManager::~CameraManager()
 
 bool CameraManager::init(int x, int y)
 {
+    // create skybox and skydome
+    _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
+    scene::ISceneNode* skybox = _smgr->addSkyBoxSceneNode(
+            _ressources->getTexture(SKYBOX, TEXTURE, 0),
+            _ressources->getTexture(SKYBOX, TEXTURE, 1),
+            _ressources->getTexture(SKYBOX, TEXTURE, 2),
+            _ressources->getTexture(SKYBOX, TEXTURE, 3),
+            _ressources->getTexture(SKYBOX, TEXTURE, 4),
+            _ressources->getTexture(SKYBOX, TEXTURE, 5));
+    //        scene::ISceneNode* skydome = _smgr->addSkyDomeSceneNode(_ressources->getTexture(SKYBOX, TEXTURE, 6),16,8,0.95f,2.0f);
+    _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
+    
+    
+    //init all cameras
     _camera[FPS] = _smgr->addCameraSceneNodeFPS();
-    _camera[FPS]->setPosition(vector3df(x/2.0, (x+y)/2.0, y/2.0));
-    _camera[FPS]->setPosition(vector3df(10, 50, 10));
-    //    _camera[FPS]->setPosition(vector3df(x/2.0, 10, y/2.0));
+    _camera[FPS]->setPosition(vector3df(x/2.0, (x*y)/2.0, y/2.0));
+//    _camera[FPS]->setPosition(vector3df(10, 30, 10));    //    _camera[FPS]->setPosition(vector3df(x/2.0, 10, y/2.0));
     _camera[FPS]->setTarget(vector3df(x/2.0, 0, y/2.0));
+//    _camera[FPS]->setTarget(vector3df(10, 0, 10));
     _camera[FPS]->setFarValue(4000.0f);
     _light[FPS] = _smgr->addLightSceneNode(_camera[FPS], vector3df(0, 30, 0), SColor(255, 255, 255, 0), 1000);
     
@@ -88,7 +102,7 @@ bool CameraManager::addCollision(scene::ITriangleSelector* selector)
 		selector, _camera[i], core::vector3df(30,5,30),
 		core::vector3df(0,0,0), core::vector3df(0,0,0));
 	_camera[i]->addAnimator(anim);
-	anim->drop();  // And likewise, drop the animator when we're done referring to it.
+	anim->drop();
     }
     return true;
 }

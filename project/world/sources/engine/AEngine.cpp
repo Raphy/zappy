@@ -134,7 +134,7 @@ bool AEngine::callHandler(t_data* data)
 bool AEngine::callHandlerCreateMap(int x, int y)
 {
     //AEngine est le dernier relais pour ce handler, donc on appelle la methode finale
-    _mapViewer->createGround(x, y);
+    return _mapViewer->createGround(x, y);
 }
 
 
