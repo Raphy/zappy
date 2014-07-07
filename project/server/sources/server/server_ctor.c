@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 14:26:41 2014 damien sauvalle
-** Last update Mon Jul  7 16:59:25 2014 damien sauvalle
+** Last update Mon Jul  7 22:20:24 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -38,7 +38,7 @@ static int	alloc_map(t_server *server, t_arg *arg)
   int		i;
 
   y = arg->y_world;
-  if ((server->map = malloc(sizeof(t_case*) * arg->x_world)) == NULL)
+  if ((server->map = malloc(sizeof(t_case *) * arg->x_world)) == NULL)
     return (RET_FAILURE);
   i = 0;
   while (i < arg->x_world)
@@ -57,5 +57,6 @@ int	server_ctor(t_server *server, t_arg *arg)
       ((server->events = list_new(NULL)) == NULL) ||
       (init_default(server, arg) == RET_FAILURE))
     return (RET_FAILURE);
+  server->arg = arg;
   return (RET_SUCCESS);
 }

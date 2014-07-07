@@ -2,18 +2,19 @@ print("initializing package {0} ...".format(__name__))
 
 from enum import Enum, unique
 
-from . import pilot
 from . import drone
-from . import drone_id
-from . import inventory
-from . import message
+from . import vision
 from . import messenger
-from . import msg_time
-from . import orientation
-from . import team
 from . import cmd_tracer
 from . import command
 
+from . import pilot
+from . import drone_id
+from . import inventory
+from . import message
+from . import msg_time
+from . import orientation
+#from . import team
 
 @unique
 class State(Enum):
@@ -23,7 +24,6 @@ class State(Enum):
     prolog = 2
     think = 3
     explore = 4
-
 
 class StateMachine:
 
@@ -124,6 +124,7 @@ class Core:
         self.network = network
         self.team_name = team_name
         self.drone = drone.Drone(network, team_name)
+        self.vision = vision.Vision(8)
         self.cmd_tracer = cmd_tracer.CmdTracer(network, verbose)
         self.messenger = messenger.Messenger(self.network,
             self.cmd_tracer, team_name)
@@ -144,8 +145,8 @@ class Core:
     @staticmethod
     def __handler_welcome(core):
         if core.verbose:
-            core.context.set_consumable_tag(Tag.welcomed, None)
             print ("welcomed")
+        core.context.set_consumable_tag(Tag.welcomed, None)
 
     @staticmethod
     def __handler_timeout(core):

@@ -2,7 +2,7 @@ print("initializing module {0} ...".format(__name__))
 
 from ..network import Network
 from .drone import Drone
-from .team import Team
+#from .team import Team
 
 class Pilot:
     def __init__(self, network, drone):

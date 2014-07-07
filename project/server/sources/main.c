@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Fri Jul  4 15:17:40 2014 damien sauvalle
+** Last update Mon Jul  7 22:41:35 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -80,14 +80,19 @@ int		main(int argc, char **argv)
     return (return_arg_fail(&arg));
   if (init_zappy(&zs, &arg) == RET_FAILURE)
     return (return_zs_fail(&zs, &arg));
+
   arg_dump(&arg);
+
   server_ctor(&server, &arg);
+
   set_server_handlers(&zs, &server);
-  generate_ressource(&server, &arg);
-  /*dump_map(&server, &arg);*/
+
+  generate_ressource(&server);
+
+  /*  dump_map(&server, &arg);*/
+
   zs_main(&zs);
-  server_dtor(&server, &arg);
+  server_dtor(&server);
   zs_dtor(&zs);
-  arg_dtor(&arg);
   return (EXIT_SUCCESS);
 }

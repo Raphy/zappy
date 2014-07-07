@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Mon Jul  7 17:09:03 2014 damien sauvalle
+** Last update Mon Jul  7 22:28:16 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -23,10 +23,11 @@ typedef struct	s_server
   t_list        *players;
   t_list        *events;
   t_list	eggs;
+  t_arg		*arg;
 }		t_server;
 
 int	server_ctor(t_server *, t_arg *);
-void	server_dtor(t_server *, t_arg *);
+void	server_dtor(t_server *);
 void	dump_map(t_server *, t_arg *);
 
 typedef void (*fill)(t_case **, t_arg *, int);
@@ -36,7 +37,7 @@ typedef struct	s_fill_map
   fill		fill;
 }		t_fill_map;
 
-void	generate_ressource(t_server *, t_arg *);
+void	generate_ressource(t_server *);
 void	fill_linemate(t_case **, t_arg *, int);
 void	fill_deraumere(t_case **, t_arg *, int);
 void	fill_sibur(t_case **, t_arg *, int);
