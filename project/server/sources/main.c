@@ -81,8 +81,8 @@ int		main(int argc, char **argv)
   if (init_zappy(&zs, &arg) == RET_FAILURE)
     return (return_zs_fail(&zs, &arg));
   arg_dump(&arg);
-  set_server_handlers(&zs, NULL);
   server_ctor(&server, &arg);
+  set_server_handlers(&zs, &server);
   generate_ressource(&server, &arg);
   /*dump_map(&server, &arg);*/
   zs_main(&zs);
