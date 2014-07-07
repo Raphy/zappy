@@ -35,13 +35,13 @@ typedef struct	s_fill_map
 }		t_fill_map;
 
 void	generate_ressource(t_server *, t_arg *);
-void	fill_linemate(t_inventory **, t_arg *, int);
-void	fill_deraumere(t_inventory **, t_arg *, int);
-void	fill_sibur(t_inventory **, t_arg *, int);
-void	fill_mendiane(t_inventory **, t_arg *, int);
-void	fill_phiras(t_inventory **, t_arg *, int);
-void	fill_thystane(t_inventory **, t_arg *, int);
-void	fill_food(t_inventory **, t_arg *, int);
+void	fill_linemate(t_case **, t_arg *, int);
+void	fill_deraumere(t_case **, t_arg *, int);
+void	fill_sibur(t_case **, t_arg *, int);
+void	fill_mendiane(t_case **, t_arg *, int);
+void	fill_phiras(t_case **, t_arg *, int);
+void	fill_thystane(t_case **, t_arg *, int);
+void	fill_food(t_case **, t_arg *, int);
 
 /*
 ** Fonction pour acceder au ressource d'une case definie
