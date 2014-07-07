@@ -31,7 +31,8 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
     
     _filenames[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0] = "terrain-texture.jpg";
     _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "perso/faerie.md2";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "ground/normal.tga";
+//    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "ground/normal.tga";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "heightmap.bmp";
     _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "terrain-texture.jpg";
     
     for (int i = 0; i < LEVEL_MAX; i++)
@@ -40,7 +41,8 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
 	_filenames[PERSO][TEXTURE][0] = "perso/faerie2.bmp";
     }
     
-    _filenames[MAP][HEIGHT_MAP][0] = "ground/normal.tga";
+//    _filenames[MAP][HEIGHT_MAP][0] = "ground/normal.tga";
+    _filenames[MAP][HEIGHT_MAP][0] = "heightmap.bmp";
     _filenames[MAP][TEXTURE][0] = "terrain-texture.jpg";
     _filenames[MAP][TEXTURE][1] = "detailmap3.jpg";
     

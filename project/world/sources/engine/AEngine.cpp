@@ -76,8 +76,9 @@ bool AEngine::init()
 //	skin->setFont(font);
 //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
 
-    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
-    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
+//    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    _mapViewer = new MapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+//    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
 		      
     return true;
 }
@@ -91,6 +92,7 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
+    this->callHandlerCreateMap(5,3);
     while (_device->run())
     {
 //	if (!_eventQueue->isEmpty())
@@ -108,6 +110,9 @@ irr::IrrlichtDevice* AEngine::getDevice() const
     return _device;
 }
 
+
+/* EVENT HANDLERS */
+
 //typedef bool (AEngine::*engine_handler_t)(t_infos *);
 typedef bool (/*AEngine::*/*engine_handler_t)(/*t_infos **/);
 
@@ -124,6 +129,12 @@ bool AEngine::callHandler(t_data* data)
 //	_mapViewer->callHandler(data);
     //TODO : recuperer le mapObject au lieu du mapViewer
     return false;
+}
+
+bool AEngine::callHandlerCreateMap(int x, int y)
+{
+    //AEngine est le dernier relais pour ce handler, donc on appelle la methode finale
+    _mapViewer->createGround(x, y);
 }
 
 
