@@ -5,13 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jul  4 14:25:31 2014 damien sauvalle
-** Last update Fri Jul  4 14:26:00 2014 damien sauvalle
+** Last update Mon Jul  7 17:04:26 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
 #include	"server.h"
 
-void	fill_food(t_inventory **map, t_arg *arg, int v)
+void	fill_food(t_case **map, t_arg *arg, int v)
 {
   int	i;
   int	x;
@@ -22,8 +22,8 @@ void	fill_food(t_inventory **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].food < 250)
-	map[x][y].food += 1;
+      if (map[x][y].inventory.food < 250)
+	map[x][y].inventory.food += 1;
       i++;
     }
 }

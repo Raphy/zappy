@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Mon Jul  7 16:43:45 2014 nicolas svirchevsky
+** Last update Mon Jul  7 17:09:03 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -27,7 +27,7 @@ int	server_ctor(t_server *, t_arg *);
 void	server_dtor(t_server *, t_arg *);
 void	dump_map(t_server *, t_arg *);
 
-typedef void (*fill)(t_inventory **, t_arg *, int);
+typedef void (*fill)(t_case **, t_arg *, int);
 
 typedef struct	s_fill_map
 {
