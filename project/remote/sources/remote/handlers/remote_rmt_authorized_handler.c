@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jul  4 00:24:30 2014 raphael defreitas
-** Last update Fri Jul  4 00:36:27 2014 raphael defreitas
+** Last update Mon Jul  7 10:47:01 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -19,4 +19,5 @@ void		remote_rmt_authorized_handler(t_zc *zc,
   printf("Authenticated.\n\n");
   zc_hook_stdin(zc, &remote_stdin_handler, data);
   zc_hook_callback(zc, &remote_callback_handler, data);
+  zc_hook_rmt_teams(zc, &remote_rmt_teams_handler, data);
 }

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:51:34 2014 raphael defreitas
-** Last update Sun Jul  6 09:09:17 2014 raphael defreitas
+** Last update Mon Jul  7 10:11:36 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -38,7 +38,8 @@ static int	rmt_cmd_fptrs(t_zs *this)
 {
   if (list_enqueue(this->cmd_fptrs, &zs_cmd_rmt) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_rmt_pubkey) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zs_rmt_stop) == RET_FAILURE)
+      list_enqueue(this->cmd_fptrs, &zs_rmt_stop) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_rmt_teams) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 

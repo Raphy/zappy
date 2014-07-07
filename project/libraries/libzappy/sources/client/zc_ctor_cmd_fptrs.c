@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:53:30 2014 raphael defreitas
-** Last update Sun Jul  6 18:57:56 2014 raphael defreitas
+** Last update Mon Jul  7 10:37:36 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -21,7 +21,8 @@ int		zc_ctor_cmd_fptrs(t_zc *this)
       list_enqueue(this->cmd_fptrs, &zc_cmd_bct) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_rmt_authorized) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_rmt_unauthorized) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_rmt_pubkey) == RET_FAILURE)
+      list_enqueue(this->cmd_fptrs, &zc_rmt_pubkey) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zc_rmt_teams) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 }

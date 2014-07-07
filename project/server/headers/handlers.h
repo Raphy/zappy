@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:39:18 2014 raphael defreitas
-** Last update Thu Jul  3 19:27:07 2014 raphael defreitas
+** Last update Mon Jul  7 10:14:36 2014 raphael defreitas
 */
 
 #ifndef		HANDLERS_H_
@@ -28,10 +28,14 @@ void		client_disconnected_handler(t_zs *, t_zc *, void *);
 */
 void		set_client_handlers(t_zc *, void *);
 void		cmd_unknown_handler(t_zs *, t_zc *, const char *, void *);
+
 void		cmd_team_name_handler(t_zs *, t_zc *, const char *, void *);
+
 void		cmd_graphic_handler(t_zs *, t_zc *, void *);
+
 void		cmd_rmt_handler(t_zs *, t_zc *, void *);
 void		rmt_pubkey_handler(t_zs *, t_zc *, const char *, void *);
 void		rmt_stop_handler(t_zs *, t_zc *, void *);
+void		rmt_teams_handler(t_zs *, t_zc *, void *);
 
 #endif /* !HANDLERS_H_*/

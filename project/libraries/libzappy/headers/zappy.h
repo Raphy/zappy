@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sun Jul  6 18:52:53 2014 raphael defreitas
+** Last update Sun Jul  6 19:10:07 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -83,6 +83,7 @@ typedef	enum
     ZHT_RMT_UNAUTHORIZED,
     ZHT_RMT_PUBKEY,
     ZHT_RMT_STOP,
+    ZHT_RMT_TEAMS,
     ZHT_RMT_MAX,
     ZHT_MAX
   }		t_zht;
