@@ -11,6 +11,7 @@
 #include <irrlicht.h>
 #include "AAnimatedMeshObject.hh"
 #include "CameraManager.hh"
+#include "MapObject.hh"
 
 using namespace irr;
 
@@ -30,11 +31,13 @@ public:
     virtual scene::IAnimatedMesh * getMesh () const { return _mapObject->getAnimatedMeshNode()->getMesh(); }
 
     bool    createGround(int x, int y);
+//    bool    callHandlerCreateMap(int x, int y);
     
 private:
     scene::ISceneManager*	_smgr;
     video::SMaterial		_material;
-    AAnimatedMeshObject*	_mapObject;
+//    AAnimatedMeshObject*	_mapObject;
+    MapObject*	_mapObject;
     CameraManager		_cameraManager;
 };
 
