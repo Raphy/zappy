@@ -10,13 +10,16 @@
 
 #include	"handlers.h"
 #include	"zappy.h"
+#include        "server.h"
 
-void		set_server_handlers(t_zs *zs, void *data)
+void		set_server_handlers(t_zs *zs, t_server *server)
 {
-  zs_hook_errno(zs, &errno_handler, data);
+/*  zs_hook_errno(zs, &errno_handler, data);
   zs_hook_callback(zs, &callback_handler, data);
   zs_set_timeout(zs, 2, 500);
   zs_hook_timeout(zs, &timeout_handler, data);
   zs_hook_client_connected(zs, &client_connected_handler, data);
-  zs_hook_client_disconnected(zs, &client_disconnected_handler, data);
+  zs_hook_client_disconnected(zs, &client_disconnected_handler, data); */
+  zs_hook_before_select(zs, &handler_before_select, server);
+  zs_hook_callback(zs, &callback_handler, server);
 }

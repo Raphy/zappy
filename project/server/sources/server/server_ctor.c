@@ -54,6 +54,7 @@ int	server_ctor(t_server *server, t_arg *arg)
 {
   if ((alloc_map(server, arg) == RET_FAILURE) ||
       ((server->players = list_new(NULL)) == NULL) ||
+      ((server->events = list_new(NULL)) == NULL) ||
       (init_default(server, arg) == RET_FAILURE))
     return (RET_FAILURE);
   return (RET_SUCCESS);

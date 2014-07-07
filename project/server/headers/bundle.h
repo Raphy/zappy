@@ -11,7 +11,7 @@
 #ifndef		BUNDLE_H
 # define	BUNDLE_H
 
-# include	"server.h"
+typedef struct s_server t_server;
 
 typedef struct	s_bundle
 {

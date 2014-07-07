@@ -15,7 +15,6 @@ typedef struct s_player t_player;
 
 # include	"inventory.h"
 # include       "bundle.h"
-# include       "event.h"
 
 typedef enum
   {
@@ -85,7 +84,7 @@ int			player_get_level(t_player *);
 int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
 
-void			player_apply_action(t_player *, t_bundle *, t_event *);
+void			player_apply_action(t_player *, t_bundle *, void *);
 void                    player_action_goahead(t_player *, void *);
 void                    player_action_right(t_player *, void *);
 void                    player_action_left(t_player *, void *);

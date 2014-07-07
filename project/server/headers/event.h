@@ -9,10 +9,11 @@
 # define	EVENT_H
 
 # include       "player.h"
+# include   <time.h>
 
 typedef struct  s_event
 {
-  unsigned int  end_time;
+  int end_time;
   void          (*action)();
   t_player      *player;
   void          *data;

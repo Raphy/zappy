@@ -12,11 +12,13 @@
 # define	HANDLERS_H_
 
 # include	"zappy.h"
+# include       "server.h"
 
 /*
 ** Server handlers
 */
-void		set_server_handlers(t_zs *, void *);
+void            handler_before_select(t_zs *, t_server *);
+void		set_server_handlers(t_zs *, t_server *);
 void		errno_handler(t_zs *, int, const char *, void *);
 void		callback_handler(t_zs *, t_zht, void *);
 void		timeout_handler(t_zs *, void *);

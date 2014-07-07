@@ -15,11 +15,13 @@
 # include	"list.h"
 # include	"arg.h"
 # include	"case.h"
+# include       "event.h"
 
 typedef struct	s_server
 {
   t_case	**map;
   t_list        *players;
+  t_list        *events;
   t_list	eggs;
 }		t_server;
 
