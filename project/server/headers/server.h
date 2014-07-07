@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Fri Jul  4 15:13:01 2014 damien sauvalle
+** Last update Mon Jul  7 16:43:45 2014 nicolas svirchevsky
 */
 
 #ifndef SERVER_H_
@@ -14,11 +14,13 @@
 # include	"inventory.h"
 # include	"list.h"
 # include	"arg.h"
+# include	"case.h"
 
 typedef struct	s_server
 {
-  t_inventory   **map;
+  t_case	**map;
   t_list        *players;
+  t_list	eggs;
 }		t_server;
 
 int	server_ctor(t_server *, t_arg *);

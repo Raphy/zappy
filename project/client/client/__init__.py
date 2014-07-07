@@ -5,7 +5,9 @@ from . import network
 
 class Client:
     
-    def __init__(self, team_name, hostname, port):
+    def __init__(self, team_name, hostname, port, verbose):
+
+        self.verbose = verbose
 
         self.hostname = hostname
         self.port = port
@@ -16,7 +18,7 @@ class Client:
         self.error = None
         self.__setup_handlers()
 
-        self.core = ai.Core(self.network, team_name)
+        self.core = ai.Core(self.network, team_name, verbose)
 
     def __setup_handlers(self):
         self.network.hook_connected(self.__handler_connected, self)
@@ -25,17 +27,20 @@ class Client:
 
     @staticmethod
     def __handler_connected(client):
-        print("client connected")
+        if client.verbose:
+            print("client connected")
         client.connected = True
 
     @staticmethod
     def __handler_disconnected(client):
-        print ("client disconnected")
+        if client.verbose:
+            print ("client disconnected")
         client.connected = False
 
     @staticmethod
     def __handler_error(errno, msg, client):
-        print("error:{0}: {1}".format(errno, msg))
+        if client.verbose:
+            print("error:{0}: {1}".format(errno, msg))
         client.error = (errno, msg)
 
     def connect(self):

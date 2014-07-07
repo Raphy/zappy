@@ -16,11 +16,12 @@ def parse_arguments():
 def main():
     args = parse_arguments()
 
-    print('Connecting on {0}:{1}'.format(args.hostname, args.port))
-    print('Team name =', args.team)
-    print('Verbose =', args.verbose)
+    if args.verbose:
+        print('Server = {0}:{1}'.format(args.hostname, args.port))
+        print('Team name =', args.team)
+        print('Verbose =', args.verbose)
 
-    client = Client(args.team, args.hostname, args.port)
+    client = Client(args.team, args.hostname, args.port, args.verbose)
     if client.connect():
         client.run()
 

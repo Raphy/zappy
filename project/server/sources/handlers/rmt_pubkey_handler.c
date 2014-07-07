@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Fri Jul  4 00:50:17 2014 raphael defreitas
+** Last update Mon Jul  7 10:14:10 2014 raphael defreitas
 */
 
 #include	<dirent.h>
@@ -54,6 +54,7 @@ void		rmt_pubkey_handler(__attribute__((unused))t_zs *zs,
   if (authorized_key(pk))
     {
       zs_hook_rmt_stop(zc, &rmt_stop_handler, data);
+      zs_hook_rmt_teams(zc, &rmt_teams_handler, data);
       zs_send_rmt_authorized(zs, zc);
     }
   else

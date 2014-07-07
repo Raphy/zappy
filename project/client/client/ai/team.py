@@ -98,7 +98,7 @@ class Team:
     def __removeDrone(self, drone_id):
         self._teammates = [drone for drone in self._teammates if drone.id != drone_id]
 
-    def manage(self, message):
+    def manage(self, message, orientation_fixed = None):
         """ Send to the team a message and he'll update the team information """
         drone = next((drone for drone in self._teammates if drone.id == message.drone_id), None)
 

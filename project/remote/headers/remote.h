@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Sun Jun 29 18:38:50 2014 raphael defreitas
-** Last update Fri Jul  4 00:22:33 2014 raphael defreitas
+** Last update Mon Jul  7 10:43:28 2014 raphael defreitas
 */
 
 #ifndef		REMOTE_H_
@@ -33,5 +33,6 @@ void		remote_cmd_welcome_handler(t_zc *, void *);
 void		remote_rmt_pubkey_handler(t_zc *, const char *, void *);
 void		remote_rmt_authorized_handler(t_zc *, void *);
 void		remote_rmt_unauthorized_handler(t_zc *, void *);
+void		remote_rmt_teams_handler(t_zc *, const char *, void *);
 
 #endif /* !REMOTE_H_*/
