@@ -3,7 +3,7 @@ class TeamInfo:
     def __init__(self):
         self.teammates = {}
 
-    def retreiveDrone(self, drone_id):
+    def getDrone(self, drone_id):
         return self.teammates[drone_id] if self.teammates != {} else None
 
     def addDrone(self, drone_info):
