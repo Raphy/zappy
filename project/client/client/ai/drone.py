@@ -93,6 +93,11 @@ class Drone(BaseDrone):
         assert type(value) == Network
         self._network = value
 
+class DroneInfo(BaseDrone):
+
+    def __init__(self, team_name, drone_id = None, level = None, orientation = None, counter = None):
+        super().__init__(team_name, drone_id, level, orientation)
+        self.message_counter = 0 if counter is None else counter
 
 """ test """
 """

@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 15:43:50 2014 damien sauvalle
-** Last update Thu Jul  3 23:13:13 2014 damien sauvalle
+** Last update Mon Jul  7 17:00:08 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -23,13 +23,13 @@ void	dump_map(t_server *server, t_arg *arg)
       while (j < arg->y_world)
 	{
 	  printf("map[%d][%d]\n", i, j);
-	  printf("\t linemate : %d\n", server->map[i][j].linemate);
-	  printf("\t deraumere : %d\n", server->map[i][j].deraumere);
-	  printf("\t sibur : %d\n", server->map[i][j].sibur);
-	  printf("\t menduane : %d\n", server->map[i][j].mendiane);
-	  printf("\t phirad : %d\n", server->map[i][j].phiras);
-	  printf("\t thystane : %d\n", server->map[i][j].thystane);
-	  printf("\t food : %d\n\n", server->map[i][j].food);
+	  printf("\t linemate : %d\n", server->map[i][j].inventory.linemate);
+	  printf("\t deraumere : %d\n", server->map[i][j].inventory.deraumere);
+	  printf("\t sibur : %d\n", server->map[i][j].inventory.sibur);
+	  printf("\t menduane : %d\n", server->map[i][j].inventory.mendiane);
+	  printf("\t phirad : %d\n", server->map[i][j].inventory.phiras);
+	  printf("\t thystane : %d\n", server->map[i][j].inventory.thystane);
+	  printf("\t food : %d\n\n", server->map[i][j].inventory.food);
 	  j++;
 	}
       i++;

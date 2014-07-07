@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 14:26:41 2014 damien sauvalle
-** Last update Fri Jul  4 15:43:39 2014 damien sauvalle
+** Last update Mon Jul  7 16:59:25 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -23,7 +23,7 @@ static int	init_default(t_server *server, t_arg *arg)
       j = 0;
       while (j < arg->y_world)
 	{
-	  if (inventory_ctor(&(server->map[i][j])) == RET_FAILURE)
+	  if (inventory_ctor(&(server->map[i][j].inventory)) == RET_FAILURE)
 	    return (RET_FAILURE);
 	  j++;
 	}
@@ -38,12 +38,12 @@ static int	alloc_map(t_server *server, t_arg *arg)
   int		i;
 
   y = arg->y_world;
-  if ((server->map = malloc(sizeof(t_inventory*) * arg->x_world)) == NULL)
+  if ((server->map = malloc(sizeof(t_case*) * arg->x_world)) == NULL)
     return (RET_FAILURE);
   i = 0;
   while (i < arg->x_world)
     {
-      if ((server->map[i] = malloc(sizeof(t_inventory) * y)) == NULL)
+      if ((server->map[i] = malloc(sizeof(t_case) * y)) == NULL)
 	return (RET_FAILURE);
       i++;
     }
