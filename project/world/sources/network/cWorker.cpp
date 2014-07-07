@@ -7,9 +7,11 @@
 
 #include <iostream>
 #include <unistd.h>
-#include    "Worker.hh"
+#include "Worker.hh"
 #include "cWorker.hh"
 #include "zappy.h"
+
+#include "ILevel.hh"
 
 //typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
 //
@@ -26,12 +28,14 @@ void worker_ctor(t_worker * self, Worker * cpp_worker)
 
 void worker_dtor(t_worker * self)
 {
+    (void)self;
     std::cout << "worker_dtor" << std::endl;
 }
 
 // au final ne fera que appeler zappy_main
 void worker_loop(t_worker * self)
 {
+    (void)self;
     while (42)
     {
 	//do callback
@@ -43,15 +47,22 @@ void worker_loop(t_worker * self)
 
 /* CALLBACKS C */
 
-void worker_basic_callback(void *data) // doit respecter typedef callback zappy
+void worker_basic_callback(void *worker) // doit respecter typedef callback zappy
 {
     // rempli basique structure
-    ((Worker *)((t_worker *)data)->cpp_worker)->push_callback(data);//push real_data ??
+    t_worker * self = static_cast<t_worker *>(worker);
+    self->cpp_worker->push_callback(self->data);//push real_data ??
 }
 
-void worker_int_callback(void *data, int level) // doit respecter typedef callback zappy
+void worker_level_callback(void *worker, int level) // doit respecter typedef callback zappy
 {
-    // rempli basique structure
-   ((t_real_data *)(((t_worker *)data))->real_data)->level = level;
-    ((Worker *)((t_worker *)data)->cpp_worker)->push_callback(data);
+    t_worker * self = static_cast<t_worker *>(worker);
+
+//    self->data->realptr = &ILevel::setLevel;
+//    self->data->ptr_type = INT_HANDLER;
+    self->data->game_element_type = PERSO_CLASS;
+
+    self->data->infos->level = level;
+
+    self->cpp_worker->push_callback(self->data);
 }

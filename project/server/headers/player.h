@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Wed Jul  2 21:24:20 2014 damien sauvalle
+** Last update Fri Jul  4 16:50:12 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -20,8 +20,8 @@ typedef struct s_player t_player;
 typedef enum
   {
     DIRECTION_NORTH,
-    DIRECTION_SOUTH,
     DIRECTION_EST,
+    DIRECTION_SOUTH,
     DIRECTION_WEST
   }	t_direction;
 
@@ -63,7 +63,7 @@ int			player_get_y(t_player *);
 ** Team Name
 */
 int			player_set_team_name(t_player *, char *); /* Here ? || ctor*/
-char			*player_get_team_name(t_player *);/* Really util ?*/
+char			*player_get_team_name(t_player *); /* Really util ?*/
 
 /*
 ** Level / Range view
@@ -77,7 +77,7 @@ int			player_get_level(t_player *);
 int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
 
-void                    player_apply_action(t_player *, t_bundle *, t_event *);
+void			player_apply_action(t_player *, t_bundle *, t_event *);
 void                    player_action_goahead(t_player *, void *);
 void                    player_action_right(t_player *, void *);
 void                    player_action_left(t_player *, void *);
@@ -90,5 +90,9 @@ void                    player_action_broacast(t_player *, void *);
 void                    player_action_incantation(t_player *, void *);
 void                    player_action_fork(t_player *, void *);
 void                    player_action_slot_number(t_player *, void *);
+
+/*
+** Norme espace !!!
+*/
 
 #endif /* !PLAYER_H_ */

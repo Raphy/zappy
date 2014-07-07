@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 01:04:22 2014 raphael defreitas
-** Last update Mon Jun 30 20:35:10 2014 raphael defreitas
+** Last update Fri Jul  4 18:31:02 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -46,6 +46,7 @@ void		zc_main(t_zc *this)
   zc_handle_connected(this);
   while (!this->has_to_stop)
     {
+      zc_handle_before_select(this);
       select_ret = zc_select(this);
       if (select_ret == RET_ERROR)
 	{
@@ -55,6 +56,7 @@ void		zc_main(t_zc *this)
       else if (select_ret == 0)
 	zc_handle_timeout(this);
       zc_treat_fds(this);
+      zc_handle_after_select(this);
     }
   zc_handle_disconnected(this);
 }

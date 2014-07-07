@@ -12,13 +12,6 @@
 #include    "ISafeQueue.hh"
 #include    "cWorker.hh"
 
-typedef struct s_worker
-{
-    void *  cpp_worker;
-    void *  callptr;
-    void *  real_data;
-} t_worker;
-
 // classe concernée par le changement
 // donc le real_ptr sera appelé depuis sa classe parent
 typedef enum s_handler_class_type
@@ -30,11 +23,17 @@ typedef enum s_handler_class_type
     RESSOURCE_CLASS,
 } t_handler_class_type;
 
-typedef struct s_real_data
+//// defini le type du handler pour caster le pointeur sur fonction
+//typedef enum s_handler_ptr_type
+//{
+//    BASIC_HANDLER,
+//    INT_HANDLER,
+//    MSG_HANDLER,
+//    //...
+//} t_handler_ptr_type;
+
+typedef struct s_infos
 {
-    t_handler_class_type	game_element_type;
-    void *  realptr;
-    
     int	    x;
     int	    y;
     int	    orientation;
@@ -45,10 +44,25 @@ typedef struct s_real_data
     int	    ressource_id;
     int	    time_unit;
     char *  team_name;
-    char *  msg;
-} t_real_data;
+    char *  msg;    
+} t_infos;
+
+typedef struct s_data
+{
+    t_handler_class_type	game_element_type;
+//    t_handler_ptr_type		ptr_type;
+    bool	(*realptr)(t_infos*);//?
+    t_infos *	infos;
+} t_data;
 
 class Worker;
+
+typedef struct s_worker
+{
+    Worker *	cpp_worker;
+//    void *	callptr;
+    t_data *	data;
+} t_worker;
 
 void worker_ctor(t_worker * self, Worker * cpp_worker);
 void worker_dtor(t_worker * self);
@@ -57,7 +71,8 @@ void worker_loop(t_worker * self);// au final ne fera que appeler zappy_main
 class Worker : public Thread
 {
 public:
-    Worker()
+    Worker(ISafeQueue<t_data *> * eventQueue, ISafeQueue<t_data *> * commandQueue)
+    : _eventQueue(eventQueue), _commandQueue(commandQueue)
     {
 	worker_ctor(&_worker, this);
     }
@@ -72,13 +87,21 @@ public:
 	return nullptr;
     }
 
-    void push_callback(void *data)
+    void push_callback(t_data * data)
     {
 	_eventQueue->push(data);
     }
 
+    t_data * pop_command()
+    {
+//	t_data command_data;
+//	_commandQueue->tryPop(&command_data);
+	return nullptr;
+    }
+
 private:
-    ISafeQueue<void*> *	_eventQueue;
+    ISafeQueue<t_data *> *	_eventQueue;
+    ISafeQueue<t_data *> *	_commandQueue;
     t_worker		_worker;
 };
 

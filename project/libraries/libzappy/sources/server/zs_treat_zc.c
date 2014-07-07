@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Wed Jul  2 02:23:04 2014 raphael defreitas
+** Last update Fri Jul  4 19:07:28 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -37,7 +37,8 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
     return ;
   command = NULL;
   ret = RET_SUCCESS;
-  while ((ret = zt_build_command(zc->pckts_rcvd, &command)) == RET_SUCCESS &&
+  while (!zc->has_to_disconnect && !zc->has_to_stop &&
+	 (ret = zt_build_command(zc->pckts_rcvd, &command)) == RET_SUCCESS &&
 	 command != NULL)
     {
       if (list_enqueue(zc->commands, command) == RET_FAILURE)
@@ -46,6 +47,8 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
 	list_clear(zc->pckts_rcvd);
       command = NULL;
     }
+  if (zc->has_to_disconnect || zc->has_to_stop)
+    return ;
   if (ret == RET_FAILURE)
     zs_handle_errno(this, "command parsing failed");
   else

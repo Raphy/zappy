@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Tue Jul  1 16:03:28 2014 raphael defreitas
+** Last update Fri Jul  4 18:52:06 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -17,6 +17,11 @@ void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
 				      const char *team_name,
 				      __attribute__((unused))void *data)
 {
+  if (zc_get_type(zc) != ZCT_UNKNOWN)
+    {
+      zc_disconnect(zc);
+      return ;
+    }
   printf("[%d] is player. Team: %s\n", zc->socket->fd, team_name);
   zc_set_type(zc, ZCT_PLAYER);
 }

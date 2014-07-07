@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Fri Jul  4 00:32:41 2014 raphael defreitas
+** Last update Sun Jul  6 18:52:53 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -60,12 +60,22 @@ typedef	enum
     ZHT_CLIENT_CONNECTED,
     ZHT_CLIENT_DISCONNECTED,
     ZHT_TIMEOUT,
+    ZHT_BEFORE_SELECT,
+    ZHT_AFTER_SELECT,
     ZHT_STDIN,
+    ZHT_OK,
+    ZHT_KO,
     ZHT_CMD_MIN,
     ZHT_CMD_UNKNOWN,
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
+    ZHT_CMD_FORWARD,
+    ZHT_CMD_LEFT,
+    ZHT_CMD_RIGHT,
     ZHT_CMD_GRAPHIC,
+    ZHT_CMD_MSZ,
+    ZHT_CMD_BCT,
+    ZHT_CMD_MCT,
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,
     ZHT_RMT_MIN,
@@ -236,7 +246,7 @@ G_END_DECLS
 ** +-------------------+
 */
 
-# include	"zappy_hooks.h"
 # include	"zappy_commands.h"
+# include	"zappy_hooks.h"
 
 #endif /* !ZAPPY_H_*/

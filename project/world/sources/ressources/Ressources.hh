@@ -12,7 +12,7 @@
 # include   <string>
 # include   <array>
 # include   <irrlicht.h>
-# include   "ids.hh"
+# include   "enums.hh"
 # include   "IGameElement.hh"
 
 using namespace irr;
@@ -45,6 +45,7 @@ private:
     
     bool		load(std::string const& path = "./assets");
     video::ITexture*	loadTexture(std::string const& filename);
+    video::ITexture*	loadHeightMap(const std::string& filename);
     scene::IMesh*	loadMesh(std::string const& filename);
     
 

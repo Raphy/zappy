@@ -10,15 +10,20 @@
 
 #include <list>
 #include "AAnimatedMeshObject.hh"
+#include "INetworkEventHandler.hh"
 
-class MapObject : public AAnimatedMeshObject
+class MapObject : public AAnimatedMeshObject, INetworkEventHandler
 {
 public:
     MapObject(scene::ISceneManager* smgr, IObject* parent);
     MapObject(const MapObject& orig);
     virtual ~MapObject();
+
+    bool    callHandler(t_data * data);
     
     bool    init();
+    
+    bool    createGround(int x, int y);
 private:
     std::list<IObject*>  _persos;
 };

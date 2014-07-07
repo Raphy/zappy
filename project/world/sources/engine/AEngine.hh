@@ -24,9 +24,25 @@ public:
     virtual bool init();
     virtual bool update();
     virtual bool mainLoop();
+
+    virtual irr::IrrlichtDevice* getDevice() const;
     
-    virtual bool callHandler(void * data);
- 
+    virtual bool callHandler(t_data * data);
+
+    /* SETTINGS */
+
+    virtual bool setCameraMode(Ids id);
+    virtual bool setTheme(Ids id);
+    virtual bool setTimeUnit(int value);
+    virtual bool setVolume(int value);
+    virtual bool setMuteStatus(bool mute);
+
+    virtual Ids getCameraMode() const;
+    virtual Ids getTheme() const;
+    virtual int getTimeUnit() const;
+    virtual int getVolume() const;
+    virtual bool getMuteStatus() const;
+
 protected:
     AEngine();
 
@@ -37,13 +53,14 @@ protected:
     io::IFileSystem*	    _fs;
 
 //    SAppContext		    _context;
-    IEventReceiver*	    _eventReceiver;    
+    IEventReceiver*	    _eventReceiver;
 
     gui::IGUIElement*	    _mapViewer;
     
     Binder*		    _binder;
     IThread*		    _networkThread;
-    ISafeQueue<void *>*	    _eventQueue;
+    ISafeQueue<t_data *>*   _eventQueue;
+    ISafeQueue<t_data *>*   _commandQueue;
 };
 
 #endif	/* AENGINE_HH */

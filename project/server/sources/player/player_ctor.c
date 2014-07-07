@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Mon Jun 30 16:37:42 2014 damien sauvalle
+** Last update Fri Jul  4 15:18:40 2014 damien sauvalle
 */
 
 #include        <assert.h>
@@ -19,7 +19,6 @@ int	player_ctor(t_player *player)
   assert(player != NULL);
   if (inventory_ctor(&(player->inventory)) == RET_FAILURE)
     return (RET_FAILURE);
-  srand(time(NULL)); /* surement a place avant */
   player->direction = rand()%4;
   player->x = rand()%10; /* Voir avec la taille de la map */
   player->y = rand()%10; /* Voir avec la taille de la map */

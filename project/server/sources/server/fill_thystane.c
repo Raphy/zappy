@@ -5,12 +5,11 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jul  4 14:24:40 2014 damien sauvalle
-** Last update Fri Jul  4 14:25:15 2014 damien sauvalle
+** Last update Fri Jul  4 15:20:28 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
 #include	"server.h"
-
 
 void	fill_thystane(t_inventory **map, t_arg *arg, int v)
 {
