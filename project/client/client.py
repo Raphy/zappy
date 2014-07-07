@@ -22,7 +22,7 @@ def main():
         print('Verbose =', args.verbose)
 
     client = Client(args.team, args.hostname, args.port, args.verbose)
-    if client.connect():
+    if client.connect() :
         client.run()
 
 if __name__ == '__main__':
