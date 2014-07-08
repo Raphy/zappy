@@ -114,7 +114,7 @@ class Kick(_RetOkKo):
     def __init__(self):
         super().__init__()
     def send(self, network):
-        #network.send_cmd_kick()
+        network.send_raw("expulse")
         pass
 
 """ Take """
@@ -240,8 +240,29 @@ class StartIncantation(Base):
     def __init__(self, knowledge):
         super().__init__()
         self.knowledge = knowledge
-    #def intern_accept(self, response):
-    #    pass
+        self.pending = False
+
+    def intern_accept(self, response):
+        if self.pending == False:
+            if response.strip() != 'elevation en cours':
+                return False
+            self.pending = True
+        else:
+            tab = response.strip().split(':')
+            if tab[0].stip() != "niveau actuel":
+                return False
+            try:
+                level = int(tab[1].strip())
+            except ValueError:
+                return False
+            finally:
+                if level > self.knowledge.level:
+                    self.knowledge.drone.level = level
+                    print("incantation success")
+                else:
+                    print("incantation failure")
+        return True                
+
     def send(self, network):
         network.send_raw('incantation')
 
