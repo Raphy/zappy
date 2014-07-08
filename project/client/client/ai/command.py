@@ -240,14 +240,16 @@ class LookInventory(Base):
         self.knowledge.drone.inventory.update_from_str(self.response)
 
 class StartIncantation(Base):
-    def __init__(self):
+    def __init__(self, knowledge):
         super().__init__()
+        self.knowledge = knowledge
     #def intern_accept(self, response):
     #    pass
 
 class SlotNumber(Base):
-    def __init__(self):
+    def __init__(self, knowledge):
         super().__init__()
+        self.knowledge = knowledge
     #def intern_accept(self, response):
     #    pass
 

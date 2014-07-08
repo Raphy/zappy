@@ -74,6 +74,7 @@ class CmdTracer:
     def __push_in_waiting_queue(self, cmd):
         key = self.__reserve_key()
         self.waiting_queue.append((key, cmd))
+        print("push cmd:", cmd)
         cmd.send(self.network)
         return key
 

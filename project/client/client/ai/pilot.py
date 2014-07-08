@@ -1,42 +1,87 @@
 print("initializing module {0} ...".format(__name__))
 
-from ..network import Network
-from .drone import Drone
+from . import command
 #from .team import Team
 
 class Pilot:
-    def __init__(self, network, drone):
-        self.network = network
-        self.drone = drone
-        #self.team = None
+    def __init__(self, core):
+        self.core = core
+        self.knowledge = core.knowledge
+        self.cmd_tracer = core.cmd_tracer
 
     """ action commands """
+
+    def __wait_return(self, key):
+        while True:
+            cmd = self.cmd_tracer.pull(key)
+            yield cmd
+            if cmd is not None:
+                raise StopIteration
+
     def move_forward(self):
-        pass
+        cmd = command.MoveForward(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def turn_left(self):
-        pass
+        cmd = command.TurnLeft(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def turn_right(self):
-        pass
+        cmd = command.TurnRight(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def look_up(self):
-        pass
+        cmd = command.LookUp(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def get_inventory(self):
-        pass
+        cmd = command.LookInventory(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def take_food(self):
-        pass
+        cmd = command.TakeFood(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def take_stone(self, stone):
-        pass
+        cmd = command.TakeStone(stone, self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def put_food(self):
-        pass
+        cmd = command.PutFood(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def put_stone(self, stone):
-        pass
+        cmd = command.PutStone(stone, self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def kick(self):
-        pass
+        cmd = command.Kick()
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def start_incantation(self):
-        pass
+        cmd = command.StartIncantation(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def fork(self):
-        pass
+        cmd = command.Fork()
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
+
     def get_slots_number(self):
-        pass
+        cmd = command.SlotNumber(self.knowledge)
+        key = self.cmd_tracer.push(cmd, force=True)
+        return self.__wait_return(key)
 
     """ action message broadcast """
     def broadcast_str(self, s):

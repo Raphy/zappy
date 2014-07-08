@@ -1,6 +1,7 @@
 print("initializing package {0} ...".format(__name__))
 
 from enum import Enum, unique
+from random import randint
 
 from . import drone
 from . import vision
@@ -33,6 +34,7 @@ class StateMachine:
             if len([i for i in self.core.context.get_consumable_with_tag(Tag.welcomed)]) > 0:
                 self.state = State.prolog
             yield
+        raise StopIteration
 
     def __prolog_generator(self):
         cmd = command.TeamName(self.core.team_name)
@@ -45,10 +47,22 @@ class StateMachine:
         self.core.knowledge.slot_number = cmd.slot_number
         self.core.knowledge.map_dimension = cmd.dimension
         self.state = State.think
+        yield
+        return StopIteration
 
     def __think_generator(self):
         while True:
-            yield
+            r = randint(1,3)
+            gen = None
+            if r == 1:
+                gen = self.core.pilot.move_forward() 
+            elif r == 2:
+                gen = self.core.pilot.turn_left()
+            elif r == 3:
+                gen = self.core.pilot.turn_right()
+            for cmd in gen:
+                yield
+        raise StopIteration
 
     GENERATORS = {
         State.initial: __initial_generator,
@@ -139,19 +153,27 @@ class Core:
 
         self.state_machine = StateMachine(self)
         self.context = Context()
+        self.pilot = pilot.Pilot(self)
 
         self.__setup_handlers()
 
     def __setup_handlers(self):
         self.network.hook_cmd_welcome(self.__handler_welcome, self)
+        self.network.hook_return(self.__handler_return, self)
         self.network.hook_timeout(self.__handler_timeout, self)
-        self.network.set_timeout(1, 0)
+        self.network.set_timeout(0, 10000)
 
     @staticmethod
     def __handler_welcome(core):
         if core.verbose:
             print ("welcomed")
         core.context.set_consumable_tag(Tag.welcomed, None)
+
+    @staticmethod
+    def __handler_return(typ, core):
+        if core.verbose:
+            print("handler return")
+        core.state_machine.tick()        
 
     @staticmethod
     def __handler_timeout(core):
