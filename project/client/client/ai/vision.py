@@ -71,13 +71,13 @@ class Vision:
         for x, y, case in self.foreach_case():
             case.clear()
 
-    def foreach_case(self):
+    def each_case(self):
         for x, column in enumerate(self.map):
             for y, case in enumerate(column):
                 yield (x - self.player_pos, y - self.player_pos, case)
         raise StopIteration
 
-    def foreach_object(self):
+    def each_object(self):
         for x, y, objs in self.foreach_case():
             for obj in objs:
                 yield (x, y, obj)
