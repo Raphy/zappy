@@ -14,7 +14,7 @@
 class PersoObject : public AGameElement, public AMeshObject
 {
 public:
-    PersoObject(scene::ISceneManager* smgr, IObject* parent);
+    PersoObject(scene::ISceneManager* smgr, INodeObject* parent);
     PersoObject(const PersoObject& orig);
     virtual ~PersoObject();
 

@@ -18,6 +18,7 @@
 #include "MapObject.hh"
 #include "AnimatedPersoObject.hh"
 #include "PersoObject.hh"
+#include "RessourceObject.hh"
 #include "MyEventReceiver.hh"
 
 //Binder* Binder::getInstance(int winW, int winH,
@@ -60,7 +61,7 @@ Binder::~Binder()
 IEngine*	Binder::createEngine() const
 {
     IEngine* engine = new WorldEngine();
-    Ressources::getInstance(engine->getDevice()->getSceneManager(), _path);
+    Assets::getInstance(engine->getDevice()->getSceneManager(), _path);
 //    Ressources::getInstance(engine->getDevice()->getSceneManager(), "./world/assets/irrlicht");
     return engine;
 }
@@ -99,15 +100,21 @@ gui::IGUIElement*	    Binder::createMenuToolbar(gui::IGUIEnvironment* env,
 /* SCENE */
 //    scene::ISceneNode*	    createMapNode(scene::ISceneNode* parent, scene::ISceneManager* smgr) const
 //    { return new MapNode(parent, smgr); }
-IObject*	Binder::createMapObject(scene::ISceneManager* smgr,
-	IObject* parent) const
+INodeObject*	Binder::createMapObject(scene::ISceneManager* smgr,
+	INodeObject* parent) const
 {
     return new MapObject(smgr, parent);
 }
-IObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
-	IObject* parent) const
+INodeObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
+	INodeObject* parent) const
 {
     return new AnimatedPersoObject(smgr, parent);
+//    return new PersoObject(smgr, parent);
+}
+INodeObject*	Binder::createRessourceObject(scene::ISceneManager* smgr,
+	INodeObject* parent) const
+{
+    return new RessourceObject(smgr, parent);
 //    return new PersoObject(smgr, parent);
 }
 

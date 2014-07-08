@@ -15,7 +15,7 @@
 #include	"IEngine.hh"
 #include	"IThread.hh"
 #include	"ISafeQueue.hh"
-#include	"IObject.hh"
+#include	"INodeObject.hh"
 
 using namespace irr;
 
@@ -40,10 +40,12 @@ public:
 					    scene::ISceneManager* smgr) const;
     
     /* SCENE */
-    IObject*	createMapObject(scene::ISceneManager* smgr,
-				IObject* parent) const;
-    IObject*	createPersoObject(scene::ISceneManager* smgr,
-				IObject* parent) const;
+    INodeObject*	createMapObject(scene::ISceneManager* smgr,
+				INodeObject* parent) const;
+    INodeObject*	createPersoObject(scene::ISceneManager* smgr,
+				INodeObject* parent) const;
+    INodeObject*	createRessourceObject(scene::ISceneManager* smgr,
+				INodeObject* parent) const;
     
 private:
 //    Binder(int winW = 800, int winH = 600, bool realUserMode = false);

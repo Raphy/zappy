@@ -7,13 +7,13 @@
 
 #include "AMeshObject.hh"
 
-AMeshObject::AMeshObject(scene::ISceneManager* smgr, IObject* parent)
-: AObject(smgr, parent)
+AMeshObject::AMeshObject(scene::ISceneManager* smgr, INodeObject* parent)
+: ANodeObject(smgr, parent)
 {
 }
 
 AMeshObject::AMeshObject(const AMeshObject& orig)
-: AObject(static_cast<AObject const&>(orig))
+: ANodeObject(static_cast<ANodeObject const&>(orig))
 {
 }
 

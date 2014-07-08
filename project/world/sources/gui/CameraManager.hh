@@ -9,8 +9,7 @@
 #define	CAMERAMANAGER_HH
 
 #include    <irrlicht.h>
-#include    "AObject.hh"
-#include    "Ressources.hh"
+#include    "ANodeObject.hh"
 
 using namespace irr;
 
@@ -23,24 +22,22 @@ enum CameraMode
     CAMERA_MODE_COUNT
 };
 
-class CameraManager// : AObject
+class CameraManager : ANodeObject
 {
 public:
     CameraManager(scene::ISceneManager* smgr);
     virtual ~CameraManager();
     
-    bool    init(int x, int y);
+    bool    init(int x = 10, int y = 10);
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
 
     bool    addCollision(scene::ITriangleSelector* selector);
 
 private:	    
-    scene::ISceneManager*	    _smgr;
+//    scene::ISceneManager*	    _smgr;
     video::IVideoDriver*	    _driver;
-    Ressources*			    _ressources;
-
-    scene::ISceneNode*	    _node;
+//    Assets*			    _ressources;
 
     Ids				    _guiIds[CAMERA_MODE_COUNT];
     CameraMode			    _currentMode;

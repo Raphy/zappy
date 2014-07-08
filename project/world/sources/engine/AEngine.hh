@@ -11,6 +11,7 @@
 #include <irrlicht.h>
 #include "IEngine.hh"
 #include "Binder.hh"
+#include "Assets.hh"
 #include "IThread.hh"
 #include "ISafeQueue.hh"
 #include "MapViewer.hh"
@@ -63,6 +64,7 @@ protected:
     MapViewer*	    _mapViewer;
     
     Binder*		    _binder;
+    Assets*		    _assets;
     IThread*		    _networkThread;
     ISafeQueue<t_data *>*   _eventQueue;
     ISafeQueue<t_data *>*   _commandQueue;

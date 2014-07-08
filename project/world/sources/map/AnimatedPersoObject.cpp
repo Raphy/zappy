@@ -12,7 +12,7 @@ using namespace video;
 using namespace scene;
 using namespace core;
 
-AnimatedPersoObject::AnimatedPersoObject(scene::ISceneManager* smgr, IObject* parent)
+AnimatedPersoObject::AnimatedPersoObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AAnimatedMeshObject(smgr, parent)
 {
 }
@@ -29,9 +29,7 @@ AnimatedPersoObject::~AnimatedPersoObject()
 
 bool    AnimatedPersoObject::init()
 {
-    std::cout << "perso init..." << std::endl;
-    
-    IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_ressources->getMesh(PERSO, MESH, 0));
+    IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_assets->getMesh(PERSO, MESH, 0));
     if (!mesh)
 	return false;
     
@@ -54,7 +52,7 @@ bool    AnimatedPersoObject::init()
 	
 	node->setPosition(new_pos);
 	
-	node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE, 0));
+	node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
 	return true;
     }    
     return false;

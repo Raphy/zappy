@@ -15,7 +15,7 @@ class AAnimatedMeshObject : public AMeshObject
 public:
     scene::IAnimatedMeshSceneNode*  getAnimatedMeshNode() const;
 protected:
-    AAnimatedMeshObject(scene::ISceneManager* smgr, IObject* parent);
+    AAnimatedMeshObject(scene::ISceneManager* smgr, INodeObject* parent);
     AAnimatedMeshObject(AAnimatedMeshObject const& orig);
     virtual ~AAnimatedMeshObject();
 

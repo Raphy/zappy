@@ -8,16 +8,29 @@
 #include <algorithm>
 #include <iostream>
 #include "MapObject.hh"
-#include "Ressources.hh"
 
 using namespace video;
 using namespace scene;
 using namespace core;
 
-MapObject::MapObject(scene::ISceneManager* smgr, IObject* parent)
+MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AAnimatedMeshObject(smgr, parent), _selector(nullptr)
 {
-    _persos.push_back(_binder->createPersoObject(smgr, this));
+    for (int i = 0; i < 10; i++)
+    {
+        INodeObject* perso = _binder->createPersoObject(smgr, this);
+	perso->init();
+	perso->getNode()->setPosition(vector3df(i,0,i));
+        _persos.push_back(perso);
+        INodeObject* object = _binder->createRessourceObject(smgr, this);
+	object->init();
+	object->getNode()->setPosition(vector3df(i,0,i));
+        _objects.push_back(object);
+	//	_persos[i]->getNode()->setPosition(vector3df(i,0,i));
+	//        _objects.push_back(_binder->createRessourceObject(smgr, this));
+	//	_objects[i]->getNode()->setPosition(vector3df(i,0,i));
+    }
+    
 }
 
 MapObject::MapObject(const MapObject& orig)
@@ -35,22 +48,19 @@ bool    MapObject::init()
 {
     //    createGround(20,20);//test
     
-    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
-	perso->init();
-    });
+    //    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
+    //	perso->init();
+    //    });
     return true;
 }
 
 bool MapObject::createGround(int x, int y)
 {
-    //    std::string const& heightmap = _ressources->getFileName(MAP, HEIGHT_MAP, 0);
-    //    std::string const& heightmap = "ground/normal.tga";
-    std::string const& heightmap = "heightmap.bmp";
+    std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
     ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
 	    core::vector3df(x/2.0, 0, y/2.0),		// position
 	    core::vector3df(0.f, 0.f, 0.f),		// rotation
 	    core::vector3df(1.f, 1.f, 1.f),	// scale
-	    //core::vector3df(x, 1.f, y),	// scale
 	    video::SColor ( 255, 255, 255, 0 ),	// vertexColor
 	    5,					// maxLOD
 	    scene::ETPS_17,				// patchSize
@@ -61,26 +71,29 @@ bool MapObject::createGround(int x, int y)
 	return false;
     
     vector3df extent = node->getTransformedBoundingBox().getExtent();
-    std::cout << extent.X << std::endl;
-    std::cout << extent.Y << std::endl;
-    std::cout << extent.Z << std::endl;
     node->setScale(vector3df(1.0 / (float)extent.X, 1.0, 1.0 / (float)extent.Z));
     node->setScale(vector3df(x, 1.f, y));
-
+    
     _node->setMaterialFlag(EMF_LIGHTING, true);
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
-    _node->setMaterialTexture(0, _ressources->getTexture(MAP, TEXTURE, 0));
-    _node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 1));        
+    _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
+    _node->setMaterialTexture(1, _assets->getTexture(MAP, TEXTURE, 1));        
     _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
-    
-    //ajouter mur invisible
     
     _selector = _smgr->createTerrainTriangleSelector(node);
     if (!_selector)
 	return false;
     node->setTriangleSelector(_selector);
     return true;
+}
+
+bool MapObject::addObject(int x, int y, GameElementType type)
+{
+    (void)x;
+    (void)y;
+    (void)type;
+    return false;
 }
 
 

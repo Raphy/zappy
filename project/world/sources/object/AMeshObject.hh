@@ -8,15 +8,15 @@
 #ifndef AMESHOBJECT_HH
 #define	AMESHOBJECT_HH
 
-#include "AObject.hh"
+#include "ANodeObject.hh"
 
-class AMeshObject : public AObject
+class AMeshObject : public ANodeObject
 {
 public:
     scene::IMeshSceneNode*  getMeshNode() const;
 
 protected:
-    AMeshObject(scene::ISceneManager* smgr, IObject* parent);
+    AMeshObject(scene::ISceneManager* smgr, INodeObject* parent);
     AMeshObject(const AMeshObject& orig);
     virtual ~AMeshObject();
 

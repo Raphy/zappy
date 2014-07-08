@@ -6,17 +6,17 @@
  */
 
 #include <iostream>
-#include "Ressources.hh"
+#include "Assets.hh"
 
 
-Ressources*	Ressources::getInstance(scene::ISceneManager* smgr,
+Assets*	Assets::getInstance(scene::ISceneManager* smgr,
 	std::string const& path)
 {
-    static Ressources instance(smgr, path);
+    static Assets instance(smgr, path);
     return &instance;
 }
 
-Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
+Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
 : _smgr(smgr), _driver(smgr->getVideoDriver()), _fs(smgr->getFileSystem()), _path(path)
 {    
     //TODO : utiliser un algo de la STL ?
@@ -82,12 +82,12 @@ Ressources::Ressources(scene::ISceneManager* smgr, std::string const& path)
     
     load(path);
 }
-Ressources::~Ressources()
+Assets::~Assets()
 {}
 
 
 
-bool Ressources::load(std::string const& path)
+bool Assets::load(std::string const& path)
 {
     std::cout << "FILE ARCHIVE : " << path
 	    << " with working repertory = " << _fs->getWorkingDirectory().c_str() << std::endl;
@@ -112,14 +112,14 @@ bool Ressources::load(std::string const& path)
 	}
     return true;
 }
-bool Ressources::reload(std::string const& path)
+bool Assets::reload(std::string const& path)
 {
     (void)path;
     //TODO
     return false;
 }
 
-video::ITexture* Ressources::loadTexture(const std::string& filename)
+video::ITexture* Assets::loadTexture(const std::string& filename)
 {
     //video::ITexture* tmp = _smgr->getVideoDriver()->addTexture(core::dimension2du(32, 32), filename.c_str());
     //    video::ITexture* tmp = _smgr->getVideoDriver()->getTexture("./world/assets/irrlicht/faerie2.bmp");
@@ -128,7 +128,7 @@ video::ITexture* Ressources::loadTexture(const std::string& filename)
 	std::cout << "NULL TEXTURE : " << filename << std::endl;
     return tmp;
 }
-video::ITexture* Ressources::loadHeightMap(const std::string& filename)
+video::ITexture* Assets::loadHeightMap(const std::string& filename)
 {
     //    (void)f;
     //    std::string filename = _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0];
@@ -138,7 +138,7 @@ video::ITexture* Ressources::loadHeightMap(const std::string& filename)
 	std::cout << "NULL TEXTURE : " << filename << std::endl;
     return tmp;
 }
-scene::IMesh* Ressources::loadMesh(const std::string& filename)
+scene::IMesh* Assets::loadMesh(const std::string& filename)
 {
     scene::IMesh* tmp = _smgr->getMesh(filename.c_str());
     if (!tmp)
@@ -151,11 +151,11 @@ scene::IMesh* Ressources::loadMesh(const std::string& filename)
 
 /* GETTERS */
 
-const std::string& Ressources::getFileName(GameElementType egType, RessourceType rType, int level) const
+const std::string& Assets::getFileName(GameElementType egType, RessourceType rType, int level) const
 {
     return _filenames[static_cast<int>(egType)][static_cast<int>(rType)][level];
 }
-scene::IMesh* Ressources::getMesh(GameElementType egType, RessourceType rType, int level) const
+scene::IMesh* Assets::getMesh(GameElementType egType, RessourceType rType, int level) const
 {
     assert(rType == MESH);
     scene::IMesh* tmp =  _meshs[static_cast<int>(egType)][static_cast<int>(rType)][level];
@@ -163,7 +163,7 @@ scene::IMesh* Ressources::getMesh(GameElementType egType, RessourceType rType, i
 	std::cout << "NULL MESH : " << std::endl;
     return tmp;    
 }
-video::ITexture* Ressources::getTexture(GameElementType egType, RessourceType rType, int level) const
+video::ITexture* Assets::getTexture(GameElementType egType, RessourceType rType, int level) const
 {
     assert(rType == TEXTURE || rType == HEIGHT_MAP);
     video::ITexture* tmp = _textures[static_cast<int>(egType)][static_cast<int>(rType)][level];

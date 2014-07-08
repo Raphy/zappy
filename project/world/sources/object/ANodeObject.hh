@@ -5,36 +5,36 @@
  * Created on June 30, 2014, 8:36 PM
  */
 
-#ifndef AOBJECT_HH
-#define	AOBJECT_HH
+#ifndef ANODEOBJECT_HH
+#define	ANODEOBJECT_HH
 
 #include <irrlicht.h>
-#include "IObject.hh"
+#include "INodeObject.hh"
 #include "Binder.hh"
-#include "Ressources.hh"
+#include "Assets.hh"
 
 using namespace irr;
 
-class AObject : public IObject
+class ANodeObject : public INodeObject
 {
 public:
     virtual bool    init();
     virtual bool    update();
 
-    IObject*			getParent() const { return _parent; }
+    INodeObject*			getParent() const { return _parent; }
     scene::ISceneNode*		getParentNode() const { return ((_parent) ? (_parent->getNode()) : (_smgr->getRootSceneNode())); }
     scene::ISceneManager*	getSceneManager() const { return _smgr; }
     scene::ISceneNode*		getNode() const { return _node; }
 	
 protected:
-    AObject(scene::ISceneManager* smgr, IObject* parent);
-    AObject(const AObject& orig);
-    virtual ~AObject();
+    ANodeObject(scene::ISceneManager* smgr, INodeObject* parent);
+    ANodeObject(const ANodeObject& orig);
+    virtual ~ANodeObject();
     
     Binder*		    _binder;
-    Ressources*		    _ressources;
+    Assets*		    _assets;
     scene::ISceneManager*   _smgr;    
-    IObject*		    _parent;
+    INodeObject*		    _parent;
     scene::ISceneNode*	    _node;  
 };
 

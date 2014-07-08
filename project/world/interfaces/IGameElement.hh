@@ -20,6 +20,7 @@ enum	GameElementType
     MENDIANE,
     PHIRAS,
     THYSTAME,
+    RESSOURCE,//pour avoir la texture
     PERSO,
     MAP,
     SKYBOX,

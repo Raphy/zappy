@@ -21,7 +21,7 @@ CXXFLAGS		+=	-std=c++11
 CXXFLAGS		+=	-I ./interfaces
 CXXFLAGS		+=	-I ./sources
 CXXFLAGS		+=	-I ./sources/engine
-CXXFLAGS		+=	-I ./sources/ressources
+CXXFLAGS		+=	-I ./sources/singletons
 CXXFLAGS		+=	-I ./sources/map
 CXXFLAGS		+=	-I ./sources/gui
 CXXFLAGS		+=	-I ./sources/object

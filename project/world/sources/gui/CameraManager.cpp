@@ -14,7 +14,8 @@ using namespace video;
 using namespace scene;
 
 CameraManager::CameraManager(scene::ISceneManager* smgr)
-: _smgr(smgr), _driver(_smgr->getVideoDriver()), _ressources(Ressources::getInstance())
+: ANodeObject(smgr, nullptr), _driver(smgr->getVideoDriver())
+//: _smgr(smgr), _driver(_smgr->getVideoDriver()), _ressources(Assets::getInstance())
 {
     _guiIds[STATIC] = GUI_ID_MENU_CAMERA_CLASSIC_BUTTON;
     //	    _guiIds[CLASSIC] = GUI_ID_MENU_CAMERA_CLASSIC_BUTTON;
@@ -30,12 +31,12 @@ bool CameraManager::init(int x, int y)
     // create skybox and skydome
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
     scene::ISceneNode* skybox = _smgr->addSkyBoxSceneNode(
-            _ressources->getTexture(SKYBOX, TEXTURE, 0),
-            _ressources->getTexture(SKYBOX, TEXTURE, 1),
-            _ressources->getTexture(SKYBOX, TEXTURE, 2),
-            _ressources->getTexture(SKYBOX, TEXTURE, 3),
-            _ressources->getTexture(SKYBOX, TEXTURE, 4),
-            _ressources->getTexture(SKYBOX, TEXTURE, 5));
+            _assets->getTexture(SKYBOX, TEXTURE, 0),
+            _assets->getTexture(SKYBOX, TEXTURE, 1),
+            _assets->getTexture(SKYBOX, TEXTURE, 2),
+            _assets->getTexture(SKYBOX, TEXTURE, 3),
+            _assets->getTexture(SKYBOX, TEXTURE, 4),
+            _assets->getTexture(SKYBOX, TEXTURE, 5));
     //        scene::ISceneNode* skydome = _smgr->addSkyDomeSceneNode(_ressources->getTexture(SKYBOX, TEXTURE, 6),16,8,0.95f,2.0f);
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
         
@@ -56,7 +57,7 @@ bool CameraManager::init(int x, int y)
 	_camera[i]->setVisible(false);
 	_light[i]->setVisible(false);
     }
-    _currentMode = FPS;    
+    _currentMode = FPS;
     return setCameraMode(GUI_ID_MENU_CAMERA_FPS_BUTTON);
 }
 

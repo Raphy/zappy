@@ -7,7 +7,7 @@
 
 #include "AAnimatedMeshObject.hh"
 
-AAnimatedMeshObject::AAnimatedMeshObject(scene::ISceneManager* smgr, IObject* parent)
+AAnimatedMeshObject::AAnimatedMeshObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AMeshObject(smgr, parent)
 {
 }

@@ -12,7 +12,7 @@ using namespace video;
 using namespace scene;
 using namespace core;
 
-PersoObject::PersoObject(scene::ISceneManager* smgr, IObject* parent)
+PersoObject::PersoObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AMeshObject(smgr, parent)
 {
 }
@@ -29,9 +29,7 @@ PersoObject::~PersoObject()
 
 bool    PersoObject::init()
 {
-    std::cout << "perso init..." << std::endl;
-
-    IMesh* mesh = _ressources->getMesh(PERSO, MESH, 0);
+    IMesh* mesh = _assets->getMesh(PERSO, MESH, 0);
     if (!mesh)
 	return false;
 
@@ -43,7 +41,7 @@ bool    PersoObject::init()
 	node->setScale(node->getScale() / 2.0);
 	node->setMaterialFlag(EMF_LIGHTING, false);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
-	    node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE, 0));
+	    node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
 //	for (int i = 0; i < 9; i++)//TODO : comment faire pour ne pas mettre le nombre de textures en dur
 //	{
 //	    node->setMaterialTexture(0, _ressources->getTexture(PERSO, TEXTURE, 0));

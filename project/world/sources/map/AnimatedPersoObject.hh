@@ -14,7 +14,7 @@
 class AnimatedPersoObject : public AGameElement, public AAnimatedMeshObject
 {
 public:
-    AnimatedPersoObject(scene::ISceneManager* smgr, IObject* parent);
+    AnimatedPersoObject(scene::ISceneManager* smgr, INodeObject* parent);
     AnimatedPersoObject(const AnimatedPersoObject& orig);
     virtual ~AnimatedPersoObject();
 

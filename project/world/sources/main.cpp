@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "Binder.hh"
-#include "Ressources.hh"
 
 using namespace std;
 

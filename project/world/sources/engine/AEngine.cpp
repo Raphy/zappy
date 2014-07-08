@@ -9,7 +9,6 @@
 #include <iostream>
 #include <driverChoice.h>
 #include "AEngine.hh"
-#include "Ressources.hh"
 #include "Binder.hh"
 #include "GUIManager.hh"
 
@@ -20,14 +19,14 @@ AEngine::AEngine()
 {
     _binder = (Binder::getInstance());
     
-//    _eventQueue = _binder->createNetworkEventQueue();
-//    _commandQueue = _binder->createNetworkEventQueue();
-//    _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
-//    _networkThread->start();
-
-//    GUIManager _guiclass(device, driver, env);
-
-     video::E_DRIVER_TYPE driverType=driverChoiceConsole();
+    //    _eventQueue = _binder->createNetworkEventQueue();
+    //    _commandQueue = _binder->createNetworkEventQueue();
+    //    _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
+    //    _networkThread->start();
+    
+    //    GUIManager _guiclass(device, driver, env);
+    
+    video::E_DRIVER_TYPE driverType=driverChoiceConsole();
     if (driverType==video::EDT_COUNT)
     {
 	std::cout << "WARNING : invalid driver type, Software choose by default." << std::endl;
@@ -46,7 +45,7 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
-
+    
     EventContext context;
     context.device = _device;
     context.engine = this;
@@ -56,15 +55,15 @@ AEngine::AEngine()
 
 AEngine::~AEngine()
 {
-//    delete _eventQueue;
-//    delete _commandQueue;
-//    delete _networkThread;
+    //    delete _eventQueue;
+    //    delete _commandQueue;
+    //    delete _networkThread;
     _device->drop();
 }
 
 bool AEngine::init()
 {
-    Ressources::getInstance(_smgr, "./world/assets/irrlicht");
+    _assets = Assets::getInstance(_smgr, "./world/assets/irrlicht");
     
     //ASSETS
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
@@ -97,10 +96,12 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
+    _mapViewer->createGround(30,20);//debug
+    
     while (_device->run())
     {
-//	while (!_eventQueue->isEmpty())
-//	    this->callHandler(_eventQueue->pop());
+	//	while (!_eventQueue->isEmpty())
+	//	    this->callHandler(_eventQueue->pop());
 	if (_device->isWindowActive())
 	    this->update();
 	else
