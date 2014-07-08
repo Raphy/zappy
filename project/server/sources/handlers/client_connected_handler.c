@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Mon Jul  7 21:34:13 2014 damien sauvalle
+** Last update Mon Jul  7 23:52:27 2014 nicolas svirchevsky
 */
 
 #include	<stdio.h>
@@ -19,4 +19,4 @@ void		client_connected_handler(t_zs *zs, t_zc *zc,
   printf("Client connected (fd:%d)\n", zc->socket->fd);
   set_client_handlers(zc, NULL);
   zs_send_welcome(zs, zc);
-l}
+}
