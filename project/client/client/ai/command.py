@@ -5,7 +5,6 @@ class Base:
     def __init__(self):
         self.response = None
         self.answered = False
-        self.intern_execute = None
 
     def send(self, network):
         raise NotImplementedError("{0}: 'send' method not implemented"\
@@ -25,7 +24,7 @@ class Base:
             .format(self.__class__.__name__))
 
     def execute(self):
-        if self.intern_execute is not None:
+        if hasattr(self, 'intern_execute'):
             self.intern_execute()
 
 
@@ -58,7 +57,7 @@ class TurnLeft(_RetOk):
         self.knowledge = knowledge
 
     def intern_execute(self):
-            self.knowledge.update_position_left()
+        self.knowledge.update_orientation_left()
 
     def send(self, network):
         network.send_cmd_left()
@@ -69,7 +68,7 @@ class TurnRight(_RetOk):
         self.knowledge = knowledge
 
     def intern_execute(self):
-        self.knowledge.update_position_right()
+        self.knowledge.update_orientation_right()
 
     def send(self, network):
         network.send_cmd_right()
@@ -79,8 +78,7 @@ class Fork(_RetOk):
     def __init__(self):
         super().__init__()
     def send(self, network):
-        #network.send_cmd_fork()
-        pass
+        network.send_raw("fork")
 
 class Broadcast(_RetOk):
     def __init__(self, message):
@@ -88,8 +86,7 @@ class Broadcast(_RetOk):
         self.message = message
 
     def send(self, network):
-        #network.send_cmd_broadcast(message)
-        pass
+        network.send_raw("broadcast " + self.message)
 
 """ Returning OK/KO """
 
@@ -128,8 +125,7 @@ class _TakeObject(_RetOkKo):
         self.knowledge = knowledge
 
     def send(self, network):
-        #network.send_cmd_take(self.obj_name)
-        pass
+        network.send_raw("prend " + self.obj_name)
 
 class TakeStone(_TakeObject):
     def __init__(self, stone_type, knowledge):
@@ -154,8 +150,7 @@ class _PutObject(_RetOkKo):
         self.knowledge = knowledge
 
     def send(self, network):
-        #network.send_cmd_put(self.obj_name)
-        pass
+        network.send_raw("pose " + self.obj_name)
 
 class PutStone(_PutObject):
     def __init__(self, stone_type, knowledge):
@@ -219,8 +214,7 @@ class LookUp(Base):
         return True
 
     def send(self, network):
-        #network.send_cmd_lookup()
-        pass
+        network.send_raw('voir')
 
     def intern_execute(self):
         self.knowledge.update_vision(self.response)
@@ -229,6 +223,9 @@ class LookInventory(Base):
     def __init__(self, knowledge):
         super().__init__()
         self.knowledge = knowledge
+
+    def send(self, network):
+        network.send_raw('inventaire')
 
     def intern_accept(self, response):
         if response.lstrip()[0] != '{' or response.rstrip()[-1] != '}':
@@ -245,6 +242,8 @@ class StartIncantation(Base):
         self.knowledge = knowledge
     #def intern_accept(self, response):
     #    pass
+    def send(self, network):
+        network.send_raw('incantation')
 
 class SlotNumber(Base):
     def __init__(self, knowledge):
@@ -252,4 +251,6 @@ class SlotNumber(Base):
         self.knowledge = knowledge
     #def intern_accept(self, response):
     #    pass
+    def send(self, network):
+        network.send_raw('connect_nbr')
 

@@ -20,11 +20,21 @@ class VisibleObject:
 
     @classmethod
     def new_stone(cls, stone_type):
-        return cls(cls.Type.steon, stone_type)
+        return cls(cls.Type.stone, stone_type)
 
     def __init__(self, type_, value=None):
         self.type = type_
         self.value = value
+
+    def __repr__(self):
+        if self.is_player():
+            return 'P'
+        elif self.is_food():
+            return 'F'
+        elif self.is_stone():
+            return self.get_stone().name[0]
+        else:
+            return '?'
 
     def is_player(self): return self.type == self.Type.player
     def is_food(self): return self.type == self.Type.food

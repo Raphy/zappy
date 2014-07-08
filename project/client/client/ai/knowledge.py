@@ -14,7 +14,7 @@ class Knowledge:
         self.map_dimension = None
 
     def update_vision(self, vision_str):
-        vision_str = vision_str.stip().lstrip('{').rstrip('}')
+        vision_str = vision_str.strip().lstrip('{').rstrip('}')
         case_tab = vision_str.split(',')
         for lenght in range(self.drone.level + 1):
             width = lenght * 2 + 1
@@ -23,7 +23,7 @@ class Knowledge:
             case_tab = case_tab[width:]
 
     def update_orientation_left(self):
-        self.drone.orienation.turn_left()
+        self.drone.orientation.turn_left()
 
     def update_orientation_right(self):
         self.drone.orientation.turn_right()
@@ -68,7 +68,7 @@ class Knowledge:
             if obj is not None]
 
     def __update_vision_case(self, case, lenght_pos, width_pos):
-        o_val = self.drone.orienation
+        o_val = self.drone.orientation.value
         x_pos = None
         y_pos = None
         if o_val == orientation.North:
@@ -80,5 +80,5 @@ class Knowledge:
         elif o_val == orientation.East:
             x_pos, y_pos = lenght_pos, width_pos
         else:
-            raise ValueError('bad value for drone orientation')
+            raise ValueError('bad value for drone orientation ({0})'.format(o_val))
         self.vision.set(x_pos, y_pos, self.__make_objects_list(case))

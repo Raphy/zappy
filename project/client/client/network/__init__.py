@@ -58,6 +58,8 @@ class Network:
         self._clib.bind_funct('zc_send_cmd_forward', [c_void_p])
         self._clib.bind_funct('zc_send_cmd_left', [c_void_p])
         self._clib.bind_funct('zc_send_cmd_right', [c_void_p])
+        self._clib.bind_funct('zc_send', [c_void_p, c_char_p])
+
 
 
         self._clib.bind_funct('zc_hook_errno', [c_void_p, Network._ErrorCallbackType, c_void_p])
@@ -108,6 +110,9 @@ class Network:
 
     def send_cmd_right(self):
         self._clib.zc_send_cmd_right(self._cstruct)
+        
+    def send_raw(self, s):
+        self._clib.zc_send(self._cstruct, (s + '\n').encode('utf-8'))
         
     """ handlers and tools """
 

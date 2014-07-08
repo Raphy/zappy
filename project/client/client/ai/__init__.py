@@ -50,24 +50,38 @@ class StateMachine:
         yield
         return StopIteration
 
+
+    def __explore_generator(self):
+        while True:
+
+            for i in range(int(self.core.drone.level / 2) + 1):
+                r = randint(1,4)
+                gen = None
+                if r < 3:
+                    gen = self.core.pilot.move_forward() 
+                elif r == 3:
+                    gen = self.core.pilot.turn_left()
+                elif r == 4:
+                    gen = self.core.pilot.turn_right()
+                for cmd in gen:
+                    yield
+            for cmd in self.core.pilot.look_up():
+                yield
+
+            print(self.core.vision)
+        raise StopIteration
+
     def __think_generator(self):
         while True:
-            r = randint(1,3)
-            gen = None
-            if r == 1:
-                gen = self.core.pilot.move_forward() 
-            elif r == 2:
-                gen = self.core.pilot.turn_left()
-            elif r == 3:
-                gen = self.core.pilot.turn_right()
-            for cmd in gen:
-                yield
+            self.state = State.explore
+            yield
         raise StopIteration
 
     GENERATORS = {
         State.initial: __initial_generator,
         State.prolog: __prolog_generator,
         State.think: __think_generator,
+        State.explore: __explore_generator
     }
 
     FIRST_STATE = State.initial
