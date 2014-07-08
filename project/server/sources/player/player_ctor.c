@@ -5,25 +5,30 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Fri Jul  4 15:18:40 2014 damien sauvalle
+** Last update Tue Jul  8 14:03:41 2014 damien sauvalle
 */
 
-#include        <assert.h>
+#include	"stdio.h"
+
 #include	<time.h>
 #include	<stdlib.h>
 #include	"my.h"
 #include	"player.h"
+#include	"server.h"
 
-int	player_ctor(t_player *player)
+int	player_ctor(t_player *player, t_server *server)
 {
-  assert(player != NULL);
+
+  printf("JOUER CREE\n");
+
   if (inventory_ctor(&(player->inventory)) == RET_FAILURE)
     return (RET_FAILURE);
   player->direction = rand()%4;
-  player->x = rand()%10; /* Voir avec la taille de la map */
-  player->y = rand()%10; /* Voir avec la taille de la map */
-  player->team_name = NULL; /* Voir avec les params*/
+  player->x = rand()%server->arg->x_world;
+  player->y = rand()%server->arg->y_world;
+  player->team_name = NULL;
   player->level = 1;
   player->life = player_set_life(player);
+  player->etat = NORMAL;
   return (RET_SUCCESS);
 }

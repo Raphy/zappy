@@ -5,16 +5,21 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sat Jul  5 18:17:27 2014 damien sauvalle
+** Last update Tue Jul  8 14:02:24 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
 # define	PLAYER_H_
 
+/*
+  Faire le TRi des Fcontion il y en a qui servent a rien !! sErieux le C++ faut pas en abuser
+
+ */
 typedef struct s_player t_player;
 
 # include	"inventory.h"
 # include       "bundle.h"
+# include	"server.h"
 
 typedef enum
   {
@@ -40,7 +45,7 @@ struct	s_player
   char		*team_name;
   char		level; /* level and view range*/
   unsigned int	life;
-  char		etat;
+  char		etat; /* ?? util */
   /* int ID */
 
 };
@@ -48,7 +53,7 @@ struct	s_player
 /*
 ** Player
 */
-int			player_ctor(t_player *);
+int			player_ctor(t_player *, t_server *);
 void			player_dtor(t_player *);
 
 /*
