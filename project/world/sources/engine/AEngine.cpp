@@ -11,6 +11,7 @@
 #include "AEngine.hh"
 #include "Ressources.hh"
 #include "Binder.hh"
+#include "GUIManager.hh"
 
 using namespace core;
 using namespace gui;
@@ -19,12 +20,14 @@ AEngine::AEngine()
 {
     _binder = (Binder::getInstance());
     
-    _eventQueue = _binder->createNetworkEventQueue();
-    _commandQueue = _binder->createNetworkEventQueue();
-    _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
-    _networkThread->start();
-    
-    video::E_DRIVER_TYPE driverType=driverChoiceConsole();
+//    _eventQueue = _binder->createNetworkEventQueue();
+//    _commandQueue = _binder->createNetworkEventQueue();
+//    _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
+//    _networkThread->start();
+
+//    GUIManager _guiclass(device, driver, env);
+
+     video::E_DRIVER_TYPE driverType=driverChoiceConsole();
     if (driverType==video::EDT_COUNT)
     {
 	std::cout << "WARNING : invalid driver type, Software choose by default." << std::endl;
@@ -43,18 +46,19 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
-    
+
     EventContext context;
     context.device = _device;
+    context.engine = this;
     _eventReceiver = _binder->createEventReceiver(context);
     _device->setEventReceiver(_eventReceiver);
 }
 
 AEngine::~AEngine()
 {
-    delete _eventQueue;
-    delete _commandQueue;
-    delete _networkThread;
+//    delete _eventQueue;
+//    delete _commandQueue;
+//    delete _networkThread;
     _device->drop();
 }
 
@@ -77,6 +81,7 @@ bool AEngine::init()
     //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
     
     //    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    _guiManager = new GUIManager(_env, 800, 600);
     _mapViewer = new MapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
     //    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
     
@@ -92,12 +97,10 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
-    //    this->callHandlerCreateMap(5,3);
-    
     while (_device->run())
     {
-	while (!_eventQueue->isEmpty())
-	    this->callHandler(_eventQueue->pop());
+//	while (!_eventQueue->isEmpty())
+//	    this->callHandler(_eventQueue->pop());
 	if (_device->isWindowActive())
 	    this->update();
 	else
@@ -112,10 +115,8 @@ irr::IrrlichtDevice* AEngine::getDevice() const
 }
 
 
-/* EVENT HANDLERS */
 
-//typedef bool (AEngine::*engine_handler_t)(t_infos *);
-typedef bool (/*AEngine::*/*engine_handler_t)(/*t_infos **/);
+/* EVENT HANDLERS */
 
 bool AEngine::callHandler(t_data* data)
 {
@@ -130,6 +131,7 @@ bool AEngine::callHandler(t_data* data)
 		break;
 	    case CONNECTED_EVENT:
 		std::cout << "Connected event not implemented..." << std::endl;
+    		_mapViewer->createGround(30,20);//debug
 		break;
 	    default:
 		std::cout << "UNKNOWN SERVER EVENT !" << std::endl;
@@ -142,13 +144,6 @@ bool AEngine::callHandler(t_data* data)
     return false;
 }
 
-//bool AEngine::callHandlerCreateMap(int x, int y)
-//{
-//    //AEngine est le dernier relais pour ce handler, donc on appelle la methode finale
-//    return _mapViewer->createGround(x, y);
-//}
-
-
 
 
 /* SETTINGS */
@@ -156,8 +151,7 @@ bool AEngine::callHandler(t_data* data)
 
 bool AEngine::setCameraMode(Ids id)
 {
-    std::cout << "CameraMode not implemented " << id << std::endl;
-    return false;
+    return _mapViewer->setCameraMode(id);
 }
 bool AEngine::setTheme(Ids id)
 {
@@ -182,8 +176,7 @@ bool AEngine::setMuteStatus(bool mute)
 
 Ids AEngine::getCameraMode() const
 {
-    std::cout << "CameraMode not implemented " << std::endl;
-    return GUI_ID_UNDEFINED;
+    return _mapViewer->getCameraMode();
 }
 Ids AEngine::getTheme() const
 {

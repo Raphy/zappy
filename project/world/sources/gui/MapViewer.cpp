@@ -49,3 +49,12 @@ bool MapViewer::createGround(int x, int y)
 	return false;
     return _cameraManager.addCollision(_mapObject->getSelector());
 }
+
+bool MapViewer::setCameraMode(Ids id)
+{
+    _cameraManager.setCameraMode(id);
+}
+Ids MapViewer::getCameraMode()
+{
+    return _cameraManager.getCameraMode();
+}

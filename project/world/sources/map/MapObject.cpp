@@ -74,6 +74,8 @@ bool MapObject::createGround(int x, int y)
     _node->setMaterialTexture(1, _ressources->getTexture(MAP, TEXTURE, 1));        
     _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
     
+    //ajouter mur invisible
+    
     _selector = _smgr->createTerrainTriangleSelector(node);
     if (!_selector)
 	return false;

@@ -33,6 +33,9 @@ public:
     bool    createGround(int x, int y);
 //    bool    callHandlerCreateMap(int x, int y);
     
+    bool    setCameraMode(Ids id);
+    Ids	    getCameraMode();
+    
 private:
     scene::ISceneManager*	_smgr;
     video::SMaterial		_material;

@@ -14,6 +14,7 @@
 #include "IThread.hh"
 #include "ISafeQueue.hh"
 #include "MapViewer.hh"
+#include "GUIManager.hh"
 
 using namespace irr;
 
@@ -56,6 +57,7 @@ protected:
 
 //    SAppContext		    _context;
     IEventReceiver*	    _eventReceiver;
+    GUIManager*		    _guiManager;
 
 //    gui::IGUIElement*	    _mapViewer;
     MapViewer*	    _mapViewer;

@@ -38,35 +38,25 @@ bool CameraManager::init(int x, int y)
             _ressources->getTexture(SKYBOX, TEXTURE, 5));
     //        scene::ISceneNode* skydome = _smgr->addSkyDomeSceneNode(_ressources->getTexture(SKYBOX, TEXTURE, 6),16,8,0.95f,2.0f);
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
-    
-    
+        
     //init all cameras
     _camera[FPS] = _smgr->addCameraSceneNodeFPS();
-    _camera[FPS]->setPosition(vector3df(x/2.0, (x*y)/2.0, y/2.0));
-//    _camera[FPS]->setPosition(vector3df(10, 30, 10));    //    _camera[FPS]->setPosition(vector3df(x/2.0, 10, y/2.0));
-    _camera[FPS]->setTarget(vector3df(x/2.0, 0, y/2.0));
-//    _camera[FPS]->setTarget(vector3df(10, 0, 10));
-    _camera[FPS]->setFarValue(4000.0f);
     _light[FPS] = _smgr->addLightSceneNode(_camera[FPS], vector3df(0, 30, 0), SColor(255, 255, 255, 0), 1000);
-    
-    auto animators = _camera[FPS]->getAnimators();
-    ISceneNodeAnimatorCameraFPS * anim = static_cast<ISceneNodeAnimatorCameraFPS *>(*(animators.begin()));
-    std::cout << "move speed : " << anim->getMoveSpeed() << std::endl;
+    ISceneNodeAnimatorCameraFPS * anim = static_cast<ISceneNodeAnimatorCameraFPS *>(*(_camera[FPS]->getAnimators().begin()));
     anim->setMoveSpeed(0.01);
     
     _camera[STATIC] = _smgr->addCameraSceneNode();
-    _camera[STATIC]->setPosition(vector3df(x/2.0, (x+y)/2.0, y/2.0));
-    _camera[STATIC]->setTarget(vector3df(x/2.0, 0, y/2.0));
-    _camera[STATIC]->setFarValue(4000.0f);
     _light[STATIC] = _smgr->addLightSceneNode(_camera[STATIC], vector3df(0, 30, 0), SColor(255, 255, 255, 0), 1000);
     
     for (int i = 0; i < CAMERA_MODE_COUNT; i++)
     {
+	_camera[i]->setPosition(vector3df(x/2.0, (x+y)/2.0, y/2.0));
+	_camera[i]->setTarget(vector3df(x/2.0, 0, y/2.0));
+	_camera[i]->setFarValue(4000.0f);
 	_camera[i]->setVisible(false);
 	_light[i]->setVisible(false);
     }
-    _currentMode = FPS;
-    
+    _currentMode = FPS;    
     return setCameraMode(GUI_ID_MENU_CAMERA_FPS_BUTTON);
 }
 
@@ -79,6 +69,8 @@ bool CameraManager::setCameraMode(Ids id)
     
     //change current mode
     _currentMode = FPS;//TODO : retrouver mode dans _guiIds
+    if (id == GUI_ID_MENU_CAMERA_CLASSIC_BUTTON)
+	_currentMode = STATIC;
     _node = _camera[_currentMode];
     
     //active new camera

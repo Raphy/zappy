@@ -14,7 +14,7 @@
 class MyEventReceiver : public irr::IEventReceiver
 {
 public:
-    MyEventReceiver(EventContext context);
+    MyEventReceiver(EventContext const& context);
     virtual ~MyEventReceiver();
 
     virtual bool OnEvent(const irr::SEvent& event);

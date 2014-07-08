@@ -8,10 +8,13 @@
 #ifndef IDS_HH
 #define	IDS_HH
 
+class IEngine;
+
 // data structure for the EventReceiver
 struct EventContext
 {
     irr::IrrlichtDevice*    device;
+    IEngine*		    engine;
     //...
 };
 
