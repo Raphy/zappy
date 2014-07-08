@@ -42,6 +42,8 @@ class StateMachine:
             yield
             cmd = self.core.cmd_tracer.pull(key)
         print("slot_number:", cmd.slot_number, "dimenension:", cmd.dimension)
+        self.core.knowledge.slot_number = cmd.slot_number
+        self.core.knowledge.map_dimension = cmd.dimension
         self.state = State.think
 
     def __think_generator(self):

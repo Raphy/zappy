@@ -10,6 +10,8 @@ class Knowledge:
         self.drone = drone
         self.vision = vision
         self.team = team
+        self.slot_number = None
+        self.map_dimension = None
 
     def update_vision(self, vision_str):
         vision_str = vision_str.stip().lstrip('{').rstrip('}')
