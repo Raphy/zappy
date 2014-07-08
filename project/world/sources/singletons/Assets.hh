@@ -19,12 +19,12 @@ using namespace irr;
 
 class	Assets;
 
-enum	RessourceType
+enum	AssetType
 {
     MESH = 0,
     HEIGHT_MAP,
     TEXTURE,
-    RESSOURCE_TYPE_COUNT,
+    ASSET_TYPE_COUNT,
 };
 
 class	Assets {
@@ -35,9 +35,9 @@ public:
 	    std::string const& path = "./assets/irrlicht/assets.zip");
     bool reload(std::string const& path = "./assets/irrlicht/assets.zip");
     
-    std::string const&	getFileName(GameElementType, RessourceType, int level) const;
-    scene::IMesh*	getMesh(GameElementType, RessourceType rType = MESH, int level = 0) const;
-    video::ITexture*	getTexture(GameElementType, RessourceType rType = TEXTURE, int level = 0) const;
+    std::string const&	getFileName(GameElementType, AssetType, int level) const;
+    scene::IMesh*	getMesh(GameElementType, AssetType aType = MESH, int level = 0) const;
+    video::ITexture*	getTexture(GameElementType, AssetType aType = TEXTURE, int level = 0) const;
     
 private:
     Assets(scene::ISceneManager* smgr, std::string const& path);
@@ -56,9 +56,9 @@ private:
     
     /* ASSETS */
     
-    std::array<std::array<std::array<std::string, LEVEL_MAX>, RESSOURCE_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>		    _filenames;
-    std::array<std::array<std::array<video::ITexture*, LEVEL_MAX>, RESSOURCE_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>	    _textures;
-    std::array<std::array<std::array<scene::IMesh*, LEVEL_MAX>, RESSOURCE_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>		    _meshs;
+    std::array<std::array<std::array<std::string, LEVEL_MAX>, ASSET_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>		    _filenames;
+    std::array<std::array<std::array<video::ITexture*, LEVEL_MAX>, ASSET_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>	    _textures;
+    std::array<std::array<std::array<scene::IMesh*, LEVEL_MAX>, ASSET_TYPE_COUNT + 1>, GAME_ELEMENT_TYPE_COUNT + 1>		    _meshs;
 };
 
 #endif	/* RESSOURCES_HH */

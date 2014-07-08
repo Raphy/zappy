@@ -37,7 +37,7 @@ bool    AnimatedPersoObject::init()
     _node = node;
     if (node)
     {
-	node->setMaterialFlag(EMF_LIGHTING, false);
+	node->setMaterialFlag(EMF_LIGHTING, true);
 	//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	node->setMD2Animation(EMAT_STAND);
 	//	node->setMD2Animation(EMAT_ATTACK);

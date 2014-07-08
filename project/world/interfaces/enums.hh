@@ -8,6 +8,8 @@
 #ifndef IDS_HH
 #define	IDS_HH
 
+#include    <irrlicht.h>
+
 class IEngine;
 
 // data structure for the EventReceiver
@@ -18,6 +20,35 @@ struct EventContext
     //...
 };
 
+enum	Orientation
+{
+    North = 1,
+    East,
+    South,
+    West
+};
+
+enum	RessourceType
+{
+    FOOD = 0,
+    LINEMATE,
+    DERAUMERE,
+    SIBUR,
+    MENDIANE,
+    PHIRAS,
+    THYSTAME,
+    RESSOURCE_TYPE_COUNT
+};
+
+enum	GameElementType
+{
+    RESSOURCE = 0,//pour avoir la texture
+    PERSO,
+    EGG,
+    MAP,
+    SKYBOX,
+    GAME_ELEMENT_TYPE_COUNT,
+};
 
 //enum CameraMode
 //{

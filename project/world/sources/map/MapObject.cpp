@@ -58,8 +58,9 @@ bool MapObject::createGround(int x, int y)
 {
     std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
     ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
-	    core::vector3df(x/2.0, 0, y/2.0),		// position
-	    core::vector3df(0.f, 0.f, 0.f),		// rotation
+	    core::vector3df(0, 0, 0),		// position
+//	    core::vector3df(x/2.0, 0, y/2.0),		// position
+	    core::vector3df(1.f, 0.f, 0.f),		// rotation
 	    core::vector3df(1.f, 1.f, 1.f),	// scale
 	    video::SColor ( 255, 255, 255, 0 ),	// vertexColor
 	    5,					// maxLOD
@@ -111,3 +112,4 @@ bool MapObject::callHandler(t_data * data)
     //TODO : recuperer le mapObject au lieu du mapViewer
     return false;
 }
+

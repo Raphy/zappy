@@ -8,6 +8,7 @@
 #ifndef PERSOOBJECT_HH
 #define	PERSOOBJECT_HH
 
+#include    <vector>
 #include    "AMeshObject.hh"
 #include    "AGameElement.hh"
 
@@ -19,8 +20,13 @@ public:
     virtual ~PersoObject();
 
     bool    init();
-private:
+    
+    /* HANDLERS */
 
+    bool    setInventory(/*int x, int y, */std::vector<int> const& quantity) { return false; }    
+
+private:
+    std::array<int, ASSET_TYPE_COUNT>  _inventory;//vector?
 };
 
 #endif	/* PERSOOBJECT_HH */

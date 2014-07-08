@@ -1,36 +1,36 @@
 /* 
- * File:   RessourceObject.cpp
+ * File:   EggObject.cpp
  * Author: marie
  * 
- * Created on July 8, 2014, 6:47 PM
+ * Created on July 8, 2014, 10:01 PM
  */
 
-#include "RessourceObject.hh"
+#include "EggObject.hh"
 
 using namespace video;
 using namespace scene;
 using namespace core;
 
-RessourceObject::RessourceObject(scene::ISceneManager* smgr, INodeObject* parent)
+EggObject::EggObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AMeshObject(smgr, parent)
 {
 }
 
-RessourceObject::RessourceObject(RessourceObject const& orig)
+EggObject::EggObject(EggObject const& orig)
 : AGameElement(static_cast<AGameElement const&>(orig)),
     AMeshObject(static_cast<AMeshObject const&>(orig))
 {
 }
 
-RessourceObject::~RessourceObject()
+EggObject::~EggObject()
 {
 }
 
-bool    RessourceObject::init()
+bool    EggObject::init()
 {
-//    IMesh* mesh = _ressources->getMesh(PERSO, MESH, 0);
-//    if (!mesh)
-//	return false;
+    IMesh* mesh = _assets->getMesh(EGG, MESH, 0);
+    if (!mesh)
+	return false;
 
     ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode());
     _node = node;
@@ -39,7 +39,7 @@ bool    RessourceObject::init()
 	node->setPosition(vector3df(0,0,0));
 	node->setMaterialFlag(EMF_LIGHTING, true);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
-	node->setMaterialTexture(0, _assets->getTexture(RESSOURCE, TEXTURE, 0));
+	node->setMaterialTexture(0, _assets->getTexture(EGG, TEXTURE, 0));
 	return true;
     }    
     return false;

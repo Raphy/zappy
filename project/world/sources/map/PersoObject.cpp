@@ -39,7 +39,7 @@ bool    PersoObject::init()
     {
 	node->setPosition(vector3df(0,0,0));
 	node->setScale(node->getScale() / 2.0);
-	node->setMaterialFlag(EMF_LIGHTING, false);
+	node->setMaterialFlag(EMF_LIGHTING, true);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	    node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
 //	for (int i = 0; i < 9; i++)//TODO : comment faire pour ne pas mettre le nombre de textures en dur

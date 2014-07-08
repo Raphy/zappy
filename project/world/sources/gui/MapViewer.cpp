@@ -18,6 +18,7 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr)
 	_smgr(smgr), _cameraManager(smgr)
 {
     //    _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
+    _smgr->addBillboardTextSceneNode(nullptr, L"(0,0)", nullptr, dimension2df(10.f,10.f), vector3df(0.f,3.f,0.f));
     _mapObject = new MapObject(_smgr, nullptr);
     _mapObject->init();// TODO : appeler le init autre part ?
     _cameraManager.init(20,20);//??

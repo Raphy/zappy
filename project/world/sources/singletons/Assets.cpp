@@ -21,7 +21,7 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
 {    
     //TODO : utiliser un algo de la STL ?
     for (int i = 0; i <= GAME_ELEMENT_TYPE_COUNT; i++)
-	for (int j = 0; j <= RESSOURCE_TYPE_COUNT; j++)
+	for (int j = 0; j <= ASSET_TYPE_COUNT; j++)
 	    for (int k = 0; k < LEVEL_MAX; k++)
 	    {
 		_filenames[i][j][k] = "";
@@ -29,7 +29,7 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
 		_meshs[i][j][k] = nullptr;
 	    }
     
-    _filenames[GAME_ELEMENT_TYPE_COUNT][RESSOURCE_TYPE_COUNT][0] = "terrain-texture.jpg";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][ASSET_TYPE_COUNT][0] = "terrain-texture.jpg";
     _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "perso/faerie.md2";
 //    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "ground/normal.tga";
     _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "heightmap.bmp";
@@ -151,23 +151,23 @@ scene::IMesh* Assets::loadMesh(const std::string& filename)
 
 /* GETTERS */
 
-const std::string& Assets::getFileName(GameElementType egType, RessourceType rType, int level) const
+const std::string& Assets::getFileName(GameElementType egType, AssetType aType, int level) const
 {
-    return _filenames[static_cast<int>(egType)][static_cast<int>(rType)][level];
+    return _filenames[static_cast<int>(egType)][static_cast<int>(aType)][level];
 }
-scene::IMesh* Assets::getMesh(GameElementType egType, RessourceType rType, int level) const
+scene::IMesh* Assets::getMesh(GameElementType egType, AssetType aType, int level) const
 {
-    assert(rType == MESH);
-    scene::IMesh* tmp =  _meshs[static_cast<int>(egType)][static_cast<int>(rType)][level];
+    assert(aType == MESH);
+    scene::IMesh* tmp =  _meshs[static_cast<int>(egType)][static_cast<int>(aType)][level];
     if (!tmp)
 	std::cout << "NULL MESH : " << std::endl;
     return tmp;    
 }
-video::ITexture* Assets::getTexture(GameElementType egType, RessourceType rType, int level) const
+video::ITexture* Assets::getTexture(GameElementType egType, AssetType aType, int level) const
 {
-    assert(rType == TEXTURE || rType == HEIGHT_MAP);
-    video::ITexture* tmp = _textures[static_cast<int>(egType)][static_cast<int>(rType)][level];
-    std::string debug_name = _filenames[static_cast<int>(egType)][static_cast<int>(rType)][level];
+    assert(aType == TEXTURE || aType == HEIGHT_MAP);
+    video::ITexture* tmp = _textures[static_cast<int>(egType)][static_cast<int>(aType)][level];
+    std::string debug_name = _filenames[static_cast<int>(egType)][static_cast<int>(aType)][level];
     if (!tmp)
 	std::cout << "NULL TEXTURE : " << std::endl;
     return tmp;    

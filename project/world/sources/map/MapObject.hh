@@ -9,6 +9,7 @@
 #define	MAPOBJECT_HH
 
 #include <list>
+#include <vector>
 #include "AAnimatedMeshObject.hh"
 #include "INetworkEventHandler.hh"
 
@@ -27,9 +28,11 @@ public:
     /* HANDLERS */
 
     bool    createGround(int x, int y);
-//    bool    setCaseContent(int x, int y, std::vector<int> const& quantity);
-//    bool    addPlayer(int x, int y, int n, int o, int level, std::string const& team);
-//
+    bool    setCaseContent(int x, int y, std::vector<int> const& quantity) { return false; }
+    bool    addPlayer(std::tuple<int,int> pos, int index,
+			Orientation o, int level, std::string const& team) { return false; }
+    bool    removePlayer(int index) { return false; }
+
     bool    addObject(int x, int y, GameElementType type);
 
 private:
@@ -37,6 +40,7 @@ private:
     scene::ITriangleSelector*	_selector;
     std::list<INodeObject*>		_persos;
     std::list<INodeObject*>		_objects;
+    std::vector<std::vector<INodeObject*>>	_objs;
 };
 
 #endif	/* MAPOBJECT_HH */

@@ -10,22 +10,7 @@
 
 #include    "IPosition.hh"
 #include    "ILevel.hh"
-
-enum	GameElementType
-{
-    FOOD = 0,
-    LINEMATE,
-    DERAUMERE,
-    SIBUR,
-    MENDIANE,
-    PHIRAS,
-    THYSTAME,
-    RESSOURCE,//pour avoir la texture
-    PERSO,
-    MAP,
-    SKYBOX,
-    GAME_ELEMENT_TYPE_COUNT,
-};
+#include    "enums.hh"
 
 class	IGameElement : public IPosition, public ILevel
 {
