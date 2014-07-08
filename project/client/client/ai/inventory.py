@@ -21,7 +21,7 @@ class FoodPocket:
         self.remaining = remaining
         self.update_time = update_time
 
-    def add(self, n):
+    def add(self, n=1):
         self.remaining += n
 
     @property
@@ -109,7 +109,7 @@ class StonesPocket:
 
     def add(self, stone_type, n=1):
         assert type(stone_type) == Stone
-        self.set(stone_type, self.get(stone_type)+- n)
+        self.set(stone_type, self.get(stone_type) + n)
 
 class Inventory:
 

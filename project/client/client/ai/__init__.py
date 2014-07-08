@@ -7,6 +7,7 @@ from . import vision
 from . import messenger
 from . import cmd_tracer
 from . import command
+from . import knowledge
 
 from . import pilot
 from . import drone_id
@@ -121,26 +122,26 @@ class Core:
 
     def __init__(self, network, team_name, verbose=False):
         self.verbose = verbose
+
         self.network = network
+
         self.team_name = team_name
         self.drone = drone.Drone(network, team_name)
         self.vision = vision.Vision(8)
+        self.knowledge = knowledge.Knowledge(self.drone, self.vision, None)
+
         self.cmd_tracer = cmd_tracer.CmdTracer(network, verbose)
-        self.messenger = messenger.Messenger(self.network,
-            self.cmd_tracer, team_name)
+        self.messenger = messenger.Messenger(self.network, self.cmd_tracer, team_name)
+
         self.state_machine = StateMachine(self)
         self.context = Context()
 
         self.__setup_handlers()
 
-
-        """temporary"""
-
     def __setup_handlers(self):
         self.network.hook_cmd_welcome(self.__handler_welcome, self)
         self.network.hook_timeout(self.__handler_timeout, self)
         self.network.set_timeout(1, 0)
-
 
     @staticmethod
     def __handler_welcome(core):

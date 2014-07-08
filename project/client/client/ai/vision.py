@@ -1,22 +1,35 @@
 print("initializing module {0} ...".format(__name__))
 
 from collections import deque
+from enum import Enum, unique
 
-class Object:
-
-    class PlayerType:
-        pass
-    PLAYER_TYPE = PlayerType
+class VisibleObject:
+    @unique
+    class Type(Enum):
+        player = 1
+        food = 2
+        stone = 3
 
     @classmethod
     def new_player(cls):
-        return cls(Object.PLAYER_TYPE)
+        return cls(cls.Type.player)
 
-    def __init__(self, type_):
+    @classmethod
+    def new_food(cls):
+        return cls(cls.Type.food)
+
+    @classmethod
+    def new_stone(cls, stone_type):
+        return cls(cls.Type.steon, stone_type)
+
+    def __init__(self, type_, value=None):
         self.type = type_
+        self.value = value
 
-    def takeable(self):
-        return self.type != self.PLAYER_TYPE
+    def is_player(self): return self.type == self.Type.player
+    def is_food(self): return self.type == self.Type.food
+    def is_stone(self): return self.type == self.Type.stone
+    def get_stone(self): return self.value
 
 class Vision:
 

@@ -46,6 +46,7 @@ class CmdTracer:
             key, cmd = self.waiting_queue[0]
             if cmd.accept(response):
                 if cmd.answered:
+                    cmd.execute()
                     self.out_queue[key] = cmd
                     self.waiting_queue.popleft()
                     if len(self.over_queue) > 0:
