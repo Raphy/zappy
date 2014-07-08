@@ -24,12 +24,13 @@ class Messenger:
 
     _msg_types_items_view = _msg_types.items()
 
-    def __init__(self, network, cmd_tracer, team_name):
+    def __init__(self, network, cmd_tracer, team_name, emitter_id):
         self._cmd_tracer = cmd_tracer
         self._counter = 0
         self._callbacks = {}
         self._default = None
         self._team_name = team_name
+        self._emitter_id = emitter_id
 
         """ hook broadcast with an instance of __receive method
         that contains directly the 'self' instance """
@@ -66,6 +67,7 @@ class Messenger:
         self._counter += 1
         message.time = MsgTime.now()
         message.team_name = self._team_name
+        message.emitter_id = self.emitter_id
         return message
 
     def __unreconized_msg(self, msg_str, direction):

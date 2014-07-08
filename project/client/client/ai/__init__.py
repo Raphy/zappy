@@ -131,7 +131,9 @@ class Core:
         self.knowledge = knowledge.Knowledge(self.drone, self.vision, None)
 
         self.cmd_tracer = cmd_tracer.CmdTracer(network, verbose)
-        self.messenger = messenger.Messenger(self.network, self.cmd_tracer, team_name)
+        self.messenger = messenger.Messenger(
+            self.network, self.cmd_tracer,
+            team_name, self.drone.id)
 
         self.state_machine = StateMachine(self)
         self.context = Context()
