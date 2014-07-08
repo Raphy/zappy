@@ -1,9 +1,12 @@
-/* 
- * File:   event.h
- * Author: svirch_n
- *
- * Created on 02 July 2014, 16:06
- */
+/*
+** event.h for zappy in /home/damien/zappy/project/server/headers
+**
+** Made by damien sauvalle
+** Login   <sauval_d@epitech.net>
+**
+** Started on  Tue Jul  8 14:47:15 2014 damien sauvalle
+** Last update Tue Jul  8 14:47:17 2014 damien sauvalle
+*/
 
 #ifndef EVENT_H
 # define	EVENT_H
@@ -20,4 +23,3 @@ typedef struct  s_event
 }               t_event;
 
 #endif	/* EVENT_H */
-
