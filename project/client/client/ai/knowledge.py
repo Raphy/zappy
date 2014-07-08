@@ -19,7 +19,7 @@ class Knowledge:
         for lenght in range(self.drone.level + 1):
             width = lenght * 2 + 1
             for width_pos, case in enumerate(case_tab[:width]):
-                self.__update_vision_case(case, lenght, width_pos - int(lenght / 2))
+                self.__update_vision_case(case, lenght, width_pos - int(width / 2))
             case_tab = case_tab[width:]
 
     def update_orientation_left(self):
@@ -35,6 +35,46 @@ class Knowledge:
         src_orient_abs = src_orient_rel.to_absolute()
         src_orient_abs.turn_back()
         self.__update_position_move(src_orient_rel.value)
+
+    """ sorry for copy-paste """
+    def get_front_objects(self):
+        o_val = self.drone.orientation.value
+        x = y = 0
+        if o_val == orientation.North:
+            x, y = 0, 1
+        elif o_val == orientation.South:
+            x, y = 0, -1
+        elif o_val == orientation.East:
+            x, y = 1, 0
+        elif o_val == orientation.West:
+            x, y = -1, 0
+        return self.vision.get(x, y)
+
+    def get_left_objects(self):
+        o_val = self.drone.orientation.value
+        x = y = 0
+        if o_val == orientation.North:
+            x, y = -1, 0
+        elif o_val == orientation.South:
+            x, y = 1, 0
+        elif o_val == orientation.East:
+            x, y = 0, 1
+        elif o_val == orientation.West:
+            x, y = 0, -1
+        return self.vision.get(x, y)
+
+    def get_right_objects(self):
+        o_val = self.drone.orientation.value
+        x = y = 0
+        if o_val == orientation.North:
+            x, y = 1, 0
+        elif o_val == orientation.South:
+            x, y = -1, 0
+        elif o_val == orientation.East:
+            x, y = 0, -1
+        elif o_val == orientation.West:
+            x, y = 0, 1
+        return self.vision.get(x, y)
 
     def __update_position_move(self, direction):
         if direction == orientation.North:

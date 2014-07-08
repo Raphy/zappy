@@ -78,7 +78,7 @@ class Pilot:
         key = self.cmd_tracer.push(cmd, force=True)
         return self.__wait_return(key)
 
-    def get_slots_number(self):
+    def get_slot_number(self):
         cmd = command.SlotNumber(self.knowledge)
         key = self.cmd_tracer.push(cmd, force=True)
         return self.__wait_return(key)

@@ -1,7 +1,11 @@
 print("initializing package {0} ...".format(__name__))
 
+import sys
+
 from enum import Enum, unique
 from random import randint
+
+from .. import fork
 
 from . import drone
 from . import vision
@@ -26,12 +30,14 @@ class State(Enum):
     prolog = 2
     think = 3
     explore = 4
+    loot = 5
+    search = 6
 
 class StateMachine:
 
     def __initial_generator(self):
         while True:
-            if len([i for i in self.core.context.get_consumable_with_tag(Tag.welcomed)]) > 0:
+            if self.core.context.consume_with_tag(Tag.welcomed):
                 self.state = State.prolog
             yield
         raise StopIteration
@@ -48,31 +54,81 @@ class StateMachine:
         self.core.knowledge.map_dimension = cmd.dimension
         self.state = State.think
         yield
-        return StopIteration
+        raise StopIteration
+
+    @staticmethod
+    def __is_there_takeable(objects):
+        return len([obj for obj in objects if obj.is_player() == False ]) > 0
+
+    def __search_generator(self):
+        for cmd in self.core.pilot.look_up():
+            yield
+
+        if self.__is_there_takeable(self.core.knowledge.get_front_objects()):
+                for cmd in self.core.pilot.move_forward():
+                    yield
+        else:
+            if self.__is_there_takeable(self.core.knowledge.get_left_objects()):
+                for cmd in self.core.pilot.turn_left():
+                    yield
+            elif self.__is_there_takeable(self.core.knowledge.get_right_objects()): 
+                for cmd in self.core.pilot.turn_right():
+                    yield
+            else:
+                self.state = State.explore
+                yield
+                raise StopIteration
+            for cmd in self.core.pilot.move_forward():
+                yield
+        self.state = State.loot
+        yield
+        raise StopIteration
+
+    def __loot_generator(self):
+
+        for obj in self.core.vision.get(0,0):
+            print ("I can see", obj)
+            if obj.is_food():
+                for cmd in self.core.pilot.take_food():
+                    yield
+            elif obj.is_stone():
+                print("loot stone:", obj.get_stone())
+                for cmd in self.core.pilot.take_stone(obj.get_stone()):
+                    yield
+
+        self.state = State.think
+        yield
+        raise StopIteration
 
 
     def __explore_generator(self):
-        while True:
-
-            for i in range(int(self.core.drone.level / 2) + 1):
-                r = randint(1,4)
-                gen = None
-                if r < 3:
-                    gen = self.core.pilot.move_forward() 
-                elif r == 3:
-                    gen = self.core.pilot.turn_left()
-                elif r == 4:
-                    gen = self.core.pilot.turn_right()
-                for cmd in gen:
-                    yield
-            for cmd in self.core.pilot.look_up():
+        for i in range(int(self.core.drone.level / 2) + 1):
+            r = randint(1,4)
+            gen = None
+            if r < 3:
+                gen = self.core.pilot.move_forward() 
+            elif r == 3:
+                gen = self.core.pilot.turn_left()
+            elif r == 4:
+                gen = self.core.pilot.turn_right()
+            for cmd in gen:
                 yield
 
-            print(self.core.vision)
+        self.state = State.search
+        yield
         raise StopIteration
 
     def __think_generator(self):
         while True:
+            if self.core.context.consume_with_tag(Tag.fork):
+                for cmd in self.core.pilot.fork():
+                    yield
+            if self.core.context.consume_with_tag(Tag.slot_request):
+                for cmd in self.core.pilot.get_slot_number():
+                    yield
+            if self.core.knowledge.slot_number > 0:
+                self.core.fork()
+                yield
             self.state = State.explore
             yield
         raise StopIteration
@@ -81,7 +137,9 @@ class StateMachine:
         State.initial: __initial_generator,
         State.prolog: __prolog_generator,
         State.think: __think_generator,
-        State.explore: __explore_generator
+        State.explore: __explore_generator,
+        State.loot: __loot_generator,
+        State.search: __search_generator,
     }
 
     FIRST_STATE = State.initial
@@ -90,8 +148,23 @@ class StateMachine:
     def __init__(self, core):
         self.core = core
         self.state = self.FIRST_STATE
+        self.counter = 0
+
+    def timer(self):
+        self.counter = (self.counter + 1) & 0x0fffffff
+
+        if self.core.fork_counter < 1:
+            if self.counter % 500 == 0:
+                print("set fork tag")
+                self.core.context.set_consumable_tag(Tag.fork, None)
+            
+            if self.counter % 100 == 0:
+                print("set the slot request tag")
+                self.core.context.set_consumable_tag(Tag.slot_request, None)
 
     def tick(self):
+        self.timer()
+
         if self.state is None:
             self.state = self.DEFAULT_STATE
         try:
@@ -121,6 +194,8 @@ class StateMachine:
 @unique
 class Tag(Enum):
     welcomed = 1
+    fork = 2
+    slot_request = 3
 
 class Context:
 
@@ -143,15 +218,23 @@ class Context:
         new_consumable_tags = []
         for i_tag, i_data in self.consumable_tags:
             if i_tag != tag:
-                new_consumable_tags.append(i_tag, i_data)
+                new_consumable_tags.append((i_tag, i_data))
             else:
                 yield i_data
         self.consumable_tags = new_consumable_tags
+
+    def consume_with_tag(self, tag):
+        return len([i for i in self.get_consumable_with_tag(tag)]) > 0
+
     
 class Core:
 
-    def __init__(self, network, team_name, verbose=False):
+    def __init__(self, client, network, team_name, verbose=False):
         self.verbose = verbose
+
+        self.client = client
+        self.forker = fork.Fork(sys.argv[0])
+        self.fork_counter = 0
 
         self.network = network
 
@@ -194,3 +277,9 @@ class Core:
         if core.verbose:
             print("handler timeout")
         core.state_machine.tick()
+
+    def fork(self):
+        self.forker.new_process('-n', self.client.team_name,
+                                '-h', self.client.hostname,
+                                '-p', str(self.client.port))
+        self.fork_counter +=1

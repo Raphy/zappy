@@ -270,8 +270,17 @@ class SlotNumber(Base):
     def __init__(self, knowledge):
         super().__init__()
         self.knowledge = knowledge
-    #def intern_accept(self, response):
-    #    pass
+
+    def intern_accept(self, response):
+        try:
+            self.value = int(response.strip())
+        except ValueError:
+            return False
+        self.answered = True
+        return True
+
     def send(self, network):
         network.send_raw('connect_nbr')
 
+    def intern_execute(self):
+        self.knowledge.slot_number = self.value

@@ -85,7 +85,7 @@ class StonesPocket:
             return getattr(self, index)
         elif type(index) == Stone:
             try:
-                return self._stones[stone_type]
+                return self._stones[index]
             except KeyError:
                 pass
         return None
@@ -109,7 +109,7 @@ class StonesPocket:
 
     def add(self, stone_type, n=1):
         assert type(stone_type) == Stone
-        self.set(stone_type, self.get(stone_type) + n)
+        self[stone_type] = self[stone_type] + n
 
 class Inventory:
 

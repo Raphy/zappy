@@ -18,7 +18,7 @@ class Client:
         self.error = None
         self.__setup_handlers()
 
-        self.core = ai.Core(self.network, team_name, verbose)
+        self.core = ai.Core(self, self.network, team_name, verbose)
 
     def __setup_handlers(self):
         self.network.hook_connected(self.__handler_connected, self)
