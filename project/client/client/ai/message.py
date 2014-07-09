@@ -95,6 +95,34 @@ class InventoryMsg(Base):
         super().__init__()
         self.add_field('inventory', str)
 
+class GeneralResponceMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
+        self.add_field('response', str) #Should be ok or ko
+        self.add_field('to_message_type', type)
+
+class GatheringMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('level', str)
+        self.add_field('posXY', tuple)
+
+class GatheringCancelMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
+
+class GatheringArrivedMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
+
+#GatheringMsg.from_scratch(emitter_id=drone.id)
+
+
+
+
 """ tests, to be removed """
 """
 d = DroneId.from_machine()
