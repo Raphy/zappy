@@ -1,4 +1,4 @@
-print("initializing package {0} ...".format(__name__))
+
 from ctypes import *
 from enum import Enum, unique
 

@@ -17,13 +17,13 @@ public:
     AGameElement(const AGameElement& orig);
     virtual ~AGameElement();
 
-    void setPositionInMap(std::tuple<int, int> const& _positionInMap);
+//    void setPositionInMap(std::tuple<int, int> const& _positionInMap);
     void setType(GameElementType _type);
     void setMaxLevel(int _maxLevel);
     bool setLevel(int level);
     bool evolue();
 
-    std::tuple<int, int> const& getPositionInMap() const;
+//    std::tuple<int, int> const& getPositionInMap() const;
     GameElementType getType() const;
     int getMaxLevel() const;
     int getLevel() const;
@@ -32,7 +32,6 @@ private:
     int			_level;
     int			_maxLevel;
     GameElementType	_type;
-    std::tuple<int,int>	_positionInMap;
 };
 
 #endif	/* AGAMEELEMENT_HH */

@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from . import orientation
 from . import vision

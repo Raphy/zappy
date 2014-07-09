@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from .drone_id import DroneId
 from .msg_time import MsgTime
@@ -9,7 +8,6 @@ class Base:
     _separator = ':'
 
     def __init__(self):
-        print("base init for", hex(id(self)))
         self.fields_order = []
         self.add_field('magic', str, self.__ctor_magic)
         self.add_field('emitter_id', DroneId, DroneId.from_str)
@@ -94,6 +92,34 @@ class InventoryMsg(Base):
     def __init__(self):
         super().__init__()
         self.add_field('inventory', str)
+
+class Identity(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('level', int)
+
+class GeneralResponceMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
+        self.add_field('response', str) #Should be ok or ko
+        self.add_field('to_message_type', type)
+
+class GatheringMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('level', str)
+        self.add_field('posXY', tuple)
+
+class GatheringCancelMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
+
+class GatheringArrivedMsg(Base):
+    def __init__(self):
+        super().__init__()
+        self.add_field('destination_id', DroneId)
 
 """ tests, to be removed """
 """

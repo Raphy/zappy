@@ -15,7 +15,7 @@
 
 using namespace irr;
 
-class MapViewer : public gui::IGUIMeshViewer
+class MapViewer : public gui::IGUIMeshViewer, public INetworkEventHandler
 {
 public:
     MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr);
@@ -30,6 +30,8 @@ public:
     virtual const video::SMaterial & getMaterial () const { return _material; }
     virtual scene::IAnimatedMesh * getMesh () const { return _mapObject->getAnimatedMeshNode()->getMesh(); }
 
+    bool    callHandler(t_data * data);
+    
     bool    createGround(int x, int y);
 //    bool    callHandlerCreateMap(int x, int y);
     

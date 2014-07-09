@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from collections import deque
 from . import command
@@ -7,9 +6,10 @@ class CmdTracer:
 
     MAX_CMD_NUMBER = 10
 
-    def __init__(self, network, verbose=False):
+    def __init__(self, core, verbose=False):
         self.verbose = verbose
-        self.network = network
+        self.core = core
+        self.network = core.network
         self.waiting_queue = deque()
         self.out_queue = {}
         self.over_queue = deque()
@@ -33,7 +33,15 @@ class CmdTracer:
 
     @staticmethod
     def __handler_unknown(s, cmd_tracer):
-        cmd_tracer.receive(s)
+        striped = s.lstrip()
+        if striped.startswith('message'):
+            cmd_tracer.core.receive_message(s)
+        elif striped.startswith('deplacement'):
+            cmd_tracer.core.receive_kick(s)
+        elif striped.startswith('mort'):
+            cmd_tracer.core.die()
+        else:
+            cmd_tracer.receive(s)
 
     def __str__(self):
         return "waiting: {0}\nout: {1}\nover: {2}"\
@@ -41,7 +49,7 @@ class CmdTracer:
 
     def receive(self, response):
         if self.verbose:
-            print("receive cmd: '{0}'".format(response))
+            print("receive cmd: '{0}'".format(response), "state:", self.core.state_machine.state.name)
         if len(self.waiting_queue) > 0:
             key, cmd = self.waiting_queue[0]
             if cmd.accept(response):
@@ -83,6 +91,11 @@ class CmdTracer:
         key, cmd = self.over_queue.popleft()
         self.waiting_queue.append((key, cmd))
         cmd.send(self.network)
+
+    def cancel(self, key):
+        if len(self.waiting_queue) > 0 and self.waiting_queue[0] == key:
+            self.waiting_queue.popleft()
+            self.__free_key(key)
 
     def push(self, cmd, force=False):
         assert isinstance(cmd, command.Base)

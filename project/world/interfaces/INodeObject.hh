@@ -9,10 +9,9 @@
 #define	INODEOBJECT_HH
 
 #include <irrlicht.h>
+#include "Helper.hh"
 
 using namespace irr;
-
-typedef	std::pair<int,int>  pos_t;
 
 class INodeObject
 {
@@ -27,8 +26,9 @@ public:
     virtual INodeObject*	    getParent() const = 0;
     virtual scene::ISceneNode*	    getParentNode() const = 0;
 
-    virtual void		    setPositionInMap(pos_t const& pos) = 0;
-    virtual pos_t const&	    getPositionInMap() const = 0;
+    virtual void		    setPositionInMap(pos_t const& new_pos) = 0;
+    virtual pos_t const&	    getPositionInMap() const = 0;    
+    virtual void		    updateNodePosition() = 0;
 };
 
 #endif	/* INODEOBJECT_HH */

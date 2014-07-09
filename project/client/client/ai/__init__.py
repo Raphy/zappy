@@ -1,9 +1,8 @@
-print("initializing package {0} ...".format(__name__))
-
 import sys
 
 from enum import Enum, unique
 from random import randint
+from datetime import datetime
 
 from .. import fork
 
@@ -13,14 +12,14 @@ from . import messenger
 from . import cmd_tracer
 from . import command
 from . import knowledge
-
+from . import team
 from . import pilot
+
 from . import drone_id
 from . import inventory
 from . import message
 from . import msg_time
 from . import orientation
-#from . import team
 
 @unique
 class State(Enum):
@@ -60,13 +59,22 @@ class StateMachine:
     def __is_there_takeable(objects):
         return len([obj for obj in objects if obj.is_player() == False ]) > 0
 
+    @staticmethod
+    def __is_there_stone(objects):
+        return len([obj for obj in objects if obj.is_stone() ]) > 0
+
+
     def __search_generator(self):
+
         for cmd in self.core.pilot.look_up():
             yield
 
-        if self.__is_there_takeable(self.core.knowledge.get_front_objects()):
-                for cmd in self.core.pilot.move_forward():
-                    yield
+        food = self.core.drone.inventory.food_pocket.remaining
+        front_objects = self.core.knowledge.get_front_objects()
+        if  (food < 42 and self.__is_there_takeable(front_objects)) or \
+            (food >= 42 and self.__is_there_stone(front_objects)):
+            for cmd in self.core.pilot.move_forward():
+                yield
         else:
             if self.__is_there_takeable(self.core.knowledge.get_left_objects()):
                 for cmd in self.core.pilot.turn_left():
@@ -87,10 +95,11 @@ class StateMachine:
     def __loot_generator(self):
 
         for obj in self.core.vision.get(0,0):
-            print ("I can see", obj)
+
             if obj.is_food():
-                for cmd in self.core.pilot.take_food():
-                    yield
+                if self.core.drone.inventory.food_pocket.remaining < 100:
+                    for cmd in self.core.pilot.take_food():
+                        yield
             elif obj.is_stone():
                 print("loot stone:", obj.get_stone())
                 for cmd in self.core.pilot.take_stone(obj.get_stone()):
@@ -120,15 +129,34 @@ class StateMachine:
 
     def __think_generator(self):
         while True:
-            if self.core.context.consume_with_tag(Tag.fork):
-                for cmd in self.core.pilot.fork():
+
+            # send identity
+            if self.core.context.consume_with_tag(Tag.send_identity):
+                for cmd in self.core.pilot.broadcast_identity():
                     yield
+
+            # look inventory
+            if self.core.context.consume_with_tag(Tag.inventory_request):
+                for cmd in self.core.pilot.get_inventory():
+                    yield
+
+            # commande fork
+            if self.core.context.consume_with_tag(Tag.fork):
+                if self.core.team_sync.get_team_size() < 8:
+                    for cmd in self.core.pilot.fork():
+                        yield
+
+            # slot request
             if self.core.context.consume_with_tag(Tag.slot_request):
                 for cmd in self.core.pilot.get_slot_number():
                     yield
+
+            # execve
             if self.core.knowledge.slot_number > 0:
                 self.core.fork()
                 yield
+
+            # explore
             self.state = State.explore
             yield
         raise StopIteration
@@ -153,23 +181,32 @@ class StateMachine:
     def timer(self):
         self.counter = (self.counter + 1) & 0x0fffffff
 
-        if self.core.fork_counter < 1:
-            if self.counter % 500 == 0:
-                print("set fork tag")
+        if self.counter % 1000 == 0:
+            self.core.context.set_consumable_tag(Tag.send_identity, None)
+
+        if self.counter % 1000 == 200:
+            self.core.context.set_consumable_tag(Tag.slot_request, None)
+
+        if self.counter % 1000 == 0:
+            self.core.context.set_consumable_tag(Tag.inventory_request, None)
+
+        if self.counter % 5000 == 0:
+            if self.core.team_sync.get_team_size() < 8:
                 self.core.context.set_consumable_tag(Tag.fork, None)
-            
-            if self.counter % 100 == 0:
-                print("set the slot request tag")
-                self.core.context.set_consumable_tag(Tag.slot_request, None)
 
     def tick(self):
         self.timer()
 
         if self.state is None:
             self.state = self.DEFAULT_STATE
+
+        if self.core.verbose:
+            print("counter:", self.counter,
+                "| state:", self.state.name,
+                "| food:", self.core.drone.inventory.food_pocket.remaining,  
+                "| team:", self.core.team_sync.get_team_size())
+
         try:
-            if self.core.verbose:
-                print("transistion({0},?)".format(self.state.name))
             next(self.generator)
         except StopIteration:
             self.state = None
@@ -196,6 +233,8 @@ class Tag(Enum):
     welcomed = 1
     fork = 2
     slot_request = 3
+    send_identity = 4
+    inventory_request = 5
 
 class Context:
 
@@ -243,10 +282,12 @@ class Core:
         self.vision = vision.Vision(8)
         self.knowledge = knowledge.Knowledge(self.drone, self.vision, None)
 
-        self.cmd_tracer = cmd_tracer.CmdTracer(network, verbose)
+        self.cmd_tracer = cmd_tracer.CmdTracer(self, verbose)
         self.messenger = messenger.Messenger(
             self.network, self.cmd_tracer,
             team_name, self.drone.id)
+
+        self.team_sync = team.TeamSync(self)
 
         self.state_machine = StateMachine(self)
         self.context = Context()
@@ -268,18 +309,42 @@ class Core:
 
     @staticmethod
     def __handler_return(typ, core):
-        if core.verbose:
-            print("handler return")
-        core.state_machine.tick()        
+        core.state_machine.tick()
 
     @staticmethod
     def __handler_timeout(core):
-        if core.verbose:
-            print("handler timeout")
         core.state_machine.tick()
+
+    def receive_message(self, s):
+        print("receive msg:", s)
+        tab = s.strip().split(',')
+        if len(tab) != 2:
+            return False
+        msg_str = tab[1]
+
+        tab = tab[0].split()
+        if len(tab) != 2:
+            return False
+        direction = None
+        try:
+            direction = orientation.Orientation8.from_k(int(tab[1]))
+        except:
+            return False
+        self.messenger.receive(msg_str, direction)
+        return True
+
+    def receive_kick(self, s):
+        print("receive kick:", s)
+
+    def die(self):
+        cmd = self.cmd_tracer.waiting_queue[0][1]
+        print(int(datetime.now().timestamp()), self.drone.id, 'Died:',
+            type(cmd), cmd.create_time, "=>", cmd.send_time,
+            "food:", self.drone.inventory.food_pocket.remaining, self.drone.inventory.food_pocket.update_time) 
 
     def fork(self):
         self.forker.new_process('-n', self.client.team_name,
                                 '-h', self.client.hostname,
-                                '-p', str(self.client.port))
-        self.fork_counter +=1
+                                '-p', str(self.client.port),
+                                '-v')
+        self.fork_counter += 1

@@ -29,10 +29,12 @@ World::World(ISafeQueue<t_data*>* eventQueue, ISafeQueue<t_data*>* commandQueue)
     int port = 4242;
     
     std::cout << "Connecting to" << host << port << std::endl;
-    if (zc_connect(&_zc, host, port) == RET_FAILURE)
-    {
-	throw std::string("Connection failed");
-    }
+    if (zc_connect(&_zc, host, port) == RET_FAILURE);
+//    if (zc_connect(&_zc, host, port) == RET_FAILURE)
+//    {
+//	throw std::string("Connection failed");
+//    }
+    zc_send_graphic(&_zc);
 }
 World::~World()
 {
@@ -51,11 +53,9 @@ void World::push_callback(t_data* data)
 {
     _eventQueue->push(data);
 }
-t_data* World::pop_command()
+bool World::try_pop_command(t_data* data)
 {
-    //	t_data command_data;
-    //	_commandQueue->tryPop(&command_data);
-    return nullptr;
+    return _commandQueue->tryPop(data);
 }
 
 

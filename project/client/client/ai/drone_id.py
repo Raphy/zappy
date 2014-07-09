@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 import os
 import uuid
@@ -26,35 +25,37 @@ class DroneId:
         instance.__build_from_machine()
         return instance
 
+
+
     def __init__(self):
-        self._hash = None
+        self.hash = None
 
     def __str__(self):
-        return self._hash
+        return self.hash
 
     def __repr__(self):
         return self.__str__()
 
     def __eq__(self, other):
-        return self._hash == other._hash
+        return self.hash == other.hash
 
     def __ne__(self, other):
         return (self == other) == False
 
     def __build_from_str(self, s):
-        self._hash = s
+        self.hash = s
 
     def __build_from_machine(self):
         md5 = hashlib.md5()
         md5.update(bytes(str(os.getpid()), 'ascii'))
         md5.update(uuid.uuid1().bytes)
         hash_bytes = md5.digest()
-        self._hash = ""
+        self.hash = ""
         for b in hash_bytes:
             hexa = hex(b)[2:]
             if len(hexa) < 2:
                 hexa = "0" + hexa
-            self._hash += hexa
+            self.hash += hexa
 
 
 """ Tests """

@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from collections import deque
 from enum import Enum, unique

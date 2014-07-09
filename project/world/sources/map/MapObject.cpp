@@ -59,14 +59,20 @@ bool    MapObject::init()
 
 bool MapObject::callHandler(t_data * data)
 {
-    (void)data;
-    //    if (data->game_element_type == PERSO_CLASS
-    //	    || data->game_element_type == RESSOURCE_CLASS
-    //	    || data->game_element_type == EGG_CLASS)
-    //	this->(*(data->realptr))(/*??*/);// ex : setLevel
-    //    else
-    //	_perso->callHandler(data);
-    //TODO : recuperer le mapObject au lieu du mapViewer
+    std::cout << "EVENT RECEIVED ..." << std::endl;
+    if (data->game_element_type == PERSO_CLASS
+	    || data->game_element_type == RESSOURCE_CLASS
+	    || data->game_element_type == EGG_CLASS)
+    {
+	t_infos * infos = data->infos;
+	switch (data->event_type)
+	{
+	    default:
+		std::cout << "UNKNOWN MAP EVENT !" << std::endl;
+		break;
+	}
+    }
+    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
     return false;
 }
 
@@ -121,14 +127,14 @@ bool MapObject::setCaseContent(pos_t const& pos, const std::vector<int>& quantit
 	RessourceObject* ressource = static_cast<RessourceObject*>(ressource_case[level]);
 	if (!ressource)
 	    this->addRessource(pos, level, quantity[level]);
-//	else
-//	    ressource->setQuantity(quantity[level]);
+	//	else
+	//	    ressource->setQuantity(quantity[level]);
 	level++;
     });
     return false;
 }
 
-bool MapObject::addPlayer(pos_t const& pos, int index, Orientation o, int level, const std::string& team)
+bool MapObject::addPerso(pos_t const& pos, int index, Orientation o, int level, const std::string& team)
 {
     //    PersoObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
     INodeObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);

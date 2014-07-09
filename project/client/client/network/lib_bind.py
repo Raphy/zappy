@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from ctypes import *
 
@@ -27,6 +26,6 @@ class LibBind:
         if used_name is None:
             used_name = symbol
         funct = self.__get_symbol(symbol)
-        print("binding function {0}: {1}".format(symbol, funct))
+        #print("binding function {0}: {1}".format(symbol, funct))
         self.__funct_config(funct, argtypes, restypes)
         self.__funct_add(used_name, funct)

@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 """ Constantes """
 Origin = None
@@ -61,12 +60,29 @@ class Orientation8(Orientation4):
     the listener are in the same case.
     """
 
+    @classmethod
+    def from_k(cls, k):
+        if k < 0 or k > 8:
+            return None
+        instance = None
+        if k == 0:
+            instance = cls(Origin)
+        else:
+            instance = cls(int((k - 1)/ 2))
+            if k % 2 == 0:
+                instance.complement = Trigo45
+        return instance
+
     def __init__(self, value, complement=Zero):
         super().__init__(value)
         self.complement = complement
 
     @property
     def value(self):
+        return self._value
+
+    @property
+    def values(self):
         return (self._value, self.complement)
 
     @value.setter
