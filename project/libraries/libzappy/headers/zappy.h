@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Wed Jul  9 18:44:08 2014 raphael defreitas
+** Last update Wed Jul  9 18:54:10 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -119,6 +119,8 @@ struct		s_zs
   t_zh		*hooks;
   fd_set	rfds;
   fd_set	wfds;
+  int		max_fd;
+  unsigned int	uid;
   t_timeval	timeout;
   bool		has_to_stop;
   t_list	*team_names;
@@ -188,6 +190,7 @@ struct		s_zc
   t_zct		type;
   bool		has_to_disconnect;
   t_list	*commands;
+  unsigned int	uid;
 
   /*
   ** Common
@@ -221,6 +224,7 @@ void		zc_disable_timeout(t_zc *);
 */
 void		zc_set_timeout(t_zc *, time_t sec, suseconds_t usec);
 t_timeval	zc_get_timeout(t_zc *);
+unsigned int	zc_get_uid(t_zc *);
 
 /*
 ** For server operations only

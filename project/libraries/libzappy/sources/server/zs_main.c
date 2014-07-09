@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 13:33:49 2014 raphael defreitas
-** Last update Fri Jul  4 19:07:59 2014 raphael defreitas
+** Last update Wed Jul  9 19:14:46 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -51,8 +51,8 @@ static int	zs_select(t_zs *this)
   set_fds(this);
   to = this->timeout;
   if (to.tv_sec == 0 && to.tv_usec == 0)
-    return (select(FD_SETSIZE, &this->rfds, &this->wfds, NULL, NULL));
-  return (select(FD_SETSIZE, &this->rfds, &this->wfds, NULL, &to));
+    return (select(this->max_fd + 1, &this->rfds, &this->wfds, NULL, NULL));
+  return (select(this->max_fd + 1, &this->rfds, &this->wfds, NULL, &to));
 }
 
 void		zs_main(t_zs *this)
@@ -61,6 +61,7 @@ void		zs_main(t_zs *this)
 
   if (this == NULL)
     return ;
+  this->max_fd = this->socket->fd;
   while (!this->has_to_stop)
     {
       zs_handle_before_select(this);

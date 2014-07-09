@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Wed Jul  2 02:12:58 2014 raphael defreitas
+** Last update Wed Jul  9 18:58:25 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -33,6 +33,8 @@ static void	default_values(t_zs *this)
   this->hooks = NULL;
   FD_ZERO(&this->rfds);
   FD_ZERO(&this->wfds);
+  this->max_fd = 0;
+  this->uid = 1;
   zs_disable_timeout(this);
   this->has_to_stop = false;
   this->cmd_fptrs = NULL;

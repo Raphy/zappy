@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Mon Jul  7 17:53:11 2014 raphael defreitas
+** Last update Wed Jul  9 19:14:58 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -33,6 +33,10 @@ static void	treat_client_connection(t_zs *this)
 	  zs_handle_errno(this, "client connection failed");
 	  return ;
 	}
+      zc->uid = this->uid;
+      this->uid++;
+      if (zc->socket->fd > this->max_fd)
+	this->max_fd = zc->socket->fd;
       zs_handle_client_connected(this, zc);
     }
 }
