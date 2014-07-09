@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:53:30 2014 raphael defreitas
-** Last update Wed Jul  9 18:41:58 2014 raphael defreitas
+** Last update Wed Jul  9 19:11:43 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -17,7 +17,7 @@ static int	player_cmd_fptrs(t_zc *this)
   if (list_enqueue(this->cmd_fptrs, &zc_ok) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_ko) == RET_FAILURE)
     return (RET_FAILURE);
-  return (RET_FAILURE);
+  return (RET_SUCCESS);
 }
 
 static int	graphic_cmd_fptrs(t_zc *this)
