@@ -32,6 +32,7 @@ public:
     
     virtual bool callHandler(t_data * data);
 //    virtual bool callHandlerCreateMap(int x, int y);//VERSION SIMPLE
+    virtual void sendCommand(t_data * data);
 
     /* SETTINGS */
 

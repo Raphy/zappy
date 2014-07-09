@@ -41,7 +41,8 @@ protected:
     scene::ISceneManager*   _smgr;    
     INodeObject*	    _parent;
     scene::ISceneNode*	    _node;  
-    std::pair<int,int>	    _pos;
+    pos_t		    _pos;
+    pos_t		    _alignment;
 };
 
 #endif	/* AOBJECT_HH */

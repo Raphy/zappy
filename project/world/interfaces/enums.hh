@@ -22,10 +22,10 @@ struct EventContext
 
 enum	Orientation
 {
-    North = 1,
-    East,
-    South,
-    West
+    NORTH = 1,
+    EAST,
+    SOUTH,
+    WEST
 };
 
 enum	RessourceType

@@ -9,10 +9,14 @@
 #define	CWORLD_HH
 
 #include    <glib.h>
+#include    <utility>
+#include    <string>
+#include    "enums.hh"
 
 extern "C" {
 #include    "zappy.h"
 }
+
 
 class World;
 
@@ -50,13 +54,13 @@ typedef enum s_event_type
     CASE_CONTENT_EVENT,
     TEAM_NAME_EVENT,
 
-    PLAYER_CONNECTION_EVENT,
-    PLAYER_DEAD_EVENT,
-    PLAYER_POSITION_EVENT,
-    PLAYER_LEVEL_EVENT,
-    PLAYER_INVENTORY_EVENT,
-    PLAYER_EXPEL_EVENT,
-    PLAYER_BROADCAST_EVENT,
+    PERSO_CONNECTION_EVENT,
+    PERSO_DEAD_EVENT,
+    PERSO_POSITION_EVENT,
+    PERSO_LEVEL_EVENT,
+    PERSO_INVENTORY_EVENT,
+    PERSO_EXPEL_EVENT,
+    PERSO_BROADCAST_EVENT,
 
     INVOCATION_BEGIN_EVENT,
     INVOCATION_END_EVENT,	    
@@ -71,10 +75,11 @@ typedef enum s_event_type
 
     MAP_SIZE_COMMAND,
     CASE_CONTENT_COMMAND,
+    MAP_CONTENT_COMMAND,
     TEAM_NAME_COMMAND,
-    PLAYER_POSITION_COMMAND,
-    PLAYER_LEVEL_COMMAND,
-    PLAYER_INVENTORY_COMMAND,
+    PERSO_POSITION_COMMAND,
+    PERSO_LEVEL_COMMAND,
+    PERSO_INVENTORY_COMMAND,
     TIME_GET_COMMAND,
     TIME_SET_COMMAND,
 
@@ -83,18 +88,20 @@ typedef enum s_event_type
 
 typedef struct s_infos
 {
-    int	    x;
-    int	    y;
-    int	    orientation;
+//    int	    x;
+//    int	    y;
+    std::pair<int,int>	pos;
+    Orientation	    orientation;
     int	    level;
     int	    quantity;
     int	    player_id;//list ?
     int	    egg_id;
     int	    ressource_id;
     int	    time_unit;
-    char *  team_name;
+    std::string  team_name;
     int	    err;
-    const char *  msg;    
+    std::string  msg;    
+//    const char *  msg;    
 } t_infos;
 
 typedef struct s_data
@@ -116,11 +123,24 @@ typedef struct s_world
     t_data *	data;
 } t_world;
 
-void	world_basic_handler(void *data);
-void	world_level_handler(void *data, int level);
-void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
-void	world_errno_handler(t_zc *zc, int err, const char *msg, void *world);
+//void	world_basic_handler(void *data);
+//void	world_level_handler(void *data, int level);
+
 void	world_connected_handler(t_zc *zc, void *world);
+void	world_disconnected_handler(t_zc *zc, void *world);
+void	world_before_select_handler(t_zc *zc, void *world);
+void	world_after_select_handler(t_zc *zc, void *world);
+
+void	world_stdin_handler(t_zc *zc, void *world);
+void	world_cmd_unknow_handler(t_zc *zc, void *world);
+void	world_cmd_welcome_handler(t_zc *zc, void *world);
+void	world_ok_handler(t_zc *zc, void *world);
+void	world_ko_handler(t_zc *zc, void *world);
+void	world_errno_handler(t_zc *zc, int err, const char *msg, void *world);
+
+void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
+void	world_bct_handler(t_zc *zc, t_bct *bct, void *world);
+void	world_tna_handler(t_zc *zc, const char *team_name, void *world);
 
 G_END_DECLS
 

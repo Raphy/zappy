@@ -31,10 +31,10 @@ void AGameElement::setType(GameElementType _type)
 {
     this->_type = _type;
 }
-void AGameElement::setPositionInMap(std::tuple<int, int> const& _positionInMap)
-{
-    this->_positionInMap = _positionInMap;
-}
+//void AGameElement::setPositionInMap(std::tuple<int, int> const& _positionInMap)
+//{
+//    this->_positionInMap = _positionInMap;
+//}
 void AGameElement::setMaxLevel(int _maxLevel)
 {
     this->_maxLevel = _maxLevel;
@@ -61,10 +61,10 @@ GameElementType AGameElement::getType() const
 {
     return _type;
 }
-std::tuple<int, int> const& AGameElement::getPositionInMap() const
-{
-    return _positionInMap;
-}
+//std::tuple<int, int> const& AGameElement::getPositionInMap() const
+//{
+//    return _positionInMap;
+//}
 int AGameElement::getMaxLevel() const
 {
     return _maxLevel;

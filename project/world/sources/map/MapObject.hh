@@ -31,11 +31,11 @@ public:
     bool    createGround(int x, int y);
     bool    setCaseContent(pos_t const& pos, std::vector<int> const& quantity);
 
-    bool    addPlayer(pos_t const& pos, int index,
+    bool    addPerso(pos_t const& pos, int index,
 			Orientation o, int level, std::string const& team);
     bool    addEgg(pos_t const& pos);
 
-    bool    removePlayer(int index) { return false; }
+    bool    removePerso(int index) { return false; }
 
 private:
     bool    addRessource(pos_t const& pos, int level, int quantity);

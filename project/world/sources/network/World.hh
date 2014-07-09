@@ -33,7 +33,7 @@ public:
     void *	routine();
     
     void	push_callback(t_data * data);    
-    t_data *	pop_command();
+    bool	try_pop_command(t_data * data);
 
     t_zc *	getZc() { return &_zc; }
     

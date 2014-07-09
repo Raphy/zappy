@@ -5,31 +5,30 @@
  * Created on July 3, 2014, 6:44 PM
  */
 
-
-extern "C" {
-#include "zappy.h"
-}
-
 #include <iostream>
 #include <unistd.h>
 #include <tuple>
 #include "World.hh"
 #include "cWorld.hh"
 
+extern "C" {
+#include "zappy.h"
+}
+
 static void init_infos(t_infos *i)
 {
-    i->x = -1;
-    i->y = -1;
-    i->orientation = -1;
+    i->pos.first = -1;
+    i->pos.second = -1;
+    i->orientation = NORTH;
     i->level = -1;
     i->quantity = -1;
     i->player_id = -1;//list ?
     i->egg_id = -1;
     i->ressource_id = -1;
     i->time_unit = -1;
-    i->team_name = nullptr;
+    i->team_name = std::string("");
     i->err = -1;
-    i->msg = nullptr;    
+    i->msg = std::string("");
 }
 
 void world_ctor(t_world * self, World * cpp_world)
@@ -54,6 +53,7 @@ void world_ctor(t_world * self, World * cpp_world)
 //  zc_hook_timeout(this->zc, &remote_timeout_handler, this);
 
   zc_hook_cmd_msz(cpp_world->getZc(), &world_msz_handler, self);
+  
 }
 
 void world_dtor(t_world * self)
@@ -77,6 +77,61 @@ void world_loop(t_world * self)
 
 /* CALLBACKS C */
 
+void	world_connected_handler(__attribute__((unused)) t_zc *zc, void *world)
+{
+    t_world * self = static_cast<t_world *>(world);
+
+    self->data->event_type = CONNECTED_EVENT;
+    self->data->game_element_type = ENGINE_CLASS;
+
+    self->cpp_world->push_callback(self->data);    
+}
+void	world_disconnected_handler(__attribute__((unused)) t_zc *zc, void *world)
+{
+    t_world * self = static_cast<t_world *>(world);
+
+    self->data->event_type = DISCONNECTED_EVENT;
+    self->data->game_element_type = ENGINE_CLASS;
+
+    self->cpp_world->push_callback(self->data);    
+}
+void	world_before_select_handler(__attribute__((unused)) t_zc *zc, void *world)
+{
+    t_world * self = static_cast<t_world *>(world);
+    t_data data;
+    t_position position;
+    
+    if (self->cpp_world->try_pop_command(&data))
+    {	
+	switch(data.event_type)
+	{
+	    case MAP_SIZE_COMMAND:
+		zc_send_cmd_msz(zc);
+		break;
+	    case CASE_CONTENT_COMMAND:
+		position.x = data.infos->pos.first;
+		position.y = data.infos->pos.second;
+		zc_send_cmd_bct(zc, &position);
+		break;
+	    case MAP_CONTENT_COMMAND:
+		zc_send_cmd_mct(zc);
+		break;
+	    case TEAM_NAME_COMMAND:
+		zc_send_cmd_tna(zc);
+		break;
+	}
+    }    
+}
+void	world_after_select_handler(t_zc *zc, void *world)
+{
+    world_before_select_handler(zc, world);
+}
+
+void	world_stdin_handler(t_zc *zc, void *world);
+void	world_cmd_unknow_handler(t_zc *zc, void *world);
+void	world_cmd_welcome_handler(t_zc *zc, void *world);
+void	world_ok_handler(t_zc *zc, void *world);
+void	world_ko_handler(t_zc *zc, void *world);
 void	world_errno_handler(__attribute__((unused)) t_zc *zc, int err, const char *msg, void *world)
 {
     t_world * self = static_cast<t_world *>(world);
@@ -90,16 +145,6 @@ void	world_errno_handler(__attribute__((unused)) t_zc *zc, int err, const char *
     self->cpp_world->push_callback(self->data);    
 }
 
-void	world_connected_handler(__attribute__((unused)) t_zc *zc, void *world)
-{
-    t_world * self = static_cast<t_world *>(world);
-
-    self->data->event_type = CONNECTED_EVENT;
-    self->data->game_element_type = ENGINE_CLASS;
-
-    self->cpp_world->push_callback(self->data);    
-}
-
 void	world_msz_handler(__attribute__((unused)) t_zc *zc, t_msz *msz, void *world)
 {
     t_world * self = static_cast<t_world *>(world);
@@ -107,9 +152,10 @@ void	world_msz_handler(__attribute__((unused)) t_zc *zc, t_msz *msz, void *world
     self->data->event_type = MAP_SIZE_EVENT;
     self->data->game_element_type = MAP_CLASS;
 
-    self->data->infos->x = msz->width;
-    self->data->infos->y = msz->height;
+    self->data->infos->pos.first = msz->width;
+    self->data->infos->pos.second = msz->height;
 
     self->cpp_world->push_callback(self->data);    
 }
-
+void	world_bct_handler(t_zc *zc, t_bct *bct, void *world);
+void	world_tna_handler(t_zc *zc, const char *team_name, void *world);
