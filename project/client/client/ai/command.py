@@ -1,12 +1,19 @@
-print("initializing module {0} ...".format(__name__))
+
+#from datetime import datetime
 
 class Base:
 
     def __init__(self):
         self.response = None
         self.answered = False
+        self.create_time = None#int(datetime.now().timestamp())
+        self.send_time = None
 
     def send(self, network):
+        #self.send_time = int(datetime.now().timestamp())
+        self.intern_send(network)
+
+    def intern_send(self, network):
         raise NotImplementedError("{0}: 'send' method not implemented"\
             .format(self.__class__.__name__))
 
@@ -48,7 +55,7 @@ class MoveForward(_RetOk):
     def intern_execute(self):
         self.knowledge.update_position_forward()
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_cmd_forward()
 
 class TurnLeft(_RetOk):
@@ -59,7 +66,7 @@ class TurnLeft(_RetOk):
     def intern_execute(self):
         self.knowledge.update_orientation_left()
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_cmd_left()
 
 class TurnRight(_RetOk):
@@ -70,14 +77,14 @@ class TurnRight(_RetOk):
     def intern_execute(self):
         self.knowledge.update_orientation_right()
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_cmd_right()
 
 
 class Fork(_RetOk):
     def __init__(self):
         super().__init__()
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw("fork")
 
 class Broadcast(_RetOk):
@@ -85,7 +92,7 @@ class Broadcast(_RetOk):
         super().__init__()
         self.message = message
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw("broadcast " + self.message)
 
 """ Returning OK/KO """
@@ -113,7 +120,7 @@ class _RetOkKo(Base):
 class Kick(_RetOkKo):
     def __init__(self):
         super().__init__()
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw("expulse")
         pass
 
@@ -124,7 +131,7 @@ class _TakeObject(_RetOkKo):
         self.obj_name = obj_name
         self.knowledge = knowledge
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw("prend " + self.obj_name)
 
 class TakeStone(_TakeObject):
@@ -149,7 +156,7 @@ class _PutObject(_RetOkKo):
         self.obj_name = obj_name
         self.knowledge = knowledge
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw("pose " + self.obj_name)
 
 class PutStone(_PutObject):
@@ -175,7 +182,7 @@ class TeamName(Base):
         self.slot_number = None
         self.dimension = None
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_team_name(self.team_name)
 
     def intern_accept(self, response):
@@ -213,7 +220,7 @@ class LookUp(Base):
         self.answered = True
         return True
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw('voir')
 
     def intern_execute(self):
@@ -224,7 +231,7 @@ class LookInventory(Base):
         super().__init__()
         self.knowledge = knowledge
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw('inventaire')
 
     def intern_accept(self, response):
@@ -263,7 +270,7 @@ class StartIncantation(Base):
                     print("incantation failure")
         return True                
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw('incantation')
 
 class SlotNumber(Base):
@@ -279,7 +286,7 @@ class SlotNumber(Base):
         self.answered = True
         return True
 
-    def send(self, network):
+    def intern_send(self, network):
         network.send_raw('connect_nbr')
 
     def intern_execute(self):

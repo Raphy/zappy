@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from enum import Enum, unique
 from datetime import datetime
@@ -116,6 +115,9 @@ class Inventory:
     def __init__(self):
         self._food_pocket = FoodPocket(0)
         self._stones_pocket = StonesPocket()
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "Inventory({0}):\n\tfood: {1}\n\tstones: {2}"\

@@ -121,7 +121,6 @@ class GatheringArrivedMsg(Base):
         super().__init__()
         self.add_field('destination_id', DroneId)
 
-
 """ tests, to be removed """
 """
 d = DroneId.from_machine()

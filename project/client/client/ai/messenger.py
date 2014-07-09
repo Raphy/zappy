@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 from . import message
 from .msg_time import MsgTime
@@ -20,6 +19,8 @@ class Messenger:
         _make_type_id('base'): message.Base,
         _make_type_id('inve'): message.InventoryMsg,
         _make_type_id('exte'): message.Extended,
+        _make_type_id('inde'): message.Identity,
+
     }
 
     _msg_types_items_view = _msg_types.items()
@@ -65,7 +66,7 @@ class Messenger:
         self._counter += 1
         message.time = MsgTime.now()
         message.team_name = self._team_name
-        message.emitter_id = self.emitter_id
+        message.emitter_id = self._emitter_id
         return message
 
     def __unreconized_msg(self, msg_str, direction):
@@ -102,7 +103,8 @@ class Messenger:
             callback(message, direction, data)
 
     @staticmethod
-    def __type_id_of(msg_type):
+    def __type_id_of(msg):
+        msg_type = type(msg)
         for type_id, cur_msg_type in Messenger._msg_types_items_view:
             if cur_msg_type == msg_type:
                 return type_id

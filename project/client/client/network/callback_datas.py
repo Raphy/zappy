@@ -1,4 +1,3 @@
-print("initializing module {0} ...".format(__name__))
 
 _datas = {}
 _nextkey = 0
