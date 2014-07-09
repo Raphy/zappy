@@ -30,7 +30,7 @@ bool CameraManager::init(int x, int y)
 {
     // create skybox and skydome
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
-    scene::ISceneNode* skybox = _smgr->addSkyBoxSceneNode(
+    /*scene::ISceneNode* skybox = */_smgr->addSkyBoxSceneNode(
             _assets->getTexture(SKYBOX, TEXTURE, 0),
             _assets->getTexture(SKYBOX, TEXTURE, 1),
             _assets->getTexture(SKYBOX, TEXTURE, 2),

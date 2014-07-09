@@ -47,6 +47,8 @@ enum	GameElementType
     EGG,
     MAP,
     SKYBOX,
+    BROADCAST,
+    INVOCATION,
     GAME_ELEMENT_TYPE_COUNT,
 };
 
@@ -61,6 +63,8 @@ enum	GameElementType
 enum Ids
 {
     GUI_ID_MAP = 101,
+    
+    GUI_ID_COMPASS,
     
     GUI_ID_MENU,
 
@@ -83,6 +87,7 @@ enum Ids
     
     NODE_ID_MAP = 201,
     NODE_ID_PERSO,
+    NODE_ID_EGG,
     NODE_ID_FOOD,
     NODE_ID_STONE,
     NODE_ID_CASE,

@@ -9,15 +9,21 @@
 #define	GUIMANAGER_HH
 
 #include    <irrlicht.h>
+//#include    "Compass.hh"
+
+using namespace irr;
 
 class GUIManager
 {
 public:
-    GUIManager(irr::gui::IGUIEnvironment* env, int x, int y);
+    GUIManager(gui::IGUIEnvironment* env, int x, int y);
     GUIManager(const GUIManager& orig);
     virtual ~GUIManager();
+    
+    void updateDirection(f32 angle);
 private:
-    irr::gui::IGUIEnvironment* _env;
+    gui::IGUIEnvironment* _env;
+//    Compass*	_compass;
     int _x;
     int _y;
 };

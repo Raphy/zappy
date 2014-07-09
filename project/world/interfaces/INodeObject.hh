@@ -12,6 +12,8 @@
 
 using namespace irr;
 
+typedef	std::pair<int,int>  pos_t;
+
 class INodeObject
 {
 public:
@@ -24,6 +26,9 @@ public:
     virtual scene::ISceneNode*	    getNode() const = 0;
     virtual INodeObject*	    getParent() const = 0;
     virtual scene::ISceneNode*	    getParentNode() const = 0;
+
+    virtual void		    setPositionInMap(pos_t const& pos) = 0;
+    virtual pos_t const&	    getPositionInMap() const = 0;
 };
 
 #endif	/* INODEOBJECT_HH */

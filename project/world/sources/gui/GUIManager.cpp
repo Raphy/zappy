@@ -8,6 +8,7 @@
 #include <iostream>
 #include "GUIManager.hh"
 #include "enums.hh"
+//#include "Compass.hh"
 
 using namespace irr;
 using namespace gui;
@@ -22,7 +23,27 @@ GUIManager::GUIManager(IGUIEnvironment* env, int x, int y)
 //    IGUIToolBar* menu = _env->addToolBar(nullptr, GUI_ID_MENU);
 
     /* MENU */
+    
+//    IGUIElement* compass = new Compass(_env, nullptr, recti(0,0,(_x * 1./4.),(_y * 1./4.)));
 
+    //    IGUIElement* compass = new Compass(recti(0,0,(_x * 1./4.),(_y * 1./4.)), _env, nullptr);
+
+//       core::rect<s32> gCompassRect;
+//   gCompassRect.UpperLeftCorner.X = 0;
+//   gCompassRect.UpperLeftCorner.Y = 0;
+//   gCompassRect.LowerRightCorner.X = (_x * 1./4.);
+//   gCompassRect.LowerRightCorner.Y = (_y * 1./4.);
+//   gui::IGUIElement* pgRootGuiElement = env->getRootGUIElement();
+//
+//   _compass = new VxCompass( gCompassRect, env, pgRootGuiElement );
+////    IGUIElement* compass = new Compass(_env, nullptr, gCompassRect);
+//    video::ITexture * pgCompassBodyTexture =   env->getVideoDriver()->getTexture("../media/compass/compass_body.tga");
+//   video::ITexture * pgCompassNeedleTexture =   env->getVideoDriver()->getTexture("../media/compass/compass_needle.tga");
+//
+//   _compass->SetCompassBodyTexture( pgCompassBodyTexture );
+//   _compass->SetCompassNeedleTexture( pgCompassNeedleTexture );
+
+   
     IGUIListBox* menu = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_MENU, true);
     menu->setRelativePosition(recti((_x * 2./3.), 0, _x, (_y * 1./5.)));
 //    menu->setItemOverrideColor(0, SColor(255, 0, 0, 100));
@@ -63,11 +84,17 @@ GUIManager::GUIManager(IGUIEnvironment* env, int x, int y)
     
 }
 
-GUIManager::GUIManager(GUIManager const& orig)
-{
-}
+//GUIManager::GUIManager(GUIManager const& orig)
+//{
+//}
 
 GUIManager::~GUIManager()
 {
+//    delete _compass;
 }
 
+void GUIManager::updateDirection(f32 angle)
+{
+////    _compass->updateDirection(angle);
+//    _compass->SetCompassHeading(angle);
+}

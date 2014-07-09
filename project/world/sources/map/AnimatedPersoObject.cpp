@@ -40,18 +40,13 @@ bool    AnimatedPersoObject::init()
 	node->setMaterialFlag(EMF_LIGHTING, true);
 	//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	node->setMD2Animation(EMAT_STAND);
-	//	node->setMD2Animation(EMAT_ATTACK);
-	//	node->setMD2Animation(EMAT_JUMP);
-	//	node->setMD2Animation(EMAT_RUN);
 
-	vector3df extent= node->getTransformedBoundingBox().getExtent();
-	node->setScale(vector3df(1.0 / extent.X, 1.0 / extent.Y, 1.0 / extent.Z));
-	
-	vector3df pos = node->getPosition();
-	vector3df new_pos(pos.X,pos.Y + 0.5,pos.Z);
-	
-	node->setPosition(new_pos);
-	
+	vector3df extent = node->getTransformedBoundingBox().getExtent();
+	vector3df scale = node->getScale();
+	scale /= extent;
+	node->setScale(scale);
+
+	this->updateNodePosition();
 	node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
 	return true;
     }    

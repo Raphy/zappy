@@ -8,6 +8,10 @@
 #include <algorithm>
 #include <iostream>
 #include "MapObject.hh"
+#include "AGameElement.hh"
+
+#include    "PersoObject.hh"
+#include    "RessourceObject.hh"
 
 using namespace video;
 using namespace scene;
@@ -16,20 +20,15 @@ using namespace core;
 MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AAnimatedMeshObject(smgr, parent), _selector(nullptr)
 {
-    for (int i = 0; i < 10; i++)
-    {
-        INodeObject* perso = _binder->createPersoObject(smgr, this);
-	perso->init();
-	perso->getNode()->setPosition(vector3df(i,0,i));
-        _persos.push_back(perso);
-        INodeObject* object = _binder->createRessourceObject(smgr, this);
-	object->init();
-	object->getNode()->setPosition(vector3df(i,0,i));
-        _objects.push_back(object);
-	//	_persos[i]->getNode()->setPosition(vector3df(i,0,i));
-	//        _objects.push_back(_binder->createRessourceObject(smgr, this));
-	//	_objects[i]->getNode()->setPosition(vector3df(i,0,i));
-    }
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        INodeObject* perso = _binder->createPersoObject(smgr, this);
+    //	perso->init();
+    //	perso->setPositionInMap(pos_t(i,i));
+    
+    //        INodeObject* object = _binder->createRessourceObject(smgr, this);
+    //	object->init();
+    //    }
     
 }
 
@@ -54,48 +53,6 @@ bool    MapObject::init()
     return true;
 }
 
-bool MapObject::createGround(int x, int y)
-{
-    std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
-    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP,
-	    core::vector3df(0, 0, 0),		// position
-//	    core::vector3df(x/2.0, 0, y/2.0),		// position
-	    core::vector3df(1.f, 0.f, 0.f),		// rotation
-	    core::vector3df(1.f, 1.f, 1.f),	// scale
-	    video::SColor ( 255, 255, 255, 0 ),	// vertexColor
-	    5,					// maxLOD
-	    scene::ETPS_17,				// patchSize
-	    4					// smoothFactor
-	    );
-    _node = node;
-    if (!_node)
-	return false;
-    
-    vector3df extent = node->getTransformedBoundingBox().getExtent();
-    node->setScale(vector3df(1.0 / (float)extent.X, 1.0, 1.0 / (float)extent.Z));
-    node->setScale(vector3df(x, 1.f, y));
-    
-    _node->setMaterialFlag(EMF_LIGHTING, true);
-    ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
-    ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
-    _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
-    _node->setMaterialTexture(1, _assets->getTexture(MAP, TEXTURE, 1));        
-    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
-    
-    _selector = _smgr->createTerrainTriangleSelector(node);
-    if (!_selector)
-	return false;
-    node->setTriangleSelector(_selector);
-    return true;
-}
-
-bool MapObject::addObject(int x, int y, GameElementType type)
-{
-    (void)x;
-    (void)y;
-    (void)type;
-    return false;
-}
 
 
 
@@ -113,3 +70,85 @@ bool MapObject::callHandler(t_data * data)
     return false;
 }
 
+/* HANDLERS */
+
+bool MapObject::createGround(int x, int y)
+{
+    std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
+    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP);//,
+    //	    core::vector3df(0, 0, 0),		// position
+    ////	    core::vector3df(x/2.0, 0, y/2.0),		// position
+    //	    core::vector3df(1.f, 0.f, 0.f),		// rotation
+    //	    core::vector3df(1.f, 1.f, 1.f),	// scale
+    //	    video::SColor ( 255, 255, 255, 0 ),	// vertexColor
+    //	    5,					// maxLOD
+    //	    scene::ETPS_17,				// patchSize
+    //	    4					// smoothFactor
+    //	    );
+    //    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str());
+    _node = node;
+    if (!_node)
+	return false;
+    
+    vector3df extent = node->getTransformedBoundingBox().getExtent();
+    if (extent.X > 1.0f)
+        node->setScale(vector3df(1.0 / extent.X, 1.0, 1.0));
+    if (extent.Z > 1.0f)
+        node->setScale(vector3df(1.0, 1.0, 1.0 / extent.Z) * node->getScale());
+    node->setScale(vector3df(x, 1.f, y) * node->getScale());
+    
+    _node->setMaterialFlag(EMF_LIGHTING, true);
+    ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
+    ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
+    _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
+    _node->setMaterialTexture(1, _assets->getTexture(MAP, TEXTURE, 1));        
+    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
+    
+    _selector = _smgr->createTerrainTriangleSelector(node);
+    if (!_selector)
+	return false;
+    node->setTriangleSelector(_selector);
+    return true;
+}
+
+bool MapObject::setCaseContent(pos_t const& pos, const std::vector<int>& quantity)
+{
+    std::vector<INodeObject*> ressource_case = _ressources[pos];
+    //	if (!_ressources[pos])
+    //	    _ressources.insert(std::pair<pos_t, std::list<INodeObject*>>(pos, /**/))
+    int level = 0;
+    std::for_each(quantity.begin(), quantity.end(), [&](int q){
+	RessourceObject* ressource = static_cast<RessourceObject*>(ressource_case[level]);
+	if (!ressource)
+	    this->addRessource(pos, level, quantity[level]);
+//	else
+//	    ressource->setQuantity(quantity[level]);
+	level++;
+    });
+    return false;
+}
+
+bool MapObject::addPlayer(pos_t const& pos, int index, Orientation o, int level, const std::string& team)
+{
+    //    PersoObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
+    INodeObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
+    if (!perso || perso->init())
+	return false;
+    perso->setPositionInMap(pos);
+    //TODO : setter index, o, et team?
+    //    perso->setLevel(level);
+    _persos.push_back(perso);
+    return true;
+}
+
+bool MapObject::addRessource(const pos_t& pos, int level, int quantity)
+{
+    //    RessourceObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
+    INodeObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
+    if (!ressource || ressource->init())
+	return false;
+    ressource->setPositionInMap(pos);
+    //    ressource->setLevel(level);
+    _ressources[pos].push_back(ressource);
+    return true;
+}

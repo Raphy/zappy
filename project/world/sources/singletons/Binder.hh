@@ -40,12 +40,22 @@ public:
 					    scene::ISceneManager* smgr) const;
     
     /* SCENE */
-    INodeObject*	createMapObject(scene::ISceneManager* smgr,
-				INodeObject* parent) const;
-    INodeObject*	createPersoObject(scene::ISceneManager* smgr,
-				INodeObject* parent) const;
-    INodeObject*	createRessourceObject(scene::ISceneManager* smgr,
-				INodeObject* parent) const;
+    template<GameElementType>
+    INodeObject*	createGameElementObject(scene::ISceneManager* smgr,
+				INodeObject* parent) const
+    {
+	(void)smgr;
+	(void)parent;
+	//unknow template
+	return nullptr;
+    }
+
+//    INodeObject*	createMapObject(scene::ISceneManager* smgr,
+//				INodeObject* parent) const;
+//    INodeObject*	createPersoObject(scene::ISceneManager* smgr,
+//				INodeObject* parent) const;
+//    INodeObject*	createRessourceObject(scene::ISceneManager* smgr,
+//				INodeObject* parent) const;
     
 private:
 //    Binder(int winW = 800, int winH = 600, bool realUserMode = false);

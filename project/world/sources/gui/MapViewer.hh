@@ -35,6 +35,8 @@ public:
     
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
+
+    CameraManager const& getCameraManager() const { return _cameraManager; }
     
 private:
     scene::ISceneManager*	_smgr;

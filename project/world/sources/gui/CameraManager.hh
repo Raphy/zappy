@@ -32,6 +32,8 @@ public:
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
 
+    scene::ICameraSceneNode const *	    getCurrentCamera() const { return _camera[_currentMode]; }
+
     bool    addCollision(scene::ITriangleSelector* selector);
 
 private:	    

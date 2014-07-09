@@ -14,6 +14,7 @@
 
 using namespace core;
 using namespace gui;
+using namespace scene;
 
 AEngine::AEngine()
 {
@@ -88,6 +89,16 @@ bool AEngine::init()
 }
 bool AEngine::update()
 {
+    //BRJ correct way to get heading posted by Vitek
+    ICameraSceneNode const * camera = _mapViewer->getCameraManager().getCurrentCamera();
+    if (camera)
+    {
+        core::vector3df fore(0, 0, 1);
+	camera->getAbsoluteTransformation().rotateVect(fore);
+	core::vector3df rot1 = fore.getHorizontalAngle();
+	_guiManager->updateDirection(rot1.Y);
+//	pgCompass->SetCompassHeading( rot1.Y );
+    }
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _smgr->drawAll();
     _env->drawAll();
@@ -96,7 +107,7 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
-    _mapViewer->createGround(30,20);//debug
+    _mapViewer->createGround(10,20);//debug
     
     while (_device->run())
     {

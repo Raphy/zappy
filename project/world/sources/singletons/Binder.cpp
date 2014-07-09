@@ -62,7 +62,7 @@ IEngine*	Binder::createEngine() const
 {
     IEngine* engine = new WorldEngine();
     Assets::getInstance(engine->getDevice()->getSceneManager(), _path);
-//    Ressources::getInstance(engine->getDevice()->getSceneManager(), "./world/assets/irrlicht");
+    //    Ressources::getInstance(engine->getDevice()->getSceneManager(), "./world/assets/irrlicht");
     return engine;
 }
 
@@ -89,32 +89,51 @@ gui::IGUIElement*    Binder::createMapViewer(gui::IGUIEnvironment* env,
     return new MapViewer(env, smgr);
 }
 gui::IGUIElement*	    Binder::createMenuToolbar(gui::IGUIEnvironment* env,
-				    scene::ISceneManager* smgr) const
+	scene::ISceneManager* smgr) const
 {
     (void) smgr;
     (void) env;
-//    return new MenuToolBar(env);
+    //    return new MenuToolBar(env);
     return nullptr;
 }
 
 /* SCENE */
 //    scene::ISceneNode*	    createMapNode(scene::ISceneNode* parent, scene::ISceneManager* smgr) const
 //    { return new MapNode(parent, smgr); }
-INodeObject*	Binder::createMapObject(scene::ISceneManager* smgr,
+//INodeObject*	Binder::createMapObject(scene::ISceneManager* smgr,
+//	INodeObject* parent) const
+//{
+//    return new MapObject(smgr, parent);
+//}
+//INodeObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
+//	INodeObject* parent) const
+//{
+//    return new AnimatedPersoObject(smgr, parent);
+//    //    return new PersoObject(smgr, parent);
+//}
+//INodeObject*	Binder::createRessourceObject(scene::ISceneManager* smgr,
+//	INodeObject* parent) const
+//{
+//    return new RessourceObject(smgr, parent);
+//    //    return new PersoObject(smgr, parent);
+//}
+
+template <>
+INodeObject*	Binder::createGameElementObject<MAP>(scene::ISceneManager* smgr,
 	INodeObject* parent) const
 {
     return new MapObject(smgr, parent);
 }
-INodeObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
+template <>
+INodeObject*	Binder::createGameElementObject<PERSO>(scene::ISceneManager* smgr,
 	INodeObject* parent) const
 {
     return new AnimatedPersoObject(smgr, parent);
-//    return new PersoObject(smgr, parent);
+    //    return new PersoObject(smgr, parent);
 }
-INodeObject*	Binder::createRessourceObject(scene::ISceneManager* smgr,
+template <>
+INodeObject*	Binder::createGameElementObject<RESSOURCE>(scene::ISceneManager* smgr,
 	INodeObject* parent) const
 {
     return new RessourceObject(smgr, parent);
-//    return new PersoObject(smgr, parent);
 }
-
