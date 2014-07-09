@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Mon Jul  7 18:02:13 2014 raphael defreitas
+** Last update Wed Jul  9 18:36:57 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -53,6 +53,7 @@ bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
 bool		zs_cmd_msz(t_zs *, t_zc *, const char *);
 bool		zs_cmd_bct(t_zs *, t_zc *, const char *);
 bool		zs_cmd_mct(t_zs *, t_zc *, const char *);
+bool		zs_cmd_tna(t_zs *, t_zc *, const char *);
 
 bool		zs_cmd_rmt(t_zs *, t_zc *, const char *);
 bool		zs_rmt_pubkey(t_zs *, t_zc *, const char *);
@@ -81,6 +82,7 @@ void		zs_handle_cmd_graphic(t_zs *, t_zc *);
 void		zs_handle_cmd_msz(t_zs *, t_zc *);
 void		zs_handle_cmd_bct(t_zs *, t_zc *, t_position *);
 void		zs_handle_cmd_mct(t_zs *, t_zc *);
+void		zs_handle_cmd_tna(t_zs *, t_zc *);
 
 void		zs_handle_cmd_rmt(t_zs *, t_zc *);
 void		zs_handle_rmt_pubkey(t_zs *, t_zc *, const char *);
@@ -111,6 +113,7 @@ bool		zc_ko(t_zc *, const char *);
 
 bool		zc_cmd_msz(t_zc *, const char *);
 bool		zc_cmd_bct(t_zc *, const char *);
+bool		zc_cmd_tna(t_zc *, const char *);
 
 bool		zc_rmt_authorized(t_zc *, const char *);
 bool		zc_rmt_unauthorized(t_zc *, const char *);
@@ -137,6 +140,7 @@ void		zc_handle_ko(t_zc *);
 
 void		zc_handle_cmd_msz(t_zc *, t_msz *);
 void		zc_handle_cmd_bct(t_zc *, t_bct *);
+void		zc_handle_cmd_tna(t_zc *, const char *);
 
 void		zc_handle_rmt_pubkey(t_zc *, const char *);
 void		zc_handle_rmt_authorized(t_zc *);

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Mon Jul  7 17:58:44 2014 raphael defreitas
+** Last update Wed Jul  9 18:33:41 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -66,6 +66,7 @@ void		zs_send_rmt_teams(t_zs *, t_zc *zc, t_list *teams);
 
 void		zs_send_cmd_msz(t_zs *, t_zc *zc, t_msz *msz);
 void		zs_send_cmd_bct(t_zs *, t_zc *zc, t_bct *bct);
+void		zs_send_cmd_tna(t_zs *, t_zc *zc, const char *tna);
 
 /*
 ** +--------+
@@ -82,6 +83,7 @@ void		zc_send_graphic(t_zc *);
 void		zc_send_cmd_msz(t_zc *);
 void		zc_send_cmd_bct(t_zc *, t_position *position);
 void		zc_send_cmd_mct(t_zc *);
+void		zc_send_cmd_tna(t_zc *);
 
 void		zc_send_rmt(t_zc *);
 void		zc_send_rmt_pubkey(t_zc *);
