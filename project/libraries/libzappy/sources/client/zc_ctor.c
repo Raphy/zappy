@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:49:43 2014 raphael defreitas
-** Last update Wed Jul  2 02:03:09 2014 raphael defreitas
+** Last update Wed Jul  9 19:08:39 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -30,6 +30,7 @@ static void	default_values(t_zc *this)
   this->pubkey = NULL;
   this->key_encrypt = NULL;
   this->key_decrypt = NULL;
+  this->uid = 0;
 }
 
 int		zc_ctor(t_zc *this)
