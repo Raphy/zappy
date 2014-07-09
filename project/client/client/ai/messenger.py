@@ -49,10 +49,8 @@ class Messenger:
         type_id = self.__type_id_of(message)
         msg_str = str(message)
         if type_id is None or msg_str is None:
-            return False
-        else:
-            self.send_str(type_id + msg_str)
-            return True
+            return None
+        return self.send_str(type_id + msg_str)
 
     def send_str(self, msg_str):
         cmd = command.Broadcast(msg_str)
