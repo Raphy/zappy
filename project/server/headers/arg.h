@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 16:16:21 2014 damien sauvalle
-** Last update Tue Jul  1 17:49:54 2014 damien sauvalle
+** Last update Tue Jul  8 18:05:43 2014 damien sauvalle
 */
 
 #ifndef		ARG_H_
@@ -13,11 +13,11 @@
 
 # include	"list.h"
 
-typedef struct
+typedef struct	s_arg
 {
   int		port;
-  int		x_world;
-  int		y_world;
+  unsigned int		x_world;
+  unsigned int		y_world;
   t_list       	*team_names;
   int		limit_client;
   int		time;
@@ -25,7 +25,7 @@ typedef struct
 
 typedef int (*function)(char **, t_arg *, int);
 
-typedef struct
+typedef struct	s_parse_map
 {
   char          index;
   function      function;

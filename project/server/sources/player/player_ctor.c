@@ -5,10 +5,10 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Tue Jul  8 14:03:41 2014 damien sauvalle
+** Last update Tue Jul  8 14:48:25 2014 damien sauvalle
 */
 
-#include	"stdio.h"
+#include	<stdio.h>
 
 #include	<time.h>
 #include	<stdlib.h>
