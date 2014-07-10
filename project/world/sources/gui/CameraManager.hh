@@ -25,7 +25,7 @@ enum CameraMode
 class CameraManager : ANodeObject
 {
 public:
-    CameraManager(scene::ISceneManager* smgr);
+    CameraManager(scene::ISceneManager* smgr, gui::ICursorControl* cursor);
     virtual ~CameraManager();
     
     bool    init(int x = 10, int y = 10);
@@ -39,6 +39,7 @@ public:
 private:	    
 //    scene::ISceneManager*	    _smgr;
     video::IVideoDriver*	    _driver;
+    gui::ICursorControl*	    _cursor;
 //    Assets*			    _ressources;
 
     Ids				    _guiIds[CAMERA_MODE_COUNT];

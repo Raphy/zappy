@@ -42,7 +42,10 @@ AEngine::AEngine()
     _smgr = _device->getSceneManager();
     _env = _device->getGUIEnvironment();
     _fs = _device->getFileSystem();
+    _cursor = _device->getCursorControl();
     
+    _fps = -1;
+
     EventContext context;
     context.device = _device;
     context.engine = this;
@@ -60,25 +63,35 @@ AEngine::~AEngine()
 
 bool AEngine::init()
 {
-    _assets = Assets::getInstance(_smgr, "./world/assets/irrlicht");
+    _assets = Assets::getInstance();
     
     //ASSETS
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
     
     //WINDOW
-    _device->setWindowCaption(L"Zappy !!!");
+//    _device->setWindowCaption(L"Zappy !!!");
+    this->updateFPS();
     //_device->setResizable(true);
     
     // FONT
-    //    IGUISkin* skin = _env->getSkin();
-    //    IGUIFont* font = _env->getFont("../../media/fonthaettenschweiler.bmp");
-    //    if (font)
-    //	skin->setFont(font);
-    //    skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
-    
+    //    std::string font_path("fonts/astron boy wonder.ttf");
+    std::string font_path("bigfont.png");
+    if (_fs->existFile(font_path.c_str()))
+    {
+	std::cout << "	Font loaded !" << std::endl;
+	//builtin_skin/Skin.guiskin
+	//    IGUISkin* skin = _env->createSkin(EGST_BURNING_SKIN);
+	//    _env->setSkin(skin);
+	IGUISkin* skin = _env->getSkin();
+	IGUIFont* font = _env->getFont(font_path.c_str());
+	if (font)
+	    skin->setFont(font);
+	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
+	//	skin->drop();
+    }
     //    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
     _guiManager = new GUIManager(_env, 800, 600);
-    _mapViewer = new MapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
+    _mapViewer = new MapViewer(_env, _smgr, _cursor);//TODO : deplacer dans WorldEngine
     //    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
     
     return true;
@@ -86,15 +99,16 @@ bool AEngine::init()
 bool AEngine::update()
 {
     //BRJ correct way to get heading posted by Vitek
-//    ICameraSceneNode const * camera = _mapViewer->getCameraManager().getCurrentCamera();
-//    if (camera)
-//    {
-//        core::vector3df fore(0, 0, 1);
-//	camera->getAbsoluteTransformation().rotateVect(fore);
-//	core::vector3df rot1 = fore.getHorizontalAngle();
-//	_guiManager->updateDirection(rot1.Y);
-//	//	pgCompass->SetCompassHeading( rot1.Y );
-//    }
+    //    ICameraSceneNode const * camera = _mapViewer->getCameraManager().getCurrentCamera();
+    //    if (camera)
+    //    {
+    //        core::vector3df fore(0, 0, 1);
+    //	camera->getAbsoluteTransformation().rotateVect(fore);
+    //	core::vector3df rot1 = fore.getHorizontalAngle();
+    //	_guiManager->updateDirection(rot1.Y);
+    //	//	pgCompass->SetCompassHeading( rot1.Y );
+    //    }
+    this->updateFPS();
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _smgr->drawAll();
     _env->drawAll();
@@ -103,18 +117,29 @@ bool AEngine::update()
 }
 bool AEngine::mainLoop()
 {
-//    _mapViewer->createGround(10,20);//debug
-    
     while (_device->run())
     {
 	while (!_eventQueue->isEmpty())
 	    this->callHandler(_eventQueue->pop());
 	if (_device->isWindowActive())
-	    this->update();
+            this->update();
 	else
 	    _device->yield();
     }
     return true;
+}
+void AEngine::updateFPS()
+{
+    int fps = _driver->getFPS();
+    if (fps != _fps)
+    {
+	_fps = fps;
+	core::stringw str = L"Zappy ! [";
+	str += _driver->getName();
+	str += "] FPS:";
+	str += fps;
+	_device->setWindowCaption(str.c_str());	
+    }
 }
 
 irr::IrrlichtDevice* AEngine::getDevice() const
@@ -128,7 +153,6 @@ irr::IrrlichtDevice* AEngine::getDevice() const
 
 bool AEngine::callHandler(t_data* data)
 {
-    std::cout << "EVENT RECEIVED ..." << std::endl;
     if (data->game_element_type == ENGINE_CLASS
 	    || data->game_element_type == MAP_CLASS)
     {

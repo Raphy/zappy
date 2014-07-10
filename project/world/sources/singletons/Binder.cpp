@@ -86,7 +86,8 @@ ISafeQueue<t_data *>* Binder::createNetworkEventQueue() const
 gui::IGUIElement*    Binder::createMapViewer(gui::IGUIEnvironment* env,
 	scene::ISceneManager* smgr) const
 {
-    return new MapViewer(env, smgr);
+//    return new MapViewer(env, smgr);
+    return nullptr;
 }
 gui::IGUIElement*	    Binder::createMenuToolbar(gui::IGUIEnvironment* env,
 	scene::ISceneManager* smgr) const

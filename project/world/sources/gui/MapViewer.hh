@@ -18,8 +18,8 @@ using namespace irr;
 class MapViewer : public gui::IGUIMeshViewer, public INetworkEventHandler
 {
 public:
-    MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr);
-    MapViewer(const MapViewer& orig);
+    MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui::ICursorControl* cursor);
+//    MapViewer(const MapViewer& orig);
     virtual ~MapViewer();
     
     scene::ISceneManager* getSceneManager() const { return _smgr; }
@@ -42,6 +42,7 @@ public:
     
 private:
     scene::ISceneManager*	_smgr;
+    gui::ICursorControl*	_cursor;
     video::SMaterial		_material;
 //    AAnimatedMeshObject*	_mapObject;
     MapObject*	_mapObject;

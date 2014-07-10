@@ -27,7 +27,7 @@ public:
     virtual bool init();
     virtual bool update();
     virtual bool mainLoop();
-
+    
     virtual irr::IrrlichtDevice* getDevice() const;
     
     virtual bool callHandler(t_data * data);
@@ -50,16 +50,20 @@ public:
 
 protected:
     AEngine();
+    void updateFPS();
 
     IrrlichtDevice*	    _device;
     video::IVideoDriver*    _driver;
     scene::ISceneManager*   _smgr;
     gui::IGUIEnvironment*   _env;
     io::IFileSystem*	    _fs;
+    gui::ICursorControl*    _cursor;
+
 
 //    SAppContext		    _context;
     IEventReceiver*	    _eventReceiver;
     GUIManager*		    _guiManager;
+    int			    _fps;
 
 //    gui::IGUIElement*	    _mapViewer;
     MapViewer*	    _mapViewer;

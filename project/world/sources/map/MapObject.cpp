@@ -42,14 +42,8 @@ bool    MapObject::init()
     //    });
     return true;
 }
-
-
-
-
-
 bool MapObject::callHandler(t_data * data)
 {
-    std::cout << "EVENT RECEIVED ..." << std::endl;
     if (data->game_element_type == PERSO_CLASS
 	    || data->game_element_type == RESSOURCE_CLASS
 	    || data->game_element_type == EGG_CLASS)
@@ -64,6 +58,9 @@ bool MapObject::callHandler(t_data * data)
     std::cout << "UNKNOWN MAP EVENT !" << std::endl;
     return false;
 }
+
+
+
 
 /* HANDLERS */
 

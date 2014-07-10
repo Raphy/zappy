@@ -22,7 +22,8 @@ public:
     
     void updateDirection(f32 angle);
 private:
-    gui::IGUIEnvironment* _env;
+    gui::IGUIEnvironment*   _env;
+    video::IVideoDriver*    _driver;
 //    Compass*	_compass;
     int _x;
     int _y;

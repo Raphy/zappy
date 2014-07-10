@@ -13,10 +13,10 @@
 using namespace core;
 
 //TODO : taille dynamique
-MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr)
+MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui::ICursorControl* cursor)
 : IGUIMeshViewer(env, nullptr, GUI_ID_MAP,
 	rect<s32>(vector2di(42, 42), vector2di(42, 42))),
-	_smgr(smgr), _cameraManager(smgr)
+	_smgr(smgr), _cursor(cursor), _cameraManager(smgr, cursor)
 {
     //    _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
     _smgr->addBillboardTextSceneNode(nullptr, L"(0,0)", nullptr, dimension2df(1.f,1.f), vector3df(0.f,3.f,0.f));
@@ -29,10 +29,10 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr)
     _cameraManager.init(10,20);//??
 }
 
-MapViewer::MapViewer(const MapViewer& orig)
-: IGUIMeshViewer(orig.Environment, 0, GUI_ID_MAP, orig.AbsoluteRect), _cameraManager(orig.getSceneManager())
-{
-}
+//MapViewer::MapViewer(const MapViewer& orig)
+//: IGUIMeshViewer(orig.Environment, 0, GUI_ID_MAP, orig.AbsoluteRect), _cameraManager(orig.getSceneManager(), orig.getCursorControl())
+//{
+//}
 
 MapViewer::~MapViewer()
 {
@@ -50,7 +50,6 @@ void MapViewer::setMesh(scene::IAnimatedMesh *mesh)
 
 bool MapViewer::callHandler(t_data* data)
 {
-    std::cout << "MAP VIEWER EVENT RECEIVED ..." << std::endl;
     if (data->game_element_type == MAP_CLASS)
     {
 	t_infos * infos = data->infos;
