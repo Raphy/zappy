@@ -3,9 +3,9 @@
 
 /*
 ** time1 is:
-** -1 = lower
-** 0 = equal
-** 1 = greater
+** -1 = lower than time2
+** 0 = equal than time2
+** 1 = greater than time2
 */
 
 int             timespec_compare(t_timespec *time1, t_timespec *time2)

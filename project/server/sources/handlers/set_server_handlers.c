@@ -21,6 +21,7 @@ void		set_server_handlers(t_zs *zs, t_server *server)
 
   zs_hook_client_connected(zs, &client_connected_handler, server);
   zs_hook_before_select(zs, &handler_before_select, server);
+  zs_hook_after_select(zs, &handler_after_select, server);
   zs_hook_client_disconnected(zs, &client_disconnected_handler, server);
 
   /*  zs_hook_before_select(zs, &handler_before_select, server);

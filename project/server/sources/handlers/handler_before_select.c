@@ -18,7 +18,7 @@ void handler_before_select(t_zs *zs, void *data)
   clock_gettime(CLOCK_MONOTONIC, &time);
   printf("sec: %d, nano: %d\n", time.tv_sec, time.tv_nsec);
   if (data == NULL || server->events == NULL
-          || (event = list_front(serve£r->events)) == NULL)
+          || (event = list_front(server->events)) == NULL)
   {
     printf("No events! What should we do ?");
     zs_set_timeout(zs, 1, 0);
