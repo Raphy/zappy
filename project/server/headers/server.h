@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Tue Jul  8 14:25:37 2014 damien sauvalle
+** Last update Thu Jul 10 16:00:17 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -23,9 +23,12 @@ typedef struct	s_server
   t_case	**map;
   t_list        *players;
   t_list        *events;
-  t_list	eggs;
+  t_list	*eggs;
+  t_list	*graphic;
+  t_list	*remote;
   t_arg		*arg;
 }		t_server;
+
 
 int	server_ctor(t_server *, t_arg *);
 void	server_dtor(t_server *);
