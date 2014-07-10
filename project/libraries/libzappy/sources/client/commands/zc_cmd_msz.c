@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Mon Jul  7 18:03:25 2014 raphael defreitas
+** Last update Thu Jul 10 06:29:02 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -33,6 +33,7 @@ static bool	parse(const char *cmd, t_msz *msz)
     }
   msz->width = strtoul(width, NULL, 0);
   msz->height = strtoul(height, NULL, 0);
+  free(width);
   return (true);
 }
 
