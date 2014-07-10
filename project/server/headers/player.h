@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Thu Jul 10 14:54:07 2014 damien sauvalle
+** Last update Thu Jul 10 20:05:09 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -39,7 +39,7 @@ typedef enum
 
 struct		s_player
 {
-  t_inventory	inventory;
+  t_items	inventory;
   t_direction	direction;
   unsigned int	x;
   unsigned int	y;

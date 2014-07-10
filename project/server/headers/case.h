@@ -1,11 +1,11 @@
 /*
 ** case.h for  in /home/svirch_n/zappy/project/server/headers
-** 
+**
 ** Made by nicolas svirchevsky
 ** Login   <svirch_n@epitech.net>
-** 
+**
 ** Started on  Mon Jul  7 16:42:06 2014 nicolas svirchevsky
-** Last update Mon Jul  7 16:43:48 2014 nicolas svirchevsky
+** Last update Thu Jul 10 20:04:45 2014 damien sauvalle
 */
 
 #ifndef		CASE_H_
@@ -16,7 +16,7 @@
 
 typedef struct	s_case
 {
-  t_inventory	inventory;
+  t_items	inventory;
   t_list	players;
 }		t_case;
 
