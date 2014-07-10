@@ -20,16 +20,6 @@ using namespace core;
 MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AAnimatedMeshObject(smgr, parent), _selector(nullptr)
 {
-    //    for (int i = 0; i < 10; i++)
-    //    {
-    //        INodeObject* perso = _binder->createPersoObject(smgr, this);
-    //	perso->init();
-    //	perso->setPositionInMap(pos_t(i,i));
-    
-    //        INodeObject* object = _binder->createRessourceObject(smgr, this);
-    //	object->init();
-    //    }
-    
 }
 
 MapObject::MapObject(const MapObject& orig)
@@ -68,7 +58,6 @@ bool MapObject::callHandler(t_data * data)
 	switch (data->event_type)
 	{
 	    default:
-		std::cout << "UNKNOWN MAP EVENT !" << std::endl;
 		break;
 	}
     }
@@ -117,28 +106,44 @@ bool MapObject::createGround(int x, int y)
     return true;
 }
 
-bool MapObject::setCaseContent(pos_t const& pos, const std::vector<int>& quantity)
+bool MapObject::setCaseContent(posi_t const& pos, const std::vector<int>& quantity)
 {
-    std::vector<INodeObject*> ressource_case = _ressources[pos];
-    //	if (!_ressources[pos])
-    //	    _ressources.insert(std::pair<pos_t, std::list<INodeObject*>>(pos, /**/))
+    std::vector<INodeObject*> the_case = _ressources[pos];
+    if (the_case.empty())
+    {
+	std::vector<INodeObject*> content(RESSOURCE_TYPE_COUNT, nullptr);
+	_ressources.insert(std::pair<posi_t, std::vector<INodeObject*>>(pos, content));
+    }
     int level = 0;
-    std::for_each(quantity.begin(), quantity.end(), [&](int q){
-	RessourceObject* ressource = static_cast<RessourceObject*>(ressource_case[level]);
+    auto it = quantity.begin();
+    auto end = quantity.end();
+    for (; it != end; ++it)
+    {
+//	RessourceObject* ressource = static_cast<RessourceObject*>(the_case[level]);
+	RessourceObject* ressource = nullptr;
 	if (!ressource)
 	    this->addRessource(pos, level, quantity[level]);
 	//	else
 	//	    ressource->setQuantity(quantity[level]);
 	level++;
-    });
+    }
+    
+    //    std::for_each(quantity.begin(), quantity.end(), [&](int q){
+    //	RessourceObject* ressource = static_cast<RessourceObject*>(the_case[level]);
+    //	if (!ressource)
+    //	    this->addRessource(pos, level, quantity[level]);
+    //	//	else
+    //	//	    ressource->setQuantity(quantity[level]);
+    //	level++;
+    //    });
     return false;
 }
 
-bool MapObject::addPerso(pos_t const& pos, int index, Orientation o, int level, const std::string& team)
+bool MapObject::addPerso(posi_t const& pos, int index, Orientation o, int level, const std::string& team)
 {
     //    PersoObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
     INodeObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
-    if (!perso || perso->init())
+    if (!perso || !perso->init())
 	return false;
     perso->setPositionInMap(pos);
     //TODO : setter index, o, et team?
@@ -147,14 +152,16 @@ bool MapObject::addPerso(pos_t const& pos, int index, Orientation o, int level, 
     return true;
 }
 
-bool MapObject::addRessource(const pos_t& pos, int level, int quantity)
+bool MapObject::addRessource(const posi_t& pos, int level, int quantity)
 {
     //    RessourceObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
     INodeObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
-    if (!ressource || ressource->init())
+    if (!ressource || !ressource->init())
 	return false;
     ressource->setPositionInMap(pos);
+//    ressource->setPositionInMap(posi_t(15,15));
     //    ressource->setLevel(level);
+    //    ressource->setQuantity(quantity);
     _ressources[pos].push_back(ressource);
     return true;
 }

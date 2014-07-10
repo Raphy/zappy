@@ -29,22 +29,22 @@ public:
     /* HANDLERS */
 
     bool    createGround(int x, int y);
-    bool    setCaseContent(pos_t const& pos, std::vector<int> const& quantity);
+    bool    setCaseContent(posi_t const& pos, std::vector<int> const& quantity);
 
-    bool    addPerso(pos_t const& pos, int index,
+    bool    addPerso(posi_t const& pos, int index,
 			Orientation o, int level, std::string const& team);
-    bool    addEgg(pos_t const& pos);
+    bool    addEgg(posi_t const& pos);
 
     bool    removePerso(int index) { return false; }
 
 private:
-    bool    addRessource(pos_t const& pos, int level, int quantity);
+    bool    addRessource(posi_t const& pos, int level, int quantity);
 
     scene::ITriangleSelector*	_selector;
     std::list<INodeObject*>		_persos;
     std::list<INodeObject*>		_eggs;
 //    std::vector<std::vector<INodeObject*>>	_objs;
-    std::map<pos_t, std::vector<INodeObject*>>	_ressources;
+    std::map<posi_t, std::vector<INodeObject*>>	_ressources;
 };
 
 #endif	/* MAPOBJECT_HH */

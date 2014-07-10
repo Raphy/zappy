@@ -13,7 +13,8 @@
 
 using namespace	irr;
 
-typedef	std::pair<int,int>  pos_t;
+typedef	std::pair<unsigned int,unsigned int>  posi_t;
+typedef	std::pair<float,float>  posf_t;
 
 class Helper
 {
@@ -23,7 +24,11 @@ public:
 //	static Helper instance;
 //	return &instance;
 //    }
-    static core::vector3df MapToWorldCoordinates(pos_t const& pos)
+    static core::vector3df MapToWorldCoordinates(posi_t const& pos)
+    {
+	return core::vector3df(pos.first, 0, -pos.second);
+    }
+    static core::vector3df MapToWorldCoordinates(posf_t const& pos)
     {
 	return core::vector3df(pos.first, 0, -pos.second);
     }

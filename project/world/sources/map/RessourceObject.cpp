@@ -32,14 +32,17 @@ bool    RessourceObject::init()
 //    if (!mesh)
 //	return false;
 
-    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode());
+//    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode());
+    ISceneNode* node = _smgr->addSphereSceneNode(1.0f, 16, getParentNode());
     _node = node;
     if (node)
     {
-	node->setPosition(vector3df(0,0,0));
-	node->setMaterialFlag(EMF_LIGHTING, true);
+//	node->setMaterialFlag(EMF_LIGHTING, true);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
-	node->setMaterialTexture(0, _assets->getTexture(RESSOURCE, TEXTURE, 0));
+//	node->setMaterialTexture(0, _assets->getTexture(RESSOURCE, TEXTURE, 0));
+
+	this->scaleOnCase();
+	this->updateNodePosition();
 	return true;
     }    
     return false;

@@ -26,8 +26,8 @@ public:
     virtual INodeObject*	    getParent() const = 0;
     virtual scene::ISceneNode*	    getParentNode() const = 0;
 
-    virtual void		    setPositionInMap(pos_t const& new_pos) = 0;
-    virtual pos_t const&	    getPositionInMap() const = 0;    
+    virtual void		    setPositionInMap(posi_t const& new_pos) = 0;
+    virtual posi_t const&	    getPositionInMap() const = 0;    
     virtual void		    updateNodePosition() = 0;
 };
 

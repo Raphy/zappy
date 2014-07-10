@@ -27,9 +27,10 @@ public:
     scene::ISceneManager*	getSceneManager() const { return _smgr; }
     scene::ISceneNode*		getNode() const { return _node; }
 
-    void			setPositionInMap(pos_t const& new_pos);
-    pos_t const&		getPositionInMap() const;    
+    void			setPositionInMap(posi_t const& new_pos);
+    posi_t const&		getPositionInMap() const;    
     void			updateNodePosition();
+    void			scaleOnCase();
     
 protected:
     ANodeObject(scene::ISceneManager* smgr, INodeObject* parent);
@@ -41,8 +42,8 @@ protected:
     scene::ISceneManager*   _smgr;    
     INodeObject*	    _parent;
     scene::ISceneNode*	    _node;  
-    pos_t		    _pos;
-    pos_t		    _alignment;
+    posi_t		    _pos;
+    posi_t		    _alignment;
 };
 
 #endif	/* AOBJECT_HH */

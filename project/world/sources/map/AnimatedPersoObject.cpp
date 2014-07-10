@@ -41,11 +41,7 @@ bool    AnimatedPersoObject::init()
 	//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	node->setMD2Animation(EMAT_STAND);
 
-	vector3df extent = node->getTransformedBoundingBox().getExtent();
-	vector3df scale = node->getScale();
-	scale /= extent;
-	node->setScale(scale);
-
+	this->scaleOnCase();
 	this->updateNodePosition();
 	node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
 	return true;

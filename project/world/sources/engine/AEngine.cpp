@@ -135,21 +135,17 @@ bool AEngine::callHandler(t_data* data)
 	switch (data->event_type)
 	{
 	    case MAP_SIZE_EVENT:
-		_mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
+		return _mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
 		break;
 	    case CONNECTED_EVENT:
-		std::cout << "Connected event not implemented..." << std::endl;
+		std::cout << "Connected event does nothing..." << std::endl;
     		//_mapViewer->createGround(30,20);//debug
 		break;
 	    default:
-		std::cout << "UNKNOWN SERVER EVENT !" << std::endl;
 		break;
 	}
     }
-    else
-    	_mapViewer->callHandler(data);
-    //TODO : recuperer le mapObject au lieu du mapViewer
-    return false;
+    return _mapViewer->callHandler(data);
 }
 
 void AEngine::sendCommand(t_data* data)

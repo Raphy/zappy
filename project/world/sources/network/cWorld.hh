@@ -11,11 +11,48 @@
 #include    <glib.h>
 #include    <utility>
 #include    <string>
+#include    <vector>
 #include    "enums.hh"
 
 extern "C" {
 #include    "zappy.h"
 }
+
+
+// ** register handler in world_ctor:
+//    zc_hook_cmd_msz(cpp_world->getZc(), &world_msz_handler, self);
+//
+// ** declare handler in cWorld.hh:
+//void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
+//
+// ** implement it in cWorld.cpp:
+//void	world_msz_handler(__attribute__((unused)) t_zc *zc, t_msz *msz, void *world)
+//{
+//    t_world * self = static_cast<t_world *>(world); //get self
+//    
+//    self->data->event_type = MAP_SIZE_EVENT; //set type of event and concerned element
+//    self->data->game_element_type = MAP_CLASS;
+//    
+//    self->data->infos->pos.first = msz->width; //set utils informations
+//    self->data->infos->pos.second = msz->height;
+//    
+//    self->cpp_world->push_callback(self->data); //push the data for the other thread
+//}
+//
+// ** call the right handler in the other thread :
+//   case MAP_SIZE_EVENT:
+//    _mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
+//    break;
+//
+// ** implement it in the right object
+//bool MapViewer::createGround(int x, int y)
+//{
+//    if (!_cameraManager.init(x, y)
+//	    || !_mapObject->createGround(x, y))
+//	return false;
+//    return _cameraManager.addCollision(_mapObject->getSelector());
+//}
+
 
 
 class World;
@@ -29,6 +66,7 @@ typedef enum s_handler_class_type
     PERSO_CLASS,
     EGG_CLASS,
     RESSOURCE_CLASS,
+    TEAM_MANAGER_CLASS,
     HANDLER_CLASS_COUNT,
 } t_handler_class_type;
 
@@ -39,7 +77,7 @@ typedef enum s_handler_class_type
 //    INT_HANDLER,
 //    MSG_HANDLER,
 //    //...
-//} t_handler_ptr_type;
+//} t_handler_ptr_type;F
 
 typedef enum s_event_type
 {
@@ -93,7 +131,7 @@ typedef struct s_infos
     std::pair<int,int>	pos;
     Orientation	    orientation;
     int	    level;
-    int	    quantity;
+    std::vector<int>	    quantity;
     int	    player_id;//list ?
     int	    egg_id;
     int	    ressource_id;

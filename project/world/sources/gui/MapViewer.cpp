@@ -50,7 +50,7 @@ void MapViewer::setMesh(scene::IAnimatedMesh *mesh)
 
 bool MapViewer::callHandler(t_data* data)
 {
-    std::cout << "EVENT RECEIVED ..." << std::endl;
+    std::cout << "MAP VIEWER EVENT RECEIVED ..." << std::endl;
     if (data->game_element_type == MAP_CLASS)
     {
 	t_infos * infos = data->infos;
@@ -59,9 +59,10 @@ bool MapViewer::callHandler(t_data* data)
 	    case PERSO_CONNECTION_EVENT:
 		return _mapObject->addPerso(infos->pos, infos->player_id, infos->orientation,
 			infos->level, infos->team_name);
+	    case CASE_CONTENT_EVENT:
+		return _mapObject->setCaseContent(infos->pos, infos->quantity);
 	    default:
-		std::cout << "UNKNOWN MAP_VIEWER EVENT !" << std::endl;
-		return false;
+		break;
 	}
     }
     return _mapObject->callHandler(data);
