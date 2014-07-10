@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Tue Jul  8 14:25:37 2014 damien sauvalle
+** Last update Thu Jul 10 17:27:25 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -17,19 +17,43 @@
 # include	"case.h"
 # include       "event.h"
 # include	"player.h"
+# include	"zappy.h"
 
 typedef struct	s_server
 {
   t_case	**map;
   t_list        *players;
   t_list        *events;
-  t_list	eggs;
+  t_list	*eggs;
+  t_list	*graphic;
+  t_list	*remote;
   t_arg		*arg;
 }		t_server;
 
-int	server_ctor(t_server *, t_arg *);
-void	server_dtor(t_server *);
-void	dump_map(t_server *, t_arg *);
+typedef struct	s_graphic
+{
+  t_zc		*zc;
+}		t_graphic;
+
+typedef struct	s_remote
+{
+  t_zc		*zc;
+}		t_remote;
+
+int		graphic_ctor(t_graphic *, t_zc *);
+t_graphic       *graphic_new(t_zc *);
+void		graphic_delete(t_graphic *);
+void		graphic_dtor(t_graphic *);
+
+int		remote_ctor(t_remote *, t_zc *);
+t_remote       *remote_new(t_zc *);
+void		remote_delete(t_remote *);
+void		remote_dtor(t_remote *);
+
+
+int		server_ctor(t_server *, t_arg *);
+void		server_dtor(t_server *);
+void		dump_map(t_server *, t_arg *);
 
 typedef void (*fill)(t_case **, t_arg *, int);
 
