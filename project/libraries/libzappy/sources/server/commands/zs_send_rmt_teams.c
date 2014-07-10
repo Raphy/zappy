@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon Jul  7 10:16:06 2014 raphael defreitas
-** Last update Mon Jul  7 10:57:49 2014 raphael defreitas
+** Last update Thu Jul 10 01:11:03 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -16,7 +16,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static char	*build_response(t_list *teams)
+static char	*build_response(const t_list *teams)
 {
   t_iterator	it;
   char		*res;
@@ -24,7 +24,7 @@ static char	*build_response(t_list *teams)
 
   if ((res = strdup("teams ")) == NULL)
     return (NULL);
-  iterator_ctor(&it, teams, IT_DATA);
+  iterator_ctor(&it, (t_list *)teams, IT_DATA);
   while ((team = iterator_current(&it)))
     {
       iterator_next(&it);
@@ -38,7 +38,7 @@ static char	*build_response(t_list *teams)
   return (res);
 }
 
-void		zs_send_rmt_teams(t_zs *this, t_zc *zc, t_list *teams)
+void		zs_send_rmt_teams(t_zs *this, t_zc *zc, const t_list *teams)
 {
   char		*buf;
   char		*tmp;

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Mon Jul  7 18:03:08 2014 raphael defreitas
+** Last update Thu Jul 10 01:49:04 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -51,13 +51,13 @@ static bool	fill(char **ptr, t_bct *bct)
   has_error = false;
   bct->position.x = get_next_token(ptr, &has_error);
   bct->position.y = get_next_token(ptr, &has_error);
-  bct->food = get_next_token(ptr, &has_error);
-  bct->linemate = get_next_token(ptr, &has_error);
-  bct->deraumere = get_next_token(ptr, &has_error);
-  bct->sibur = get_next_token(ptr, &has_error);
-  bct->mendiane = get_next_token(ptr, &has_error);
-  bct->phiras = get_next_token(ptr, &has_error);
-  bct->thystame = get_next_token(ptr, &has_error);
+  bct->items.food = get_next_token(ptr, &has_error);
+  bct->items.linemate = get_next_token(ptr, &has_error);
+  bct->items.deraumere = get_next_token(ptr, &has_error);
+  bct->items.sibur = get_next_token(ptr, &has_error);
+  bct->items.mendiane = get_next_token(ptr, &has_error);
+  bct->items.phiras = get_next_token(ptr, &has_error);
+  bct->items.thystame = get_next_token(ptr, &has_error);
   return (has_error);
 }
 
@@ -74,6 +74,7 @@ static bool	parse(const char *cmd, t_bct *bct)
       free(tmp);
       return (false);
     }
+  free(tmp);
   return (true);
 }
 

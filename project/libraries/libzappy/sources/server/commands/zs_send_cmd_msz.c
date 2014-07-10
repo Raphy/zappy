@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:04:36 2014 raphael defreitas
-** Last update Mon Jul  7 18:00:12 2014 raphael defreitas
+** Last update Thu Jul 10 01:01:01 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -14,7 +14,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_send_cmd_msz(t_zs *this, t_zc *zc, t_msz *msz)
+void		zs_send_cmd_msz(t_zs *this, t_zc *zc, const t_msz *msz)
 {
   char		buf[30];
 
