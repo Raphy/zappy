@@ -1,7 +1,0 @@
-### ETATS ###
--> explore
--> appel de l'incanteur
--> rejoindre l'incanteur
--> famine
--> ponte
-(-> attaquer)
