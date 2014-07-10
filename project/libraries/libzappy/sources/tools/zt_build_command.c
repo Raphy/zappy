@@ -5,95 +5,95 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sat Jun 28 22:34:06 2014 raphael defreitas
-** Last update Sun Jun 29 00:36:39 2014 raphael defreitas
+** Last update Thu Jul 10 07:19:51 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
+#include	<stdbool.h>
+#include	<stdio.h>
 #include	<stdlib.h>
 #include	<string.h>
 
 #include	"list.h"
 
-static int	build_error(t_list *build, char *frag, char **cmd)
+static int	split(t_list *pckts, t_list *frags, char *frag)
 {
+  char		*delim;
+  char		*to_save;
+  char		*to_build;
+
+  delim = strchr(frag, '\n');
+  to_save = NULL;
+  to_build = NULL;
+  if ((to_build = strndup(frag, delim - frag + 1)) == NULL ||
+      (*(delim + 1) != 0 && (to_save = strdup(delim + 1)) == NULL) ||
+      (to_save != NULL && list_push(pckts, to_save) == RET_FAILURE) ||
+      list_enqueue(frags, to_build) == RET_FAILURE)
+    {
+      free(frag);
+      free(to_save);
+      free(to_build);
+      return (RET_FAILURE);
+    }
+  free(frag);
+  return (RET_SUCCESS);
+}
+
+static int	clean_return(char *frag, char **cmd)
+{
+  free(frag);
   free(*cmd);
   *cmd = NULL;
-  list_push(build, frag);
   return (RET_FAILURE);
 }
 
-static void	clean_the_shit_my_nigger(char **cmd)
-{
-  size_t	len;
-
-  if (*cmd == NULL)
-    return ;
-  len = strlen(*cmd);
-  if (len == 0 || (*cmd)[0] == '\n' || (*cmd)[0] == '\0')
-    {
-      free(*cmd);
-      *cmd = NULL;
-    }
-  else if ((*cmd)[len - 1] == '\n')
-    (*cmd)[len - 1] = '\0';
-}
-
-static int	build_that_shit(t_list *build, char **cmd)
+static int	build(t_list *frags, char **cmd)
 {
   char		*frag;
 
-  while ((frag = list_pop(build)))
+  *cmd = NULL;
+  while ((frag = list_pop(frags)))
     {
       if (*cmd == NULL)
 	{
 	  if ((*cmd = strdup(frag)) == NULL)
-	    return (build_error(build, frag, cmd));
+	    return (clean_return(frag, cmd));
 	}
       else
 	{
-	  *cmd = realloc(*cmd, (strlen(*cmd) + strlen(frag) + 1) * sizeof(char));
-	  if (*cmd == NULL)
-	    return (build_error(build, frag, cmd));
+	  if ((*cmd = realloc(*cmd, (strlen(*cmd) + strlen(frag) + 1))) == NULL)
+	    return (clean_return(frag, cmd));
 	  if (strcat(*cmd, frag) == NULL)
-	    return (build_error(build, frag, cmd));
+	    return (clean_return(frag, cmd));
 	}
       free(frag);
     }
-  clean_the_shit_my_nigger(cmd);
+  (*cmd)[strlen(*cmd) - 1] = 0;
   return (RET_SUCCESS);
-}
-
-static void	restore(t_list *pckts, t_list *build)
-{
-  char		*frag;
-
-  while ((frag = list_dequeue(build)))
-    list_push(pckts, frag);
 }
 
 int		zt_build_command(t_list *pckts, char **cmd)
 {
+  t_list	frags;
   char		*frag;
-  t_list	build;
-  int		ret;
+  bool		failure;
 
-  list_ctor(&build, NULL);
-  while ((frag = list_pop(pckts)))
+  failure = false;
+  list_ctor(&frags, &free);
+  while (!failure && (frag = list_pop(pckts)))
     {
-      if ((list_enqueue(&build, frag) == RET_FAILURE))
-	{
-	  list_dtor(&build);
-	  return (RET_FAILURE);
-	}
       if (strchr(frag, '\n'))
 	{
-	  ret = build_that_shit(&build, cmd);
-	  restore(pckts, &build);
-	  list_dtor(&build);
-	  return (ret);
+	  if (split(pckts, &frags, frag) == RET_FAILURE ||
+	      build(&frags, cmd) == RET_FAILURE)
+	    failure = true;
+	  break;
 	}
+      else if (list_enqueue(&frags, frag) == RET_FAILURE)
+	failure = true;
     }
-  restore(pckts, &build);
-  list_dtor(&build);
-  return (RET_SUCCESS);
+  while ((frag = list_dequeue(&frags)))
+    list_push(pckts, frag);
+  list_dtor(&frags);
+  return (failure ? RET_FAILURE : RET_SUCCESS);
 }
