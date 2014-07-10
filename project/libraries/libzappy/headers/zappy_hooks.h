@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Wed Jul  9 18:37:30 2014 raphael defreitas
+** Last update Thu Jul 10 02:07:41 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -28,6 +28,7 @@
 typedef	void	(t_zsh_basic)(t_zs *zs, void *data);
 typedef	void	(t_zsh_client_basic)(t_zs *zs, t_zc *zc, void *data);
 typedef	void	(t_zsh_str_basic)(t_zs *zs, t_zc *zc, const char *str, void *d);
+typedef	void	(t_zsh_uint_basic)(t_zs *zs, t_zc *zc, unsigned int nbr, void *d);
 
 typedef	void	(t_zsh_errno)(t_zs *zs, int err, const char *msg, void *data);
 void		zs_hook_errno(t_zs *, t_zsh_errno h, void *d);
@@ -56,6 +57,9 @@ typedef	void	(t_zsh_cmd_bct)(t_zs *zs, t_zc *zc, t_position *pos, void *d);
 void		zs_hook_cmd_bct(t_zc *zc, t_zsh_cmd_bct h, void *d);
 void		zs_hook_cmd_mct(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_tna(t_zc *zc, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_ppo(t_zc *zc, t_zsh_uint_basic h, void *d);
+void		zs_hook_cmd_plv(t_zc *zc, t_zsh_uint_basic h, void *d);
+void		zs_hook_cmd_pin(t_zc *zc, t_zsh_uint_basic h, void *d);
 
 void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_rmt_pubkey(t_zc *zc, t_zsh_str_basic, void *d);
