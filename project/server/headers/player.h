@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Tue Jul  8 14:02:24 2014 damien sauvalle
+** Last update Thu Jul 10 14:54:07 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -13,10 +13,11 @@
 
 /*
   Faire le TRi des Fcontion il y en a qui servent a rien !! sErieux le C++ faut pas en abuser
-
  */
+
 typedef struct s_player t_player;
 
+# include	"zappy.h"
 # include	"inventory.h"
 # include       "bundle.h"
 # include	"server.h"
@@ -36,7 +37,7 @@ typedef enum
     FORK
   }	t_etat;
 
-struct	s_player
+struct		s_player
 {
   t_inventory	inventory;
   t_direction	direction;
@@ -46,15 +47,16 @@ struct	s_player
   char		level; /* level and view range*/
   unsigned int	life;
   char		etat; /* ?? util */
-  /* int ID */
-
+  t_zc		*zc;
 };
 
 /*
 ** Player
 */
-int			player_ctor(t_player *, t_server *);
+int			player_ctor(t_player *, t_server *, t_zc *, char *);
 void			player_dtor(t_player *);
+t_player		*player_new(t_server *,  t_zc *, char *);
+void			player_delete(t_player *);
 
 /*
 ** Direction
@@ -90,7 +92,7 @@ int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
 
 void			player_apply_action(t_player *, t_bundle *, void *);
-void                    player_action_goahead(t_player *, void *);
+void                    player_action_goahead(t_player *, t_bundle *);
 void                    player_action_right(t_player *, void *);
 void                    player_action_left(t_player *, void *);
 void                    player_action_see(t_player *, void *);
@@ -106,5 +108,8 @@ void                    player_action_slot_number(t_player *, void *);
 /*
 ** Norme espace !!!
 */
+
+typedef void (*fct_direction)(t_player *, t_arg *);
+
 
 #endif /* !PLAYER_H_ */
