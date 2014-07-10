@@ -32,3 +32,14 @@ t_timespec      timespec_create(double seconds)
   result.tv_nsec = ((seconds - (double) result.tv_sec) * 1000000000.0);
   return (result);
 }
+
+void            timespec_add(t_timespec *time1, t_timespec *time2)
+{
+  time1->tv_sec += time2->tv_sec ;
+  time1->tv_nsec += time2->tv_nsec ;
+    if (time1->tv_nsec >= 1000000000L)
+    {
+      time1->tv_sec++ ;
+      time1->tv_nsec -= 1000000000L ;
+    }
+}
