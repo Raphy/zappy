@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Thu Jul 10 02:10:03 2014 raphael defreitas
+** Last update Thu Jul 10 03:42:59 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -83,6 +83,8 @@ typedef	enum
     ZHT_CMD_PIN,
     ZHT_CMD_PEX,
     ZHT_CMD_PBC,
+    ZHT_CMD_SGT,
+    ZHT_CMD_SST,
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,
     ZHT_RMT_MIN,
