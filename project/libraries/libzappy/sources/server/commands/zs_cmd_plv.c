@@ -1,11 +1,11 @@
 /*
 ** zs_cmd_plv.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources/server/commands
-** 
+**
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
-** 
+**
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Thu Jul 10 02:42:51 2014 raphael defreitas
+** Last update Thu Jul 10 03:07:49 2014 damien sauvalle
 */
 
 #include	<stdbool.h>
@@ -22,7 +22,7 @@ bool		zs_cmd_plv(t_zs *this, t_zc *zc, const char *cmd)
     return (false);
   if (!my_str_is_numeric(cmd + 4))
     {
-      // ToDo SBP
+      /* ToDo SBP */
       return (true);
     }
   uid = strtoul(cmd + 4, NULL, 0);

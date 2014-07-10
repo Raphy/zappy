@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Tue Jul  8 14:48:25 2014 damien sauvalle
+** Last update Thu Jul 10 02:14:41 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -16,7 +16,7 @@
 #include	"player.h"
 #include	"server.h"
 
-int	player_ctor(t_player *player, t_server *server)
+int	player_ctor(t_player *player, t_server *server, t_zc *zc)
 {
 
   printf("JOUER CREE\n");
@@ -30,5 +30,6 @@ int	player_ctor(t_player *player, t_server *server)
   player->level = 1;
   player->life = player_set_life(player);
   player->etat = NORMAL;
+  player->zc = zc;
   return (RET_SUCCESS);
 }
