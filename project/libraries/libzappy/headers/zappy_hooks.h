@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Thu Jul 10 02:07:41 2014 raphael defreitas
+** Last update Thu Jul 10 02:51:38 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -60,6 +60,8 @@ void		zs_hook_cmd_tna(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_ppo(t_zc *zc, t_zsh_uint_basic h, void *d);
 void		zs_hook_cmd_plv(t_zc *zc, t_zsh_uint_basic h, void *d);
 void		zs_hook_cmd_pin(t_zc *zc, t_zsh_uint_basic h, void *d);
+void		zs_hook_cmd_sst(t_zc *zc, t_zsh_uint_basic h, void *d);
+void		zs_hook_cmd_sgt(t_zc *zc, t_zsh_client_basic h, void *d);
 
 void		zs_hook_cmd_rmt(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_rmt_pubkey(t_zc *zc, t_zsh_str_basic, void *d);

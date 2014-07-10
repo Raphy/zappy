@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Thu Jul 10 02:45:03 2014 raphael defreitas
+** Last update Thu Jul 10 02:52:01 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -57,6 +57,8 @@ bool		zs_cmd_tna(t_zs *, t_zc *, const char *);
 bool		zs_cmd_ppo(t_zs *, t_zc *, const char *);
 bool		zs_cmd_plv(t_zs *, t_zc *, const char *);
 bool		zs_cmd_pin(t_zs *, t_zc *, const char *);
+bool		zs_cmd_sst(t_zs *, t_zc *, const char *);
+bool		zs_cmd_sgt(t_zs *, t_zc *, const char *);
 
 bool		zs_cmd_rmt(t_zs *, t_zc *, const char *);
 bool		zs_rmt_pubkey(t_zs *, t_zc *, const char *);
@@ -89,6 +91,8 @@ void		zs_handle_cmd_tna(t_zs *, t_zc *);
 void		zs_handle_cmd_ppo(t_zs *, t_zc *, unsigned int);
 void		zs_handle_cmd_plv(t_zs *, t_zc *, unsigned int);
 void		zs_handle_cmd_pin(t_zs *, t_zc *, unsigned int);
+void		zs_handle_cmd_sgt(t_zs *, t_zc *);
+void		zs_handle_cmd_sst(t_zs *, t_zc *, unsigned int);
 
 void		zs_handle_cmd_rmt(t_zs *, t_zc *);
 void		zs_handle_rmt_pubkey(t_zs *, t_zc *, const char *);
