@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:50:57 2014 raphael defreitas
-## Last update Thu Jul  3 19:15:24 2014 raphael defreitas
+## Last update Thu Jul 10 14:52:00 2014 nicolas svirchevsky
 ##
 
 CC		?=	clang
@@ -16,7 +16,7 @@ SOURCES		=	$(shell find ./sources -name "*.c")
 
 OBJECTS		=	$(SOURCES:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -ansi -g
+CFLAGS		=	-Wall -Wextra -g
 CFLAGS		+=	-I ./headers
 CFLAGS		+=	-I ./../libraries/libmy/headers
 CFLAGS		+=	-I ./../libraries/liblist/headers
@@ -29,7 +29,7 @@ LFLAGS		+=	-L ./../libraries/libzappy -l zappy
 LFLAGS		+=	-L ./../libraries/liblist -l list
 LFLAGS		+=	-L ./../libraries/libsocket -l socket
 LFLAGS		+=	-L ./../libraries/libmy -l my
-LFLAGS		+=	-lm $(shell pkg-config --libs openssl)
+LFLAGS		+=	-lm -lrt $(shell pkg-config --libs openssl)
 
 all		:	$(NAME)
 
