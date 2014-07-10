@@ -151,6 +151,4 @@ void		zc_send_rmt_pubkey(t_zc *);
 void		zc_send_rmt_stop(t_zc *);
 void		zc_send_rmt_teams(t_zc *);
 
-
-
 #endif /* !ZAPPY_COMMANDS_H_*/
