@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Mon Jun 30 16:50:04 2014 damien sauvalle
-** Last update Mon Jun 30 16:54:06 2014 damien sauvalle
+** Last update Thu Jul 10 14:22:03 2014 damien sauvalle
 */
 
 #include        "player.h"
@@ -14,5 +14,6 @@
 
 void		player_dtor(t_player *player)
 {
-  (void) player;
+  if (player->team_name != NULL)
+    free(player->team_name);
 }
