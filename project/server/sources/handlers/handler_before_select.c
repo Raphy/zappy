@@ -8,17 +8,21 @@
 ** t_events should be sort by the closest timeout
 */
 
-void handler_before_select(t_zs *zs, t_server *data)
+void handler_before_select(t_zs *zs, void *data)
 {
+  t_server *server;
   t_timespec time;
   t_event *event;
   
-  if (data == NULL || data->events == NULL
-          || (event = list_front(data->events)) == NULL)
+  server = (t_server*)data;
+  clock_gettime(CLOCK_MONOTONIC, &time);
+  printf("sec: %d, nano: %d\n", time.tv_sec, time.tv_nsec);
+  if (data == NULL || server->events == NULL
+          || (event = list_front(serve£r->events)) == NULL)
   {
     printf("No events! What should we do ?");
     zs_set_timeout(zs, 1, 0);
     return;
   }
-  clock_gettime(CLOCK_MONOTONIC, &time);
+  zs_set_timeout(zs, event->end_time.tv_sec, event->end_time.tv_nsec);  
 }

@@ -17,7 +17,7 @@
 /*
 ** Server handlers
 */
-void            handler_before_select(t_zs *, t_server *);
+void            handler_before_select(t_zs *, void *);
 void		set_server_handlers(t_zs *, t_server *);
 void		errno_handler(t_zs *, int, const char *, void *);
 void		callback_handler(t_zs *, t_zht, void *);
