@@ -5,13 +5,57 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul  5 16:54:55 2014 damien sauvalle
-** Last update Sat Jul  5 17:45:07 2014 damien sauvalle
+** Last update Tue Jul  8 18:42:21 2014 damien sauvalle
 */
 
+#include	<stdio.h>
 #include	"player.h"
 
-void	player_action_goahead(t_player *player, void *data)
+static void	go_north(t_player * player, t_arg *arg)
 {
-	(void)player;
-	(void)data;
+  if (player->y == 0)
+    player->y = arg->y_world - 1;
+  else
+    player->y--;
+}
+
+static void	go_est(t_player * player, t_arg *arg)
+{
+  if (player->x == arg->x_world - 1)
+    player->x = 0;
+  else
+    player->x++;
+}
+static void	go_south(t_player * player, t_arg *arg)
+{
+  if (player->y == arg->y_world - 1)
+    player->y = 0;
+  else
+    player->y++;
+}
+
+static void	go_west(t_player * player, t_arg *arg)
+{
+  if (player->x == 0)
+    player->x = arg->x_world - 1;
+  else
+    player->x--;
+}
+
+void		player_action_goahead(t_player *player, t_bundle *data)
+{
+  fct_direction	tab[4];
+  unsigned int	i;
+
+  tab[0] = go_north;
+  tab[1] = go_est;
+  tab[2] = go_south;
+  tab[3] = go_west;
+  i = 0;
+  while (i < 4)
+    {
+      if (i == player->direction)
+	tab[i](player, data->server->arg);
+      i++;
+    }
 }
