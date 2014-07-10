@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Thu Jul 10 02:52:01 2014 raphael defreitas
+** Last update Thu Jul 10 03:35:15 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -151,6 +151,12 @@ void		zc_handle_ko(t_zc *);
 void		zc_handle_cmd_msz(t_zc *, t_msz *);
 void		zc_handle_cmd_bct(t_zc *, t_bct *);
 void		zc_handle_cmd_tna(t_zc *, const char *);
+void		zc_handle_cmd_pnw(t_zc *, t_pnw *);
+void		zc_handle_cmd_ppo(t_zc *, t_ppo *);
+void		zc_handle_cmd_plv(t_zc *, t_plv *);
+void		zc_handle_cmd_pin(t_zc *, t_pin *);
+void		zc_handle_cmd_pex(t_zc *, unsigned int);
+void		zc_handle_cmd_pbc(t_zc *, t_pbc *);
 
 void		zc_handle_rmt_pubkey(t_zc *, const char *);
 void		zc_handle_rmt_authorized(t_zc *);
