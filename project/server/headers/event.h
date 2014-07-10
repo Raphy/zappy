@@ -14,12 +14,39 @@
 # include       "player.h"
 # include       "tools_timespec.h"
 
+# ifndef	RET_ERROR
+#  define	RET_ERROR	-1
+# endif /* !RET_ERROR */
+
+# ifndef	RET_SUCCESS
+#  define	RET_SUCCESS	0
+# endif /* !RET_SUCCESS */
+
+# ifndef	RET_FAILURE
+#  define	RET_FAILURE	1
+# endif /* !RET_FAILURE */
+
 typedef struct  s_event
 {
   void          (*action)();
   t_player      *player;
   void          *data;
   t_timespec    end_time;
+  unsigned int  cycle;
 }               t_event;
+
+typedef struct  s_bundle_event
+{
+  void          (*action)();
+  t_player      *player;
+  void          *data;
+  t_timespec    end_time;
+  unsigned int  cycle;
+}               t_bundle_event;
+
+t_event         *event_new(t_bundle_event *);
+void            event_delete(t_event *);
+int             event_ctor(t_event *, t_bundle_event *);
+int             event_dtor(t_event *);
 
 #endif	/* EVENT_H */
