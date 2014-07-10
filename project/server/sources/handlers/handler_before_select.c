@@ -4,7 +4,7 @@
 #include          "tools_timespec.h"
 
 /*
-** set the serveur's timeout 
+** set the serveur's timeout
 ** t_events should be sort by the closest timeout
 */
 
@@ -13,7 +13,7 @@ void handler_before_select(t_zs *zs, void *data)
   t_server *server;
   t_timespec time;
   t_event *event;
-  
+
   server = (t_server*)data;
   clock_gettime(CLOCK_MONOTONIC, &time);
   printf("sec: %d, nano: %d\n", time.tv_sec, time.tv_nsec);
@@ -24,5 +24,5 @@ void handler_before_select(t_zs *zs, void *data)
     zs_set_timeout(zs, 1, 0);
     return;
   }
-  zs_set_timeout(zs, event->end_time.tv_sec, event->end_time.tv_nsec);  
+  zs_set_timeout(zs, event->end_time.tv_sec, event->end_time.tv_nsec);
 }

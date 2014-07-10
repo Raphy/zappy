@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 17:49:08 2014 damien sauvalle
-** Last update Thu Jul 10 01:39:03 2014 damien sauvalle
+** Last update Thu Jul 10 18:22:14 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -23,9 +23,13 @@ void		server_dtor(t_server *server)
       i++;
     }
   /*
-  **  Penser a Vider les players !!
-  ** + Eggs
+  **  Penser Free  tout les list
   */
   free(server->map);
+
   list_delete(server->players);
+  list_delete(server->events); /* nickel ?*/
+  list_delete(server->eggs);/* nickel ?*/
+  list_delete(server->graphic);
+  list_delete(server->remote);
 }

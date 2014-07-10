@@ -5,12 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 14:26:41 2014 damien sauvalle
-** Last update Thu Jul 10 16:03:52 2014 damien sauvalle
+** Last update Thu Jul 10 18:22:30 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
 #include	"server.h"
 #include	"my.h"
+#include	"player.h"
 
 static int	init_default(t_server *server, t_arg *arg)
 {
@@ -53,11 +54,11 @@ static int	alloc_map(t_server *server, t_arg *arg)
 int	server_ctor(t_server *server, t_arg *arg)
 {
   if ((alloc_map(server, arg) == RET_FAILURE) ||
-      ((server->players = list_new(NULL)) == NULL) ||
+      ((server->players = list_new(&player_delete)) == NULL) ||
       ((server->events = list_new(NULL)) == NULL) ||
       ((server->eggs = list_new(NULL)) == NULL) ||
-      ((server->graphic = list_new(NULL)) == NULL) ||
-      ((server->remote = list_new(NULL)) == NULL) ||
+      ((server->graphic = list_new(&graphic_delete)) == NULL) ||
+      ((server->remote = list_new(&remote_delete)) == NULL) ||
       (init_default(server, arg) == RET_FAILURE))
     return (RET_FAILURE);
   server->arg = arg;
