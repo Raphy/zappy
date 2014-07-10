@@ -12,14 +12,14 @@
 # define	EVENT_H
 
 # include       "player.h"
-# include   <time.h>
+# include       "tools_timespec.h"
 
 typedef struct  s_event
 {
-  int end_time;
   void          (*action)();
   t_player      *player;
   void          *data;
+  t_timespec    end_time;
 }               t_event;
 
 #endif	/* EVENT_H */
