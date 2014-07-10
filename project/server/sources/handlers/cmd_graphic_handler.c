@@ -1,11 +1,11 @@
 /*
 ** cmd_graphic_handler.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/server/sources/handlers
-** 
+**
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
-** 
+**
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Fri Jul  4 18:51:56 2014 raphael defreitas
+** Last update Thu Jul 10 01:12:08 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -16,6 +16,7 @@ void		cmd_graphic_handler(__attribute__((unused))t_zs *zs,
 				    t_zc *zc,
 				    __attribute__((unused))void *data)
 {
+  printf("Graphic HANDLER\n");
   if (zc_get_type(zc) != ZCT_UNKNOWN)
     {
       zc_disconnect(zc);

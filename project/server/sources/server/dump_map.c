@@ -5,16 +5,16 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 15:43:50 2014 damien sauvalle
-** Last update Mon Jul  7 17:00:08 2014 damien sauvalle
+** Last update Thu Jul 10 01:37:43 2014 damien sauvalle
 */
 
 #include	<stdio.h>
 #include	"server.h"
 
-void	dump_map(t_server *server, t_arg *arg)
+void		dump_map(t_server *server, t_arg *arg)
 {
-  int	i;
-  int	j;
+  unsigned int	i;
+  unsigned int	j;
 
   i = 0;
   while (i < arg->x_world)

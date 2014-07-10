@@ -5,15 +5,15 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 17:49:08 2014 damien sauvalle
-** Last update Mon Jul  7 22:29:44 2014 damien sauvalle
+** Last update Thu Jul 10 01:39:03 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
 #include	"server.h"
 
-void	server_dtor(t_server *server)
+void		server_dtor(t_server *server)
 {
-  int	i;
+  unsigned int	i;
 
   arg_dtor(server->arg);
   i = 0;

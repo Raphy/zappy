@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 14:26:41 2014 damien sauvalle
-** Last update Mon Jul  7 22:20:24 2014 damien sauvalle
+** Last update Thu Jul 10 01:38:39 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -14,8 +14,8 @@
 
 static int	init_default(t_server *server, t_arg *arg)
 {
-  int		i;
-  int		j;
+  unsigned int	i;
+  unsigned int	j;
 
   i = 0;
   while (i < arg->x_world)
@@ -35,7 +35,7 @@ static int	init_default(t_server *server, t_arg *arg)
 static int	alloc_map(t_server *server, t_arg *arg)
 {
   int		y;
-  int		i;
+  unsigned int	i;
 
   y = arg->y_world;
   if ((server->map = malloc(sizeof(t_case *) * arg->x_world)) == NULL)
