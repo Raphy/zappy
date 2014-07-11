@@ -36,18 +36,40 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    createGround(20,20);//test
+    createGround(20,30);//test
     
-    CaseObject *c = new CaseObject(_smgr, nullptr, posi_t(0,0));
-    c->init();
-    c->setPositionInMap(posi_t(10,10));
-    RessourceObject *r = new RessourceObject(_smgr, this, c->getPositionInMap());
-    r->setQuantity(10);
-    std::cout << r->getQuantity() << std::endl;
-    std::cout << r->getPositionInMap().first << std::endl;
-    std::cout << r->getPositionInMap().second << std::endl;
-    r->init();
-    //    delete c;
+    for (unsigned int x = 0; x < _mapSize.first; x++)
+    {
+        CaseObject *c = getCaseObject(posi_t(10,x));
+	c->init();
+	std::array<int, RESSOURCE_TYPE_COUNT> q;
+	q.fill(1);
+	c->setCaseContent(q);
+    }
+    
+    //    CaseObject *c = getCaseObject(posi_t(10,10));
+    //    CaseObject *c2 = getCaseObject(posi_t(10,11));
+    //    CaseObject *c3 = getCaseObject(posi_t(10,12));
+    //
+    //    c->init();
+    //    c2->init();
+    //    c3->init();
+    ////    bool    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
+    //    std::array<int, RESSOURCE_TYPE_COUNT> q;
+    //    q.fill(1);
+    //    c->setCaseContent(q);
+    //    c2->setCaseContent(q);
+    //    c3->setCaseContent(q);
+    
+    
+    ////    c->setPositionInMap(posi_t(10,10));
+    //    RessourceObject *r = new RessourceObject(_smgr, this, c->getPositionInMap());
+    //    r->setQuantity(10);
+    //    std::cout << r->getQuantity() << std::endl;
+    //    std::cout << r->getPositionInMap().first << std::endl;
+    //    std::cout << r->getPositionInMap().second << std::endl;
+    //    r->init();
+    //    //    delete c;
     
     
     //    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
@@ -59,16 +81,22 @@ bool    MapObject::init()
 void MapObject::scaleOnCase()
 {
     vector3df extent = _node->getTransformedBoundingBox().getExtent();
+    vector3df scale = _node->getScale();
     if (extent.X > 1.0f)
-        _node->setScale(vector3df(1.0 / extent.X, 1.0, 1.0));
+        scale.X *= 1.0f / extent.X;
     if (extent.Z > 1.0f)
-        _node->setScale(vector3df(1.0, 1.0, 1.0 / extent.Z) * _node->getScale());
-    _node->setScale(vector3df(_mapSize.first, 1.f, _mapSize.second) * _node->getScale());
+        scale.Z *= 1.0f / extent.Z;
+    scale *= _helper->getCaseSize();
+    scale.X *= _mapSize.first;
+    scale.Z *= _mapSize.second;
+    _node->setScale(scale);
 }
 void MapObject::updateNodePosition()
 {
-    posf_t real_pos(0, _mapSize.second);
-    vector3df pos = Helper::MapToWorldCoordinates(real_pos);
+    vector3df caseSize = _helper->getCaseSize();
+    posf_t real_pos(0, _mapSize.second * caseSize.Z);
+    vector3df pos = _helper->mapToWorldCoordinates(real_pos);
+    pos /= caseSize;
     _node->setPosition(pos);
 }
 
@@ -119,7 +147,7 @@ bool MapObject::createGround(int x, int y)
     
     scaleOnCase();
     updateNodePosition();
-        
+    
     _node->setMaterialFlag(EMF_LIGHTING, true);
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);

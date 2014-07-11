@@ -36,13 +36,14 @@ protected:
 //    ANodeObject(const ANodeObject& orig);
     virtual ~ANodeObject();
     
-//    Binder*		    _binder;
+    Helper*		    _helper;
     Assets*		    _assets;
     scene::ISceneManager*   _smgr;    
-    INodeObject*	    _parent;
-    scene::ISceneNode*	    _node;  
+    ANodeObject*	    _parent;
+    scene::ISceneNode*	    _node;
     posi_t		    _pos;
     posi_t		    _alignment;
+    core::vector3df	    _scale;
 };
 
 #endif	/* AOBJECT_HH */

@@ -29,11 +29,11 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
 		_meshs[i][j][k] = nullptr;
 	    }
     
-    _filenames[GAME_ELEMENT_TYPE_COUNT][ASSET_TYPE_COUNT][0] = "terrain-texture.jpg";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][ASSET_TYPE_COUNT][0] = "ground/grass.jpg";
     _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "perso/faerie.md2";
     //    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "ground/normal.tga";
     _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "heightmap.bmp";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "terrain-texture.jpg";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "ground/grass.jpg";
     
     for (int i = 0; i < LEVEL_MAX; i++)
     {
@@ -43,7 +43,7 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
     
     //    _filenames[MAP][HEIGHT_MAP][0] = "ground/normal.tga";
     _filenames[MAP][HEIGHT_MAP][0] = "heightmap.bmp";
-    _filenames[MAP][TEXTURE][0] = "terrain-texture.jpg";
+    _filenames[MAP][TEXTURE][0] = "ground/grass.jpg";
     _filenames[MAP][TEXTURE][1] = "detailmap3.jpg";
     
     //        _driver->getTexture("../../media/irrlicht2_up.jpg"),
@@ -80,6 +80,8 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
     _filenames[PERSO][MESH][6] = "perso/sydney.md2";
     _filenames[PERSO][TEXTURE][6] = "perso/sydney.bmp";
     
+    _filenames[RESSOURCE][TEXTURE][0] = "terrain-texture.jpg";
+
     load(path);
 }
 Assets::~Assets()
