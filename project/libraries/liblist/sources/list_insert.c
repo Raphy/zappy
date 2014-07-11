@@ -12,7 +12,7 @@
 
 #include	"list.h"
 
-static void	instert_before_ref(t_list *this, t_item *ref, t_item *item)
+static void	insert_before_ref(t_list *this, t_item *ref, t_item *item)
 {
   item->next = ref;
   item->prev = ref->prev;
@@ -23,7 +23,7 @@ static void	instert_before_ref(t_list *this, t_item *ref, t_item *item)
     this->front = item;
 }
 
-static void	instert_after_ref(t_list *this, t_item *ref, t_item *item)
+static void	insert_after_ref(t_list *this, t_item *ref, t_item *item)
 {
   item->next = ref->next;
   item->prev = ref;
@@ -45,7 +45,7 @@ int		list_insert(t_list *this, t_item *ref, void *data, int dir)
   if (dir > 0)
     insert_after_ref(this, ref, item);
   else
-    instert_before_ref(this, ref, item);
+    insert_before_ref(this, ref, item);
   this->length++;
   return (RET_SUCCESS);
 }
