@@ -13,8 +13,5 @@
 
 void		set_client_handlers(t_zc *zc, void *data)
 {
-  zs_hook_cmd_unknown(zc, &cmd_unknown_handler, data);
-  zs_hook_cmd_team_name(zc, &cmd_team_name_handler, data);
-  zs_hook_cmd_graphic(zc, &cmd_graphic_handler, data);
-  zs_hook_cmd_rmt(zc, &cmd_rmt_handler, data);
+  zs_hook_cmd_left(zc, &handler_left, data);
 }

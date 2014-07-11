@@ -19,11 +19,12 @@
 */
 void            handler_before_select(t_zs *, void *);
 void            handler_after_select(t_zs *, void *);
+void            handler_left(t_zs *, t_zc *, void *);
 void		set_server_handlers(t_zs *, t_server *);
 void		errno_handler(t_zs *, int, const char *, void *);
 void		callback_handler(t_zs *, t_zht, void *);
 void		timeout_handler(t_zs *, void *);
-void		client_connected_handler(t_zs *, t_zc *, t_server *);
+void		client_connected_handler(t_zs *, t_zc *, void *);
 void		client_disconnected_handler(t_zs *, t_zc *, void *);
 
 /*
@@ -32,7 +33,7 @@ void		client_disconnected_handler(t_zs *, t_zc *, void *);
 void		set_client_handlers(t_zc *, void *);
 void		cmd_unknown_handler(t_zs *, t_zc *, const char *, void *);
 
-void		cmd_team_name_handler(t_zs *, t_zc *, const char *, t_server *);
+void		cmd_team_name_handler(t_zs *, t_zc *, const char *, void *);
 
 void		cmd_graphic_handler(t_zs *, t_zc *, void *);
 

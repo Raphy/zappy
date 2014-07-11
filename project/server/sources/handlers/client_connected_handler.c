@@ -16,7 +16,7 @@
 #include	"server.h"
 #include	"bundle.h"
 
-void		client_connected_handler(t_zs *zs, t_zc *zc, t_server *data)
+void		client_connected_handler(t_zs *zs, t_zc *zc, void *data)
 {
   printf("Client connected (fd:%d)\n", zc->socket->fd);
 

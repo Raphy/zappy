@@ -55,7 +55,7 @@ struct		s_player
 */
 int			player_ctor(t_player *, t_server *, t_zc *, char *);
 void			player_dtor(t_player *);
-t_player		*player_new(t_server *,  t_zc *, char *);
+t_player		*player_new(t_server *,  t_zc *, const char *);
 void			player_delete(t_player *);
 
 /*

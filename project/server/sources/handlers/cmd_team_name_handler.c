@@ -13,10 +13,15 @@
 #include	"zappy.h"
 #include	"server.h"
 #include	"player.h"
+#include "handlers.h"
 
-void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, t_server *data)
+void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, void *data)
 {
+  t_bundle      *bundle;
+  t_server      *server;
+  
   printf("TEAM NAME HANDLER\n");
+  server = (t_server*) data;
   if (zc_get_type(zc) != ZCT_UNKNOWN)
     {
       zc_disconnect(zc);
@@ -30,8 +35,15 @@ void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, t_server 
   t_player *player;
 
   player = player_new(data, zc, team_name);
-
-  list_push(data->players, player);
+  bundle = malloc(sizeof(*bundle));
+  bundle->server = server;
+  bundle->player = player;
+  set_client_handlers(zc, bundle);
+  
+  /*if (player == NULL)
+    disconnect client
+  */
+  list_push(server->players, player);
 
 
 }

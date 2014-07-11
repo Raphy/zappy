@@ -13,7 +13,7 @@
 #include        "player.h"
 #include        "server.h"
 
-t_player	*player_new(t_server *server, t_zc *zc, char *team)
+t_player	*player_new(t_server *server, t_zc *zc, const char *team)
 {
   t_player	*new;
 
