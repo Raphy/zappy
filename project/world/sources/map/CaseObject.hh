@@ -27,7 +27,7 @@ public:
     bool    callHandler(t_data * data);
 
     /* HANDLERS */
-    bool	    addPerso(int index, Orientation o, int level, const std::string& team);
+    bool	    addPerso(int index, Orientation const& o, int level, const std::string& team);
     void	    removePerso(int index);
 
     void	    registerPerso(PersoObject* perso);
