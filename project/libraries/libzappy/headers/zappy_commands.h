@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Thu Jul 10 19:41:19 2014 raphael defreitas
+** Last update Fri Jul 11 20:01:35 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -123,6 +123,7 @@ void		zs_send_cmd_pin(t_zs *, t_zc *zc, const t_pin *pin);
 void		zs_send_cmd_plv(t_zs *, t_zc *zc, const t_plv *plv);
 void		zs_send_cmd_ppo(t_zs *, t_zc *zc, const t_ppo *ppo);
 void		zs_send_cmd_sgt(t_zs *, t_zc *zc, unsigned int time);
+void		zs_send_cmd_pfk(t_zs *, t_zc *zc, unsigned int uid);
 
 /*
 ** +--------+
