@@ -12,6 +12,7 @@
 # define	BUNDLE_H
 
 typedef struct s_server t_server;
+typedef struct s_player t_player;
 
 typedef struct	s_bundle
 {
