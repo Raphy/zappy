@@ -16,8 +16,8 @@
 //#include "MapViewer.hh"
 ////#include "MenuToolBar.hh"
 //#include "MapObject.hh"
-//#include "AnimatedPersoObject.hh"
-//#include "PersoObject.hh"
+//#include "AnimatedPlayerObject.hh"
+//#include "PlayerObject.hh"
 //#include "RessourceObject.hh"
 //#include "MyEventReceiver.hh"
 //
@@ -106,17 +106,17 @@
 ////{
 ////    return new MapObject(smgr, parent);
 ////}
-////INodeObject*	Binder::createPersoObject(scene::ISceneManager* smgr,
+////INodeObject*	Binder::createPlayerObject(scene::ISceneManager* smgr,
 ////	INodeObject* parent) const
 ////{
-////    return new AnimatedPersoObject(smgr, parent);
-////    //    return new PersoObject(smgr, parent);
+////    return new AnimatedPlayerObject(smgr, parent);
+////    //    return new PlayerObject(smgr, parent);
 ////}
 ////INodeObject*	Binder::createRessourceObject(scene::ISceneManager* smgr,
 ////	INodeObject* parent) const
 ////{
 ////    return new RessourceObject(smgr, parent);
-////    //    return new PersoObject(smgr, parent);
+////    //    return new PlayerObject(smgr, parent);
 ////}
 //
 //template <>
@@ -126,11 +126,11 @@
 //    return new MapObject(smgr, parent);
 //}
 //template <>
-//INodeObject*	Binder::createGameElementObject<PERSO>(scene::ISceneManager* smgr,
+//INodeObject*	Binder::createGameElementObject<PLAYER>(scene::ISceneManager* smgr,
 //	INodeObject* parent) const
 //{
-//    return new AnimatedPersoObject(smgr, parent);
-//    //    return new PersoObject(smgr, parent);
+//    return new AnimatedPlayerObject(smgr, parent);
+//    //    return new PlayerObject(smgr, parent);
 //}
 //template <>
 //INodeObject*	Binder::createGameElementObject<RESSOURCE>(scene::ISceneManager* smgr,

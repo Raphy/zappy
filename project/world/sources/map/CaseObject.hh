@@ -14,7 +14,7 @@
 #include    "ANodeObject.hh"
 #include    "INetworkEventHandler.hh"
 
-#include    "PersoObject.hh"
+#include    "PlayerObject.hh"
 #include    "RessourceObject.hh"
 
 class CaseObject : public ANodeObject, public INetworkEventHandler
@@ -27,11 +27,11 @@ public:
     bool    callHandler(t_data * data);
 
     /* HANDLERS */
-    bool	    addPerso(int index, Orientation const& o, int level, const std::string& team);
-    void	    removePerso(int index);
+    bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);
+    void	    removePlayer(int index);
 
-    void	    registerPerso(PersoObject* perso);
-    void	    unregisterPerso(PersoObject* perso);
+    void	    registerPlayer(PlayerObject* player);
+    PlayerObject*    unregisterPlayer(int index);
 
 //    bool	    addEgg(int index);
 //    INodeObject*    removeEgg(int index);
@@ -40,15 +40,12 @@ public:
     
     /* GETTERS/SETTERS */
     std::map<int, INodeObject*> const& getEggs() const;
-    std::map<int, INodeObject*> const& getPersos() const;
-//    std::array<INodeObject*, RESSOURCE_TYPE_COUNT> const& getRessources() const;
+    std::map<int, INodeObject*> const& getPlayers() const;
     std::array<RessourceObject*, RESSOURCE_TYPE_COUNT> const& getRessources() const;
 
 private:
-//    posi_t			_pos;
     std::map<int, INodeObject*>	_eggs;
-    std::map<int, INodeObject*>	_persos;
-//    std::array<INodeObject*, RESSOURCE_TYPE_COUNT>	_ressources;
+    std::map<int, INodeObject*>	_players;
     std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>	_ressources;
 };
 

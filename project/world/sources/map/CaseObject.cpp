@@ -29,7 +29,7 @@ CaseObject::~CaseObject()
 
 bool CaseObject::callHandler(t_data* data)
 {
-    if (data->game_element_type == PERSO_CLASS
+    if (data->game_element_type == PLAYER_CLASS
 	    || data->game_element_type == RESSOURCE_CLASS
 	    || data->game_element_type == EGG_CLASS)
     {
@@ -57,49 +57,48 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
 	ressource->setLevel(i);
 	ressource->setQuantity(quantity.at(i));
 	_ressources[i] = ressource;
-	//	}
     }
     return true;
 }
 
-bool CaseObject::addPerso(int index, Orientation const& o, int level, const std::string& team)
+bool CaseObject::addPlayer(int index, Orientation const& o, int level, const std::string& team)
 {
-    PersoObject* perso = new PersoObject(_smgr, this, _pos);
-    if (!perso || !perso->initWithLevel(level))
+    PlayerObject* player = new PlayerObject(_smgr, this, _pos);
+    if (!player || !player->initWithLevel(level))
 	return false;
-    //TODO : setter index, o, et team?
-    perso->setIndex(index);
-    perso->setOrientation(o);
-    perso->setLevel(level);
-    perso->setTeam(team);
-    _persos.insert(std::pair<int, INodeObject*>(index, perso));
-    //    _persos.push_back(perso);
+    player->setIndex(index);
+    player->setOrientation(o);
+    player->setLevel(level);
+    player->setTeam(team);
+    _players.insert(std::pair<int, INodeObject*>(index, player));
     return true;
 }
-void CaseObject::removePerso(int index)
+void CaseObject::removePlayer(int index)
 {
-    auto it = _persos.find(index);
-    _persos.erase(it);
+    auto it = _players.find(index);
+    _players.erase(it);
     delete it->second;
 }
 
-void CaseObject::registerPerso(PersoObject* perso)
+void CaseObject::registerPlayer(PlayerObject* player)
 {
-    _persos.insert(std::pair<int, INodeObject*>(perso->getIndex(), perso));
+    _players.insert(std::pair<int, INodeObject*>(player->getIndex(), player));
 }
-void CaseObject::unregisterPerso(PersoObject* perso)
+PlayerObject* CaseObject::unregisterPlayer(int index)
 {
-    auto it = _persos.find(perso->getIndex());
-    _persos.erase(it);
+    std::map<int, INodeObject*>::iterator it = _players.find(index);
+    PlayerObject * player = static_cast<PlayerObject*>(it->second);
+    _players.erase(it);
+    return player;
 }
 
 const std::map<int, INodeObject*>& CaseObject::getEggs() const
 {
     return _eggs;
 }
-const std::map<int, INodeObject*>& CaseObject::getPersos() const
+const std::map<int, INodeObject*>& CaseObject::getPlayers() const
 {
-    return _persos;
+    return _players;
 }
 const std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>& CaseObject::getRessources() const
 {

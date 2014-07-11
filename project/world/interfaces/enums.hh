@@ -43,7 +43,7 @@ enum	RessourceType
 enum	GameElementType
 {
     RESSOURCE = 0,//pour avoir la texture
-    PERSO,
+    PLAYER,
     EGG,
     MAP,
     SKYBOX,
@@ -88,7 +88,7 @@ enum Ids
     
     NODE_ID_MAP = 201,
     NODE_ID_CASE,
-    NODE_ID_PERSO,
+    NODE_ID_PLAYER,
     NODE_ID_EGG,
     NODE_ID_RESSOURCE,
     NODE_ID_BROADCAST,
