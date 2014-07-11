@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Sat Jul  5 15:59:42 2014 raphael defreitas
+** Last update Fri Jul 11 18:39:01 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -13,9 +13,9 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_hook_cmd_right(t_zs *this, t_zsh_client_basic h, void *d)
+void		zs_hook_cmd_right(t_zc *this, t_zsh_client_basic h, void *d)
 {
   if (this == NULL)
     return ;
-  zs_hook(this, ZHT_CMD_RIGHT, h, d);
+  zc_hook(this, ZHT_CMD_RIGHT, h, d);
 }
