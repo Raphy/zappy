@@ -14,13 +14,17 @@
 class RessourceObject : public AGameElement, public AMeshObject
 {
 public:
-    RessourceObject(scene::ISceneManager* smgr, INodeObject* parent);
-    RessourceObject(const RessourceObject& orig);
+    RessourceObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    RessourceObject(const RessourceObject& orig);
     virtual ~RessourceObject();
 
     bool    init();
-private:
 
+    void setQuantity(int quantity);
+    int getQuantity() const;
+    
+private:
+    int	_quantity;
 };
 
 #endif	/* RESSOURCEOBJECT_HH */

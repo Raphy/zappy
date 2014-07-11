@@ -10,7 +10,7 @@
 
 #include <irrlicht.h>
 #include "IEngine.hh"
-#include "Binder.hh"
+#include "Helper.hh"
 #include "Assets.hh"
 #include "IThread.hh"
 #include "ISafeQueue.hh"
@@ -35,6 +35,13 @@ public:
     virtual void sendCommand(t_data * data);
 
     /* SETTINGS */
+
+    virtual void setLastNodeClicked(scene::ISceneNode const* node)//a acceder depuis l'eventReceiver
+    {
+	(void)node;
+	//TODO
+    }
+//    virtual INodeObject* getLastNodeClicked() const;
 
     virtual bool setCameraMode(Ids id);
     virtual bool setTheme(Ids id);
@@ -66,9 +73,10 @@ protected:
     int			    _fps;
 
 //    gui::IGUIElement*	    _mapViewer;
+    posi_t		    _winSize;
     MapViewer*	    _mapViewer;
     
-    Binder*		    _binder;
+    Helper*		    _helper;
     Assets*		    _assets;
     IThread*		    _networkThread;
     ISafeQueue<t_data *>*   _eventQueue;

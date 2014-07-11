@@ -14,8 +14,8 @@
 class EggObject : public AGameElement, public AMeshObject
 {
 public:
-    EggObject(scene::ISceneManager* smgr, INodeObject* parent);
-    EggObject(const EggObject& orig);
+    EggObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    EggObject(const EggObject& orig);
     virtual ~EggObject();
 
     bool    init();

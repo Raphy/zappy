@@ -13,38 +13,48 @@
 #include <map>
 #include "AAnimatedMeshObject.hh"
 #include "INetworkEventHandler.hh"
+#include "CaseObject.hh"
 
 class MapObject : public AAnimatedMeshObject, INetworkEventHandler
 {
 public:
-    MapObject(scene::ISceneManager* smgr, INodeObject* parent);
-    MapObject(const MapObject& orig);
+    MapObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    MapObject(const MapObject& orig);
     virtual ~MapObject();
 
     scene::ITriangleSelector* getSelector() const { return _selector; }
 
     bool    init();
+    void    updateNodePosition();
+    void    scaleOnCase();
+
     bool    callHandler(t_data * data);
 
     /* HANDLERS */
 
     bool    createGround(int x, int y);
-    bool    setCaseContent(posi_t const& pos, std::vector<int> const& quantity);
-
-    bool    addPerso(posi_t const& pos, int index,
-			Orientation o, int level, std::string const& team);
-    bool    addEgg(posi_t const& pos);
-
-    bool    removePerso(int index) { return false; }
+//    bool    setCaseContent(posi_t const& pos, std::vector<int> const& quantity);
+//
+//    bool    addPerso(posi_t const& pos, int index,
+//			Orientation o, int level, std::string const& team);
+//    bool    addEgg(posi_t const& pos);
+//
+//    bool    removePerso(int index) { return false; }
 
 private:
-    bool    addRessource(posi_t const& pos, int level, int quantity);
+    CaseObject*	getCaseObject(posi_t const& pos);// const;
+    bool	tryGetCaseObject(posi_t const& pos, CaseObject* caseObject);// const;
+    void    initCases();
+    
+//    bool    addRessource(posi_t const& pos, int level, int quantity);
 
     scene::ITriangleSelector*	_selector;
-    std::list<INodeObject*>		_persos;
-    std::list<INodeObject*>		_eggs;
-//    std::vector<std::vector<INodeObject*>>	_objs;
-    std::map<posi_t, std::vector<INodeObject*>>	_ressources;
+//    std::list<INodeObject*>		_persos;
+//    std::list<INodeObject*>		_eggs;
+//    std::map<posi_t, std::vector<INodeObject*>>	_ressources;
+    std::vector<std::vector<CaseObject>>    _cases;
+    posi_t  _mapSize;
+//    std::map<posi_t, CaseObject>    _cases;
 };
 
 #endif	/* MAPOBJECT_HH */

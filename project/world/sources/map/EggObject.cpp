@@ -11,16 +11,16 @@ using namespace video;
 using namespace scene;
 using namespace core;
 
-EggObject::EggObject(scene::ISceneManager* smgr, INodeObject* parent)
-: AMeshObject(smgr, parent)
+EggObject::EggObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
+: AMeshObject(smgr, parent, pos)
 {
 }
 
-EggObject::EggObject(EggObject const& orig)
-: AGameElement(static_cast<AGameElement const&>(orig)),
-    AMeshObject(static_cast<AMeshObject const&>(orig))
-{
-}
+//EggObject::EggObject(EggObject const& orig)
+//: AGameElement(static_cast<AGameElement const&>(orig)),
+//    AMeshObject(static_cast<AMeshObject const&>(orig))
+//{
+//}
 
 EggObject::~EggObject()
 {

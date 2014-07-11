@@ -6,21 +6,21 @@
  */
 
 #include "ANodeObject.hh"
-#include "Binder.hh"
+//#include "Binder.hh"
 #include "Helper.hh"
 
 using namespace	core;
 
-ANodeObject::ANodeObject(scene::ISceneManager* smgr, INodeObject* parent)
-: _binder(Binder::getInstance()), _assets(Assets::getInstance()), _smgr(smgr),
-	_parent(parent), _node(nullptr), _pos(0,0), _alignment(0.5,0.5)
+ANodeObject::ANodeObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
+: /*_binder(Binder::getInstance()),*/ _assets(Assets::getInstance()), _smgr(smgr),
+	_parent(parent), _node(nullptr), _pos(pos), _alignment(0.5,0.5)
 {
 }
 
-ANodeObject::ANodeObject(const ANodeObject& orig)
-: _smgr(orig.getSceneManager()), _parent(orig.getParent()), _node(orig.getNode()), _pos(orig.getPositionInMap())
-{
-}
+//ANodeObject::ANodeObject(const ANodeObject& orig)
+//: _smgr(orig.getSceneManager()), _parent(orig.getParent()), _node(orig.getNode()), _pos(orig.getPositionInMap())
+//{
+//}
 
 ANodeObject::~ANodeObject()
 {
@@ -34,6 +34,26 @@ bool    ANodeObject::update()
 {
     return true;
 }
+
+scene::ISceneNode* ANodeObject::getNode() const
+{
+    return _node;
+}
+INodeObject* ANodeObject::getParent() const
+{
+    return _parent;
+}
+scene::ISceneNode* ANodeObject::getParentNode() const
+{
+    return ((_parent) ? (_parent->getNode()) : (_smgr->getRootSceneNode()));
+}
+scene::ISceneManager* ANodeObject::getSceneManager() const
+{
+    return _smgr;
+}
+
+
+
 
 void ANodeObject::setPositionInMap(posi_t const& new_pos)
 {

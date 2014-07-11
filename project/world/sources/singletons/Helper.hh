@@ -10,6 +10,9 @@
 
 #include    <irrlicht.h>
 #include    <utility>
+#include    <string>
+#include    <sstream>
+#include    "IEngine.hh"
 
 using namespace	irr;
 
@@ -19,23 +22,22 @@ typedef	std::pair<float,float>  posf_t;
 class Helper
 {
 public:
-//    static Helper*  getInstance()
-//    {
-//	static Helper instance;
-//	return &instance;
-//    }
-    static core::vector3df MapToWorldCoordinates(posi_t const& pos)
-    {
-	return core::vector3df(pos.first, 0, -pos.second);
-    }
-    static core::vector3df MapToWorldCoordinates(posf_t const& pos)
-    {
-	return core::vector3df(pos.first, 0, -pos.second);
-    }
+    static Helper*  getInstance(int ac = 0, char **av = nullptr);
+    
+    IEngine*		    createEngine() const;
+    
+    static core::vector3df MapToWorldCoordinates(posi_t const& pos);
+    static core::vector3df MapToWorldCoordinates(posf_t const& pos);
+    static posi_t WorldToMapCoordinates(core::vector3df real_pos);
+
+    posi_t const& getWinSize() const;
 private:
-//    Helper();
-//    Helper(const Helper& orig);
-//    virtual ~Helper();
+    Helper(int ac, char **av);
+    Helper(const Helper& orig);
+    virtual ~Helper() {}
+
+    std::string	_path;
+    posi_t	_winSize;
 };
 
 #endif	/* HELPER_HH */
