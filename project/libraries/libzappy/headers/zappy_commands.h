@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Fri Jul 11 23:21:43 2014 raphael defreitas
+** Last update Fri Jul 11 23:30:21 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -114,6 +114,12 @@ typedef	struct
   unsigned int	uid;
   t_resource	resource;
 }		t_pdr;
+
+typedef	struct
+{
+  unsigned int	uid;
+  t_resource	resource;
+}		t_pgt;
 
 /*
 ** +--------+
