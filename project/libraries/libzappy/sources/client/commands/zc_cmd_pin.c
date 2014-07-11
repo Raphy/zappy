@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Thu Jul 10 03:16:54 2014 raphael defreitas
+** Last update Fri Jul 11 20:15:51 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -86,7 +86,7 @@ bool		zc_cmd_pin(t_zc *this, const char *cmd)
   if (!my_match(cmd, "pin * * * * * * * * * *"))
     return (false);
   if (!parse(cmd, &pin))
-    return (false);
+    return (true);
   zc_handle_cmd_pin(this, &pin);
   return (true);
 }

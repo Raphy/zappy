@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Thu Jul 10 06:29:02 2014 raphael defreitas
+** Last update Fri Jul 11 20:13:55 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -44,7 +44,7 @@ bool		zc_cmd_msz(t_zc *this, const char *cmd)
   if (!my_match(cmd, "msz * *"))
     return (false);
   if (!parse(cmd, &msz))
-    return (false);
+    return (true);
   zc_handle_cmd_msz(this, &msz);
   return (true);
 }

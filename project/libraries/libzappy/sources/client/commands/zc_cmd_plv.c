@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Thu Jul 10 03:15:49 2014 raphael defreitas
+** Last update Fri Jul 11 20:16:14 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -78,7 +78,7 @@ bool		zc_cmd_plv(t_zc *this, const char *cmd)
   if (!my_match(cmd, "plv * *"))
     return (false);
   if (!parse(cmd, &plv))
-    return (false);
+    return (true);
   zc_handle_cmd_plv(this, &plv);
   return (true);
 }
