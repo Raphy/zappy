@@ -15,7 +15,7 @@
 void		set_server_handlers(t_zs *zs, t_server *server)
 {
   zs_hook_errno(zs, &errno_handler, server);
-  zs_hook_callback(zs, &callback_handler, server);
+  /* zs_hook_callback(zs, &callback_handler, server); */
 
   zs_hook_timeout(zs, &timeout_handler, server);
 

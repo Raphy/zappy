@@ -12,6 +12,7 @@
 
 void	player_action_left(t_player *player, void *data)
 {
+  printf("Player action 'left' called");
   (void)data;
   if (player->direction == DIRECTION_NORTH)
     player->direction = DIRECTION_WEST;

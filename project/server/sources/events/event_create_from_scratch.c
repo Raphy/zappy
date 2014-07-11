@@ -23,7 +23,8 @@ static int        add_to_server(t_server *server, t_bundle_event *bundle)
   return (RET_SUCCESS);
 }
 
-int               event_create_from_scratch(t_scratch_event *scratch, t_bundle *data)
+int               event_create_from_scratch(t_scratch_event *scratch,
+        t_bundle *data)
 {
   t_server        *server;
   t_bundle_event  event_bundle;
@@ -33,8 +34,9 @@ int               event_create_from_scratch(t_scratch_event *scratch, t_bundle *
   event_bundle.action = scratch->action;
   event_bundle.cycle = scratch->cycle;
   clock_gettime(CLOCK_MONOTONIC, &event_bundle.end_time);
+  printf("What %d / %d = %d\n", scratch->cycle, server->arg->time, scratch->cycle / server->arg->time);
   timespec_add_double(&(event_bundle.end_time),
-          (double)(scratch->cycle / server->arg->time));
+          (double)((double)scratch->cycle / (double)server->arg->time));
   event_bundle.data = data;
   event_bundle.player = data->player;
   return (add_to_server(server, &event_bundle));

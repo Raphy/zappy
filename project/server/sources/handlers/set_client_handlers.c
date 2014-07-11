@@ -13,5 +13,6 @@
 
 void		set_client_handlers(t_zc *zc, void *data)
 {
+  printf("set client handler");
   zs_hook_cmd_left(zc, &handler_left, data);
 }
