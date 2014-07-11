@@ -20,8 +20,7 @@ void handler_before_select(t_zs *zs, void *data)
   if (data == NULL || server->events == NULL
           || (event = list_front(server->events)) == NULL)
   {
-    printf("No events! What should we do ?");
-    zs_set_timeout(zs, 1, 0);
+    zs_disable_timeout(zs);
     return;
   }
   zs_set_timeout(zs, event->end_time.tv_sec, event->end_time.tv_nsec);
