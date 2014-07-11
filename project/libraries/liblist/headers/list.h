@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Thu Apr 17 18:53:27 2014 raphael defreitas
-** Last update Sun Jun 29 08:45:16 2014 raphael defreitas
+** Last update Fri Jul 11 17:00:56 2014 raphael defreitas
 */
 
 #ifndef		LIST_H_
@@ -117,6 +117,7 @@ void		*list_dequeue(t_list *);
 void		*list_unlink(t_list *, t_item *);
 void		*list_find(t_list *, int (*)(), const void *, t_it_type);
 void		list_clear(t_list *);
+int		list_insert(t_list *, t_item *, void *);
 
 G_END_DECLS
 
