@@ -12,12 +12,6 @@
 #include    "ISafeQueue.hh"
 #include    "cWorld.hh"
 
-//enum s_handler_class_type;
-//enum s_event_type;
-//struct s_infos;
-//struct s_data;
-//struct s_world;
-
 class World;
 
 void world_ctor(t_world * self, World * cpp_world);

@@ -57,13 +57,3 @@ bool World::try_pop_command(t_data* data)
 {
     return _commandQueue->tryPop(data);
 }
-
-
-//Worker::Worker()
-//{
-//}
-//
-//Worker::~Worker()
-//{
-//}
-

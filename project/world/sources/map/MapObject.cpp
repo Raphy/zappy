@@ -20,7 +20,7 @@ using namespace core;
 MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : AAnimatedMeshObject(smgr, parent, pos), _selector(nullptr)
 {
-    _alignment = posi_t(0,0);
+    _alignment = posf_t(0,0);
 }
 
 //MapObject::MapObject(const MapObject& orig)

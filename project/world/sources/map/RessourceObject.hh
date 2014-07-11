@@ -22,6 +22,8 @@ public:
 
     void setQuantity(int quantity);
     int getQuantity() const;
+
+    bool setLevel(int level);
     
 private:
     int	_quantity;

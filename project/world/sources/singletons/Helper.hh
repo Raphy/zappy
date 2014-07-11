@@ -16,8 +16,9 @@
 
 using namespace	irr;
 
-typedef	std::pair<unsigned int,unsigned int>  posi_t;
 typedef	std::pair<float,float>  posf_t;
+typedef	std::pair<unsigned int,unsigned int>  posi_t;
+//typedef	posf_t  posi_t;
 
 class Helper
 {

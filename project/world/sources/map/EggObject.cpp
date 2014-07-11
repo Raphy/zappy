@@ -14,8 +14,8 @@ using namespace core;
 EggObject::EggObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : AMeshObject(smgr, parent, pos)
 {
-    _alignment = posi_t(0.2,0.7);
-    _scale = vector3df(0.3,0.3,0.3);
+    _alignment = posf_t(0.2,0.7);
+    _scale = vector3df(0.3);
 }
 
 //EggObject::EggObject(EggObject const& orig)
@@ -38,7 +38,7 @@ bool    EggObject::init()
     _node = node;
     if (node)
     {
-	node->setPosition(vector3df(0,0,0));
+	node->setPosition(vector3df(0));
 	node->setMaterialFlag(EMF_LIGHTING, true);
 //	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	node->setMaterialTexture(0, _assets->getTexture(EGG, TEXTURE, 0));

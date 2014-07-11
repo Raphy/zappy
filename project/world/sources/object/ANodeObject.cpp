@@ -46,10 +46,10 @@ INodeObject* ANodeObject::getParent() const
 scene::ISceneNode* ANodeObject::getParentNode() const
 {
     //TODO : debug !
-    if (!_parent)
-	return _smgr->getRootSceneNode();
-    return (_parent->getNode());
-//    return _smgr->getRootSceneNode();
+//    if (!_parent)
+//	return _smgr->getRootSceneNode();
+//    return (_parent->getNode());
+    return _smgr->getRootSceneNode();
 }
 scene::ISceneManager* ANodeObject::getSceneManager() const
 {

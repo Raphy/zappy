@@ -12,8 +12,8 @@ using namespace core;
 CaseObject::CaseObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : ANodeObject(smgr, parent, pos)
 {
-    _alignment = posi_t(0, 0);
-    _scale = vector3df(1,1,1);
+    _alignment = posf_t(0, 0);
+    _scale = vector3df(1);
     _ressources.fill(new RessourceObject(_smgr, this, pos)); //util?
 }
 //CaseObject::CaseObject(const CaseObject& orig)
@@ -49,39 +49,26 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
 {
     for (int i = 0; i < RESSOURCE_TYPE_COUNT; i++)
     {
-//	INodeObject* obj = _ressources[i];
-//	RessourceObject* ressource = nullptr;
 	RessourceObject* ressource = _ressources.at(i);
 	assert(ressource != nullptr);
-//	if (ressource != nullptr)
-//	{
-////	    ressource = static_cast<RessourceObject*>(obj);
-//	    ressource->setQuantity(quantity.at(i));
-//	}
-//	else
-//	{
-//	    ressource = static_cast<RessourceObject*> (_binder->createGameElementObject<RESSOURCE>(_smgr, this));
-//	    ressource = new RessourceObject(_smgr, this);
-	    if (!ressource || !ressource->init())
-		return false;
-	    ressource->setPositionInMap(_pos);
-	    //    ressource->setPositionInMap(posi_t(15,15));
-	    //    ressource->setLevel(level);
-	    //    ressource->setQuantity(quantity);
-	    _ressources[i] = ressource;
-//	}
+	if (!ressource || !ressource->init())
+	    return false;
+	ressource->setPositionInMap(_pos);
+	ressource->setLevel(i);
+	ressource->setQuantity(quantity.at(i));
+	_ressources[i] = ressource;
+	//	}
     }
     return true;
 }
 
 bool CaseObject::addPerso(int index, Orientation o, int level, const std::string& team)
 {
-//    INodeObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
     PersoObject* perso = new PersoObject(_smgr, this, _pos);
     if (!perso || !perso->init())
 	return false;
     //TODO : setter index, o, et team?
-    //    perso->setLevel(level);
+    perso->setLevel(level);
     _persos.insert(std::pair<int, INodeObject*>(index, perso));
     //    _persos.push_back(perso);
     return true;

@@ -41,7 +41,6 @@ void AGameElement::setMaxLevel(int _maxLevel)
 }
 bool AGameElement::setLevel(int level)
 {
-    std::cout << "set Level !! " << std::endl;
     if (level > _maxLevel)
 	return false;
     _level = level;
@@ -49,10 +48,7 @@ bool AGameElement::setLevel(int level)
 }
 bool AGameElement::evolue()
 {
-    if (_level == _maxLevel)
-	return false;
-    _level++;
-    return true;
+    return setLevel(_level + 1);
 }
 
 /* GETTERS */

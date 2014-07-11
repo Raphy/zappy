@@ -21,7 +21,7 @@ Helper::Helper(int ac, char** av)
     if (ac != 2 && ac != 4)
 	throw std::string("Bad options.\nUsage : ./world assetsArchive [windowWidth windowHeight]");
     _path = av[1];
-    _caseSize = vector3df(3,3,3);
+    _caseSize = vector3df(3);
     if (ac == 4)
     {
 	std::stringstream str;

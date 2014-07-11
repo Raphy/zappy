@@ -28,7 +28,7 @@ public:
     int getMaxLevel() const;
     int getLevel() const;
 
-private:
+protected:
     int			_level;
     int			_maxLevel;
     GameElementType	_type;

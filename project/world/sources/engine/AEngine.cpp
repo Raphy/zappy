@@ -95,6 +95,8 @@ bool AEngine::init()
     _guiManager = new GUIManager(_env, _winSize);
     _mapViewer = new MapViewer(_env, _smgr, _cursor);
         
+    _mapViewer->createGround(20,30);//debug
+    
     return true;
 }
 bool AEngine::update()

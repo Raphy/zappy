@@ -42,7 +42,7 @@ protected:
     ANodeObject*	    _parent;
     scene::ISceneNode*	    _node;
     posi_t		    _pos;
-    posi_t		    _alignment;
+    posf_t		    _alignment;
     core::vector3df	    _scale;
 };
 
