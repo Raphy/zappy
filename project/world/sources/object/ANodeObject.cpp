@@ -12,8 +12,8 @@
 using namespace	core;
 
 ANodeObject::ANodeObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
-: /*_binder(Binder::getInstance()),*/ _assets(Assets::getInstance()), _smgr(smgr),
-	_parent(parent), _node(nullptr), _pos(pos), _alignment(0.5,0.5)
+: _helper(Helper::getInstance()), _assets(Assets::getInstance()), _smgr(smgr),
+	_parent(static_cast<ANodeObject*>(parent)), _node(nullptr), _pos(pos), _alignment(0.5,0.5), _scale(0.2,0.2,0.2)
 {
 }
 
@@ -37,7 +37,7 @@ bool    ANodeObject::update()
 
 scene::ISceneNode* ANodeObject::getNode() const
 {
-    return _node;
+    return static_cast<scene::ISceneNode*>(_node);
 }
 INodeObject* ANodeObject::getParent() const
 {
@@ -45,7 +45,12 @@ INodeObject* ANodeObject::getParent() const
 }
 scene::ISceneNode* ANodeObject::getParentNode() const
 {
-    return ((_parent) ? (_parent->getNode()) : (_smgr->getRootSceneNode()));
+    return _smgr->getRootSceneNode();
+    //TODO : debug !
+//    if (!_parent)
+//	return _smgr->getRootSceneNode();
+//    return (_parent->getNode());
+//    return ((static_cast<ANodeObject*>(_parent))->getNode());
 }
 scene::ISceneManager* ANodeObject::getSceneManager() const
 {
@@ -69,7 +74,7 @@ void ANodeObject::updateNodePosition()
     if (_node)
     {
 	posf_t real_pos(_pos.first + _alignment.first, _pos.second + _alignment.second);
-	vector3df pos = Helper::MapToWorldCoordinates(real_pos);
+	vector3df pos = _helper->mapToWorldCoordinates(real_pos);
 	_node->setPosition(pos);
     }
 }
@@ -79,6 +84,8 @@ void ANodeObject::scaleOnCase()
     {
 	vector3df extent = _node->getTransformedBoundingBox().getExtent();
 	vector3df scale = _node->getScale() / extent;
+	scale *= _scale;
+	scale *= _helper->getCaseSize();
 	_node->setScale(scale);
     }
 }

@@ -14,6 +14,8 @@ using namespace core;
 EggObject::EggObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : AMeshObject(smgr, parent, pos)
 {
+    _alignment = posi_t(0.2,0.7);
+    _scale = vector3df(0.3,0.3,0.3);
 }
 
 //EggObject::EggObject(EggObject const& orig)

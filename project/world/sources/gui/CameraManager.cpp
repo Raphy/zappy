@@ -51,9 +51,11 @@ bool CameraManager::init(int x, int y)
     
     for (int i = 0; i < CAMERA_MODE_COUNT; i++)
     {
-	_camera[i]->setPosition(vector3df(x/2.0, (x+y)/2.0, y/2.0));
+	vector3df pos = _helper->mapToWorldCoordinates(posf_t(x/2.0, y/2.0));
+	pos.Y = 10;
+	_camera[i]->setPosition(pos);
 	_camera[i]->setTarget(vector3df(x/2.0, 0, y/2.0));
-	_camera[i]->setFarValue(4000.0f);
+	_camera[i]->setFarValue(100.0f);
 	_camera[i]->setVisible(false);
 	_light[i]->setVisible(false);
     }
@@ -63,7 +65,7 @@ bool CameraManager::init(int x, int y)
 
 bool CameraManager::setCameraMode(Ids id)
 {
-    //desactive actual camera
+    //inactivate actual camera
     ICameraSceneNode*	previous = _camera[_currentMode];
     previous->setVisible(false);
     previous->setInputReceiverEnabled(false);
@@ -76,7 +78,7 @@ bool CameraManager::setCameraMode(Ids id)
     ICameraSceneNode*	last = _camera[_currentMode];
     _node = last;
     
-    //active new camera
+    //activate new camera
     if (_currentMode != STATIC)
     {
 	_cursor->setPosition(0.5f, 0.5f);

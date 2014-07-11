@@ -22,22 +22,25 @@ typedef	std::pair<float,float>  posf_t;
 class Helper
 {
 public:
-    static Helper*  getInstance(int ac = 0, char **av = nullptr);
+    static Helper*	    getInstance(int ac = 0, char **av = nullptr);
     
     IEngine*		    createEngine() const;
     
-    static core::vector3df MapToWorldCoordinates(posi_t const& pos);
-    static core::vector3df MapToWorldCoordinates(posf_t const& pos);
-    static posi_t WorldToMapCoordinates(core::vector3df real_pos);
+    core::vector3df	    mapToWorldCoordinates(posi_t const& pos);
+    core::vector3df	    mapToWorldCoordinates(posf_t const& pos);
+    posi_t		    worldToMapCoordinates(core::vector3df real_pos);
 
-    posi_t const& getWinSize() const;
+    posi_t const&	    getWinSize() const;
+    core::vector3df const&  getCaseSize() const;
+
 private:
     Helper(int ac, char **av);
     Helper(const Helper& orig);
     virtual ~Helper() {}
 
-    std::string	_path;
-    posi_t	_winSize;
+    std::string		_path;
+    posi_t		_winSize;
+    core::vector3df	_caseSize;
 };
 
 #endif	/* HELPER_HH */

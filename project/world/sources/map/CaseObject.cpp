@@ -7,10 +7,13 @@
 
 #include "CaseObject.hh"
 
+using namespace core;
+
 CaseObject::CaseObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : ANodeObject(smgr, parent, pos)
 {
     _alignment = posi_t(0, 0);
+    _scale = vector3df(1,1,1);
     _ressources.fill(new RessourceObject(_smgr, this, pos)); //util?
 }
 //CaseObject::CaseObject(const CaseObject& orig)

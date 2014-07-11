@@ -15,6 +15,7 @@ using namespace core;
 PersoObject::PersoObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : AAnimatedMeshObject(smgr, parent, pos)
 {
+    _scale = vector3df(0.3,0.3,0.3);//?
 }
 
 //PersoObject::PersoObject(PersoObject const& orig)

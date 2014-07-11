@@ -9,6 +9,8 @@
 #include "WorldEngine.hh"
 #include "Assets.hh"
 
+using namespace	core;
+
 Helper* Helper::getInstance(int ac, char** av)
 {
     static Helper instance(ac, av);
@@ -19,6 +21,7 @@ Helper::Helper(int ac, char** av)
     if (ac != 2 && ac != 4)
 	throw std::string("Bad options.\nUsage : ./world assetsArchive [windowWidth windowHeight]");
     _path = av[1];
+    _caseSize = vector3df(3,3,3);
     if (ac == 4)
     {
 	std::stringstream str;
@@ -52,16 +55,20 @@ const posi_t& Helper::getWinSize() const
 {
     return _winSize;
 }
+const vector3df& Helper::getCaseSize() const
+{
+    return _caseSize;
+}
 
-core::vector3df Helper::MapToWorldCoordinates(const posi_t& pos)
+vector3df Helper::mapToWorldCoordinates(const posi_t& pos)
 {
-    return core::vector3df(pos.first, 0, -pos.second);
+    return vector3df(pos.first, 0, -pos.second) * _caseSize;
 }
-core::vector3df Helper::MapToWorldCoordinates(const posf_t& pos)
+vector3df Helper::mapToWorldCoordinates(const posf_t& pos)
 {
-    return core::vector3df(pos.first, 0, -pos.second);
+    return vector3df(pos.first, 0, -pos.second) * _caseSize;
 }
-posi_t Helper::WorldToMapCoordinates(core::vector3df real_pos)
+posi_t Helper::worldToMapCoordinates(vector3df real_pos)
 {
-    return posi_t(real_pos.X, -real_pos.Z);
+    return posi_t(real_pos.X / _caseSize.X, -real_pos.Z / _caseSize.Z);
 }
