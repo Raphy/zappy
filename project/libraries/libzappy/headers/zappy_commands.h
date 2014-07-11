@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Fri Jul 11 20:01:35 2014 raphael defreitas
+** Last update Fri Jul 11 23:21:43 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -39,6 +39,17 @@ typedef	enum
   ORIENTATION_SOUTH,
   ORIENTATION_WEST,
 }		t_orientation;
+
+typedef	enum
+  {
+    RESOURCE_FOOD,
+    RESOURCE_LINEMATE,
+    RESOURCE_DERAUMERE,
+    RESOURCE_SIBUR,
+    RESOURCE_MENDIANE,
+    RESOURCE_PHIRAS,
+    RESOURCE_THYSTAME,
+  }		t_resource;
 
 typedef	struct
 {
@@ -98,6 +109,12 @@ typedef	struct
   char		*message;
 }		t_pbc;
 
+typedef	struct
+{
+  unsigned int	uid;
+  t_resource	resource;
+}		t_pdr;
+
 /*
 ** +--------+
 ** | Server |
@@ -124,6 +141,7 @@ void		zs_send_cmd_plv(t_zs *, t_zc *zc, const t_plv *plv);
 void		zs_send_cmd_ppo(t_zs *, t_zc *zc, const t_ppo *ppo);
 void		zs_send_cmd_sgt(t_zs *, t_zc *zc, unsigned int time);
 void		zs_send_cmd_pfk(t_zs *, t_zc *zc, unsigned int uid);
+void		zs_send_cmd_pdr(t_zs *, t_zc *zc, const t_pdr *pdr);
 
 /*
 ** +--------+
@@ -141,11 +159,11 @@ void		zc_send_cmd_msz(t_zc *);
 void		zc_send_cmd_bct(t_zc *, const t_position *position);
 void		zc_send_cmd_mct(t_zc *);
 void		zc_send_cmd_tna(t_zc *);
-void    zc_send_cmd_pin(t_zc *, unsigned int uid);
-void    zc_send_cmd_plv(t_zc *, unsigned int uid);
-void    zc_send_cmd_ppo(t_zc *, unsigned int uid);
-void    zc_send_cmd_sgt(t_zc *);
-void    zc_send_cmd_sst(t_zc *, unsigned int uid);
+void		zc_send_cmd_pin(t_zc *, unsigned int uid);
+void		zc_send_cmd_plv(t_zc *, unsigned int uid);
+void		zc_send_cmd_ppo(t_zc *, unsigned int uid);
+void		zc_send_cmd_sgt(t_zc *);
+void		zc_send_cmd_sst(t_zc *, unsigned int uid);
 
 void		zc_send_rmt(t_zc *);
 void		zc_send_rmt_pubkey(t_zc *);
