@@ -26,7 +26,6 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui:
     
     _mapObject = new MapObject(_smgr, nullptr, posi_t(0,0));
     _mapObject->init();// TODO : appeler le init autre part ?
-    _cameraManager.init(10,20);//??
 }
 
 //MapViewer::MapViewer(const MapViewer& orig)
@@ -71,7 +70,7 @@ bool MapViewer::callHandler(t_data* data)
 
 bool MapViewer::createGround(int x, int y)
 {
-    if (!_cameraManager.init(x,y)
+    if (!_cameraManager.initWithSize(x,y)
 	    || !_mapObject->createGround(x,y))
 	return false;
     return _cameraManager.addCollision(_mapObject->getSelector());
