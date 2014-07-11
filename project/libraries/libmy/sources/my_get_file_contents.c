@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jul  3 23:32:24 2014 raphael defreitas
-** Last update Thu Jul  3 23:47:01 2014 raphael defreitas
+** Last update Fri Jul 11 17:03:47 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -21,8 +21,8 @@ static char	*get_full_name(const char *d, const char *f)
     fullname = strdup(f);
   else
     {
-      if ((fullname = calloc(strlen(d) +
-			     strlen(f) + 2, sizeof(char))) == NULL)
+      if ((fullname = calloc(strlen(d)
+			     + strlen(f) + 2, sizeof(char))) == NULL)
 	return (NULL);
       strcat(fullname, d);
       strcat(fullname, "/");
