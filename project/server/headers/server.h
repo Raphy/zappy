@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Thu Jul 10 17:27:25 2014 damien sauvalle
+** Last update Sat Jul 12 01:30:33 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -15,8 +15,6 @@
 # include	"list.h"
 # include	"arg.h"
 # include	"case.h"
-# include       "event.h"
-# include	"player.h"
 # include	"zappy.h"
 
 typedef struct	s_server
@@ -62,7 +60,7 @@ typedef struct	s_fill_map
   fill		fill;
 }		t_fill_map;
 
-void	add_player(t_server *, t_player *);
+
 void	generate_ressource(t_server *);
 void	fill_linemate(t_case **, t_arg *, int);
 void	fill_deraumere(t_case **, t_arg *, int);
@@ -71,6 +69,12 @@ void	fill_mendiane(t_case **, t_arg *, int);
 void	fill_phiras(t_case **, t_arg *, int);
 void	fill_thystane(t_case **, t_arg *, int);
 void	fill_food(t_case **, t_arg *, int);
+
+void	server_msz(t_server *, t_zc *, t_zs *);
+void	server_sgt(t_server *, t_zc *, t_zs *);
+void	server_bct(t_server *, t_zc *, t_zs *);
+void	server_tna(t_server *, t_zc *, t_zs *);
+
 
 /*
 ** Fonction pour acceder au ressource d'une case definie

@@ -1,3 +1,14 @@
+/*
+** handler_before_select.c for zappy in /home/damien/zappy/project/server/sources/handlers
+**
+** Made by damien sauvalle
+** Login   <sauval_d@epitech.net>
+**
+** Started on  Sat Jul 12 01:36:19 2014 damien sauvalle
+** Last update Sat Jul 12 01:36:36 2014 damien sauvalle
+*/
+
+#include	"event.h"
 #include          "zappy.h"
 #include          "server.h"
 #include          "list.h"

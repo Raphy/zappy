@@ -5,11 +5,12 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul  5 16:54:55 2014 damien sauvalle
-** Last update Tue Jul  8 18:42:21 2014 damien sauvalle
+** Last update Sat Jul 12 01:32:49 2014 damien sauvalle
 */
 
 #include	<stdio.h>
 #include	"player.h"
+#include	"bundle.h"
 
 static void	go_north(t_player * player, t_arg *arg)
 {

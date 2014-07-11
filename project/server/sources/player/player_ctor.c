@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Thu Jul 10 14:50:47 2014 damien sauvalle
+** Last update Sat Jul 12 00:37:52 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -19,7 +19,8 @@
 #include	"server.h"
 #include	"zappy.h"
 
-int	player_ctor(t_player *player, t_server *server, t_zc *zc, char *team)
+int	player_ctor(t_player *player, t_server *server,
+		    t_zc *zc, const char *team)
 {
 
   printf("JOUER CREE\n");

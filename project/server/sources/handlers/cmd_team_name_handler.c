@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Fri Jul 11 17:54:30 2014 damien sauvalle
+** Last update Sat Jul 12 01:37:31 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -14,12 +14,13 @@
 #include	"server.h"
 #include	"player.h"
 #include "handlers.h"
+#include	"bundle.h"
 
 void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, void *data)
 {
   t_bundle      *bundle;
   t_server      *server;
-  
+
   printf("TEAM NAME HANDLER\n");
   server = (t_server*) data;
   if (zc_get_type(zc) != ZCT_UNKNOWN)
@@ -39,7 +40,7 @@ void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, void *dat
   bundle->server = server;
   bundle->player = player;
   set_client_handlers(zc, bundle);
-  
+
   /*if (player == NULL)
     disconnect client
   */

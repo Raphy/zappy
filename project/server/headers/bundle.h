@@ -1,18 +1,18 @@
 /*
 ** bundle.h for  in /home/svirch_n/zappy/project/server/headers
-** 
+**
 ** Made by nicolas svirchevsky
 ** Login   <svirch_n@epitech.net>
-** 
+**
 ** Started on  Mon Jul  7 16:23:08 2014 nicolas svirchevsky
-** Last update Mon Jul  7 16:24:32 2014 nicolas svirchevsky
+** Last update Sat Jul 12 01:23:11 2014 damien sauvalle
 */
 
 #ifndef		BUNDLE_H
 # define	BUNDLE_H
 
-typedef struct s_server t_server;
-typedef struct s_player t_player;
+# include	"server.h"
+# include	"player.h"
 
 typedef struct	s_bundle
 {

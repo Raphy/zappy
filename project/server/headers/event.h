@@ -5,12 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Tue Jul  8 14:47:15 2014 damien sauvalle
-** Last update Tue Jul  8 14:47:17 2014 damien sauvalle
+** Last update Sat Jul 12 01:33:15 2014 damien sauvalle
 */
 
 #ifndef EVENT_H
 # define	EVENT_H
 
+#include        "bundle.h"
 # include       "player.h"
 # include       "tools_timespec.h"
 
