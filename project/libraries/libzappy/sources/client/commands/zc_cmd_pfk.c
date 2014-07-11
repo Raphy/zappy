@@ -1,11 +1,11 @@
 /*
-** zc_cmd_pex.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources
+** zc_cmd_pfk.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/libraries/libzappy/sources
 ** 
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Fri Jul 11 20:14:51 2014 raphael defreitas
+** Last update Fri Jul 11 20:12:35 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -15,15 +15,15 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-bool		zc_cmd_pex(t_zc *this, const char *cmd)
+bool		zc_cmd_pfk(t_zc *this, const char *cmd)
 {
   unsigned int	uid;
 
-  if (!my_match(cmd, "pex *"))
+  if (!my_match(cmd, "pfk *"))
     return (false);
   if (!my_str_is_numeric(cmd + 4))
     return (true);
   uid = strtoul(cmd + 4, NULL, 0);
-  zc_handle_cmd_pex(this, uid);
+  zc_handle_cmd_pfk(this, uid);
   return (true);
 }

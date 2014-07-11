@@ -62,13 +62,16 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
     return true;
 }
 
-bool CaseObject::addPerso(int index, Orientation o, int level, const std::string& team)
+bool CaseObject::addPerso(int index, Orientation const& o, int level, const std::string& team)
 {
     PersoObject* perso = new PersoObject(_smgr, this, _pos);
-    if (!perso || !perso->init())
+    if (!perso || !perso->initWithLevel(level))
 	return false;
     //TODO : setter index, o, et team?
+    perso->setIndex(index);
+    perso->setOrientation(o);
     perso->setLevel(level);
+    perso->setTeam(team);
     _persos.insert(std::pair<int, INodeObject*>(index, perso));
     //    _persos.push_back(perso);
     return true;

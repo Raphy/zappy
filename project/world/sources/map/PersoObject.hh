@@ -8,7 +8,8 @@
 #ifndef PERSOOBJECT_HH
 #define	PERSOOBJECT_HH
 
-#include    <vector>
+#include    <array>
+#include    <map>
 #include    "AAnimatedMeshObject.hh"
 #include    "AGameElement.hh"
 
@@ -20,16 +21,33 @@ public:
     virtual ~PersoObject();
 
     bool    init();
+    bool    initWithLevel(int level);
 
-    void setIndex(int index);
-    int getIndex() const;    
+    void    setIndex(int index);
+    int	    getIndex() const;    
+    void    setOrientation(Orientation const& orientation);
+    Orientation const& getOrientation() const;
+    void    setTeam(std::string const& _team);
+    std::string const& getTeam() const;
+
+    bool    setLevel(int level);
     
     /* HANDLERS */
-    bool    setInventory(/*int x, int y, */std::vector<int> const& quantity) { return false; }
+    bool    setInventory(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
+    std::array<int, RESSOURCE_TYPE_COUNT> const& getInventory() const;
+
 
 private:
-    std::array<int, ASSET_TYPE_COUNT>  _inventory;//vector?
-    int	_index;
+    void    rotateOnNorth();
+    void    rotateOnEast();
+    void    rotateOnSouth();
+    void    rotateOnWest();
+
+    std::array<int, RESSOURCE_TYPE_COUNT>	_inventory;
+    std::map<Orientation, void (PersoObject::*)()>	_rotateFuncs;
+    int		    _index;
+    Orientation	    _orientation;
+    std::string	    _team;
 };
 
 #endif	/* PERSOOBJECT_HH */

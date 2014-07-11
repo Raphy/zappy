@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Thu Jul 10 01:49:04 2014 raphael defreitas
+** Last update Fri Jul 11 20:13:33 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -85,7 +85,7 @@ bool		zc_cmd_bct(t_zc *this, const char *cmd)
   if (!my_match(cmd, "bct * * * * * * * * *"))
     return (false);
   if (!parse(cmd, &bct))
-    return (false);
+    return (true);
   zc_handle_cmd_bct(this, &bct);
   return (true);
 }

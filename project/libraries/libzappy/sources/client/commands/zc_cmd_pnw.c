@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Thu Jul 10 03:21:54 2014 raphael defreitas
+** Last update Fri Jul 11 20:16:47 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -82,7 +82,7 @@ bool		zc_cmd_pnw(t_zc *this, const char *cmd)
   if (!my_match(cmd, "pnw * * * * * *"))
     return (false);
   if (!parse(cmd, &pnw))
-    return (false);
+    return (true);
   zc_handle_cmd_pnw(this, &pnw);
   return (true);
 }
