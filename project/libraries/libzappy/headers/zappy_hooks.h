@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Thu Jul 10 03:35:36 2014 raphael defreitas
+** Last update Fri Jul 11 18:38:02 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -47,9 +47,9 @@ typedef	void	(t_zsh_cmd_unknown)(t_zs *zs, t_zc *zc, const char *cmd,
 void		zs_hook_cmd_unknown(t_zc *zc, t_zsh_cmd_unknown h, void *d);
 
 void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_str_basic h, void *d);
-void		zs_hook_cmd_forward(t_zs *, t_zsh_client_basic h, void *d);
-void		zs_hook_cmd_left(t_zs *, t_zsh_client_basic h, void *d);
-void		zs_hook_cmd_right(t_zs *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_forward(t_zc *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_left(t_zc *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_right(t_zc *, t_zsh_client_basic h, void *d);
 
 void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_msz(t_zc *zc, t_zsh_client_basic h, void *d);
