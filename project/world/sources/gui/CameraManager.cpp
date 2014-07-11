@@ -26,7 +26,15 @@ CameraManager::~CameraManager()
 {
 }
 
-bool CameraManager::init(int x, int y)
+bool CameraManager::init()
+{
+    //appeler initWithSize a la place;
+    assert(false);
+    return true;
+}
+
+
+bool CameraManager::initWithSize(int x, int y)
 {
     // create skybox and skydome
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);

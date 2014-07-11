@@ -45,12 +45,11 @@ INodeObject* ANodeObject::getParent() const
 }
 scene::ISceneNode* ANodeObject::getParentNode() const
 {
-    return _smgr->getRootSceneNode();
     //TODO : debug !
-//    if (!_parent)
-//	return _smgr->getRootSceneNode();
-//    return (_parent->getNode());
-//    return ((static_cast<ANodeObject*>(_parent))->getNode());
+    if (!_parent)
+	return _smgr->getRootSceneNode();
+    return (_parent->getNode());
+//    return _smgr->getRootSceneNode();
 }
 scene::ISceneManager* ANodeObject::getSceneManager() const
 {
