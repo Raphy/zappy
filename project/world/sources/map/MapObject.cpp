@@ -45,8 +45,10 @@ bool    MapObject::init()
 	std::array<int, RESSOURCE_TYPE_COUNT> q;
 	q.fill(1);
 	c->setCaseContent(q);
+	c->addPerso(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
     }
     
+
     //    CaseObject *c = getCaseObject(posi_t(10,10));
     //    CaseObject *c2 = getCaseObject(posi_t(10,11));
     //    CaseObject *c3 = getCaseObject(posi_t(10,12));

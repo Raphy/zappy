@@ -74,6 +74,7 @@ void ANodeObject::updateNodePosition()
     {
 	posf_t real_pos(_pos.first + _alignment.first, _pos.second + _alignment.second);
 	vector3df pos = _helper->mapToWorldCoordinates(real_pos);
+	pos.Y += _scale.Y * _helper->getCaseSize().Y / 2.f;
 	_node->setPosition(pos);
     }
 }
