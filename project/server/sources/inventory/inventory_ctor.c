@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 18:06:02 2014 damien sauvalle
-** Last update Sun Jun 29 18:23:54 2014 damien sauvalle
+** Last update Thu Jul 10 19:59:23 2014 damien sauvalle
 */
 
 #include        <stdlib.h>
@@ -13,9 +13,8 @@
 #include	"my.h"
 #include	"inventory.h"
 
-int	inventory_ctor(t_inventory *inventory)
+int	inventory_ctor(t_items *inventory)
 {
-  assert(inventory != NULL);
   if (inventory == NULL)
     return (RET_FAILURE);
   inventory->linemate = 0;
@@ -23,7 +22,7 @@ int	inventory_ctor(t_inventory *inventory)
   inventory->sibur = 0;
   inventory->mendiane = 0;
   inventory->phiras = 0;
-  inventory->thystane = 0;
+  inventory->thystame = 0;
   inventory->food = 0;
   return (RET_SUCCESS);
 }

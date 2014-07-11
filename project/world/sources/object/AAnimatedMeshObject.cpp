@@ -7,15 +7,15 @@
 
 #include "AAnimatedMeshObject.hh"
 
-AAnimatedMeshObject::AAnimatedMeshObject(scene::ISceneManager* smgr, INodeObject* parent)
-: AMeshObject(smgr, parent)
+AAnimatedMeshObject::AAnimatedMeshObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
+: AMeshObject(smgr, parent, pos)
 {
 }
 
-AAnimatedMeshObject::AAnimatedMeshObject(AAnimatedMeshObject const& orig)
-: AMeshObject(static_cast<AMeshObject const&>(orig))
-{
-}
+//AAnimatedMeshObject::AAnimatedMeshObject(AAnimatedMeshObject const& orig)
+//: AMeshObject(static_cast<AMeshObject const&>(orig))
+//{
+//}
 
 AAnimatedMeshObject::~AAnimatedMeshObject()
 {

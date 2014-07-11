@@ -15,45 +15,21 @@ extern "C" {
 #include "zappy.h"
 }
 
-static void init_infos(t_infos *i)
-{
-    i->pos.first = -1;
-    i->pos.second = -1;
-    i->orientation = NORTH;
-    i->level = -1;
-    i->quantity = std::vector<int>(static_cast<int>(RESSOURCE_TYPE_COUNT), -1);
-    i->player_id = -1;//list ?
-    i->egg_id = -1;
-    i->ressource_id = -1;
-    i->time_unit = -1;
-    i->team_name = std::string("");
-    i->err = -1;
-    i->msg = std::string("");
-}
-
 void world_ctor(t_world * self, World * cpp_world)
 {
-    //  t_zc		zc;
-    t_infos*		infos = new t_infos();
-    t_data*		data = new t_data();
-    
     std::cout << "world_ctor" << std::endl;
     self->cpp_world = cpp_world;
-    
-    init_infos(infos);
-    data->infos = infos;
-    data->event_type = EVENT_COUNT;
-    data->game_element_type = HANDLER_CLASS_COUNT;
-    self->data = data;
+    self->data = new t_data();
     
     //set handlers
     zc_hook_errno(cpp_world->getZc(), &world_errno_handler, self);
     zc_hook_connected(cpp_world->getZc(), &world_connected_handler, self);
-    //  zc_hook_disconnected(this->zc, &remote_disconnected_handler, this);
-    //  zc_hook_timeout(this->zc, &remote_timeout_handler, this);
+//    zc_hook_disconnected(this->zc, &remote_disconnected_handler, this);
+//    zc_hook_timeout(this->zc, &remote_timeout_handler, this);
     
     zc_hook_cmd_msz(cpp_world->getZc(), &world_msz_handler, self);
     zc_hook_cmd_bct(cpp_world->getZc(), &world_bct_handler, self);
+    zc_hook_cmd_tna(cpp_world->getZc(), &world_tna_handler, self);
     
 }
 
@@ -61,7 +37,6 @@ void world_dtor(t_world * self)
 {
     (void)self;
     std::cout << "world_dtor" << std::endl;
-    delete self->data->infos;
     delete self->data;
 }
 
@@ -165,7 +140,7 @@ void	world_bct_handler(__attribute__((unused)) t_zc *zc, t_bct *bct, void *world
     t_world * self = static_cast<t_world *>(world);
     
     self->data->event_type = CASE_CONTENT_EVENT;
-    self->data->game_element_type = MAP_CLASS;
+    self->data->game_element_type = CASE_CLASS;
     
     self->data->infos->quantity[static_cast<int>(FOOD)] = bct->items.food;
     self->data->infos->quantity[static_cast<int>(DERAUMERE)] = bct->items.deraumere;
@@ -174,7 +149,7 @@ void	world_bct_handler(__attribute__((unused)) t_zc *zc, t_bct *bct, void *world
     self->data->infos->quantity[static_cast<int>(PHIRAS)] = bct->items.phiras;
     self->data->infos->quantity[static_cast<int>(SIBUR)] = bct->items.sibur;
     self->data->infos->quantity[static_cast<int>(THYSTAME)] = bct->items.thystame;
-
+    
     self->data->infos->pos.first = bct->position.x;
     self->data->infos->pos.second = bct->position.y;
     
@@ -188,6 +163,6 @@ void	world_tna_handler(__attribute__((unused)) t_zc *zc, const char *team_name, 
     self->data->game_element_type = TEAM_MANAGER_CLASS;
     
     self->data->infos->team_name = team_name;
-  
+    
     self->cpp_world->push_callback(self->data);
 }

@@ -12,6 +12,7 @@
 #include    <utility>
 #include    <string>
 #include    <vector>
+#include    <array>
 #include    "enums.hh"
 
 extern "C" {
@@ -57,12 +58,17 @@ extern "C" {
 
 class World;
 
+typedef struct s_infos	t_infos;
+typedef struct s_data	t_data;
+
+
 // classe concernée par le changement
 // donc le real_ptr sera appelé depuis sa classe parent
 typedef enum s_handler_class_type
 {
-    MAP_CLASS = 0,
-    ENGINE_CLASS,
+    ENGINE_CLASS = 0,
+    MAP_CLASS,
+    CASE_CLASS,
     PERSO_CLASS,
     EGG_CLASS,
     RESSOURCE_CLASS,
@@ -121,35 +127,63 @@ typedef enum s_event_type
     TIME_GET_COMMAND,
     TIME_SET_COMMAND,
 
-    EVENT_COUNT,
+    EVENT_TYPE_COUNT,
 } t_event_type;
 
-typedef struct s_infos
+struct s_infos
 {
-//    int	    x;
-//    int	    y;
+    s_infos()
+    {
+	pos.first = -1;
+	pos.second = -1;
+	orientation = NORTH;
+	level = -1;
+	quantity.fill(-1);
+	player_id = -1;//list ?
+	egg_id = -1;
+	ressource_id = -1;
+	time_unit = -1;
+	team_name = std::string("");
+	err = -1;
+	msg = std::string("");
+    }
     std::pair<int,int>	pos;
     Orientation	    orientation;
     int	    level;
-    std::vector<int>	    quantity;
+    std::array<int, RESSOURCE_TYPE_COUNT>	    quantity;
     int	    player_id;//list ?
     int	    egg_id;
     int	    ressource_id;
     int	    time_unit;
     std::string  team_name;
     int	    err;
-    std::string  msg;    
-//    const char *  msg;    
-} t_infos;
+    std::string  msg;
+};
 
-typedef struct s_data
+
+struct s_data
 {
+    s_data()
+    {
+	game_element_type = HANDLER_CLASS_COUNT;
+	event_type = EVENT_TYPE_COUNT;
+	infos = new t_infos();
+    }
+    s_data(s_data const& orig)
+    {
+	game_element_type = orig.game_element_type;
+	event_type = orig.event_type;
+	infos = new t_infos(*(orig.infos));
+    }
+    ~s_data()
+    {
+	delete infos;
+    }
+    
     t_handler_class_type	game_element_type;
     t_event_type		event_type;
-//    t_handler_ptr_type		ptr_type;
-//    bool	(*realptr)(t_infos*);//?
     t_infos *	infos;
-} t_data;
+};
 
 
 G_BEGIN_DECLS

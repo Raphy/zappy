@@ -8,7 +8,7 @@
 #include <iostream>
 #include "MapViewer.hh"
 #include "enums.hh"
-#include "Binder.hh"
+//#include "Binder.hh"
 
 using namespace core;
 
@@ -16,7 +16,7 @@ using namespace core;
 MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui::ICursorControl* cursor)
 : IGUIMeshViewer(env, nullptr, GUI_ID_MAP,
 	rect<s32>(vector2di(42, 42), vector2di(42, 42))),
-	_smgr(smgr), _cursor(cursor), _cameraManager(smgr, cursor)
+	_smgr(smgr), _cursor(cursor), _cameraManager(smgr, cursor, posi_t(0,0))
 {
     //    _mapObject = static_cast<AAnimatedMeshObject*>((Binder::getInstance())->createMapObject(_smgr, nullptr));
     _smgr->addBillboardTextSceneNode(nullptr, L"(0,0)", nullptr, dimension2df(1.f,1.f), vector3df(0.f,3.f,0.f));
@@ -24,7 +24,7 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui:
     _smgr->addBillboardTextSceneNode(nullptr, L"(0,20)", nullptr, dimension2df(1.f,1.f), vector3df(0.f,3.f,20.f));
     _smgr->addBillboardTextSceneNode(nullptr, L"(10,0)", nullptr, dimension2df(1.f,1.f), vector3df(10.f,3.f,0.f));
     
-    _mapObject = new MapObject(_smgr, nullptr);
+    _mapObject = new MapObject(_smgr, nullptr, posi_t(0,0));
     _mapObject->init();// TODO : appeler le init autre part ?
     _cameraManager.init(10,20);//??
 }
@@ -36,7 +36,7 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui:
 
 MapViewer::~MapViewer()
 {
-    //    delete _mapObject;
+    delete _mapObject;
 }
 
 void MapViewer::setMaterial(const video::SMaterial &material)
@@ -56,10 +56,10 @@ bool MapViewer::callHandler(t_data* data)
 	switch (data->event_type)
 	{
 	    case PERSO_CONNECTION_EVENT:
-		return _mapObject->addPerso(infos->pos, infos->player_id, infos->orientation,
-			infos->level, infos->team_name);
+//		return _mapObject->addPerso(infos->pos, infos->player_id, infos->orientation,
+//			infos->level, infos->team_name);
 	    case CASE_CONTENT_EVENT:
-		return _mapObject->setCaseContent(infos->pos, infos->quantity);
+//		return _mapObject->setCaseContent(infos->pos, infos->quantity);
 	    default:
 		break;
 	}

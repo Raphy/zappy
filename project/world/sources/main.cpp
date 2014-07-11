@@ -6,7 +6,8 @@
  */
 
 #include <iostream>
-#include "Binder.hh"
+
+#include "Helper.hh"
 
 using namespace std;
 
@@ -14,12 +15,12 @@ int main(int argc, char** argv)
 {
     (void)argc;
     (void)argv;
-    Binder* binder = nullptr;  
+    Helper* helper = nullptr;  
     IEngine* engine = nullptr;  
     try
     {
-        binder = Binder::getInstance(argc, argv);
-	engine = binder->createEngine();	
+        helper = Helper::getInstance(argc, argv);
+	engine = helper->createEngine();
     }
     catch (std::string& msg)
     {

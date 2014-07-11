@@ -13,8 +13,8 @@ using namespace core;
 using namespace video;
 using namespace scene;
 
-CameraManager::CameraManager(scene::ISceneManager* smgr, gui::ICursorControl* cursor)
-: ANodeObject(smgr, nullptr), _driver(smgr->getVideoDriver()), _cursor(cursor)
+CameraManager::CameraManager(scene::ISceneManager* smgr, gui::ICursorControl* cursor, const posi_t& pos)
+: ANodeObject(smgr, nullptr, pos), _driver(smgr->getVideoDriver()), _cursor(cursor)
 //: _smgr(smgr), _driver(_smgr->getVideoDriver()), _ressources(Assets::getInstance())
 {
     _guiIds[STATIC] = GUI_ID_MENU_CAMERA_CLASSIC_BUTTON;

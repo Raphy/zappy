@@ -9,8 +9,10 @@
 #include <iostream>
 #include <driverChoice.h>
 #include "AEngine.hh"
-#include "Binder.hh"
+#include "SafeQueue.hh"
+#include "MyEventReceiver.hh"
 #include "GUIManager.hh"
+#include "RessourceObject.hh"
 
 using namespace core;
 using namespace gui;
@@ -18,12 +20,10 @@ using namespace scene;
 
 AEngine::AEngine()
 {
-    _binder = (Binder::getInstance());
-    
-    _eventQueue = _binder->createNetworkEventQueue();
-    _commandQueue = _binder->createNetworkEventQueue();
-    _networkThread = _binder->createNetworkThread(_eventQueue, _commandQueue);
-    _networkThread->start();
+//    _eventQueue = new SafeQueue<t_data *>();
+//    _commandQueue = new SafeQueue<t_data *>();
+//    _networkThread = new World(_eventQueue, _commandQueue);
+//    _networkThread->start();
     
     //    video::E_DRIVER_TYPE params.DriverType=driverChoiceConsole();
     //    if (params.DriverType==video::EDT_COUNT)
@@ -31,10 +31,12 @@ AEngine::AEngine()
     //	std::cout << "WARNING : invalid driver type, Software choose by default." << std::endl;
     //        params.DriverType = video::EDT_SOFTWARE;
     //    }
-    
+    _helper = Helper::getInstance();
+    _winSize = _helper->getWinSize();
+
     irr::SIrrlichtCreationParameters params;
     params.DriverType=video::EDT_OPENGL;
-    params.WindowSize=dimension2d<u32>(800, 600);
+    params.WindowSize=dimension2d<u32>(_winSize.first, _winSize.second);
     _device = createDeviceEx(params);
     if (!_device)
 	throw std::string("Can't create Irrlicht Device.");
@@ -49,15 +51,22 @@ AEngine::AEngine()
     EventContext context;
     context.device = _device;
     context.engine = this;
-    _eventReceiver = _binder->createEventReceiver(context);
+    _eventReceiver = new MyEventReceiver(context);
     _device->setEventReceiver(_eventReceiver);
+
+    _guiManager = nullptr;
+    _mapViewer = nullptr;
 }
 
 AEngine::~AEngine()
 {
-    delete _eventQueue;
-    delete _commandQueue;
-    delete _networkThread;
+//    delete _eventQueue;
+//    delete _commandQueue;
+//    delete _networkThread;
+
+    delete _guiManager;
+    delete _mapViewer;
+    delete _eventReceiver;
     _device->drop();
 }
 
@@ -69,19 +78,13 @@ bool AEngine::init()
     _driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
     
     //WINDOW
-//    _device->setWindowCaption(L"Zappy !!!");
     this->updateFPS();
-    //_device->setResizable(true);
     
     // FONT
-    //    std::string font_path("fonts/astron boy wonder.ttf");
     std::string font_path("bigfont.png");
     if (_fs->existFile(font_path.c_str()))
     {
 	std::cout << "	Font loaded !" << std::endl;
-	//builtin_skin/Skin.guiskin
-	//    IGUISkin* skin = _env->createSkin(EGST_BURNING_SKIN);
-	//    _env->setSkin(skin);
 	IGUISkin* skin = _env->getSkin();
 	IGUIFont* font = _env->getFont(font_path.c_str());
 	if (font)
@@ -89,11 +92,9 @@ bool AEngine::init()
 	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
 	//	skin->drop();
     }
-    //    _mapViewer = _binder->createMapViewer(_env, _smgr);//TODO : deplacer dans WorldEngine
-    _guiManager = new GUIManager(_env, 800, 600);
-    _mapViewer = new MapViewer(_env, _smgr, _cursor);//TODO : deplacer dans WorldEngine
-    //    /*_mapToolbar = */_binder->createMenuToolbar(_env, _smgr);//TODO : deplacer dans WorldEngine
-    
+    _guiManager = new GUIManager(_env, _winSize);
+    _mapViewer = new MapViewer(_env, _smgr, _cursor);
+        
     return true;
 }
 bool AEngine::update()
@@ -119,8 +120,12 @@ bool AEngine::mainLoop()
 {
     while (_device->run())
     {
-	while (!_eventQueue->isEmpty())
-	    this->callHandler(_eventQueue->pop());
+//	while (!_eventQueue->isEmpty())
+//	{
+//	    t_data * data = _eventQueue->pop();
+//	    this->callHandler(data);
+//	    delete data;
+//	}
 	if (_device->isWindowActive())
             this->update();
 	else
@@ -160,11 +165,10 @@ bool AEngine::callHandler(t_data* data)
 	{
 	    case MAP_SIZE_EVENT:
 		return _mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
-		break;
 	    case CONNECTED_EVENT:
 		std::cout << "Connected event does nothing..." << std::endl;
     		//_mapViewer->createGround(30,20);//debug
-		break;
+		return true;
 	    default:
 		break;
 	}

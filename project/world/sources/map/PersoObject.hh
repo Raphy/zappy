@@ -9,24 +9,27 @@
 #define	PERSOOBJECT_HH
 
 #include    <vector>
-#include    "AMeshObject.hh"
+#include    "AAnimatedMeshObject.hh"
 #include    "AGameElement.hh"
 
-class PersoObject : public AGameElement, public AMeshObject
+class PersoObject : public AGameElement, public AAnimatedMeshObject
 {
 public:
-    PersoObject(scene::ISceneManager* smgr, INodeObject* parent);
-    PersoObject(const PersoObject& orig);
+    PersoObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    PersoObject(const PersoObject& orig);
     virtual ~PersoObject();
 
     bool    init();
+
+    void setIndex(int index);
+    int getIndex() const;    
     
     /* HANDLERS */
-
-    bool    setInventory(/*int x, int y, */std::vector<int> const& quantity) { return false; }    
+    bool    setInventory(/*int x, int y, */std::vector<int> const& quantity) { return false; }
 
 private:
     std::array<int, ASSET_TYPE_COUNT>  _inventory;//vector?
+    int	_index;
 };
 
 #endif	/* PERSOOBJECT_HH */

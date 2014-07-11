@@ -51,7 +51,7 @@ void* World::routine()
 
 void World::push_callback(t_data* data)
 {
-    _eventQueue->push(data);
+    _eventQueue->push(new t_data(*data));
 }
 bool World::try_pop_command(t_data* data)
 {

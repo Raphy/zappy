@@ -16,8 +16,8 @@ public:
     scene::IMeshSceneNode*  getMeshNode() const;
 
 protected:
-    AMeshObject(scene::ISceneManager* smgr, INodeObject* parent);
-    AMeshObject(const AMeshObject& orig);
+    AMeshObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    AMeshObject(const AMeshObject& orig);
     virtual ~AMeshObject();
 
 };

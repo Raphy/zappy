@@ -15,8 +15,8 @@ using namespace gui;
 using namespace core;
 using namespace video;
 
-GUIManager::GUIManager(IGUIEnvironment* env, int x, int y)
-: _env(env), _driver(env->getVideoDriver()), _x(x), _y(y)
+GUIManager::GUIManager(IGUIEnvironment* env, posi_t const& winSize)
+: _env(env), _driver(env->getVideoDriver()), _x(winSize.first), _y(winSize.second)
 {
     std::cout << "init gui with size x = " << _x * 2.0/3.0 << " and y = " << _y * 1.0/4.0 << std::endl;
     std::cout << "init gui with size x = " << _x << " and y = " << _y << std::endl;
@@ -48,7 +48,7 @@ GUIManager::GUIManager(IGUIEnvironment* env, int x, int y)
     help_rect.UpperLeftCorner.Y = _y * (1./3.) * (3./4.);
     help_rect.LowerRightCorner.X = _x * (4./5.) * (2./3.);
     help_rect.LowerRightCorner.Y = _y * (2./3.) * (3./4.);
-    IGUIWindow* help = _env->addWindow(help_rect, false, L"Help", nullptr, -1/*GUI_ID_HELP*/);
+    IGUIWindow* help = _env->addWindow(help_rect, false, L"Help", nullptr, GUI_ID_HELP);
     
     _env->addStaticText(L"F3 - FPS/Classic Camera", recti(0,30,help_rect.LowerRightCorner.X,50), false, true, help, -1/**/);
     
@@ -84,11 +84,10 @@ GUIManager::GUIManager(IGUIEnvironment* env, int x, int y)
     
     
     
-    /* INVENTORY */
+    /* INFORMATION */
     
-    IGUIListBox* inventory = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_INVENTORY, true);
-    inventory->setRelativePosition(recti((_x * 2./3.), (_y * 1./5.), _x, _y));
-    
+    _information = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_INFORMATION, true);
+    _information->setRelativePosition(recti((_x * 2./3.), (_y * 1./5.), _x, _y));
     
 }
 
@@ -105,4 +104,14 @@ void GUIManager::updateDirection(f32 angle)
 {
     ////    _compass->updateDirection(angle);
     //    _compass->SetCompassHeading(angle);
+}
+
+void GUIManager::updateNodeInformation(const INodeObject* node)
+{
+    //if node != currentNode
+    _information->clear();
+    //...
+    //_classNames[node->getId()];
+    
+    //sinon juste update info
 }

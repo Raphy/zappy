@@ -25,7 +25,7 @@ enum CameraMode
 class CameraManager : ANodeObject
 {
 public:
-    CameraManager(scene::ISceneManager* smgr, gui::ICursorControl* cursor);
+    CameraManager(scene::ISceneManager* smgr, gui::ICursorControl* cursor, const posi_t& pos);
     virtual ~CameraManager();
     
     bool    init(int x = 10, int y = 10);

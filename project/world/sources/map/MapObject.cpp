@@ -17,15 +17,16 @@ using namespace video;
 using namespace scene;
 using namespace core;
 
-MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent)
-: AAnimatedMeshObject(smgr, parent), _selector(nullptr)
+MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
+: AAnimatedMeshObject(smgr, parent, pos), _selector(nullptr)
 {
+    _alignment = posi_t(0,0);
 }
 
-MapObject::MapObject(const MapObject& orig)
-: AAnimatedMeshObject(static_cast<AAnimatedMeshObject const&>(orig)), _selector(nullptr)
-{
-}
+//MapObject::MapObject(const MapObject& orig)
+//: AAnimatedMeshObject(static_cast<AAnimatedMeshObject const&>(orig)), _selector(nullptr)
+//{
+//}
 
 MapObject::~MapObject()
 {
@@ -35,22 +36,63 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    //    createGround(20,20);//test
+    createGround(20,20);//test
+    
+    CaseObject *c = new CaseObject(_smgr, nullptr, posi_t(0,0));
+    c->init();
+    c->setPositionInMap(posi_t(10,10));
+    RessourceObject *r = new RessourceObject(_smgr, this, c->getPositionInMap());
+    r->setQuantity(10);
+    std::cout << r->getQuantity() << std::endl;
+    std::cout << r->getPositionInMap().first << std::endl;
+    std::cout << r->getPositionInMap().second << std::endl;
+    r->init();
+    //    delete c;
+    
     
     //    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
     //	perso->init();
     //    });
     return true;
 }
+
+void MapObject::scaleOnCase()
+{
+    vector3df extent = _node->getTransformedBoundingBox().getExtent();
+    if (extent.X > 1.0f)
+        _node->setScale(vector3df(1.0 / extent.X, 1.0, 1.0));
+    if (extent.Z > 1.0f)
+        _node->setScale(vector3df(1.0, 1.0, 1.0 / extent.Z) * _node->getScale());
+    _node->setScale(vector3df(_mapSize.first, 1.f, _mapSize.second) * _node->getScale());
+}
+void MapObject::updateNodePosition()
+{
+    posf_t real_pos(0, _mapSize.second);
+    vector3df pos = Helper::MapToWorldCoordinates(real_pos);
+    _node->setPosition(pos);
+}
+
+
 bool MapObject::callHandler(t_data * data)
 {
     if (data->game_element_type == PERSO_CLASS
 	    || data->game_element_type == RESSOURCE_CLASS
-	    || data->game_element_type == EGG_CLASS)
+	    || data->game_element_type == EGG_CLASS
+	    || data->game_element_type == CASE_CLASS)
     {
 	t_infos * infos = data->infos;
+	posi_t	pos = infos->pos;
+	CaseObject * caseObj = getCaseObject(pos);
+	//	CaseObject& caseObj;
+	//	tryGetCaseObject(pos, caseObj);
 	switch (data->event_type)
 	{
+	    case PERSO_CONNECTION_EVENT:
+		return caseObj->addPerso(infos->player_id, infos->orientation, infos->level, infos->team_name);
+		//	    case PERSO_DEAD_EVENT:
+		//		return caseObj->removePerso(infos->player_id);
+	    case CASE_CONTENT_EVENT:
+		return caseObj->setCaseContent(infos->quantity);
 	    default:
 		break;
 	}
@@ -66,29 +108,18 @@ bool MapObject::callHandler(t_data * data)
 
 bool MapObject::createGround(int x, int y)
 {
+    _mapSize.first = x;
+    _mapSize.second = y;
+    
     std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
-    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP);//,
-    //	    core::vector3df(0, 0, 0),		// position
-    ////	    core::vector3df(x/2.0, 0, y/2.0),		// position
-    //	    core::vector3df(1.f, 0.f, 0.f),		// rotation
-    //	    core::vector3df(1.f, 1.f, 1.f),	// scale
-    //	    video::SColor ( 255, 255, 255, 0 ),	// vertexColor
-    //	    5,					// maxLOD
-    //	    scene::ETPS_17,				// patchSize
-    //	    4					// smoothFactor
-    //	    );
-    //    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str());
+    ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP);
     _node = node;
-    if (!_node)
+    if (!_node)//throw exception ?
 	return false;
     
-    vector3df extent = node->getTransformedBoundingBox().getExtent();
-    if (extent.X > 1.0f)
-        node->setScale(vector3df(1.0 / extent.X, 1.0, 1.0));
-    if (extent.Z > 1.0f)
-        node->setScale(vector3df(1.0, 1.0, 1.0 / extent.Z) * node->getScale());
-    node->setScale(vector3df(x, 1.f, y) * node->getScale());
-    
+    scaleOnCase();
+    updateNodePosition();
+        
     _node->setMaterialFlag(EMF_LIGHTING, true);
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
@@ -100,65 +131,33 @@ bool MapObject::createGround(int x, int y)
     if (!_selector)
 	return false;
     node->setTriangleSelector(_selector);
-    return true;
-}
-
-bool MapObject::setCaseContent(posi_t const& pos, const std::vector<int>& quantity)
-{
-    std::vector<INodeObject*> the_case = _ressources[pos];
-    if (the_case.empty())
-    {
-	std::vector<INodeObject*> content(RESSOURCE_TYPE_COUNT, nullptr);
-	_ressources.insert(std::pair<posi_t, std::vector<INodeObject*>>(pos, content));
-    }
-    int level = 0;
-    auto it = quantity.begin();
-    auto end = quantity.end();
-    for (; it != end; ++it)
-    {
-//	RessourceObject* ressource = static_cast<RessourceObject*>(the_case[level]);
-	RessourceObject* ressource = nullptr;
-	if (!ressource)
-	    this->addRessource(pos, level, quantity[level]);
-	//	else
-	//	    ressource->setQuantity(quantity[level]);
-	level++;
-    }
     
-    //    std::for_each(quantity.begin(), quantity.end(), [&](int q){
-    //	RessourceObject* ressource = static_cast<RessourceObject*>(the_case[level]);
-    //	if (!ressource)
-    //	    this->addRessource(pos, level, quantity[level]);
-    //	//	else
-    //	//	    ressource->setQuantity(quantity[level]);
-    //	level++;
-    //    });
-    return false;
-}
-
-bool MapObject::addPerso(posi_t const& pos, int index, Orientation o, int level, const std::string& team)
-{
-    //    PersoObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
-    INodeObject* perso = _binder->createGameElementObject<PERSO>(_smgr, this);
-    if (!perso || !perso->init())
-	return false;
-    perso->setPositionInMap(pos);
-    //TODO : setter index, o, et team?
-    //    perso->setLevel(level);
-    _persos.push_back(perso);
+    initCases();
     return true;
 }
 
-bool MapObject::addRessource(const posi_t& pos, int level, int quantity)
+CaseObject* MapObject::getCaseObject(posi_t const& pos)// const
 {
-    //    RessourceObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
-    INodeObject* ressource = _binder->createGameElementObject<RESSOURCE>(_smgr, this);
-    if (!ressource || !ressource->init())
+    return &_cases[pos.first][pos.second];
+}
+bool MapObject::tryGetCaseObject(const posi_t& pos, CaseObject* caseObject)// const
+{
+    if (false)//TODO : check pos
 	return false;
-    ressource->setPositionInMap(pos);
-//    ressource->setPositionInMap(posi_t(15,15));
-    //    ressource->setLevel(level);
-    //    ressource->setQuantity(quantity);
-    _ressources[pos].push_back(ressource);
+    caseObject = &_cases[pos.first][pos.second];
     return true;
+}
+
+
+void MapObject::initCases()
+{
+    for (unsigned int i = 0; i < _mapSize.second; i++)
+    {
+	std::vector<CaseObject>	row;
+	for (unsigned int j = 0; j < _mapSize.first; j++)
+	{
+	    row.push_back(CaseObject(_smgr, this, posi_t(j,i)));
+	}		
+	_cases.push_back(row);
+    }
 }
