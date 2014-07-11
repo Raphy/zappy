@@ -5,17 +5,16 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:25:58 2014 raphael defreitas
-** Last update Thu Jul 10 01:12:36 2014 damien sauvalle
+** Last update Fri Jul 11 17:54:30 2014 damien sauvalle
 */
 
 #include	<stdio.h>
 
 #include	"zappy.h"
+#include	"server.h"
+#include	"player.h"
 
-void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
-				      t_zc *zc,
-				      const char *team_name,
-				      __attribute__((unused))void *data)
+void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, t_server *data)
 {
   printf("TEAM NAME HANDLER\n");
   if (zc_get_type(zc) != ZCT_UNKNOWN)
@@ -25,4 +24,14 @@ void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
     }
   printf("[%d] is player. Team: %s\n", zc->socket->fd, team_name);
   zc_set_type(zc, ZCT_PLAYER);
+  /*
+    Creation du Player ici
+   */
+  t_player *player;
+
+  player = player_new(data, zc, team_name);
+
+  list_push(data->players, player);
+
+
 }

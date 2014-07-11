@@ -44,9 +44,16 @@ typedef struct  s_bundle_event
   unsigned int  cycle;
 }               t_bundle_event;
 
+typedef struct  s_scratch_event
+{
+  void          (*action)();
+  unsigned int  cycle;
+}               t_scratch_event;
+
 t_event         *event_new(t_bundle_event *);
 void            event_delete(t_event *);
 int             event_ctor(t_event *, t_bundle_event *);
 int             event_dtor(t_event *);
+int             event_create_from_scratch(t_scratch_event *, t_bundle *data);
 
 #endif	/* EVENT_H */
