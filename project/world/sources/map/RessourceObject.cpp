@@ -29,7 +29,7 @@ RessourceObject::~RessourceObject()
 
 bool    RessourceObject::init()
 {
-    //    IMesh* mesh = _ressources->getMesh(PERSO, MESH, 0);
+    //    IMesh* mesh = _ressources->getMesh(PLAYER, MESH, 0);
     //    if (!mesh)
     //	return false;
     assert(_parent);

@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 19:00:24 2014 damien sauvalle
-** Last update Tue Jul  1 17:52:52 2014 damien sauvalle
+** Last update Fri Jul 11 23:18:57 2014 damien sauvalle
 */
 
 #define		_GNU_SOURCE
@@ -18,8 +18,8 @@
 
 static int	usage(char *progname)
 {
-  fprintf(stderr, "Usage: %s [-p port] [-x x_world] [-y y_world] \
- [-c limit_clients] [-t time] [-n team_name_1 team_name_2 ...]\n", progname);
+  fprintf(stderr, "Usage: %s -p port -x x_world] -y y_world \
+ -c limit_clients -t time -n team_name_1 team_name_2 ...\n", progname);
   return (RET_FAILURE);
 }
 

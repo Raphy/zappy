@@ -1,35 +1,35 @@
 /* 
- * File:   PersoObject.cpp
+ * File:   PlayerObject.cpp
  * Author: marie
  * 
  * Created on July 1, 2014, 4:57 PM
  */
 
 #include <iostream>
-#include "AnimatedPersoObject.hh"
+#include "AnimatedPlayerObject.hh"
 
 using namespace video;
 using namespace scene;
 using namespace core;
 
-AnimatedPersoObject::AnimatedPersoObject(scene::ISceneManager* smgr, INodeObject* parent)
+AnimatedPlayerObject::AnimatedPlayerObject(scene::ISceneManager* smgr, INodeObject* parent)
 : AAnimatedMeshObject(smgr, parent)
 {
 }
 
-AnimatedPersoObject::AnimatedPersoObject(AnimatedPersoObject const& orig)
+AnimatedPlayerObject::AnimatedPlayerObject(AnimatedPlayerObject const& orig)
 : AGameElement(static_cast<AGameElement const&>(orig)),
 	AAnimatedMeshObject(static_cast<AAnimatedMeshObject const&>(orig))
 {
 }
 
-AnimatedPersoObject::~AnimatedPersoObject()
+AnimatedPlayerObject::~AnimatedPlayerObject()
 {
 }
 
-bool    AnimatedPersoObject::init()
+bool    AnimatedPlayerObject::init()
 {
-    IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_assets->getMesh(PERSO, MESH, 0));
+    IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_assets->getMesh(PLAYER, MESH, 0));
     if (!mesh)
 	return false;
     
@@ -43,7 +43,7 @@ bool    AnimatedPersoObject::init()
 
 	this->scaleOnCase();
 	this->updateNodePosition();
-	node->setMaterialTexture(0, _assets->getTexture(PERSO, TEXTURE, 0));
+	node->setMaterialTexture(0, _assets->getTexture(PLAYER, TEXTURE, 0));
 	return true;
     }    
     return false;

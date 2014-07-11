@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 16:16:21 2014 damien sauvalle
-** Last update Tue Jul  8 18:05:43 2014 damien sauvalle
+** Last update Fri Jul 11 19:27:52 2014 damien sauvalle
 */
 
 #ifndef		ARG_H_
@@ -19,8 +19,8 @@ typedef struct	s_arg
   unsigned int		x_world;
   unsigned int		y_world;
   t_list       	*team_names;
-  int		limit_client;
-  int		time;
+  unsigned int		limit_client;
+  unsigned int		time;
 }		t_arg;
 
 typedef int (*function)(char **, t_arg *, int);

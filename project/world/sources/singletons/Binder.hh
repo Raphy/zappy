@@ -52,7 +52,7 @@
 //
 ////    INodeObject*	createMapObject(scene::ISceneManager* smgr,
 ////				INodeObject* parent) const;
-////    INodeObject*	createPersoObject(scene::ISceneManager* smgr,
+////    INodeObject*	createPlayerObject(scene::ISceneManager* smgr,
 ////				INodeObject* parent) const;
 ////    INodeObject*	createRessourceObject(scene::ISceneManager* smgr,
 ////				INodeObject* parent) const;

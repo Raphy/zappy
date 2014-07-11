@@ -1,24 +1,24 @@
 /* 
- * File:   PersoObject.hh
+ * File:   PlayerObject.hh
  * Author: marie
  *
  * Created on July 5, 2014, 8:16 PM
  */
 
-#ifndef PERSOOBJECT_HH
-#define	PERSOOBJECT_HH
+#ifndef PLAYEROBJECT_HH
+#define	PLAYEROBJECT_HH
 
 #include    <array>
 #include    <map>
 #include    "AAnimatedMeshObject.hh"
 #include    "AGameElement.hh"
 
-class PersoObject : public AGameElement, public AAnimatedMeshObject
+class PlayerObject : public AGameElement, public AAnimatedMeshObject
 {
 public:
-    PersoObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
-//    PersoObject(const PersoObject& orig);
-    virtual ~PersoObject();
+    PlayerObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
+//    PlayerObject(const PlayerObject& orig);
+    virtual ~PlayerObject();
 
     bool    init();
     bool    initWithLevel(int level);
@@ -44,11 +44,11 @@ private:
     void    rotateOnWest();
 
     std::array<int, RESSOURCE_TYPE_COUNT>	_inventory;
-    std::map<Orientation, void (PersoObject::*)()>	_rotateFuncs;
+    std::map<Orientation, void (PlayerObject::*)()>	_rotateFuncs;
     int		    _index;
     Orientation	    _orientation;
     std::string	    _team;
 };
 
-#endif	/* PERSOOBJECT_HH */
+#endif	/* PLAYEROBJECT_HH */
 

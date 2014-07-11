@@ -35,11 +35,11 @@ public:
     bool    createGround(int x, int y);
 //    bool    setCaseContent(posi_t const& pos, std::vector<int> const& quantity);
 //
-//    bool    addPerso(posi_t const& pos, int index,
+//    bool    addPlayer(posi_t const& pos, int index,
 //			Orientation o, int level, std::string const& team);
 //    bool    addEgg(posi_t const& pos);
 //
-//    bool    removePerso(int index) { return false; }
+//    bool    removePlayer(int index) { return false; }
 
 private:
     CaseObject*	getCaseObject(posi_t const& pos);// const;
@@ -49,7 +49,7 @@ private:
 //    bool    addRessource(posi_t const& pos, int level, int quantity);
 
     scene::ITriangleSelector*	_selector;
-//    std::list<INodeObject*>		_persos;
+//    std::list<INodeObject*>		_players;
 //    std::list<INodeObject*>		_eggs;
 //    std::map<posi_t, std::vector<INodeObject*>>	_ressources;
     std::vector<std::vector<CaseObject>>    _cases;

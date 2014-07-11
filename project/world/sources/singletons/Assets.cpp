@@ -30,15 +30,15 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
 	    }
     
     _filenames[GAME_ELEMENT_TYPE_COUNT][ASSET_TYPE_COUNT][0] = "ground/grass.jpg";
-    _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "perso/faerie.md2";
+    _filenames[GAME_ELEMENT_TYPE_COUNT][MESH][0] = "player/faerie.md2";
     //    _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "ground/normal.tga";
     _filenames[GAME_ELEMENT_TYPE_COUNT][HEIGHT_MAP][0] = "heightmap.bmp";
     _filenames[GAME_ELEMENT_TYPE_COUNT][TEXTURE][0] = "ground/grass.jpg";
     
     for (int i = 0; i < LEVEL_MAX; i++)
     {
-	_filenames[PERSO][MESH][0] = "perso/faerie.md2";
-	_filenames[PERSO][TEXTURE][0] = "perso/faerie2.bmp";
+	_filenames[PLAYER][MESH][0] = "player/faerie.md2";
+	_filenames[PLAYER][TEXTURE][0] = "player/faerie2.bmp";
     }
     
     //    _filenames[MAP][HEIGHT_MAP][0] = "ground/normal.tga";
@@ -70,15 +70,15 @@ Assets::Assets(scene::ISceneManager* smgr, std::string const& path)
     //        _filenames[SKYBOX][TEXTURE][5] = "skybox/down.psd";
     //        _filenames[SKYBOX][TEXTURE][6] = "skybox/up.psd";//?
     
-    //        _filenames[PERSO][TEXTURE][2] = "enano.jpg";
-    _filenames[PERSO][MESH][3] = "perso/dwarf.x";
-    _filenames[PERSO][TEXTURE][3] = "perso/dwarf.jpg";
-    _filenames[PERSO][MESH][4] = "perso/ninja.b3d";
-    _filenames[PERSO][TEXTURE][4] = "perso/nskinbl.jpg";
-    _filenames[PERSO][MESH][5] = "perso/ninja.b3d";
-    _filenames[PERSO][TEXTURE][5] = "perso/nskinrd.jpg";
-    _filenames[PERSO][MESH][6] = "perso/sydney.md2";
-    _filenames[PERSO][TEXTURE][6] = "perso/sydney.bmp";
+    //        _filenames[PLAYER][TEXTURE][2] = "enano.jpg";
+    _filenames[PLAYER][MESH][3] = "player/dwarf.x";
+    _filenames[PLAYER][TEXTURE][3] = "player/dwarf.jpg";
+    _filenames[PLAYER][MESH][4] = "player/ninja.b3d";
+    _filenames[PLAYER][TEXTURE][4] = "player/nskinbl.jpg";
+    _filenames[PLAYER][MESH][5] = "player/ninja.b3d";
+    _filenames[PLAYER][TEXTURE][5] = "player/nskinrd.jpg";
+    _filenames[PLAYER][MESH][6] = "player/sydney.md2";
+    _filenames[PLAYER][TEXTURE][6] = "player/sydney.bmp";
     
     _filenames[RESSOURCE][TEXTURE][0] = "terrain-texture.jpg";
 

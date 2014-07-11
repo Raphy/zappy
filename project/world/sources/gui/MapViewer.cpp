@@ -54,8 +54,8 @@ bool MapViewer::callHandler(t_data* data)
 	t_infos * infos = data->infos;
 	switch (data->event_type)
 	{
-	    case PERSO_CONNECTION_EVENT:
-//		return _mapObject->addPerso(infos->pos, infos->player_id, infos->orientation,
+	    case PLAYER_CONNECTION_EVENT:
+//		return _mapObject->addPlayer(infos->pos, infos->player_id, infos->orientation,
 //			infos->level, infos->team_name);
 	    case CASE_CONTENT_EVENT:
 //		return _mapObject->setCaseContent(infos->pos, infos->quantity);

@@ -10,7 +10,7 @@
 #include "MapObject.hh"
 #include "AGameElement.hh"
 
-#include    "PersoObject.hh"
+#include    "PlayerObject.hh"
 #include    "RessourceObject.hh"
 
 using namespace video;
@@ -45,7 +45,7 @@ bool    MapObject::init()
 	std::array<int, RESSOURCE_TYPE_COUNT> q;
 	q.fill(1);
 	c->setCaseContent(q);
-	c->addPerso(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
+	c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
     }
     
 
@@ -74,8 +74,8 @@ bool    MapObject::init()
     //    //    delete c;
     
     
-    //    std::for_each(_persos.begin(), _persos.end(), [](IObject* perso){
-    //	perso->init();
+    //    std::for_each(_players.begin(), _players.end(), [](IObject* player){
+    //	player->init();
     //    });
     return true;
 }
@@ -105,7 +105,7 @@ void MapObject::updateNodePosition()
 
 bool MapObject::callHandler(t_data * data)
 {
-    if (data->game_element_type == PERSO_CLASS
+    if (data->game_element_type == PLAYER_CLASS
 	    || data->game_element_type == RESSOURCE_CLASS
 	    || data->game_element_type == EGG_CLASS
 	    || data->game_element_type == CASE_CLASS)
@@ -117,10 +117,10 @@ bool MapObject::callHandler(t_data * data)
 	//	tryGetCaseObject(pos, caseObj);
 	switch (data->event_type)
 	{
-	    case PERSO_CONNECTION_EVENT:
-		return caseObj->addPerso(infos->player_id, infos->orientation, infos->level, infos->team_name);
-		//	    case PERSO_DEAD_EVENT:
-		//		return caseObj->removePerso(infos->player_id);
+	    case PLAYER_CONNECTION_EVENT:
+		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
+		//	    case PLAYER_DEAD_EVENT:
+		//		return caseObj->removePlayer(infos->player_id);
 	    case CASE_CONTENT_EVENT:
 		return caseObj->setCaseContent(infos->quantity);
 	    default:
