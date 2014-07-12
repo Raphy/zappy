@@ -5,11 +5,12 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Sat Jul 12 18:14:35 2014 raphael defreitas
+** Last update Sat Jul 12 23:21:49 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
 #include	<stdlib.h>
+#include	<string.h>
 
 #include	"my.h"
 #include	"zappy.h"
@@ -19,9 +20,10 @@ bool		zs_cmd_ppo(t_zs *this, t_zc *zc, const char *cmd)
 {
   unsigned int	uid;
 
-  if (!my_match(cmd, "ppo *"))
+  if (strncmp(cmd, "ppo", 3) != 0)
     return (false);
-  if (!my_str_is_numeric(cmd + 4))
+  if (!my_match(cmd, "ppo *") ||
+      !my_str_is_numeric(cmd + 4))
     {
       zs_send_cmd_sbp(this, zc);
       return (true);

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Mon Jun 30 23:53:14 2014 raphael defreitas
-** Last update Thu Jul 10 07:25:23 2014 raphael defreitas
+** Last update Sat Jul 12 23:09:24 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -25,7 +25,7 @@ static void	treat_command(t_zc *this)
   while ((ret = zt_build_command(this->pckts_rcvd, &command)) == RET_SUCCESS &&
 	 command != NULL)
     {
-      printf("[libzappy] command [%s]\n", command);
+      printf("[libzappy] command from server\n\t[%s]\n", command);
       zc_dispatch_command(this, command);
       free(command);
       command = NULL;

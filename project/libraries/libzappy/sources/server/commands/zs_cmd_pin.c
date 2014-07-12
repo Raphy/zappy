@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Sat Jul 12 23:28:10 2014 raphael defreitas
+** Last update Sat Jul 12 23:32:36 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -31,6 +31,7 @@ bool		zs_cmd_pin(t_zs *this, t_zc *zc, const char *cmd)
       zs_send_cmd_sbp(this, zc);
       return (true);
     }
+  printf("OUIIII c'est un pin!!\n");
   uid = strtoul(cmd + 4, NULL, 0);
   zs_handle_cmd_pin(this, zc, uid);
   return (true);

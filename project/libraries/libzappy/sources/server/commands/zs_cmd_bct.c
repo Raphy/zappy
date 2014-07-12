@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Sat Jul 12 18:14:26 2014 raphael defreitas
+** Last update Sat Jul 12 23:19:16 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -42,7 +42,7 @@ bool		zs_cmd_bct(t_zs *this, t_zc *zc, const char *cmd)
 {
   t_position	position;
 
-  if (!my_match(cmd, "bct *"))
+  if (strncmp(cmd, "bct", 3) != 0)
     return (false);
   if (!my_match(cmd, "bct * *") ||
       !parse(cmd, &position))

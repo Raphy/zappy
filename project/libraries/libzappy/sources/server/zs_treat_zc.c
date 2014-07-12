@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Sat Jul 12 13:56:35 2014 raphael defreitas
+** Last update Sat Jul 12 23:08:36 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -23,8 +23,8 @@ static void	treat_commands(t_zs *this, t_zc *zc)
     return ;
   while ((cmd = list_pop(zc->commands)))
     {
-      printf("[libzappy] fd:%d - uid:%u - [%s]\n",
-	     zc->socket->fd, zc->uid, cmd);
+      printf("[libzappy] command from %d\n\t[%s]\n",
+	     zc->socket->fd, cmd);
       zs_dispatch_command(this, zc, cmd);
       free(cmd);
     }

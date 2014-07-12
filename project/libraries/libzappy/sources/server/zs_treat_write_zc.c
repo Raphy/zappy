@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jul 12 21:47:49 2014 raphael defreitas
+** Last update Sat Jul 12 23:07:37 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -23,12 +23,14 @@ static void	write_to_zc(t_zs *this, t_zc *zc,
 {
   int		wlen;
 
-  printf("[libzappy] write [%lu][%s]\n", data_len, data);
   wlen = socket_write(zc->socket, data, data_len);
+  printf("[libzappy] write to %d - write return:%d\n", zc->socket->fd, wlen);
   if (wlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
 	zs_handle_errno(this, "socket write failed");
   else if (wlen == RET_ERROR)
     zc_disconnect(zc);
+  else
+    printf("\t[%s]\n", data);
 }
 
 static void	low_load(t_zs *this, t_zc *zc)
