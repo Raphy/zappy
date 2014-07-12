@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 13:02:12 2014 raphael defreitas
+** Last update Sat Jul 12 13:20:59 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -122,6 +122,7 @@ void		zc_hook_cmd_pgt(t_zc *, t_zch_cmd_pgt h, void *d);
 void		zc_hook_cmd_pdi(t_zc *, t_zch_uint_basic h, void *d);
 typedef	void	(t_zch_cmd_enw)(t_zc *zc, t_enw *enw, void *d);
 void		zc_hook_cmd_enw(t_zc *, t_zch_cmd_enw h, void *d);
+void		zc_hook_cmd_eht(t_zc *, t_zch_uint_basic h, void *d);
 void		zc_hook_cmd_sgt(t_zc *, t_zch_uint_basic h, void *d);
 
 void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);
