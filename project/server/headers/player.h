@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sat Jul 12 10:36:33 2014 damien sauvalle
+** Last update Sat Jul 12 17:50:46 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -26,16 +26,16 @@ typedef enum
     FORK
   }	t_etat;
 
-typedef struct		s_player
+typedef struct	s_player
 {
   t_items	inventory;
   t_orientation	direction;
   unsigned int	x;
   unsigned int	y;
   char		*team_name;
-  unsigned char		level; /* level and view range*/
+  unsigned char	level;
   unsigned int	life;
-  unsigned char		etat; /* ?? util */
+  unsigned char	etat;
   t_zc		*zc;
 }		t_player;
 
@@ -80,7 +80,7 @@ int			player_get_level(t_player *);
 int			player_set_life(t_player *);
 unsigned int		player_get_life(t_player *);
 
-
+bool    find_by_uid(t_player *, unsigned int *);
 
 /*
 ** Norme espace !!!
