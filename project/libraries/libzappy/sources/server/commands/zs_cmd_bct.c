@@ -5,11 +5,12 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sat Jul  5 15:48:50 2014 raphael defreitas
-** Last update Mon Jul  7 18:03:45 2014 raphael defreitas
+** Last update Sat Jul 12 18:14:26 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
 #include	<stdbool.h>
+#include	<stdlib.h>
 #include	<string.h>
 
 #include	"my.h"
@@ -41,10 +42,14 @@ bool		zs_cmd_bct(t_zs *this, t_zc *zc, const char *cmd)
 {
   t_position	position;
 
-  if (!my_match(cmd, "bct * *"))
+  if (!my_match(cmd, "bct *"))
     return (false);
-  if (!parse(cmd, &position))
-    return (false);
+  if (!my_match(cmd, "bct * *") ||
+      !parse(cmd, &position))
+    {
+      zs_send_cmd_sbp(this, zc);
+      return (true);
+    }
   zs_handle_cmd_bct(this, zc, &position);
   return (true);
 }
