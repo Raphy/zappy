@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Wed Jul  2 14:26:41 2014 damien sauvalle
-** Last update Thu Jul 10 18:22:30 2014 damien sauvalle
+** Last update Sat Jul 12 19:12:09 2014 damien sauvalle
 */
 
 #include	<stdlib.h>
@@ -51,7 +51,7 @@ static int	alloc_map(t_server *server, t_arg *arg)
   return (RET_SUCCESS);
 }
 
-int	server_ctor(t_server *server, t_arg *arg)
+int	server_ctor(t_server *server, t_arg *arg, t_zs *zs)
 {
   if ((alloc_map(server, arg) == RET_FAILURE) ||
       ((server->players = list_new(&player_delete)) == NULL) ||
@@ -62,5 +62,6 @@ int	server_ctor(t_server *server, t_arg *arg)
       (init_default(server, arg) == RET_FAILURE))
     return (RET_FAILURE);
   server->arg = arg;
+  server->zs = zs;
   return (RET_SUCCESS);
 }
