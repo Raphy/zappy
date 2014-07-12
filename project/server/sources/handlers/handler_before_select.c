@@ -22,8 +22,6 @@
 void handler_before_select(t_zs *zs, void *data)
 {
   t_server *server;
-  unsigned int test1;
-  unsigned int test2;
   t_timespec time;
   t_event *event;
 
@@ -33,12 +31,11 @@ void handler_before_select(t_zs *zs, void *data)
   if (data == NULL || server->events == NULL
           || (event = list_front(server->events)) == NULL)
   {
-    printf("non bloquant\n");
-    zs_set_timeout(zs, 1, 0);
+    printf("bloquant\n");
+    zs_disable_timeout(zs);
     return;
   }
   time = timespec_create_sub(&(event->end_time), &time);
-  printf("my time %d.%d\n", time.tv_sec, time.tv_nsec);
   if (time.tv_sec < 0 || time.tv_nsec < 0)
     zs_set_timeout(zs, 0, 1);
   else
