@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Sat Jul 12 19:37:32 2014 raphael defreitas
+## Last update Sun Jul 13 00:04:38 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -13,11 +13,7 @@ LIBS		=	libmy liblist libsocket libzappy
 
 DIRECTORIES	=	./server ./remote ./world
 
-all		:	reminder zappy
-
-reminder	:
-			@echo "Ne pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final !"
-			@sleep 3
+all		:	zappy
 
 libs		:
 			make -C $(LIBS_PATH)
