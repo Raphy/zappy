@@ -16,7 +16,8 @@
 #include "handlers.h"
 #include	"bundle.h"
 
-void		cmd_team_name_handler(t_zs *zs, t_zc *zc, const char *team_name, void *data)
+void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
+        t_zc *zc, const char *team_name, void *data)
 {
   t_bundle      *bundle;
   t_server      *server;

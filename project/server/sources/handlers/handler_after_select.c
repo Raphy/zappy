@@ -13,7 +13,8 @@
 #include  "server.h"
 #include  "tools_timespec.h"
 
-void	handler_after_select(t_zs *zs, void *data)
+void	handler_after_select(__attribute__((unused))t_zs *zs,
+        void *data)
 {
   t_server *server;
   t_iterator it;

@@ -15,7 +15,7 @@
 
 void		cmd_unknown_handler(__attribute__((unused))t_zs *zs,
 				    __attribute__((unused))t_zc *zc,
-				    const char *cmd,
+				    __attribute__((unused))const char *cmd,
 				    __attribute__((unused))void *data)
 {
   zc_disconnect(zc);

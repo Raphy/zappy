@@ -4,7 +4,8 @@
 #include "event.h"
 #include	"player_action.h"
 
-void          handler_left(t_zs *zs, t_zc *zc, void *data)
+void          handler_left(__attribute__((unused))t_zs *zs,
+        __attribute__((unused))t_zc *zc, void *data)
 {
   t_scratch_event bundle;
 
