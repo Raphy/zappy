@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Sat Jul 12 01:30:33 2014 damien sauvalle
+** Last update Sat Jul 12 11:17:52 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -72,8 +72,10 @@ void	fill_food(t_case **, t_arg *, int);
 
 void	server_msz(t_server *, t_zc *, t_zs *);
 void	server_sgt(t_server *, t_zc *, t_zs *);
-void	server_bct(t_server *, t_zc *, t_zs *);
+void	server_mct(t_server *, t_zc *, t_zs *);
+void	server_bct(t_server *, t_zc *, t_zs *, t_position);
 void	server_tna(t_server *, t_zc *, t_zs *);
+void	server_pnw(t_server *, t_zc *, t_zs *);
 
 
 /*
