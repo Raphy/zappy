@@ -30,7 +30,7 @@ public:
     void    updateNodePosition();
     void    scaleOnCase();
 
-    bool    createGround(int x, int y);
+    bool    createGround(posi_t const& size);
 
     bool    handlerRelay(t_data * data);
 

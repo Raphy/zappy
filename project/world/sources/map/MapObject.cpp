@@ -36,43 +36,18 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    createGround(20,30);//test
-    
-    for (unsigned int x = 0; x < _mapSize.first; x++)
-    {
-        CaseObject *c = getCaseObject(posi_t(10,x));
-	c->init();
-	std::array<int, RESSOURCE_TYPE_COUNT> q;
-	q.fill(1);
-	c->setCaseContent(q);
-	if (x == _mapSize.first / 2 - 2)
-	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
-    }
-    
-    
-    //    CaseObject *c = getCaseObject(posi_t(10,10));
-    //    CaseObject *c2 = getCaseObject(posi_t(10,11));
-    //    CaseObject *c3 = getCaseObject(posi_t(10,12));
-    //
-    //    c->init();
-    //    c2->init();
-    //    c3->init();
-    ////    bool    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
-    //    std::array<int, RESSOURCE_TYPE_COUNT> q;
-    //    q.fill(1);
-    //    c->setCaseContent(q);
-    //    c2->setCaseContent(q);
-    //    c3->setCaseContent(q);
-    
-    
-    ////    c->setPositionInMap(posi_t(10,10));
-    //    RessourceObject *r = new RessourceObject(_smgr, this, c->getPositionInMap());
-    //    r->setQuantity(10);
-    //    std::cout << r->getQuantity() << std::endl;
-    //    std::cout << r->getPositionInMap().first << std::endl;
-    //    std::cout << r->getPositionInMap().second << std::endl;
-    //    r->init();
-    //    //    delete c;
+//    createGround(20,30);//test
+//    
+//    for (unsigned int x = 0; x < _mapSize.first; x++)
+//    {
+//        CaseObject *c = getCaseObject(posi_t(10,x));
+//	c->init();
+//	std::array<int, RESSOURCE_TYPE_COUNT> q;
+//	q.fill(1);
+//	c->setCaseContent(q);
+//	if (x == _mapSize.first / 2 - 2)
+//	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
+//    }
     
     if (_mapSize.first != 0)
 	applyToAllCases(&CaseObject::init);
@@ -185,10 +160,9 @@ bool MapObject::handlerRelay(t_data * data)
 
 /* HANDLERS */
 
-bool MapObject::createGround(int x, int y)
+bool MapObject::createGround(posi_t const& size)
 {
-    _mapSize.first = x;
-    _mapSize.second = y;
+    _mapSize = size;
     
     std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
     ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP);
@@ -203,8 +177,10 @@ bool MapObject::createGround(int x, int y)
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
     _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
-    _node->setMaterialTexture(1, _assets->getTexture(MAP, TEXTURE, 1));        
-    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
+//    vector3df caseSize = _helper->getCaseSize();
+//    posf_t  scaleTexture((float)x * caseSize.X, (float)y * caseSize.Z);
+//    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(scaleTexture.first,scaleTexture.second);
+    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(_mapSize.first*2, _mapSize.second*2); //TODO : rendre ça propre
     
     _selector = _smgr->createTerrainTriangleSelector(node);
     if (!_selector)

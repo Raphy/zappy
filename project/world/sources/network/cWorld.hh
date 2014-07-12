@@ -170,6 +170,11 @@ struct s_data
     {
 	game_element_type = HANDLER_CLASS_COUNT;
 //	event_type = EVENT_TYPE_COUNT;
+	engine_handler_ptr = nullptr;
+	mapviewer_handler_ptr = nullptr;
+	mapobject_handler_ptr = nullptr;
+	case_handler_ptr = nullptr;
+	player_handler_ptr = nullptr;
 	infos = new t_infos();
     }
     s_data(s_data const& orig)
@@ -177,13 +182,18 @@ struct s_data
 	game_element_type = orig.game_element_type;
 //	event_type = orig.event_type;
 	infos = new t_infos(*(orig.infos));
+	engine_handler_ptr = orig.engine_handler_ptr;
+	mapviewer_handler_ptr = orig.mapviewer_handler_ptr;
+	mapobject_handler_ptr = orig.mapobject_handler_ptr;
+	case_handler_ptr = orig.case_handler_ptr;
+	player_handler_ptr = orig.player_handler_ptr;
     }
     ~s_data()
     {
 	delete infos;
     }
     
-    t_data_class_type	game_element_type;
+    t_data_class_type		game_element_type;
 //    t_event_type		event_type;
 
     engine_handler_t		engine_handler_ptr;

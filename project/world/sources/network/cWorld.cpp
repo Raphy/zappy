@@ -37,7 +37,7 @@ void world_ctor(t_world * self, World * cpp_world)
 //    SET_HANDLER(disconnected);
 
     //    SET_HANDLER(timeout);
-//    SET_CMD_HANDLER(msz);
+    SET_CMD_HANDLER(msz);
 //    SET_CMD_HANDLER(bct);
 //    SET_CMD_HANDLER(tna);
 //    SET_CMD_HANDLER(plv);

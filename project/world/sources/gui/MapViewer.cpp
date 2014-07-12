@@ -25,7 +25,6 @@ MapViewer::MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui:
     _smgr->addBillboardTextSceneNode(nullptr, L"(10,0)", nullptr, dimension2df(1.f,1.f), vector3df(10.f,3.f,0.f));
     
     _mapObject = new MapObject(_smgr, nullptr, posi_t(0,0));
-    _mapObject->init();// TODO : appeler le init autre part ?
 }
 
 //MapViewer::MapViewer(const MapViewer& orig)
@@ -40,6 +39,7 @@ MapViewer::~MapViewer()
 
 bool MapViewer::init()
 {
+    _cameraManager.init();
     return _mapObject->init();
 }
 bool MapViewer::update()
@@ -90,10 +90,10 @@ bool MapViewer::handlerRelay(t_data* data)
 
 
 
-bool MapViewer::createGround(int x, int y)
+bool MapViewer::createGround(posi_t const& size)
 {
-    if (!_cameraManager.initWithSize(x,y)
-	    || !_mapObject->createGround(x,y))
+    if (!_cameraManager.initWithSize(size)
+	    || !_mapObject->createGround(size))
 	return false;
     return _cameraManager.addCollision(_mapObject->getSelector());
 }
@@ -111,5 +111,5 @@ Ids MapViewer::getCameraMode()
 
 bool MapViewer::mapSizeHandler(t_infos* infos)
 {
-    return createGround(infos->pos.first, infos->pos.second);
+    return createGround(infos->pos);
 }

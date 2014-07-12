@@ -97,7 +97,7 @@ bool AEngine::init()
     
     _mapViewer->init();
     
-    _mapViewer->createGround(20,30);//debug
+//    _mapViewer->createGround(20,30);//debug
     
     return true;
 }

@@ -35,7 +35,7 @@ public:
 
     bool    handlerRelay(t_data * data);
     
-    bool    createGround(int x, int y);
+    bool    createGround(posi_t const& size);
 //    bool    handlerRelayCreateMap(int x, int y);
     
     bool    setCameraMode(Ids id);

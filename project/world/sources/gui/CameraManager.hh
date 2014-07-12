@@ -30,7 +30,7 @@ public:
     
     bool    init();
     bool    update();
-    bool    initWithSize(int x = 10, int y = 10);
+    bool    initWithSize(posi_t const& size);
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
 
@@ -44,6 +44,7 @@ private:
     gui::ICursorControl*	    _cursor;
 //    Assets*			    _ressources;
 
+    posi_t			    _mapSize;
     Ids				    _guiIds[CAMERA_MODE_COUNT];
     CameraMode			    _currentMode;
     scene::ICameraSceneNode*   _camera[CAMERA_MODE_COUNT];
