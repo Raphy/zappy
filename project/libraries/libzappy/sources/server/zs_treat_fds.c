@@ -5,13 +5,9 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jul 12 11:04:52 2014 raphael defreitas
+** Last update Sat Jul 12 20:45:10 2014 raphael defreitas
 */
 
-#define		_GNU_SOURCE
-#include	<errno.h>
-#include	<stdlib.h>
-#include	<string.h>
 #include	<sys/select.h>
 
 #include	"list.h"
@@ -19,86 +15,21 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static void	treat_client_connection(t_zs *this)
-{
-  t_zc		*zc;
-
-  if (FD_ISSET(socket_fd(this->socket), &this->rfds))
-    {
-      if ((zc = zc_new()) == NULL ||
-	  (zc->socket = socket_accept(this->socket)) == NULL ||
-	  list_enqueue(this->clients, zc) == RET_FAILURE)
-	{
-	  zc_delete(zc);
-	  zs_handle_errno(this, "client connection failed");
-	  return ;
-	}
-      zc->uid = this->uid;
-      this->uid++;
-      if (zc->socket->fd > this->max_fd)
-	this->max_fd = zc->socket->fd;
-      zs_handle_client_connected(this, zc);
-    }
-}
-
-static void	treat_read_zc(t_zs *this, t_zc *zc)
-{
-  char		buf[SOCK_BUF_LEN + 1];
-  int		rlen;
-
-  if (zc->has_to_disconnect || zc->has_to_stop)
-    return ;
-  rlen = socket_read(zc->socket, buf, SOCK_BUF_LEN);
-  if (rlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
-    zs_handle_errno(this, "socket read failed");
-  else if (rlen == RET_ERROR)
-    zc_disconnect(zc);
-  else if (rlen > 0)
-    {
-      buf[rlen] = 0;
-      if (strcmp(buf, "stop\n") == 0)
-	zs_stop(this);
-      else if (zt_append_buffer(zc->pckts_rcvd, buf) == RET_FAILURE)
-	zs_handle_errno(this, "network received data storage failed");
-    }
-}
-
-static void	treat_write_zc(t_zs *this, t_zc *zc)
-{
-  int		wlen;
-  char		*data;
-  int		i;
-
-  if (zc->has_to_disconnect || zc->has_to_stop)
-    return ;
-  i = 0;
-  while ((data = list_pop(zc->pckts_to_snd)) && i < 20)
-    {
-      printf("[libzappy] sending [%s]\n", data);
-      wlen = socket_write(zc->socket, data, strlen(data));
-      free(data);
-      if (wlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
-	zs_handle_errno(this, "socket write failed");
-      else if (wlen == RET_ERROR)
-	zc_disconnect(zc);
-      i++;
-    }
-}
-
-void	zs_treat_fds(t_zs *this)
+void		zs_treat_fds(t_zs *this)
 {
   t_iterator	it;
   t_zc		*zc;
 
-  treat_client_connection(this);
+  if (FD_ISSET(socket_fd(this->socket), &this->rfds))
+    zs_treat_client_connection(this);
   iterator_ctor(&it, this->clients, IT_DATA);
   while ((zc = iterator_current(&it)))
     {
       iterator_next(&it);
       if (FD_ISSET(socket_fd(zc->socket), &this->rfds))
-	treat_read_zc(this, zc);
+	zs_treat_read_zc(this, zc);
       if (FD_ISSET(socket_fd(zc->socket), &this->wfds))
-	treat_write_zc(this, zc);
+	zs_treat_write_zc(this, zc);
       zs_treat_zc(this, zc);
     }
   iterator_dtor(&it);

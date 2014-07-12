@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul 12 19:33:20 2014 raphael defreitas
+** Last update Sat Jul 12 20:56:14 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -155,6 +155,7 @@ struct		s_zs
   char		*pubkey;
   RSA		*key_encrypt;
   RSA		*key_decrypt;
+  unsigned int	high_load_limit;
 };
 
 /*
