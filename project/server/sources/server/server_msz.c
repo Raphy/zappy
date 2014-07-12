@@ -5,17 +5,20 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul 10 19:08:17 2014 damien sauvalle
-** Last update Fri Jul 11 23:40:46 2014 damien sauvalle
+** Last update Sat Jul 12 15:37:06 2014 damien sauvalle
 */
+
+#include	<stdio.h>
+
 
 #include	"zappy.h"
 #include	"server.h"
 
-void	server_msz(t_server *server, t_zc *zc, t_zs *zs)
+void	server_msz(t_zs *zs, t_zc *zc, void *server)
 {
   t_msz msz;
 
-  msz.width = server->arg->x_world;
-  msz.height = server->arg->y_world;
+  msz.width = ((t_server *)server)->arg->x_world;
+  msz.height = ((t_server *)server)->arg->y_world;
   zs_send_cmd_msz(zs, zc, &msz);
 }

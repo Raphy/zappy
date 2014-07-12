@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Sat Jul 12 11:17:52 2014 damien sauvalle
+** Last update Sat Jul 12 16:09:49 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -70,12 +70,20 @@ void	fill_phiras(t_case **, t_arg *, int);
 void	fill_thystane(t_case **, t_arg *, int);
 void	fill_food(t_case **, t_arg *, int);
 
-void	server_msz(t_server *, t_zc *, t_zs *);
-void	server_sgt(t_server *, t_zc *, t_zs *);
-void	server_mct(t_server *, t_zc *, t_zs *);
-void	server_bct(t_server *, t_zc *, t_zs *, t_position);
-void	server_tna(t_server *, t_zc *, t_zs *);
-void	server_pnw(t_server *, t_zc *, t_zs *);
+void	server_msz(t_zs *, t_zc *, void *);
+void	server_bct(t_zs *, t_zc *, t_position *, void *);
+void	server_mct(t_zs *, t_zc *, void *);
+void	server_sgt(t_zs *, t_zc *, void *);
+void	server_tna(t_zs *, t_zc *, void *);
+
+void    server_ppo(t_zs *, t_zc *, unsigned int, void *);
+void    server_plv(t_zs *, t_zc *, unsigned int, void *);
+void    server_pin(t_zs *, t_zc *, unsigned int, void *);
+void    server_sst(t_zs *, t_zc *, unsigned int, void *);
+
+
+
+void	server_pnw(t_zs *, t_zc *, void *);
 
 
 /*
