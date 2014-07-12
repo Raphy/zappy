@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 17:10:00 2014 raphael defreitas
-** Last update Thu Jul 10 19:55:00 2014 raphael defreitas
+** Last update Sat Jul 12 05:03:55 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -43,7 +43,7 @@ void		zs_treat_zc(t_zs *this, t_zc *zc)
     {
       if (list_enqueue(zc->commands, command) == RET_FAILURE)
 	zs_handle_errno(this, "command storing failed");
-      if (list_length(zc->commands) >= 10)
+      if (list_length(zc->commands) >= 20)
 	break;
       command = NULL;
     }
