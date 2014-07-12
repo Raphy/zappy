@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<zappy>
+	<server>
+		<ip>127.0.0.1</ip>
+		<port>4242</port>
+	</server>
+</zappy>

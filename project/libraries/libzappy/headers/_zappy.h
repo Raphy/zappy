@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sat Jul 12 00:13:35 2014 raphael defreitas
+** Last update Sat Jul 12 11:44:18 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -131,6 +131,7 @@ bool		zc_cmd_plv(t_zc *, const char *);
 bool		zc_cmd_pin(t_zc *, const char *);
 bool		zc_cmd_pex(t_zc *, const char *);
 bool		zc_cmd_pbc(t_zc *, const char *);
+bool		zc_cmd_pic(t_zc *, const char *);
 bool		zc_cmd_pfk(t_zc *, const char *);
 bool		zc_cmd_pdr(t_zc *, const char *);
 bool		zc_cmd_pdi(t_zc *, const char *);
@@ -168,6 +169,7 @@ void		zc_handle_cmd_plv(t_zc *, t_plv *);
 void		zc_handle_cmd_pin(t_zc *, t_pin *);
 void		zc_handle_cmd_pex(t_zc *, unsigned int);
 void		zc_handle_cmd_pbc(t_zc *, t_pbc *);
+void		zc_handle_cmd_pic(t_zc *, t_pic *);
 void		zc_handle_cmd_pfk(t_zc *, unsigned int);
 void		zc_handle_cmd_pdr(t_zc *, t_pdr *);
 void		zc_handle_cmd_pgt(t_zc *, t_pgt *);

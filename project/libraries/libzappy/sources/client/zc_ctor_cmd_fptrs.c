@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:53:30 2014 raphael defreitas
-** Last update Sat Jul 12 00:17:31 2014 raphael defreitas
+** Last update Sat Jul 12 12:10:48 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -31,6 +31,7 @@ static int	graphic_cmd_fptrs(t_zc *this)
       list_enqueue(this->cmd_fptrs, &zc_cmd_pin) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_cmd_pex) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_cmd_pbc) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zc_cmd_pic) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_cmd_pfk) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_cmd_pdr) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zc_cmd_pdr) == RET_FAILURE ||
