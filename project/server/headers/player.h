@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sat Jul 12 01:26:46 2014 damien sauvalle
+** Last update Sat Jul 12 10:36:33 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -21,14 +21,6 @@
 
 typedef enum
   {
-    DIRECTION_NORTH,
-    DIRECTION_EST,
-    DIRECTION_SOUTH,
-    DIRECTION_WEST
-  }	t_direction;
-
-typedef enum
-  {
     NORMAL,
     INCANTATION,
     FORK
@@ -37,13 +29,13 @@ typedef enum
 typedef struct		s_player
 {
   t_items	inventory;
-  t_direction	direction;
+  t_orientation	direction;
   unsigned int	x;
   unsigned int	y;
   char		*team_name;
-  char		level; /* level and view range*/
+  unsigned char		level; /* level and view range*/
   unsigned int	life;
-  char		etat; /* ?? util */
+  unsigned char		etat; /* ?? util */
   t_zc		*zc;
 }		t_player;
 
@@ -58,11 +50,11 @@ void			player_delete(t_player *);
 /*
 ** Direction
 */
-void			player_set_direction(t_player *, t_direction);
-t_direction		player_get_direction(t_player *);
+void			player_set_direction(t_player *, t_orientation);
+t_orientation		player_get_direction(t_player *);
 
 /*
-** coord
+** 8coord
 */
 void			player_set_x(t_player *, int);
 void			player_set_y(t_player *, int);

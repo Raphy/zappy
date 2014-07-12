@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 19:39:50 2014 damien sauvalle
-** Last update Sat Jul 12 00:37:52 2014 damien sauvalle
+** Last update Sat Jul 12 02:12:08 2014 damien sauvalle
 */
 
 #include	<stdio.h>
@@ -27,7 +27,7 @@ int	player_ctor(t_player *player, t_server *server,
 
   if (inventory_ctor(&(player->inventory)) == RET_FAILURE)
     return (RET_FAILURE);
-  player->direction = rand()%4;
+  player->direction = rand()%(5 - 1) + 1;
   player->x = rand()%server->arg->x_world;
   player->y = rand()%server->arg->y_world;
   if ((player->team_name = strdup(team)) == NULL)
