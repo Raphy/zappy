@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 10:07:53 2014 raphael defreitas
-** Last update Sat Jul 12 19:14:14 2014 raphael defreitas
+** Last update Sun Jul 13 00:44:56 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -13,7 +13,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zc_send_cmd_fork(t_zc *this)
+void		zc_send_fork(t_zc *this)
 {
   if (this == NULL)
     return ;

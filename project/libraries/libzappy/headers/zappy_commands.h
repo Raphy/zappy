@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 19:06:44 2014 raphael defreitas
+** Last update Sun Jul 13 00:52:55 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -149,8 +149,16 @@ typedef	struct
 */
 
 void		zs_send_welcome(t_zs *, t_zc *zc);
+
 void		zs_send_ok(t_zs *, t_zc *zc);
 void		zs_send_ko(t_zs *, t_zc *zc);
+void		zs_send_team_slots(t_zs *, t_zc *zc, unsigned int team_slots);
+void		zs_send_position(t_zs *, t_zc *zc, const t_position *pos);
+void		zs_send_invocation(t_zs *, t_zc *zc);
+void		zs_send_player_level(t_zs *, t_zc *zc, unsigned int level);
+void		zs_send_death(t_zs *, t_zc *zc);
+void		zs_send_broadcast(t_zs *, t_zc *zc,
+				  unsigned int where, const char *message);
 
 void		zs_send_rmt_pubkey(t_zs *, t_zc *zc);
 void		zs_send_rmt_authorized(t_zs *, t_zc *zc);
@@ -189,15 +197,18 @@ void		zs_send_cmd_sbp(t_zs *, t_zc *zc);
 */
 
 void		zc_send_team_name(t_zc *, const char *team_name);
-void		zc_send_cmd_forward(t_zc *);
-void		zc_send_cmd_left(t_zc *);
-void		zc_send_cmd_right(t_zc *);
-
-void		zc_send_cmd_pick(t_zc *, const char *item);
-void		zc_send_cmd_throw(t_zc *, const char *item);
-void		zc_send_cmd_kick(t_zc *);
-void		zc_send_cmd_broadcast(t_zc *, const char *message);
-void		zc_send_cmd_fork(t_zc *);
+void		zc_send_forward(t_zc *);
+void		zc_send_right(t_zc *);
+void		zc_send_left(t_zc *);
+void		zc_send_look(t_zc *);
+void		zc_send_inventory(t_zc *);
+void		zc_send_pick(t_zc *, const char *item);
+void		zc_send_throw(t_zc *, const char *item);
+void		zc_send_kick(t_zc *);
+void		zc_send_broadcast(t_zc *, const char *message);
+void		zc_send_invocation(t_zc *);
+void		zc_send_fork(t_zc *);
+void		zc_send_team_slots(t_zc *);
 
 void		zc_send_graphic(t_zc *);
 void		zc_send_cmd_msz(t_zc *);
