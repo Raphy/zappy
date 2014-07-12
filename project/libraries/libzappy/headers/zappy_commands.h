@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 12:23:11 2014 raphael defreitas
+** Last update Sat Jul 12 13:01:05 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -135,6 +135,13 @@ typedef	struct
   t_resource	resource;
 }		t_pgt;
 
+typedef	struct
+{
+  unsigned int	eid;
+  unsigned int	uid;
+  t_position	position;
+}		t_enw;
+
 /*
 ** +--------+
 ** | Server |
@@ -165,6 +172,7 @@ void		zs_send_cmd_sgt(t_zs *, t_zc *zc, unsigned int time);
 void		zs_send_cmd_pfk(t_zs *, t_zc *zc, unsigned int uid);
 void		zs_send_cmd_pdr(t_zs *, t_zc *zc, const t_pdr *pdr);
 void		zs_send_cmd_pdi(t_zs *, t_zc *zc, unsigned int uid);
+void		zs_send_cmd_enw(t_zs *, t_zc *zc, const t_enw *enw);
 
 /*
 ** +--------+
