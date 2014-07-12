@@ -14,5 +14,20 @@
 void		set_client_handlers(t_zc *zc, void *data)
 {
   printf("set client handler");
+  
   zs_hook_cmd_left(zc, &handler_left, data);
+  zs_hook_cmd_right(zc, &handler_right, data);
+  zs_hook_cmd_forward(zc, &handler_forward, data);
+  
+  /*
+  zs_hook_cmd_broadcast(zc, &handler_broadcast, data);
+  zs_hook_cmd_expel(zc, &handler_expel, data);
+  zs_hook_cmd_fork(zc, &handler_fork, data);
+  zs_hook_cmd_incantation(zc, &handler_incantation, data);
+  zs_hook_cmd_inventory(zc, &handler_inventory, data);
+  zs_hook_cmd_pick(zc, &handler_pick, data);
+  zs_hook_cmd_put(zc, &handler_put, data);
+  zs_hook_cmd_see(zc, &handler_see, data);
+  zs_hook_cmd_slot_number(zc, &handler_slot_number, data);
+  */
 }

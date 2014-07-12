@@ -19,7 +19,18 @@
 */
 void            handler_before_select(t_zs *, void *);
 void            handler_after_select(t_zs *, void *);
+void            handler_forward(t_zs *, t_zc *, void *);
 void            handler_left(t_zs *, t_zc *, void *);
+void            handler_right(t_zs *, t_zc *, void *);
+void            handler_see(t_zs *, t_zc *, void *);
+void            handler_inventory(t_zs *, t_zc *, void *);
+void            handler_pick(t_zs *, t_zc *, void *);
+void            handler_put(t_zs *, t_zc *, void *);
+void            handler_expel(t_zs *, t_zc *, void *);
+void            handler_broadcast(t_zs *, t_zc *, void *);
+void            handler_incantation(t_zs *, t_zc *, void *);
+void            handler_fork(t_zs *, t_zc *, void *);
+void            handler_slot_number(t_zs *, t_zc *, void *);
 void		set_server_handlers(t_zs *, t_server *);
 void		errno_handler(t_zs *, int, const char *, void *);
 void		callback_handler(t_zs *, t_zht, void *);
