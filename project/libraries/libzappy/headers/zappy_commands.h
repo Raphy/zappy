@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 16:32:42 2014 raphael defreitas
+** Last update Sat Jul 12 17:43:07 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -176,6 +176,8 @@ void		zs_send_cmd_enw(t_zs *, t_zc *zc, const t_enw *enw);
 void		zs_send_cmd_eht(t_zs *, t_zc *zc, unsigned int eid);
 void		zs_send_cmd_ebo(t_zs *, t_zc *zc, unsigned int eid);
 void		zs_send_cmd_edi(t_zs *, t_zc *zc, unsigned int eid);
+void		zs_send_cmd_suc(t_zs *, t_zc *zc);
+void		zs_send_cmd_sbp(t_zs *, t_zc *zc);
 
 /*
 ** +--------+
