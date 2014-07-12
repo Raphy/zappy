@@ -38,6 +38,16 @@ MapViewer::~MapViewer()
     delete _mapObject;
 }
 
+bool MapViewer::init()
+{
+    return _mapObject->init();
+}
+bool MapViewer::update()
+{
+    return _mapObject->update();
+}
+
+
 void MapViewer::setMaterial(const video::SMaterial &material)
 { 
     _material = material;

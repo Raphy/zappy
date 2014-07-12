@@ -18,8 +18,8 @@ using namespace irr;
 class ANodeObject : public INodeObject
 {
 public:
-    virtual bool    init();
-    virtual bool    update();
+//    virtual bool    init();
+//    virtual bool    update();
 
     INodeObject*		getParent() const;
     scene::ISceneNode*		getParentNode() const;

@@ -9,18 +9,21 @@
 #define	MAPVIEWER_HH
 
 #include <irrlicht.h>
-#include "AAnimatedMeshObject.hh"
+#include "IObject.h"
 #include "CameraManager.hh"
 #include "MapObject.hh"
 
 using namespace irr;
 
-class MapViewer : public gui::IGUIMeshViewer, public INetworkEventHandler
+class MapViewer : public gui::IGUIMeshViewer, public IObject, public INetworkEventHandler
 {
 public:
     MapViewer(gui::IGUIEnvironment* env, scene::ISceneManager* smgr, gui::ICursorControl* cursor);
 //    MapViewer(const MapViewer& orig);
     virtual ~MapViewer();
+
+    bool    init();
+    bool    update();
     
     scene::ISceneManager* getSceneManager() const { return _smgr; }
     

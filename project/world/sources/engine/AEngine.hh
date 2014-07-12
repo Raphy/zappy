@@ -74,7 +74,7 @@ protected:
 
 //    gui::IGUIElement*	    _mapViewer;
     posi_t		    _winSize;
-    MapViewer*	    _mapViewer;
+    MapViewer*		    _mapViewer;
     
     Helper*		    _helper;
     Assets*		    _assets;

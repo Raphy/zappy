@@ -9,16 +9,15 @@
 #define	IENGINE_HH
 
 #include <irrlicht.h>
+#include "IObject.h"
 #include "INetworkEventHandler.hh"
 #include "enums.hh"
 
-class IEngine : public INetworkEventHandler
+class IEngine : public IObject, public INetworkEventHandler
 {
 public:
     virtual ~IEngine() {}
 
-    virtual bool init() = 0;
-    virtual bool update() = 0;
     virtual bool mainLoop() = 0;
 
     virtual irr::IrrlichtDevice* getDevice() const = 0;

@@ -10,16 +10,14 @@
 
 #include <irrlicht.h>
 #include "Helper.hh"
+#include "IObject.h"
 
 using namespace irr;
 
-class INodeObject
+class INodeObject : public IObject
 {
 public:
     virtual ~INodeObject() {}
-    
-    virtual bool    init() = 0;
-    virtual bool    update() = 0;
 
     virtual scene::ISceneManager*   getSceneManager() const = 0;
     virtual scene::ISceneNode*	    getNode() const = 0;

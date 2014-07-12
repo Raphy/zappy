@@ -20,10 +20,10 @@ using namespace scene;
 
 AEngine::AEngine()
 {
-//    _eventQueue = new SafeQueue<t_data *>();
-//    _commandQueue = new SafeQueue<t_data *>();
-//    _networkThread = new World(_eventQueue, _commandQueue);
-//    _networkThread->start();
+    //    _eventQueue = new SafeQueue<t_data *>();
+    //    _commandQueue = new SafeQueue<t_data *>();
+    //    _networkThread = new World(_eventQueue, _commandQueue);
+    //    _networkThread->start();
     
     //    video::E_DRIVER_TYPE params.DriverType=driverChoiceConsole();
     //    if (params.DriverType==video::EDT_COUNT)
@@ -33,7 +33,7 @@ AEngine::AEngine()
     //    }
     _helper = Helper::getInstance();
     _winSize = _helper->getWinSize();
-
+    
     irr::SIrrlichtCreationParameters params;
     params.DriverType=video::EDT_OPENGL;
     params.WindowSize=dimension2d<u32>(_winSize.first, _winSize.second);
@@ -47,23 +47,23 @@ AEngine::AEngine()
     _cursor = _device->getCursorControl();
     
     _fps = -1;
-
+    
     EventContext context;
     context.device = _device;
     context.engine = this;
     _eventReceiver = new MyEventReceiver(context);
     _device->setEventReceiver(_eventReceiver);
-
+    
     _guiManager = nullptr;
     _mapViewer = nullptr;
 }
 
 AEngine::~AEngine()
 {
-//    delete _eventQueue;
-//    delete _commandQueue;
-//    delete _networkThread;
-
+    //    delete _eventQueue;
+    //    delete _commandQueue;
+    //    delete _networkThread;
+    
     delete _guiManager;
     delete _mapViewer;
     delete _eventReceiver;
@@ -94,7 +94,9 @@ bool AEngine::init()
     }
     _guiManager = new GUIManager(_env, _winSize);
     _mapViewer = new MapViewer(_env, _smgr, _cursor);
-        
+    
+    _mapViewer->init();
+    
     _mapViewer->createGround(20,30);//debug
     
     return true;
@@ -111,6 +113,7 @@ bool AEngine::update()
     //	_guiManager->updateDirection(rot1.Y);
     //	//	pgCompass->SetCompassHeading( rot1.Y );
     //    }
+    _mapViewer->update();
     this->updateFPS();
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _smgr->drawAll();
@@ -122,12 +125,12 @@ bool AEngine::mainLoop()
 {
     while (_device->run())
     {
-//	while (!_eventQueue->isEmpty())
-//	{
-//	    t_data * data = _eventQueue->pop();
-//	    this->callHandler(data);
-//	    delete data;
-//	}
+	//	while (!_eventQueue->isEmpty())
+	//	{
+	//	    t_data * data = _eventQueue->pop();
+	//	    this->callHandler(data);
+	//	    delete data;
+	//	}
 	if (_device->isWindowActive())
             this->update();
 	else

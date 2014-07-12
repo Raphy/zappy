@@ -26,14 +26,14 @@ ANodeObject::~ANodeObject()
 {
 }
 
-bool    ANodeObject::init()
-{
-    return true;
-}
-bool    ANodeObject::update()
-{
-    return true;
-}
+//bool    ANodeObject::init()
+//{
+//    return true;
+//}
+//bool    ANodeObject::update()
+//{
+//    return true;
+//}
 
 scene::ISceneNode* ANodeObject::getNode() const
 {

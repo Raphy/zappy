@@ -32,6 +32,10 @@ bool CameraManager::init()
     assert(false);
     return true;
 }
+bool CameraManager::update()
+{
+    return true;
+}
 
 
 bool CameraManager::initWithSize(int x, int y)
