@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:04:36 2014 raphael defreitas
-** Last update Thu Jul 10 01:01:01 2014 raphael defreitas
+** Last update Sun Jul 13 00:24:13 2014 raphael defreitas
 */
 
 #include	<stdio.h>
@@ -16,7 +16,7 @@
 
 void		zs_send_cmd_msz(t_zs *this, t_zc *zc, const t_msz *msz)
 {
-  char		buf[30];
+  char		buf[50];
 
   if (this == NULL)
     return ;
