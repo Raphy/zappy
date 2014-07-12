@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 11:41:31 2014 raphael defreitas
+** Last update Sat Jul 12 12:23:11 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -119,6 +119,12 @@ typedef	struct
 
 typedef	struct
 {
+  t_position	position;
+  bool		result;
+}		t_pie;
+
+typedef	struct
+{
   unsigned int	uid;
   t_resource	resource;
 }		t_pdr;
@@ -151,6 +157,7 @@ void		zs_send_cmd_pnw(t_zs *, t_zc *zc, const t_pnw *pnw);
 void		zs_send_cmd_pex(t_zs *, t_zc *zc, unsigned int uid);
 void		zs_send_cmd_pbc(t_zs *, t_zc *zc, const t_pbc *pbc);
 void		zs_send_cmd_pic(t_zs *, t_zc *zc, const t_pic *pic);
+void		zs_send_cmd_pie(t_zs *, t_zc *zc, const t_pie *pie);
 void		zs_send_cmd_pin(t_zs *, t_zc *zc, const t_pin *pin);
 void		zs_send_cmd_plv(t_zs *, t_zc *zc, const t_plv *plv);
 void		zs_send_cmd_ppo(t_zs *, t_zc *zc, const t_ppo *ppo);
