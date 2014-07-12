@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 05:53:47 2014 raphael defreitas
-** Last update Sun Jun 29 05:58:45 2014 raphael defreitas
+** Last update Sat Jul 12 13:54:38 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -19,7 +19,7 @@ bool		zs_cmd_team_name(t_zs *this, t_zc *zc, const char *cmd)
 {
   char		*team_name;
 
-  if ((team_name = list_find(this->team_names, &strcmp, cmd, IT_DATA)) == NULL)
+  if ((team_name = list_find(this->team_names, (bool (*)())&strcmp, cmd, IT_DATA)) == NULL)
     return (false);
   zs_handle_cmd_team_name(this, zc, team_name);
   return (true);
