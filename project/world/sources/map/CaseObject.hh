@@ -32,6 +32,8 @@ public:
     std::map<int, EggObject*> const&				getEggs() const;
     std::map<int, PlayerObject*> const&				getPlayers() const;
     std::array<RessourceObject*, RESSOURCE_TYPE_COUNT> const&	getRessources() const;
+
+    INodeObject*    getObjectFromNode(const scene::ISceneNode* node) const;
     
     /* HANDLERS */
     bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);

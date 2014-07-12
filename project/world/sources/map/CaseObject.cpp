@@ -10,8 +10,9 @@
 #include "CaseObject.hh"
 
 using namespace core;
+using namespace scene;
 
-CaseObject::CaseObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
+CaseObject::CaseObject(ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : ANodeObject(smgr, parent, pos)
 {
     _alignment = posf_t(0, 0);
@@ -68,6 +69,22 @@ const std::map<int, PlayerObject*>& CaseObject::getPlayers() const
 const std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>& CaseObject::getRessources() const
 {
     return _ressources;
+}
+INodeObject* CaseObject::getObjectFromNode(const irr::scene::ISceneNode* node) const
+{
+    for (std::pair<int, INodeObject*>&& egg : _eggs) {
+	if (*(egg.second) == node)
+	    return egg.second;
+    }
+    for (std::pair<int, PlayerObject*>&& player : _players) {
+	if (*(player.second) == node)
+	    return player.second;
+    }
+    for (RessourceObject* ressource : _ressources) {
+	if (*(ressource) == node)
+	    return ressource;
+    }
+    return nullptr;
 }
 
 

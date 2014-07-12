@@ -45,6 +45,7 @@ enum	GameElementType
     RESSOURCE = 0,//pour avoir la texture
     PLAYER,
     EGG,
+    CASE,
     MAP,
     SKYBOX,
     BROADCAST,

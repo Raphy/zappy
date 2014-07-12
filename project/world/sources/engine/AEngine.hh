@@ -23,7 +23,7 @@ class AEngine : public IEngine
 {
 public:
     virtual ~AEngine();
-
+    
     virtual bool init();
     virtual bool update();
     virtual bool mainLoop();
@@ -31,9 +31,9 @@ public:
     virtual irr::IrrlichtDevice* getDevice() const;
     
     virtual bool handlerRelay(t_data * data);
-//    virtual bool handlerRelayCreateMap(int x, int y);//VERSION SIMPLE
+    //    virtual bool handlerRelayCreateMap(int x, int y);//VERSION SIMPLE
     virtual void sendCommand(t_data * data);
-
+    
     /* HANDLERS */
     bool    connectedHandler(t_infos * infos)
     {
@@ -43,41 +43,46 @@ public:
     }
     
     /* SETTINGS */
-
+    
     virtual void setLastNodeClicked(scene::ISceneNode const* node)//a acceder depuis l'eventReceiver
     {
-	(void)node;
-	//TODO
+	MapObject const* mapObj = _mapViewer->getMapObject();
+	if (mapObj)
+	    _lastNodeClicked = mapObj->getObjectFromNode(node);
     }
-//    virtual INodeObject* getLastNodeClicked() const;
-
+    virtual INodeObject const* getLastNodeClicked() const
+    {
+	return _lastNodeClicked;
+    }
+    
     virtual bool setCameraMode(Ids id);
     virtual bool setTheme(Ids id);
     virtual bool setTimeUnit(int value);
     virtual bool setVolume(int value);
     virtual bool setMuteStatus(bool mute);
-
+    
     virtual Ids getCameraMode() const;
     virtual Ids getTheme() const;
     virtual int getTimeUnit() const;
     virtual int getVolume() const;
     virtual bool getMuteStatus() const;
-
+    
 protected:
     AEngine();
     void updateFPS();
-
+    
     IrrlichtDevice*	    _device;
     video::IVideoDriver*    _driver;
     scene::ISceneManager*   _smgr;
     gui::IGUIEnvironment*   _env;
     io::IFileSystem*	    _fs;
     gui::ICursorControl*    _cursor;
-
+    
     IEventReceiver*	    _eventReceiver;
     GUIManager*		    _guiManager;
     int			    _fps;
-
+    INodeObject*	    _lastNodeClicked;
+    
     posi_t		    _winSize;
     MapViewer*		    _mapViewer;
     

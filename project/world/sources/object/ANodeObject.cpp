@@ -13,7 +13,8 @@ using namespace	core;
 
 ANodeObject::ANodeObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
 : _helper(Helper::getInstance()), _assets(Assets::getInstance()), _smgr(smgr),
-	_parent(static_cast<ANodeObject*>(parent)), _node(nullptr), _pos(pos), _alignment(0.5,0.5), _scale(0.2,0.2,0.2)
+	_parent(static_cast<ANodeObject*>(parent)), _node(nullptr),
+	_pos(pos), _alignment(0.5,0.5), _scale(0.2,0.2,0.2)
 {
 }
 
@@ -46,9 +47,9 @@ INodeObject* ANodeObject::getParent() const
 scene::ISceneNode* ANodeObject::getParentNode() const
 {
     //TODO : debug !
-//    if (!_parent)
-//	return _smgr->getRootSceneNode();
-//    return (_parent->getNode());
+    //    if (!_parent)
+    //	return _smgr->getRootSceneNode();
+    //    return (_parent->getNode());
     return _smgr->getRootSceneNode();
 }
 scene::ISceneManager* ANodeObject::getSceneManager() const
@@ -90,3 +91,14 @@ void ANodeObject::scaleOnCase()
     }
 }
 
+bool ANodeObject::operator==(scene::ISceneNode const* node) const
+{
+    return _node && node && _node == node;
+//    return _node && node && _node->getID() == node->getID();
+}
+bool ANodeObject::operator==(INodeObject const* other) const
+{
+    return _node && other && other->getNode()
+	    && _node == other->getNode();
+//	    && _node->getID() == other->getNode()->getID();    
+}

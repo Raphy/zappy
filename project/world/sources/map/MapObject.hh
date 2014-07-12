@@ -32,6 +32,8 @@ public:
 
     bool    createGround(posi_t const& size);
 
+    INodeObject*    getObjectFromNode(scene::ISceneNode const* node) const;
+    
     bool    handlerRelay(t_data * data);
 
     /* HANDLERS */

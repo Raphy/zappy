@@ -30,7 +30,10 @@ public:
     posi_t const&		getPositionInMap() const;    
     virtual void		updateNodePosition();
     virtual void		scaleOnCase();
-    
+
+    bool    operator==(scene::ISceneNode const* node) const;
+    bool    operator==(INodeObject const* other) const;
+
 protected:
     ANodeObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos);
 //    ANodeObject(const ANodeObject& orig);
