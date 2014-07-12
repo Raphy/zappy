@@ -22,8 +22,6 @@ compile_directory() {
     cd - > /dev/null
 }
 
-make norm
-
 echo "Compiling libraries..."
 echo "Compiling « libmy »..."
 compile_directory ./libraries/libmy
