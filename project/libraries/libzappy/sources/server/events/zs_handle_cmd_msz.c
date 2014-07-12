@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Sat Jul  5 16:23:29 2014 raphael defreitas
+** Last update Sat Jul 12 14:14:23 2014 raphael defreitas
 */
 
 #include	"zappy.h"
@@ -16,6 +16,7 @@ void		zs_handle_cmd_msz(t_zs *this, t_zc *zc)
   t_zh		zh;
 
   zh = this->hooks[ZHT_CMD_MSZ];
+  prnitf("handle MSZ (%p)\n", zh.handler);
   if (zh.handler)
     zh.handler(this, zc, zh.data);
   zs_handle_callback(this, ZHT_CMD_MSZ);

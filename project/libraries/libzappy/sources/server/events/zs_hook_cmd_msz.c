@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:53:22 2014 raphael defreitas
-** Last update Sat Jul  5 16:35:03 2014 raphael defreitas
+** Last update Sat Jul 12 14:14:39 2014 raphael defreitas
 */
 
 #include	<stdlib.h>
@@ -17,5 +17,6 @@ void		zs_hook_cmd_msz(t_zc *zc, t_zsh_client_basic h, void *d)
 {
   if (zc == NULL)
     return ;
+  printf("MSZ handled!!!!\n");
   zc_hook(zc, ZHT_CMD_MSZ, h, d);
 }
