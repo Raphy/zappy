@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Sat Jul 12 16:09:49 2014 damien sauvalle
+** Last update Sat Jul 12 19:07:02 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -26,6 +26,7 @@ typedef struct	s_server
   t_list	*graphic;
   t_list	*remote;
   t_arg		*arg;
+  t_zs		*zs;
 }		t_server;
 
 typedef struct	s_graphic
@@ -48,8 +49,7 @@ t_remote       *remote_new(t_zc *);
 void		remote_delete(t_remote *);
 void		remote_dtor(t_remote *);
 
-
-int		server_ctor(t_server *, t_arg *);
+int		server_ctor(t_server *, t_arg *, t_zs *);
 void		server_dtor(t_server *);
 void		dump_map(t_server *, t_arg *);
 
@@ -80,8 +80,6 @@ void    server_ppo(t_zs *, t_zc *, unsigned int, void *);
 void    server_plv(t_zs *, t_zc *, unsigned int, void *);
 void    server_pin(t_zs *, t_zc *, unsigned int, void *);
 void    server_sst(t_zs *, t_zc *, unsigned int, void *);
-
-
 
 void	server_pnw(t_zs *, t_zc *, void *);
 
