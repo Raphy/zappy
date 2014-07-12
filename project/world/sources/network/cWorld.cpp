@@ -11,6 +11,12 @@
 #include "World.hh"
 #include "cWorld.hh"
 
+#include "IEngine.hh"
+#include "MapViewer.hh"
+#include "MapObject.hh"
+#include "CaseObject.hh"
+#include "PlayerObject.hh"
+
 extern "C" {
 #include "zappy.h"
 }
@@ -21,16 +27,22 @@ void world_ctor(t_world * self, World * cpp_world)
     self->cpp_world = cpp_world;
     self->data = new t_data();
     
-    //set handlers
-    zc_hook_errno(cpp_world->getZc(), &world_errno_handler, self);
-    zc_hook_connected(cpp_world->getZc(), &world_connected_handler, self);
-//    zc_hook_disconnected(this->zc, &remote_disconnected_handler, this);
-//    zc_hook_timeout(this->zc, &remote_timeout_handler, this);
-    
-    zc_hook_cmd_msz(cpp_world->getZc(), &world_msz_handler, self);
-    zc_hook_cmd_bct(cpp_world->getZc(), &world_bct_handler, self);
-    zc_hook_cmd_tna(cpp_world->getZc(), &world_tna_handler, self);
-    
+#define SET_HANDLER(handler_name)\
+    zc_hook_##handler_name(cpp_world->getZc(), &world_##handler_name##_handler, self);
+#define SET_CMD_HANDLER(handler_name)\
+    zc_hook_cmd_##handler_name(cpp_world->getZc(), &world_##handler_name##_handler, self);
+
+//    SET_HANDLER(errno);
+    SET_HANDLER(connected);
+//    SET_HANDLER(disconnected);
+
+    //    SET_HANDLER(timeout);
+//    SET_CMD_HANDLER(msz);
+//    SET_CMD_HANDLER(bct);
+//    SET_CMD_HANDLER(tna);
+//    SET_CMD_HANDLER(plv);
+
+#undef SET_HANDLER
 }
 
 void world_dtor(t_world * self)
@@ -40,27 +52,15 @@ void world_dtor(t_world * self)
     delete self->data;
 }
 
-// au final ne fera que appeler zappy_main
-void world_loop(t_world * self)
-{
-    (void)self;
-    //    while (42)
-    //    {
-    //	//do callback
-    //        std::cout << "world_loop" << std::endl;
-    //	sleep(1);
-    //    }
-}
-
-
 /* CALLBACKS C */
 
 void	world_connected_handler(__attribute__((unused)) t_zc *zc, void *world)
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = CONNECTED_EVENT;
+//    self->data->event_type = CONNECTED_EVENT;
     self->data->game_element_type = ENGINE_CLASS;
+    self->data->engine_handler_ptr = &IEngine::connectedHandler;
     
     self->cpp_world->push_callback(self->data);    
 }
@@ -68,41 +68,42 @@ void	world_disconnected_handler(__attribute__((unused)) t_zc *zc, void *world)
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = DISCONNECTED_EVENT;
+//    self->data->event_type = DISCONNECTED_EVENT;
     self->data->game_element_type = ENGINE_CLASS;
     
     self->cpp_world->push_callback(self->data);    
 }
-void	world_before_select_handler(__attribute__((unused)) t_zc *zc, void *world)
+void	world_before_select_data(__attribute__((unused)) t_zc *zc, void *world)
 {
-    t_world * self = static_cast<t_world *>(world);
-    t_data data;
-    t_position position;
-    
-    if (self->cpp_world->try_pop_command(&data))
-    {	
-	switch(static_cast<int>(data.event_type))
-	{
-	    case MAP_SIZE_COMMAND:
-		zc_send_cmd_msz(zc);
-		break;
-	    case CASE_CONTENT_COMMAND:
-		position.x = data.infos->pos.first;
-		position.y = data.infos->pos.second;
-		zc_send_cmd_bct(zc, &position);
-		break;
-	    case MAP_CONTENT_COMMAND:
-		zc_send_cmd_mct(zc);
-		break;
-	    case TEAM_NAME_COMMAND:
-		zc_send_cmd_tna(zc);
-		break;
-	}
-    }    
+    (void)world;
+//    t_world * self = static_cast<t_world *>(world);
+//    t_data data;
+//    t_position position;
+//    
+//    if (self->cpp_world->try_pop_command(&data))
+//    {	
+//	switch(static_cast<int>(data.event_type))
+//	{
+//	    case MAP_SIZE_COMMAND:
+//		zc_send_cmd_msz(zc);
+//		break;
+//	    case CASE_CONTENT_COMMAND:
+//		position.x = data.infos->pos.first;
+//		position.y = data.infos->pos.second;
+//		zc_send_cmd_bct(zc, &position);
+//		break;
+//	    case MAP_CONTENT_COMMAND:
+//		zc_send_cmd_mct(zc);
+//		break;
+//	    case TEAM_NAME_COMMAND:
+//		zc_send_cmd_tna(zc);
+//		break;
+//	}
+//    }    
 }
-void	world_after_select_handler(t_zc *zc, void *world)
+void	world_after_select_data(t_zc *zc, void *world)
 {
-    world_before_select_handler(zc, world);
+    world_before_select_data(zc, world);
 }
 
 void	world_stdin_handler(__attribute((unused)) t_zc *zc, void *world);
@@ -114,7 +115,7 @@ void	world_errno_handler(__attribute__((unused)) t_zc *zc, int err, const char *
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = ERRNO_EVENT;
+//    self->data->event_type = ERRNO_EVENT;
     self->data->game_element_type = ENGINE_CLASS;
     
     self->data->infos->err = err;
@@ -127,8 +128,9 @@ void	world_msz_handler(__attribute__((unused)) t_zc *zc, t_msz *msz, void *world
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = MAP_SIZE_EVENT;
-    self->data->game_element_type = MAP_CLASS;
+//    self->data->event_type = MAP_SIZE_EVENT;
+    self->data->mapviewer_handler_ptr = &MapViewer::mapSizeHandler;
+    self->data->game_element_type = MAP_VIEWER_CLASS;
     
     self->data->infos->pos.first = msz->width;
     self->data->infos->pos.second = msz->height;
@@ -139,7 +141,8 @@ void	world_bct_handler(__attribute__((unused)) t_zc *zc, t_bct *bct, void *world
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = CASE_CONTENT_EVENT;
+//    self->data->event_type = CASE_CONTENT_EVENT;
+    self->data->case_handler_ptr = &CaseObject::caseContentHandler;
     self->data->game_element_type = CASE_CLASS;
     
     self->data->infos->quantity[static_cast<int>(FOOD)] = bct->items.food;
@@ -159,10 +162,23 @@ void	world_tna_handler(__attribute__((unused)) t_zc *zc, const char *team_name, 
 {
     t_world * self = static_cast<t_world *>(world);
     
-    self->data->event_type = TEAM_NAME_EVENT;
+//    self->data->event_type = TEAM_NAME_EVENT;
     self->data->game_element_type = TEAM_MANAGER_CLASS;
     
     self->data->infos->team_name = team_name;
+    
+    self->cpp_world->push_callback(self->data);
+}
+void	world_plv_handler(__attribute__((unused)) t_zc *zc, t_plv *plv, void *world)
+{
+    t_world * self = static_cast<t_world *>(world);
+    
+//    self->data->event_type = TEAM_NAME_EVENT;
+    self->data->game_element_type = PLAYER_CLASS;
+    self->data->player_handler_ptr = &PlayerObject::levelHandler;
+    
+    self->data->infos->player_id = plv->uid;
+    self->data->infos->level = plv->level;
     
     self->cpp_world->push_callback(self->data);
 }

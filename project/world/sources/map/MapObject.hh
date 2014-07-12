@@ -30,35 +30,22 @@ public:
     void    updateNodePosition();
     void    scaleOnCase();
 
-    bool    callHandler(t_data * data);
+    bool    createGround(int x, int y);
+
+    bool    handlerRelay(t_data * data);
 
     /* HANDLERS */
-
-    bool    createGround(int x, int y);
-//    bool    setCaseContent(posi_t const& pos, std::vector<int> const& quantity);
-//
-//    bool    addPlayer(posi_t const& pos, int index,
-//			Orientation o, int level, std::string const& team);
-//    bool    addEgg(posi_t const& pos);
-//
-//    bool    removePlayer(int index) { return false; }
+    bool    mapSizeHandler(t_infos * infos);
 
 private:
-    CaseObject*	getCaseObject(posi_t const& pos);// const;
-    bool	tryGetCaseObject(posi_t const& pos, CaseObject* caseObject);// const;
-    void	initCases();
+    void		applyToAllCases(bool (CaseObject::*f)());
+    void		initCases();
+    CaseObject*		getCaseObject(posi_t const& pos);// const;
+    PlayerObject*	getPlayer(int index);// const;
     
-    void	applyToAllCases(bool (CaseObject::*f)());
-    
-//    bool    addRessource(posi_t const& pos, int level, int quantity);
-
-    scene::ITriangleSelector*	_selector;
-//    std::list<INodeObject*>		_players;
-//    std::list<INodeObject*>		_eggs;
-//    std::map<posi_t, std::vector<INodeObject*>>	_ressources;
-    std::vector<std::vector<CaseObject>>    _cases;
-    posi_t  _mapSize;
-//    std::map<posi_t, CaseObject>    _cases;
+    scene::ITriangleSelector*		    _selector;
+    std::vector<std::vector<CaseObject*>>   _cases;
+    posi_t				    _mapSize;
 };
 
 #endif	/* MAPOBJECT_HH */

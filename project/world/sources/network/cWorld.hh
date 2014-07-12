@@ -64,26 +64,18 @@ typedef struct s_data	t_data;
 
 // classe concernée par le changement
 // donc le real_ptr sera appelé depuis sa classe parent
-typedef enum s_handler_class_type
+typedef enum s_data_class_type
 {
     ENGINE_CLASS = 0,
-    MAP_CLASS,
+    MAP_VIEWER_CLASS,
+    MAP_OBJECT_CLASS,
     CASE_CLASS,
     PLAYER_CLASS,
     EGG_CLASS,
     RESSOURCE_CLASS,
     TEAM_MANAGER_CLASS,
     HANDLER_CLASS_COUNT,
-} t_handler_class_type;
-
-// defini le type du handler pour caster le pointeur sur fonction
-//typedef enum s_handler_ptr_type
-//{
-//    BASIC_HANDLER,
-//    INT_HANDLER,
-//    MSG_HANDLER,
-//    //...
-//} t_handler_ptr_type;F
+} t_data_class_type;
 
 typedef enum s_event_type
 {
@@ -160,19 +152,30 @@ struct s_infos
     std::string  msg;
 };
 
+class IEngine;
+class MapViewer;
+class MapObject;
+class PlayerObject;
+class CaseObject;
+
+typedef	bool (IEngine::*engine_handler_t)(t_infos *);
+typedef	bool (MapViewer::*mapviewer_handler_t)(t_infos *);
+typedef	bool (MapObject::*mapobject_handler_t)(t_infos *);
+typedef	bool (CaseObject::*case_handler_t)(t_infos *);
+typedef	bool (PlayerObject::*player_handler_t)(t_infos *);
 
 struct s_data
 {
     s_data()
     {
 	game_element_type = HANDLER_CLASS_COUNT;
-	event_type = EVENT_TYPE_COUNT;
+//	event_type = EVENT_TYPE_COUNT;
 	infos = new t_infos();
     }
     s_data(s_data const& orig)
     {
 	game_element_type = orig.game_element_type;
-	event_type = orig.event_type;
+//	event_type = orig.event_type;
 	infos = new t_infos(*(orig.infos));
     }
     ~s_data()
@@ -180,8 +183,14 @@ struct s_data
 	delete infos;
     }
     
-    t_handler_class_type	game_element_type;
-    t_event_type		event_type;
+    t_data_class_type	game_element_type;
+//    t_event_type		event_type;
+
+    engine_handler_t		engine_handler_ptr;
+    mapviewer_handler_t		mapviewer_handler_ptr;
+    mapobject_handler_t		mapobject_handler_ptr;
+    case_handler_t		case_handler_ptr;
+    player_handler_t		player_handler_ptr;
     t_infos *	infos;
 };
 
@@ -195,13 +204,10 @@ typedef struct s_world
     t_data *	data;
 } t_world;
 
-//void	world_basic_handler(void *data);
-//void	world_level_handler(void *data, int level);
-
 void	world_connected_handler(t_zc *zc, void *world);
 void	world_disconnected_handler(t_zc *zc, void *world);
-void	world_before_select_handler(t_zc *zc, void *world);
-void	world_after_select_handler(t_zc *zc, void *world);
+void	world_before_select_data(t_zc *zc, void *world);
+void	world_after_select_data(t_zc *zc, void *world);
 
 void	world_stdin_handler(t_zc *zc, void *world);
 void	world_cmd_unknow_handler(t_zc *zc, void *world);
@@ -213,6 +219,7 @@ void	world_errno_handler(t_zc *zc, int err, const char *msg, void *world);
 void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
 void	world_bct_handler(t_zc *zc, t_bct *bct, void *world);
 void	world_tna_handler(t_zc *zc, const char *team_name, void *world);
+void	world_plv_handler(t_zc *zc, t_plv *plv, void *world);
 
 G_END_DECLS
 

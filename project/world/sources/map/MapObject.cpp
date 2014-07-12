@@ -45,7 +45,8 @@ bool    MapObject::init()
 	std::array<int, RESSOURCE_TYPE_COUNT> q;
 	q.fill(1);
 	c->setCaseContent(q);
-	c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
+	if (x == _mapSize.first / 2 - 2)
+	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
     }
     
     
@@ -87,14 +88,14 @@ bool MapObject::update()
 
 void MapObject::applyToAllCases(bool(CaseObject::*f)())
 {
-//    std::for_each(_cases.begin(), _cases.end(), [&f](std::vector<CaseObject> column){
-//	std::for_each(column.begin(), column.end(), [&f](CaseObject caseObj){
-//	    (caseObj.*f)();
-//	});
-//    });
-    for(std::vector<CaseObject>& column : _cases) {
-	for(CaseObject& caseObj : column) {
-	    (caseObj.*f)();
+    //    std::for_each(_cases.begin(), _cases.end(), [&f](std::vector<CaseObject> column){
+    //	std::for_each(column.begin(), column.end(), [&f](CaseObject caseObj){
+    //	    (caseObj.*f)();
+    //	});
+    //    });
+    for(std::vector<CaseObject*>& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    (caseObj->*f)();
 	};
     };
 }
@@ -123,35 +124,63 @@ void MapObject::updateNodePosition()
 }
 
 
-bool MapObject::callHandler(t_data * data)
+//bool MapObject::handlerRelay(t_data * data)
+//{
+//    if (data->game_element_type == PLAYER_CLASS
+//	    || data->game_element_type == RESSOURCE_CLASS
+//	    || data->game_element_type == EGG_CLASS
+//	    || data->game_element_type == CASE_CLASS)
+//    {
+//	t_infos * infos = data->infos;
+//	posi_t	pos = infos->pos;
+//	CaseObject * caseObj = getCaseObject(pos);
+//	//	CaseObject& caseObj;
+//	//	tryGetCaseObject(pos, caseObj);
+//	switch (data->event_type)
+//	{
+//	    case PLAYER_CONNECTION_EVENT:
+//		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
+//		//	    case PLAYER_DEAD_EVENT:
+//		//		return caseObj->removePlayer(infos->player_id);
+//	    case CASE_CONTENT_EVENT:
+//		return caseObj->setCaseContent(infos->quantity);
+//	    default:
+//		break;
+//	}
+//    }
+//    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
+//    return false;
+//}
+
+bool MapObject::handlerRelay(t_data * data)
 {
-    if (data->game_element_type == PLAYER_CLASS
-	    || data->game_element_type == RESSOURCE_CLASS
-	    || data->game_element_type == EGG_CLASS
-	    || data->game_element_type == CASE_CLASS)
+    t_infos * infos = data->infos;
+    PlayerObject* player = nullptr;
+    CaseObject* caseObj = nullptr;
+    
+    switch(data->game_element_type)
     {
-	t_infos * infos = data->infos;
-	posi_t	pos = infos->pos;
-	CaseObject * caseObj = getCaseObject(pos);
-	//	CaseObject& caseObj;
-	//	tryGetCaseObject(pos, caseObj);
-	switch (data->event_type)
-	{
-	    case PLAYER_CONNECTION_EVENT:
-		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
-		//	    case PLAYER_DEAD_EVENT:
-		//		return caseObj->removePlayer(infos->player_id);
-	    case CASE_CONTENT_EVENT:
-		return caseObj->setCaseContent(infos->quantity);
-	    default:
+	case PLAYER_CLASS:
+	    if (!data->player_handler_ptr)
 		break;
-	}
+	    player = getPlayer(infos->player_id);
+	    if (!player)
+		return false;
+	    return (player->*(data->player_handler_ptr))(infos);
+	case CASE_CLASS:
+	    if (!data->case_handler_ptr)
+		break;
+	    caseObj = getCaseObject(infos->pos);
+	    if (!caseObj)
+		return false;
+	    return (caseObj->*(data->case_handler_ptr))(infos);
+	default:
+	    break;
     }
-    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
+    std::cout << "UNHANDLED EVENT" << std::endl;
+//    assert(false);
     return false;
 }
-
-
 
 
 /* HANDLERS */
@@ -186,28 +215,33 @@ bool MapObject::createGround(int x, int y)
     return true;
 }
 
+PlayerObject* MapObject::getPlayer(int index)
+{
+    for(std::vector<CaseObject*>& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    auto players = caseObj->getPlayers();
+	    auto it = players.find(index);
+	    if (it != players.end())
+		return it->second;
+	};
+    };
+    return nullptr;
+}
 CaseObject* MapObject::getCaseObject(posi_t const& pos)// const
 {
-    return &_cases[pos.first][pos.second];
-}
-bool MapObject::tryGetCaseObject(const posi_t& pos, CaseObject* caseObject)// const
-{
     if (false)//TODO : check pos
-	return false;
-    caseObject = &_cases[pos.first][pos.second];
-//    (void)caseObject;
-    return true;
+	return nullptr;
+    return _cases[pos.first][pos.second];
 }
-
 
 void MapObject::initCases()
 {
     for (unsigned int i = 0; i < _mapSize.second; i++)
     {
-	std::vector<CaseObject>	row;
+	std::vector<CaseObject*>	row;
 	for (unsigned int j = 0; j < _mapSize.first; j++)
 	{
-	    row.push_back(CaseObject(_smgr, this, posi_t(j,i)));
+	    row.push_back(new CaseObject(_smgr, this, posi_t(j,i)));
 	}		
 	_cases.push_back(row);
     }

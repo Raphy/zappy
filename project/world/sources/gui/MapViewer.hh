@@ -33,15 +33,16 @@ public:
     virtual const video::SMaterial & getMaterial () const { return _material; }
     virtual scene::IAnimatedMesh * getMesh () const { return _mapObject->getAnimatedMeshNode()->getMesh(); }
 
-    bool    callHandler(t_data * data);
+    bool    handlerRelay(t_data * data);
     
     bool    createGround(int x, int y);
-//    bool    callHandlerCreateMap(int x, int y);
+//    bool    handlerRelayCreateMap(int x, int y);
     
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();
-
     CameraManager const& getCameraManager() const { return _cameraManager; }
+
+    bool    mapSizeHandler(t_infos * infos);
     
 private:
     scene::ISceneManager*	_smgr;

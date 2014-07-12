@@ -24,17 +24,21 @@ public:
     bool    initWithLevel(int level);
 
     void    setIndex(int index);
-    int	    getIndex() const;    
     void    setOrientation(Orientation const& orientation);
-    Orientation const& getOrientation() const;
     void    setTeam(std::string const& _team);
-    std::string const& getTeam() const;
-
     bool    setLevel(int level);
+    bool    setInventory(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
+
+    int			getIndex() const;    
+    Orientation const&	getOrientation() const;
+    std::string const&	getTeam() const;
+    std::array<int, RESSOURCE_TYPE_COUNT> const&    getInventory() const;
     
     /* HANDLERS */
-    bool    setInventory(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
-    std::array<int, RESSOURCE_TYPE_COUNT> const& getInventory() const;
+    bool    levelHandler(t_infos *infos)
+    {
+	return setLevel(infos->level);
+    }
 
 
 private:

@@ -22,6 +22,10 @@ public:
 
     virtual irr::IrrlichtDevice* getDevice() const = 0;
     
+
+    virtual bool    connectedHandler(t_infos * infos) = 0;
+
+    
     virtual bool setCameraMode(Ids id) = 0;
     virtual bool setTheme(Ids id) = 0;
     virtual bool setTimeUnit(int value) = 0;

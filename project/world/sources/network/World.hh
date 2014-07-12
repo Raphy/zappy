@@ -16,7 +16,6 @@ class World;
 
 void world_ctor(t_world * self, World * cpp_world);
 void world_dtor(t_world * self);
-void world_loop(t_world * self);// au final ne fera que appeler zappy_main
 
 class World : public Thread
 {
@@ -34,8 +33,8 @@ public:
 private:
     ISafeQueue<t_data *> *	_eventQueue;
     ISafeQueue<t_data *> *	_commandQueue;
-    t_world		_world;
-    t_zc		_zc;
+    t_world			_world;
+    t_zc			_zc;
 };
 
 #endif	/* WORLD_HH */

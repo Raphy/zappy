@@ -108,7 +108,9 @@ void PlayerObject::setOrientation(const Orientation& orientation)
 }
 bool PlayerObject::setInventory(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity)
 {
-    return false;
+    //TODO : clean l'ancien inventory ?
+    _inventory = quantity;
+    return true;
 }
 const std::array<int, RESSOURCE_TYPE_COUNT>& PlayerObject::getInventory() const
 {

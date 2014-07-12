@@ -57,23 +57,35 @@ void MapViewer::setMesh(scene::IAnimatedMesh *mesh)
     _mapObject->getAnimatedMeshNode()->setMesh(static_cast<scene::SAnimatedMesh *>(mesh));
 }
 
-bool MapViewer::callHandler(t_data* data)
+bool MapViewer::handlerRelay(t_data* data)
 {
-    if (data->game_element_type == MAP_CLASS)
+    t_infos * infos = data->infos;
+
+    switch(data->game_element_type)
     {
-	t_infos * infos = data->infos;
-	switch (data->event_type)
-	{
-	    case PLAYER_CONNECTION_EVENT:
-//		return _mapObject->addPlayer(infos->pos, infos->player_id, infos->orientation,
-//			infos->level, infos->team_name);
-	    case CASE_CONTENT_EVENT:
-//		return _mapObject->setCaseContent(infos->pos, infos->quantity);
-	    default:
+	case MAP_OBJECT_CLASS:
+	    if (!data->mapobject_handler_ptr)
 		break;
-	}
+	    return (_mapObject->*(data->mapobject_handler_ptr))(infos);
+	default:
+	    break;
     }
-    return _mapObject->callHandler(data);
+    return _mapObject->handlerRelay(data);
+//    if (data->game_element_type == MAP_CLASS)
+//    {
+//	t_infos * infos = data->infos;
+//	switch (data->event_type)
+//	{
+//	    case PLAYER_CONNECTION_EVENT:
+////		return _mapObject->addPlayer(infos->pos, infos->player_id, infos->orientation,
+////			infos->level, infos->team_name);
+//	    case CASE_CONTENT_EVENT:
+////		return _mapObject->setCaseContent(infos->pos, infos->quantity);
+//	    default:
+//		break;
+//	}
+//    }
+//    return _mapObject->handlerRelay(data);
 }
 
 
@@ -93,4 +105,11 @@ bool MapViewer::setCameraMode(Ids id)
 Ids MapViewer::getCameraMode()
 {
     return _cameraManager.getCameraMode();
+}
+
+
+
+bool MapViewer::mapSizeHandler(t_infos* infos)
+{
+    return createGround(infos->pos.first, infos->pos.second);
 }
