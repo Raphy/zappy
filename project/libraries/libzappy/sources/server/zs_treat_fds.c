@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jul 12 10:53:41 2014 raphael defreitas
+** Last update Sat Jul 12 11:04:52 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -74,6 +74,7 @@ static void	treat_write_zc(t_zs *this, t_zc *zc)
   i = 0;
   while ((data = list_pop(zc->pckts_to_snd)) && i < 20)
     {
+      printf("[libzappy] sending [%s]\n", data);
       wlen = socket_write(zc->socket, data, strlen(data));
       free(data);
       if (wlen == RET_ERROR && errno != 0 && errno != ECONNRESET)
