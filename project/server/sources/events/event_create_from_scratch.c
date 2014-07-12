@@ -33,7 +33,7 @@ int               event_create_from_scratch(t_scratch_event *scratch,
     return (EXIT_FAILURE);
   event_bundle.action = scratch->action;
   event_bundle.cycle = scratch->cycle;
-  clock_gettime(CLOCK_MONOTONIC, &event_bundle.end_time);
+  clock_gettime(CLOCK_MONOTONIC_RAW, &event_bundle.end_time);
   printf("What %d / %d = %d\n", scratch->cycle, server->arg->time, scratch->cycle / server->arg->time);
   timespec_add_double(&(event_bundle.end_time),
           (double)((double)scratch->cycle / (double)server->arg->time));
