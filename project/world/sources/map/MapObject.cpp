@@ -36,18 +36,18 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-//    createGround(20,30);//test
-//    
-//    for (unsigned int x = 0; x < _mapSize.first; x++)
-//    {
-//        CaseObject *c = getCaseObject(posi_t(10,x));
-//	c->init();
-//	std::array<int, RESSOURCE_TYPE_COUNT> q;
-//	q.fill(1);
-//	c->setCaseContent(q);
-//	if (x == _mapSize.first / 2 - 2)
-//	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
-//    }
+    //    createGround(20,30);//test
+    //    
+    //    for (unsigned int x = 0; x < _mapSize.first; x++)
+    //    {
+    //        CaseObject *c = getCaseObject(posi_t(10,x));
+    //	c->init();
+    //	std::array<int, RESSOURCE_TYPE_COUNT> q;
+    //	q.fill(1);
+    //	c->setCaseContent(q);
+    //	if (x == _mapSize.first / 2 - 2)
+    //	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
+    //    }
     
     if (_mapSize.first != 0)
 	applyToAllCases(&CaseObject::init);
@@ -153,7 +153,7 @@ bool MapObject::handlerRelay(t_data * data)
 	    break;
     }
     std::cout << "UNHANDLED EVENT" << std::endl;
-//    assert(false);
+    //    assert(false);
     return false;
 }
 
@@ -177,9 +177,9 @@ bool MapObject::createGround(posi_t const& size)
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
     _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
-//    vector3df caseSize = _helper->getCaseSize();
-//    posf_t  scaleTexture((float)x * caseSize.X, (float)y * caseSize.Z);
-//    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(scaleTexture.first,scaleTexture.second);
+    //    vector3df caseSize = _helper->getCaseSize();
+    //    posf_t  scaleTexture((float)x * caseSize.X, (float)y * caseSize.Z);
+    //    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(scaleTexture.first,scaleTexture.second);
     _node->getMaterial(0).getTextureMatrix(0).setTextureScale(_mapSize.first*2, _mapSize.second*2); //TODO : rendre ça propre
     
     _selector = _smgr->createTerrainTriangleSelector(node);
@@ -205,9 +205,10 @@ PlayerObject* MapObject::getPlayer(int index)
 }
 CaseObject* MapObject::getCaseObject(posi_t const& pos)// const
 {
-    if (false)//TODO : check pos
+    if (pos.first >= _mapSize.first
+	    || pos.second >= _mapSize.second)
 	return nullptr;
-    return _cases[pos.first][pos.second];
+    return _cases[pos.second][pos.first];
 }
 
 void MapObject::initCases()
