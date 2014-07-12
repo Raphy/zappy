@@ -31,15 +31,15 @@ CaseObject::~CaseObject()
 //prendre des pointeurs sur fonctions ?
 bool CaseObject::init()
 {
-//    for (std::pair<int, EggObject*>&& egg : _eggs) {
-//	egg.second->init();
-//    }
-//    for (std::pair<int, PlayerObject*>&& player : _players) {
-//	player.second->init();
-//    }
-//    for (RessourceObject* ressource : _ressources) {
-//	ressource->init();
-//    }
+    //    for (std::pair<int, EggObject*>&& egg : _eggs) {
+    //	egg.second->init();
+    //    }
+    //    for (std::pair<int, PlayerObject*>&& player : _players) {
+    //	player.second->init();
+    //    }
+    //    for (RessourceObject* ressource : _ressources) {
+    //	ressource->init();
+    //    }
     return true;
 }
 bool CaseObject::update()
@@ -82,7 +82,9 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
 	    return false;
 	ressource->setPositionInMap(_pos);
 	ressource->setLevel(i);
-	ressource->setQuantity(quantity.at(i));
+	int q = quantity.at(i);
+	ressource->setQuantity(q);
+	ressource->getNode()->setVisible(q > 0);
 	_ressources[i] = ressource;
     }
     return true;
@@ -123,18 +125,18 @@ PlayerObject* CaseObject::unregisterPlayer(int index)
 bool CaseObject::handlerRelay(t_data* data)
 {
     (void)data;
-//    if (data->game_element_type == PLAYER_CLASS
-//	    || data->game_element_type == RESSOURCE_CLASS
-//	    || data->game_element_type == EGG_CLASS)
-//    {
-//	t_infos * infos = data->infos;
-//	switch (data->event_type)
-//	{
-//	    default:
-//		break;
-//	}
-//    }
-//    std::cout << "UNKNOWN CASE EVENT !" << std::endl;
+    //    if (data->game_element_type == PLAYER_CLASS
+    //	    || data->game_element_type == RESSOURCE_CLASS
+    //	    || data->game_element_type == EGG_CLASS)
+    //    {
+    //	t_infos * infos = data->infos;
+    //	switch (data->event_type)
+    //	{
+    //	    default:
+    //		break;
+    //	}
+    //    }
+    //    std::cout << "UNKNOWN CASE EVENT !" << std::endl;
     return false;
 }
 
