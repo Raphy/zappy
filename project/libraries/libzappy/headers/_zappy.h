@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sat Jul 12 18:39:45 2014 raphael defreitas
+** Last update Sat Jul 12 19:17:09 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -48,6 +48,11 @@ bool		zs_cmd_team_name(t_zs *, t_zc *, const char *);
 bool		zs_cmd_forward(t_zs *, t_zc *, const char *);
 bool		zs_cmd_left(t_zs *, t_zc *, const char *);
 bool		zs_cmd_right(t_zs *, t_zc *, const char *);
+bool		zs_cmd_pick(t_zs *, t_zc *, const char *);
+bool		zs_cmd_throw(t_zs *, t_zc *, const char *);
+bool		zs_cmd_kick(t_zs *, t_zc *, const char *);
+bool		zs_cmd_broadcast(t_zs *, t_zc *, const char *);
+bool		zs_cmd_fork(t_zs *, t_zc *, const char *);
 
 bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
 bool		zs_cmd_msz(t_zs *, t_zc *, const char *);
@@ -82,6 +87,11 @@ void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_forward(t_zs *, t_zc *);
 void		zs_handle_cmd_left(t_zs *, t_zc *);
 void		zs_handle_cmd_right(t_zs *, t_zc *);
+void		zs_handle_cmd_pick(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_throw(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_kick(t_zs *, t_zc *);
+void		zs_handle_cmd_broadcast(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_fork(t_zs *, t_zc *);
 
 void		zs_handle_cmd_graphic(t_zs *, t_zc *);
 void		zs_handle_cmd_msz(t_zs *, t_zc *);

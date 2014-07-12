@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul 12 18:35:54 2014 raphael defreitas
+** Last update Sat Jul 12 19:33:20 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -72,6 +72,11 @@ typedef	enum
     ZHT_CMD_FORWARD,
     ZHT_CMD_LEFT,
     ZHT_CMD_RIGHT,
+    ZHT_CMD_PICK,
+    ZHT_CMD_THROW,
+    ZHT_CMD_KICK,
+    ZHT_CMD_BROADCAST,
+    ZHT_CMD_FORK,
     ZHT_CMD_GRAPHIC,
     ZHT_CMD_MSZ,
     ZHT_CMD_BCT,
