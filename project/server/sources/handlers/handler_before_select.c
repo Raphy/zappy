@@ -36,9 +36,10 @@ void handler_before_select(t_zs *zs, void *data)
     return;
   }
   time = timespec_create_sub(&(event->end_time), &time);
+  printf("my time is: %d.%.9d\n", time.tv_sec, time.tv_nsec);
   if (time.tv_sec < 0 || time.tv_nsec < 0)
     zs_set_timeout(zs, 0, 1);
   else
-    zs_set_timeout(zs, time.tv_sec, time.tv_nsec / 1000);
-  printf("timesaved is: %d.%d\n", zs_get_timeout(zs).tv_sec, zs_get_timeout(zs).tv_usec);
+    zs_set_timeout(zs, time.tv_sec, ((time.tv_nsec) / 1000) + 1);
+  printf("timesaved is: %d.%.6d\n", zs_get_timeout(zs).tv_sec, zs_get_timeout(zs).tv_usec);
 }
