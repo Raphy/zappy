@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Sat Jul 12 19:37:02 2014 raphael defreitas
+## Last update Sat Jul 12 19:37:32 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -18,11 +18,6 @@ all		:	reminder zappy
 reminder	:
 			@echo "Ne pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final !"
 			@sleep 3
-
-norm		:
-			@echo "Checking basic norm..."
-			@find -name "*.c" -exec ../tools/norme.py {} \;
-			@find -name "*.h" -exec ../tools/norme.py {} \;
 
 libs		:
 			make -C $(LIBS_PATH)
