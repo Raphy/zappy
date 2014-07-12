@@ -5,13 +5,12 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 05:53:47 2014 raphael defreitas
-** Last update Sun Jun 29 10:35:50 2014 raphael defreitas
+** Last update Sat Jul 12 18:15:22 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
 #include	<string.h>
 
-#include	"list.h"
 #include	"zappy.h"
 #include	"_zappy.h"
 
