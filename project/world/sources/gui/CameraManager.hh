@@ -29,6 +29,7 @@ public:
     virtual ~CameraManager();
     
     bool    init();
+    bool    update();
     bool    initWithSize(int x = 10, int y = 10);
     bool    setCameraMode(Ids id);
     Ids	    getCameraMode();

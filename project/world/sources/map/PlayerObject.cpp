@@ -76,7 +76,9 @@ bool    PlayerObject::initWithLevel(int level)
     {
 	node->setMaterialFlag(EMF_LIGHTING, false);
 	//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
-	node->setMD2Animation(EMAT_STAND);
+	startNewAnim(EMAT_STAND, REPEAT);
+	startNewAnim(EMAT_SALUTE, ONCE);
+//	node->setMD2Animation(EMAT_STAND);
 
 	this->scaleOnCase();
 	this->updateNodePosition();

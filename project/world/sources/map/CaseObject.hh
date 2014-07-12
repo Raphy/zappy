@@ -24,6 +24,9 @@ public:
 //    CaseObject(const CaseObject& orig);
     virtual ~CaseObject();
 
+    bool    init();
+    bool    update();
+    
     bool    callHandler(t_data * data);
 
     /* HANDLERS */

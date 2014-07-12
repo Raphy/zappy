@@ -18,7 +18,7 @@ using namespace scene;
 using namespace core;
 
 MapObject::MapObject(scene::ISceneManager* smgr, INodeObject* parent, const posi_t& pos)
-: AAnimatedMeshObject(smgr, parent, pos), _selector(nullptr)
+: AAnimatedMeshObject(smgr, parent, pos), _selector(nullptr), _mapSize(0,0)
 {
     _alignment = posf_t(0,0);
 }
@@ -48,7 +48,7 @@ bool    MapObject::init()
 	c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
     }
     
-
+    
     //    CaseObject *c = getCaseObject(posi_t(10,10));
     //    CaseObject *c2 = getCaseObject(posi_t(10,11));
     //    CaseObject *c3 = getCaseObject(posi_t(10,12));
@@ -73,12 +73,32 @@ bool    MapObject::init()
     //    r->init();
     //    //    delete c;
     
-    
-    //    std::for_each(_players.begin(), _players.end(), [](IObject* player){
-    //	player->init();
-    //    });
+    if (_mapSize.first != 0)
+	applyToAllCases(&CaseObject::init);
     return true;
 }
+
+bool MapObject::update()
+{
+    if (_mapSize.first != 0)
+	applyToAllCases(&CaseObject::update);
+    return true;
+}
+
+void MapObject::applyToAllCases(bool(CaseObject::*f)())
+{
+//    std::for_each(_cases.begin(), _cases.end(), [&f](std::vector<CaseObject> column){
+//	std::for_each(column.begin(), column.end(), [&f](CaseObject caseObj){
+//	    (caseObj.*f)();
+//	});
+//    });
+    for(std::vector<CaseObject>& column : _cases) {
+	for(CaseObject& caseObj : column) {
+	    (caseObj.*f)();
+	};
+    };
+}
+
 
 void MapObject::scaleOnCase()
 {
@@ -175,6 +195,7 @@ bool MapObject::tryGetCaseObject(const posi_t& pos, CaseObject* caseObject)// co
     if (false)//TODO : check pos
 	return false;
     caseObject = &_cases[pos.first][pos.second];
+//    (void)caseObject;
     return true;
 }
 

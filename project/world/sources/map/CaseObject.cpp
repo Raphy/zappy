@@ -5,6 +5,8 @@
  * Created on July 10, 2014, 4:35 PM
  */
 
+#include <algorithm>
+
 #include "CaseObject.hh"
 
 using namespace core;
@@ -25,6 +27,35 @@ CaseObject::~CaseObject()
 {
     //delete tous les objets portes ?
 }
+
+//prendre des pointeurs sur fonctions ?
+bool CaseObject::init()
+{
+//    for (std::pair<int, INodeObject*>&& egg : _eggs) {
+//	egg.second->init();
+//    }
+//    for (std::pair<int, INodeObject*>&& player : _players) {
+//	player.second->init();
+//    }
+//    for (RessourceObject* ressource : _ressources) {
+//	ressource->init();
+//    }
+    return true;
+}
+bool CaseObject::update()
+{
+    for (std::pair<int, INodeObject*>&& egg : _eggs) {
+	egg.second->update();
+    }
+    for (std::pair<int, INodeObject*>&& player : _players) {
+	player.second->update();
+    }
+    for (RessourceObject* ressource : _ressources) {
+	ressource->update();
+    }
+    return true;
+}
+
 
 
 bool CaseObject::callHandler(t_data* data)

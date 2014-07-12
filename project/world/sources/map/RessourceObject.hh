@@ -19,6 +19,7 @@ public:
     virtual ~RessourceObject();
 
     bool    init();
+    bool    update();
 
     void setQuantity(int quantity);
     int getQuantity() const;

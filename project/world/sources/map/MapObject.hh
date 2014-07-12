@@ -25,6 +25,8 @@ public:
     scene::ITriangleSelector* getSelector() const { return _selector; }
 
     bool    init();
+    bool    update();
+
     void    updateNodePosition();
     void    scaleOnCase();
 
@@ -44,7 +46,9 @@ public:
 private:
     CaseObject*	getCaseObject(posi_t const& pos);// const;
     bool	tryGetCaseObject(posi_t const& pos, CaseObject* caseObject);// const;
-    void    initCases();
+    void	initCases();
+    
+    void	applyToAllCases(bool (CaseObject::*f)());
     
 //    bool    addRessource(posi_t const& pos, int level, int quantity);
 

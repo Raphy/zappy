@@ -50,6 +50,11 @@ bool    RessourceObject::init()
     }    
     return false;
 }
+bool RessourceObject::update()
+{
+    return true;
+}
+
 
 void RessourceObject::setQuantity(int quantity)
 {
