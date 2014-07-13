@@ -19,12 +19,14 @@ static int	init_default(t_server *server, t_arg *arg)
   unsigned int	j;
 
   i = 0;
-  while (i < arg->x_world)
+  while (i < arg->y_world)
     {
       j = 0;
-      while (j < arg->y_world)
+      while (j < arg->x_world)
 	{
 	  if (inventory_ctor(&(server->map[i][j].inventory)) == RET_FAILURE)
+	    return (RET_FAILURE);
+	  if (list_ctor(&(server->map[i][j].players), NULL) == RET_FAILURE)
 	    return (RET_FAILURE);
 	  j++;
 	}
@@ -35,16 +37,14 @@ static int	init_default(t_server *server, t_arg *arg)
 
 static int	alloc_map(t_server *server, t_arg *arg)
 {
-  int		y;
   unsigned int	i;
 
-  y = arg->y_world;
-  if ((server->map = malloc(sizeof(t_case *) * arg->x_world)) == NULL)
+  if ((server->map = malloc(sizeof(t_case *) * arg->y_world)) == NULL)
     return (RET_FAILURE);
   i = 0;
-  while (i < arg->x_world)
+  while (i < arg->y_world)
     {
-      if ((server->map[i] = malloc(sizeof(t_case) * y)) == NULL)
+      if ((server->map[i] = malloc(sizeof(t_case) * arg->x_world)) == NULL)
 	return (RET_FAILURE);
       i++;
     }

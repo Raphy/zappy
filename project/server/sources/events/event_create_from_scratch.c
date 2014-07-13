@@ -14,12 +14,12 @@ static int        add_to_server(t_server *server, t_bundle_event *bundle)
   iterator_ctor(&it, server->events, IT_ITEM);
   while ((tmp = iterator_current(&it)) != NULL &&
           (tmp_event = item_data(tmp)) != NULL &&
-          timespec_compare(&(event->end_time), &(tmp_event->end_time)) <= 0)
+          timespec_compare(&(event->end_time), &(tmp_event->end_time)) > 0)
     iterator_next(&it);
   if (tmp == NULL)
     list_enqueue(server->events, event);
   else
-    list_insert(server->events, tmp, event, 1);
+    list_insert(server->events, tmp, event, -1);
   return (RET_SUCCESS);
 }
 
