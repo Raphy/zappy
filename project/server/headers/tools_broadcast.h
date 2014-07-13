@@ -15,9 +15,9 @@ enum e_position
   RIGHT = 2
 };
 
-int      tools_getPosition(int x1, int x2);
-int      tools_getCase(int x1, int y1, int x2, int y2);
-int      tools_getDistance(int x1, int y1, int x2, int y2);
+int      tools_get_position(int x1, int x2);
+int      tools_get_case(int x1, int y1, int x2, int y2);
+int      tools_get_distance(int x1, int y1, int x2, int y2);
 
 #endif	/* TOOLS_BROADCAST_H */
 
