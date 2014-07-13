@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul 12 01:25:17 2014 damien sauvalle
-** Last update Sun Jul 13 02:36:48 2014 damien sauvalle
+** Last update Sun Jul 13 02:55:55 2014 damien sauvalle
 */
 
 #ifndef PLAYER_ACTION_H_
@@ -19,7 +19,7 @@ void		add_player(t_server *, t_player *);
 
 void            server_send_ppo_all_graphic(t_bundle *);
 
-void		player_action_goahead(t_bundle *);
+void		player_action_goahead(t_player *, void *);
 void		player_action_right(t_player *, void *);
 void		player_action_left(t_player *, void *);
 void		player_action_see(t_player *, void *);

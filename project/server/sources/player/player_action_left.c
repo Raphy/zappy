@@ -5,14 +5,12 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul  5 16:47:59 2014 damien sauvalle
-** Last update Sun Jul 13 02:52:38 2014 damien sauvalle
+** Last update Sun Jul 13 03:08:20 2014 damien sauvalle
 */
 
-#include	<stdio.h>
 #include	"player.h"
 #include	"player_action.h"
 #include	"zappy.h"
-
 
 void	player_action_left(t_player *player, void *data)
 {
@@ -21,7 +19,6 @@ void	player_action_left(t_player *player, void *data)
   (void)player;
 
   bundle = (t_bundle *)data;
-  printf("Player action 'left' called");
   if (bundle->player->direction == ORIENTATION_NORTH)
     bundle->player->direction = ORIENTATION_WEST;
   else

@@ -5,49 +5,53 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul  5 16:54:55 2014 damien sauvalle
-** Last update Sat Jul 12 01:32:49 2014 damien sauvalle
+** Last update Sun Jul 13 03:14:32 2014 damien sauvalle
 */
 
-#include	<stdio.h>
 #include	"player.h"
-#include	"bundle.h"
+#include	"player_action.h"
+#include	"zappy.h"
 
-static void	go_north(t_player * player, t_arg *arg)
+static void	go_north(t_bundle *data)
 {
-  if (player->y == 0)
-    player->y = arg->y_world - 1;
+  if (data->player->y == 0)
+    data->player->y = data->server->arg->y_world - 1;
   else
-    player->y--;
+    data->player->y--;
 }
 
-static void	go_est(t_player * player, t_arg *arg)
+static void	go_est(t_bundle *data)
 {
-  if (player->x == arg->x_world - 1)
-    player->x = 0;
+  if (data->player->x == data->server->arg->x_world - 1)
+    data->player->x = 0;
   else
-    player->x++;
-}
-static void	go_south(t_player * player, t_arg *arg)
-{
-  if (player->y == arg->y_world - 1)
-    player->y = 0;
-  else
-    player->y++;
+    data->player->x++;
 }
 
-static void	go_west(t_player * player, t_arg *arg)
+static void	go_south(t_bundle *data)
 {
-  if (player->x == 0)
-    player->x = arg->x_world - 1;
+  if (data->player->y == data->server->arg->y_world - 1)
+    data->player->y = 0;
   else
-    player->x--;
+    data->player->y++;
 }
 
-void		player_action_goahead(t_player *player, t_bundle *data)
+static void	go_west(t_bundle *data)
+{
+  if (data->player->x == 0)
+    data->player->x = data->server->arg->x_world - 1;
+  else
+    data->player->x--;
+}
+
+void		player_action_goahead(t_player *player, void *data)
 {
   fct_direction	tab[4];
   unsigned int	i;
+  t_bundle	*bundle;
 
+  (void)player;
+  bundle = (t_bundle *)data;
   tab[0] = go_north;
   tab[1] = go_est;
   tab[2] = go_south;
@@ -55,8 +59,10 @@ void		player_action_goahead(t_player *player, t_bundle *data)
   i = 0;
   while (i < 4)
     {
-      if (i == player->direction)
-	tab[i](player, data->server->arg);
+      if (i == bundle->player->direction)
+	tab[i](bundle);
       i++;
     }
+  server_send_ppo_all_graphic(bundle);
+  zs_send_ok(bundle->server->zs, bundle->player->zc);
 }
