@@ -12,14 +12,6 @@
 
 class IEngine;
 
-// data structure for the EventReceiver
-struct EventContext
-{
-    irr::IrrlichtDevice*    device;
-    IEngine*		    engine;
-    //...
-};
-
 enum	Orientation
 {
     NORTH = 1,

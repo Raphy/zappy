@@ -9,9 +9,11 @@
 #define	IENGINE_HH
 
 #include <irrlicht.h>
-#include "IObject.h"
+#include "IObject.hh"
 #include "INetworkEventHandler.hh"
 #include "enums.hh"
+
+class INodeObject;
 
 class IEngine : public IObject, public INetworkEventHandler
 {
@@ -21,7 +23,7 @@ public:
     virtual bool mainLoop() = 0;
 
     virtual irr::IrrlichtDevice* getDevice() const = 0;
-    
+    virtual TeamManager const* getTeamManager() const = 0;
 
     virtual bool    connectedHandler(t_infos * infos) = 0;
     virtual bool    disconnectedHandler(t_infos * infos) = 0;
@@ -32,12 +34,14 @@ public:
     virtual bool setTimeUnit(int value) = 0;
     virtual bool setVolume(int value) = 0;
     virtual bool setMuteStatus(bool mute) = 0;
+    virtual void setLastNodeClicked(irr::scene::ISceneNode const* node) = 0;
 
     virtual Ids getCameraMode() const = 0;
     virtual Ids getTheme() const = 0;
     virtual int getTimeUnit() const = 0;
     virtual int getVolume() const = 0;
     virtual bool getMuteStatus() const = 0;
+    virtual INodeObject const* getLastNodeClicked() const = 0;
 };
 
 //typedef bool (IEngine::*engine_handler_t)(t_infos *);

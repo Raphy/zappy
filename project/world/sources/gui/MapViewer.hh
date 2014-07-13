@@ -9,7 +9,7 @@
 #define	MAPVIEWER_HH
 
 #include <irrlicht.h>
-#include "IObject.h"
+#include "IObject.hh"
 #include "CameraManager.hh"
 #include "MapObject.hh"
 

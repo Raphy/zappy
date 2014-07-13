@@ -30,40 +30,32 @@ public:
     virtual bool mainLoop();
     
     virtual irr::IrrlichtDevice* getDevice() const;
+    virtual TeamManager const* getTeamManager() const;
     
+    /* HANDLERS */
     virtual bool handlerRelay(t_data * data);
     //    virtual bool handlerRelayCreateMap(int x, int y);//VERSION SIMPLE
     virtual void sendCommand(t_data * data);
     
-    /* HANDLERS */
     bool    connectedHandler(t_infos * infos);
     bool    disconnectedHandler(t_infos * infos);
     bool    errnoHandler(t_infos * infos);
     
     /* SETTINGS */
-    
-    virtual void setLastNodeClicked(scene::ISceneNode const* node)//a acceder depuis l'eventReceiver
-    {
-	MapObject const* mapObj = _mapViewer->getMapObject();
-	if (mapObj)
-	    _lastNodeClicked = mapObj->getObjectFromNode(node);
-    }
-    virtual INodeObject const* getLastNodeClicked() const
-    {
-	return _lastNodeClicked;
-    }
-    
     virtual bool setCameraMode(Ids id);
     virtual bool setTheme(Ids id);
     virtual bool setTimeUnit(int value);
     virtual bool setVolume(int value);
     virtual bool setMuteStatus(bool mute);
+    virtual void setLastNodeClicked(scene::ISceneNode const* node);
     
     virtual Ids getCameraMode() const;
     virtual Ids getTheme() const;
     virtual int getTimeUnit() const;
     virtual int getVolume() const;
     virtual bool getMuteStatus() const;
+    virtual INodeObject const* getLastNodeClicked() const;
+
     
 protected:
     AEngine();

@@ -81,21 +81,23 @@ bool AEngine::init()
     this->updateFPS();
     
     // FONT
-    std::string font_path("bigfont.png");
-    if (_fs->existFile(font_path.c_str()))
-    {
-	std::cout << "	Font loaded !" << std::endl;
-	IGUISkin* skin = _env->getSkin();
-	IGUIFont* font = _env->getFont(font_path.c_str());
-	if (font)
-	    skin->setFont(font);
-	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
-	//	skin->drop();
-    }
-    _guiManager = new GUIManager(_env, _winSize);
+//    std::string font_path("bigfont.png");
+//    if (_fs->existFile(font_path.c_str()))
+//    {
+//	std::cout << "	Font loaded !" << std::endl;
+//	IGUISkin* skin = _env->getSkin();
+//	IGUIFont* font = _env->getFont(font_path.c_str());
+//	if (font)
+//	    skin->setFont(font);
+//	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
+//	//	skin->drop();
+//    }
     _mapViewer = new MapViewer(_env, _smgr, _cursor);
-    
-    _mapViewer->init();
+    _teamManager = new TeamManager(_mapViewer->getMapObject());
+    _guiManager = new GUIManager(_env, this, _winSize);
+	    
+    _mapViewer->init();//TODO : checker retour
+    _guiManager->init();
     
 //    _mapViewer->createGround(20,30);//debug
     
@@ -114,6 +116,7 @@ bool AEngine::update()
     //	//	pgCompass->SetCompassHeading( rot1.Y );
     //    }
     _mapViewer->update();
+    _guiManager->update();
     this->updateFPS();
     _driver->beginScene(true, true, video::SColor(255,100,101,140));
     _smgr->drawAll();
@@ -152,9 +155,15 @@ void AEngine::updateFPS()
     }
 }
 
+/* GETTERS */
+
 irr::IrrlichtDevice* AEngine::getDevice() const
 {
     return _device;
+}
+const TeamManager* AEngine::getTeamManager() const
+{
+    return _teamManager;
 }
 
 
@@ -219,6 +228,13 @@ bool AEngine::setMuteStatus(bool mute)
     std::cout << "Mute not implemented " << mute << std::endl;
     return false;
 }
+void AEngine::setLastNodeClicked(const scene::ISceneNode* node)
+{
+    MapObject const* mapObj = _mapViewer->getMapObject();
+    if (mapObj)
+	_lastNodeClicked = mapObj->getObjectFromNode(node);
+}
+
 
 Ids AEngine::getCameraMode() const
 {
@@ -243,6 +259,10 @@ bool AEngine::getMuteStatus() const
 {
     std::cout << "MuteStatus not implemented " << std::endl;
     return false;
+}
+const INodeObject* AEngine::getLastNodeClicked() const
+{
+    return _lastNodeClicked;
 }
 
 /* HANDLERS */

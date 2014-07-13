@@ -36,7 +36,7 @@ bool    RessourceObject::init()
     assert(_parent);
     assert(this->getParentNode());
     //    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode());
-    ISceneNode* node = _smgr->addSphereSceneNode(1.0f, 16, this->getParentNode());
+    ISceneNode* node = _smgr->addSphereSceneNode(1.0f, 16, this->getParentNode(), NODE_ID_RESSOURCE);
     _node = node;
     _alignment = posf_t(0.1,0.1);
     if (node)

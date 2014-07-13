@@ -10,7 +10,7 @@
 
 #include <irrlicht.h>
 #include "Helper.hh"
-#include "IObject.h"
+#include "IObject.hh"
 
 using namespace irr;
 

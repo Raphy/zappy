@@ -173,6 +173,28 @@ bool MapObject::createGround(posi_t const& size)
     return true;
 }
 
+bool MapObject::movePlayer(int player_id, posi_t pos, Orientation orientation)
+{
+    PlayerObject* player = getPlayer(player_id);
+    CaseObject* lastCase = getCaseObject(player->getPositionInMap());
+    CaseObject* newCase = getCaseObject(pos);
+    lastCase->unregisterPlayer(player_id);
+    newCase->registerPlayer(player);
+    player->setPositionInMap(pos);
+    player->setOrientation(orientation);
+    return true;
+}
+
+
+
+PlayerObject const* MapObject::getPlayerFromIndex(int index)
+{
+    return getPlayer(index);
+}
+EggObject const* MapObject::getEggFromIndex(int index)
+{
+    return getEgg(index);
+}
 PlayerObject* MapObject::getPlayer(int index)
 {
     for(std::vector<CaseObject*>& column : _cases) {
@@ -180,6 +202,18 @@ PlayerObject* MapObject::getPlayer(int index)
 	    auto players = caseObj->getPlayers();
 	    auto it = players.find(index);
 	    if (it != players.end())
+		return it->second;
+	};
+    };
+    return nullptr;
+}
+EggObject* MapObject::getEgg(int index)
+{
+    for(std::vector<CaseObject*>& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    auto eggs = caseObj->getEggs();
+	    auto it = eggs.find(index);
+	    if (it != eggs.end())
 		return it->second;
 	};
     };
