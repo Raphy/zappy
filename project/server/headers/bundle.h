@@ -18,6 +18,7 @@ typedef struct	s_bundle
 {
   t_server	*server;
   t_player	*player;
+  char          *str;
 }		t_bundle;
 
 #endif		/* BUNDLE_H */

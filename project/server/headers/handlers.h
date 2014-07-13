@@ -28,7 +28,7 @@ void		handler_inventory(t_zs *, t_zc *, void *);
 void		handler_pick(t_zs *, t_zc *, void *);
 void		handler_put(t_zs *, t_zc *, void *);
 void		handler_expel(t_zs *, t_zc *, void *);
-void		handler_broadcast(t_zs *, t_zc *, void *);
+void		handler_broadcast(t_zs *, t_zc *, const char *, void *);
 void		handler_incantation(t_zs *, t_zc *, void *);
 void		handler_fork(t_zs *, t_zc *, void *);
 void		handler_slot_number(t_zs *, t_zc *, void *);

@@ -20,9 +20,9 @@ void		set_client_handlers(t_zc *zc, void *data)
   zs_hook_cmd_forward(zc, &handler_forward, data);
   zs_hook_cmd_invocation(zc, &handler_incantation, data);
   zs_hook_cmd_look(zc, &handler_see, data);
+  zs_hook_cmd_broadcast(zc, &handler_broadcast, data);
   
   /*
-  zs_hook_cmd_broadcast(zc, &handler_broadcast, data);
   zs_hook_cmd_expel(zc, &handler_expel, data);
   zs_hook_cmd_fork(zc, &handler_fork, data);
   zs_hook_cmd_inventory(zc, &handler_inventory, data);

@@ -34,9 +34,10 @@ void	handler_after_select(__attribute__((unused))t_zs *zs,
           && timespec_compare(&time, &(event->end_time)) >= 0)
   {
     printf("Event cycle ended\n");
-    if ((bundle.player = event->player) != NULL
-            && (bundle.server = server) != NULL)
-      event->action(event->player->zc, &bundle);
+    /*if ((bundle.player = event->player) != NULL
+            && (bundle.server = server) != NULL
+            && (bundle.str = event->) != NULL)*/
+    event->action(event->player->zc, event->data);
     iterator_next(&it);
     list_unlink(server->events, item);
     event_delete(event);

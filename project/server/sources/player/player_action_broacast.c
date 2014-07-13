@@ -83,6 +83,7 @@ static int     broadcast(t_position *pos1, t_position *pos2, int map_x, int map_
             pos2->x + map[index][i][0] * map_x,
             pos2->y + map[index][i][1] * map_y);
   i = 0;
+  solution = 0;
   while (++i < 3)
     if (distance[i] < distance[solution])
       solution = i;
@@ -94,7 +95,7 @@ static int     broadcast(t_position *pos1, t_position *pos2, int map_x, int map_
           pos2->y + map[index][solution][1] * map_y));
 }
 
-static void     broadcast_all(int x, int y, t_list *players, t_position *map)
+static void     broadcast_all(int x, int y, t_bundle *bundle, t_position *map)
 {
   t_iterator    it;
   t_player      *player;
@@ -102,27 +103,34 @@ static void     broadcast_all(int x, int y, t_list *players, t_position *map)
   t_position    pos2;
   int           result;
   
-  iterator_ctor(&it, players, IT_DATA);
+  iterator_ctor(&it, bundle->server->players, IT_DATA);
   pos1.x = x;
   pos1.y = y;
   while ((player = iterator_current(&it)) != NULL)
   {
-    pos2.x = player->x;
-    pos2.y = player->y;
-    result = broadcast(&pos1, &pos2, map->x, map->y);
-    printf("Broadcast: %d\n", result);
+    if (player != bundle->player)
+    {
+      pos2.x = player->x;
+      pos2.y = player->y;
+      result = broadcast(&pos1, &pos2, map->x, map->y);
+      printf("Broadcast: %d %s\n", result, bundle->str);
+    }
     iterator_next(&it);
   }
 }
 
-void player_action_broacast(t_player *player, void *data)
+void player_action_broacast(t_zc *zc, void *data)
 {
   t_bundle  *bundle;
   t_position  map;
   
-  if ((bundle = data) == NULL || player == NULL || bundle->server == NULL)
+  if ((bundle = data) == NULL || zc == NULL || bundle->server == NULL)
     return;
   map.x = bundle->server->arg->x_world;
   map.y = bundle->server->arg->y_world;
-  broadcast_all(player->x, player->y, bundle->server->players, &map);
+  if (bundle->str != NULL)
+  {
+    broadcast_all(bundle->player->x, bundle->player->y, bundle, &map);
+    free(bundle->str);
+  }
 }
