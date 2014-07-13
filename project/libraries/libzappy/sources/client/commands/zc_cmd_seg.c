@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sat Jul 12 18:34:36 2014 raphael defreitas
+** Last update Sun Jul 13 05:38:20 2014 raphael defreitas
 */
 
 #include	<stdbool.h>

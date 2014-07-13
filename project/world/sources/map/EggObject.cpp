@@ -46,3 +46,32 @@ bool    EggObject::init()
     }    
     return false;
 }
+
+bool EggObject::update()
+{
+    return true;
+}
+
+
+
+
+
+int EggObject::getPlayerIndex() const
+{
+    return _playerIndex;
+}
+
+int EggObject::getIndex() const
+{
+    return _index;
+}
+
+void EggObject::setPlayerIndex(int _playerIndex)
+{
+    this->_playerIndex = _playerIndex;
+}
+
+void EggObject::setIndex(int _index)
+{
+    this->_index = _index;
+}

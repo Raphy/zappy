@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sun Jul 13 01:22:53 2014 raphael defreitas
+** Last update Sun Jul 13 05:33:21 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -241,6 +241,7 @@ char		*zt_rsa_decrypt(RSA *, const unsigned char *, int);
 int		zt_rmt_encrypt(RSA *, const char *, char **);
 int		zt_rmt_decrypt(RSA *, const char *, char **);
 bool		zt_get_rmt_cmd(RSA *, const char *, char **, int *);
+unsigned int	zt_get_next_token(char **ptr, bool *has_error);
 
 G_END_DECLS
 

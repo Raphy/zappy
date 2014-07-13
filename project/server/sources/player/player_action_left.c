@@ -5,17 +5,24 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul  5 16:47:59 2014 damien sauvalle
-** Last update Sat Jul 12 02:20:41 2014 damien sauvalle
+** Last update Sun Jul 13 03:08:20 2014 damien sauvalle
 */
 
 #include	"player.h"
+#include	"player_action.h"
+#include	"zappy.h"
 
 void	player_action_left(t_player *player, void *data)
 {
-  printf("Player action 'left' called");
-  (void)data;
-  if (player->direction == ORIENTATION_NORTH)
-    player->direction = ORIENTATION_WEST;
+  t_bundle *bundle;
+
+  (void)player;
+
+  bundle = (t_bundle *)data;
+  if (bundle->player->direction == ORIENTATION_NORTH)
+    bundle->player->direction = ORIENTATION_WEST;
   else
-    player->direction--;
+    bundle->player->direction--;
+  server_send_ppo_all_graphic(bundle);
+  zs_send_ok(bundle->server->zs, bundle->player->zc);
 }

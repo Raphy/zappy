@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul 12 01:25:17 2014 damien sauvalle
-** Last update Sat Jul 12 17:49:39 2014 damien sauvalle
+** Last update Sun Jul 13 02:55:55 2014 damien sauvalle
 */
 
 #ifndef PLAYER_ACTION_H_
@@ -17,8 +17,9 @@
 
 void		add_player(t_server *, t_player *);
 
-void	       	player_apply_action(t_player *, t_bundle *, void *);
-void		player_action_goahead(t_player *, t_bundle *);
+void            server_send_ppo_all_graphic(t_bundle *);
+
+void		player_action_goahead(t_player *, void *);
 void		player_action_right(t_player *, void *);
 void		player_action_left(t_player *, void *);
 void		player_action_see(t_player *, void *);
@@ -30,5 +31,7 @@ void		player_action_broacast(t_player *, void *);
 void		player_action_incantation(t_player *, void *);
 void		player_action_fork(t_player *, void *);
 void		player_action_slot_number(t_player *, void *);
+
+typedef void (*fct_direction)(t_bundle *);
 
 #endif

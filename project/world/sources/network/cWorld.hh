@@ -46,7 +46,7 @@ extern "C" {
 //    break;
 //
 // ** implement it in the right object
-//bool MapViewer::createGround(int x, int y)
+//bool MapViewer::createGround(int x, int 
 //{
 //    if (!_cameraManager.init(x, y)
 //	    || !_mapObject->createGround(x, y))
@@ -154,15 +154,19 @@ struct s_infos
 
 class IEngine;
 class MapViewer;
+class TeamManager;
 class MapObject;
-class PlayerObject;
 class CaseObject;
+class PlayerObject;
+class EggObject;
 
 typedef	bool (IEngine::*engine_handler_t)(t_infos *);
+typedef	bool (TeamManager::*teammanager_handler_t)(t_infos *);
 typedef	bool (MapViewer::*mapviewer_handler_t)(t_infos *);
 typedef	bool (MapObject::*mapobject_handler_t)(t_infos *);
 typedef	bool (CaseObject::*case_handler_t)(t_infos *);
 typedef	bool (PlayerObject::*player_handler_t)(t_infos *);
+typedef	bool (EggObject::*egg_handler_t)(t_infos *);
 
 struct s_data
 {
@@ -171,10 +175,12 @@ struct s_data
 	game_element_type = HANDLER_CLASS_COUNT;
 //	event_type = EVENT_TYPE_COUNT;
 	engine_handler_ptr = nullptr;
+	teammanager_handler_ptr = nullptr;
 	mapviewer_handler_ptr = nullptr;
 	mapobject_handler_ptr = nullptr;
 	case_handler_ptr = nullptr;
 	player_handler_ptr = nullptr;
+	egg_handler_ptr = nullptr;
 	infos = new t_infos();
     }
     s_data(s_data const& orig)
@@ -183,10 +189,12 @@ struct s_data
 //	event_type = orig.event_type;
 	infos = new t_infos(*(orig.infos));
 	engine_handler_ptr = orig.engine_handler_ptr;
+	teammanager_handler_ptr = orig.teammanager_handler_ptr;
 	mapviewer_handler_ptr = orig.mapviewer_handler_ptr;
 	mapobject_handler_ptr = orig.mapobject_handler_ptr;
 	case_handler_ptr = orig.case_handler_ptr;
 	player_handler_ptr = orig.player_handler_ptr;
+	egg_handler_ptr = orig.egg_handler_ptr;
     }
     ~s_data()
     {
@@ -197,10 +205,12 @@ struct s_data
 //    t_event_type		event_type;
 
     engine_handler_t		engine_handler_ptr;
+    teammanager_handler_t	teammanager_handler_ptr;
     mapviewer_handler_t		mapviewer_handler_ptr;
     mapobject_handler_t		mapobject_handler_ptr;
     case_handler_t		case_handler_ptr;
     player_handler_t		player_handler_ptr;
+    egg_handler_t		egg_handler_ptr;
     t_infos *	infos;
 };
 
@@ -229,7 +239,26 @@ void	world_errno_handler(t_zc *zc, int err, const char *msg, void *world);
 void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
 void	world_bct_handler(t_zc *zc, t_bct *bct, void *world);
 void	world_tna_handler(t_zc *zc, const char *team_name, void *world);
+void	world_pnw_handler(t_zc *zc, t_pnw *pnw, void *world);
+void	world_ppo_handler(t_zc *zc, t_ppo *ppo, void *world);
 void	world_plv_handler(t_zc *zc, t_plv *plv, void *world);
+void	world_pin_handler(t_zc *zc, t_pin *pin, void *world);
+void	world_pex_handler(t_zc *zc, void *world);
+void	world_pbc_handler(t_zc *zc, t_pbc *pbc, void *world);
+void	world_pic_handler(t_zc *zc, t_pic *pic, void *world);
+void	world_pie_handler(t_zc *zc, t_pie *pie, void *world);
+void	world_pfk_handler(t_zc *zc, void *world);
+void	world_pdr_handler(t_zc *zc, t_pdr *pdr, void *world);
+void	world_pgt_handler(t_zc *zc, t_pin *pin, void *world);
+void    world_enw_handler(t_zc *zc, const t_enw *enw);
+void    world_eht_handler(t_zc *zc, unsigned int eid);
+void    world_ebo_handler(t_zc *zc, unsigned int eid);
+void    world_edi_handler(t_zc *zc, unsigned int eid);
+void    world_sgt_handler(t_zc *zc, unsigned int time);
+void    world_seg_handler(t_zc *zc, const char *team_name);
+void    world_smg_handler(t_zc *zc, const char *message);
+void    world_suc_handler(t_zc *zc);
+void    world_sbp_handler(t_zc *zc);
 
 G_END_DECLS
 

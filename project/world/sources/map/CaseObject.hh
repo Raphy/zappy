@@ -38,18 +38,20 @@ public:
     /* HANDLERS */
     bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);
     void	    removePlayer(int index);
-
     void	    registerPlayer(PlayerObject* player);
     PlayerObject*   unregisterPlayer(int index);
-
-//    bool	    addEgg(int index);
-//    INodeObject*    removeEgg(int index);
-    bool    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
+    bool	    addEgg(int index, int playerIndex);
+    void	    removeEgg(int index);
+    bool	    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
     
     /* HANDLERS */
     bool    handlerRelay(t_data * data);
 
     bool    caseContentHandler(t_infos *infos);
+    bool    playerConnectionHandler(t_infos *infos);
+    bool    playerDeathHandler(t_infos *infos);
+    bool    eggHandler(t_infos *infos);
+    bool    eggDeathHandler(t_infos *infos);
     
 
 private:

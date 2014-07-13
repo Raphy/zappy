@@ -39,6 +39,10 @@ public:
     {
 	return setLevel(infos->level);
     }
+    bool    inventoryHandler(t_infos *infos)
+    {
+	return setInventory(infos->quantity);
+    }
 
 
 private:

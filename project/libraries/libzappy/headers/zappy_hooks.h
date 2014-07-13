@@ -136,6 +136,7 @@ void		zc_hook_cmd_ebo(t_zc *, t_zch_uint_basic h, void *d);
 void		zc_hook_cmd_edi(t_zc *, t_zch_uint_basic h, void *d);
 void		zc_hook_cmd_sgt(t_zc *, t_zch_uint_basic h, void *d);
 void		zc_hook_cmd_seg(t_zc *, t_zch_str_basic h, void *d);
+void		zc_hook_cmd_smg(t_zc *, t_zch_str_basic h, void *d);
 void		zc_hook_cmd_suc(t_zc *, t_zch_basic h, void *d);
 void		zc_hook_cmd_sbp(t_zc *, t_zch_basic h, void *d);
 
