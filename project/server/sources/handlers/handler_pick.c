@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jul 13 11:42:41 2014 damien sauvalle
-** Last update Sun Jul 13 14:46:28 2014 damien sauvalle
+** Last update Sun Jul 13 15:03:13 2014 damien sauvalle
 */
 
 #include	<string.h>
@@ -16,7 +16,9 @@
 #include	"event.h"
 #include	"player_action.h"
 
-void          handler_pick(t_zs *zs, t_zc *zc, const char *str, void *data)
+void          handler_pick(__attribute__((unused))t_zs *zs,
+			   __attribute__((unused))t_zc *zc,
+			   const char *str, void *data)
 {
   t_scratch_event bundle;
 
