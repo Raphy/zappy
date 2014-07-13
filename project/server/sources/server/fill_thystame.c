@@ -22,8 +22,8 @@ void	fill_thystane(t_case **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].inventory.thystame < 250)
-	map[x][y].inventory.thystame += 1;
+      if (map[y][x].inventory.thystame < 250)
+	map[y][x].inventory.thystame += 1;
       i++;
     }
 }

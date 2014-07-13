@@ -22,8 +22,8 @@ void	fill_food(t_case **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].inventory.food < 250)
-	map[x][y].inventory.food += 1;
+      if (map[y][x].inventory.food < 250)
+	map[y][x].inventory.food += 1;
       i++;
     }
 }

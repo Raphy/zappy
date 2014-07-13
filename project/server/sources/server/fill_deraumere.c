@@ -22,8 +22,8 @@ void	fill_deraumere(t_case **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].inventory.deraumere < 250)
-	map[x][y].inventory.deraumere += 1;
+      if (map[y][x].inventory.deraumere < 250)
+	map[y][x].inventory.deraumere += 1;
       i++;
     }
 }

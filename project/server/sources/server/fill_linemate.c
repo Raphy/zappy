@@ -22,8 +22,8 @@ void	fill_linemate(t_case **map, t_arg *arg, int v)
     {
       x = rand()%arg->x_world;
       y = rand()%arg->y_world;
-      if (map[x][y].inventory.linemate < 250)
-	map[x][y].inventory.linemate += 1;
+      if (map[y][x].inventory.linemate < 250)
+	map[y][x].inventory.linemate += 1;
       i++;
     }
 }
