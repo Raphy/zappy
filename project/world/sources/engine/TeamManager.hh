@@ -9,7 +9,7 @@
 #define	TEAMMANAGER_HH
 
 #include    <map>
-#include    <vector>
+#include    <array>
 #include    <string>
 #include    "PlayerObject.hh"
 #include    "World.hh"
@@ -19,9 +19,14 @@ class TeamManager
 public:
     struct  Team
     {
-//	std::vector<PlayerObject*>  players;
-	int			    players_by_level[Assets::LEVEL_MAX];
-	int			    resources[RESSOURCE_TYPE_COUNT];
+	Team()
+	{
+	    players_by_level.fill(0);
+	    ressources.fill(0);
+	    eggs = 0;
+	}
+	std::array<int, Assets::LEVEL_MAX>	players_by_level;
+	std::array<int, RESSOURCE_TYPE_COUNT>	ressources;
 	int			    eggs;
     };
 
