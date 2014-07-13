@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 19:39:18 2014 raphael defreitas
-** Last update Sun Jul 13 10:59:32 2014 damien sauvalle
+** Last update Sun Jul 13 14:32:13 2014 damien sauvalle
 */
 
 #ifndef		HANDLERS_H_
@@ -25,7 +25,7 @@ void		handler_left(t_zs *, t_zc *, void *);
 void		handler_right(t_zs *, t_zc *, void *);
 void		handler_see(t_zs *, t_zc *, void *);
 void		handler_inventory(t_zs *, t_zc *, void *);
-void		handler_pick(t_zs *, t_zc *, void *);
+void		handler_pick(t_zs *, t_zc *, const char *, void *);
 void		handler_put(t_zs *, t_zc *, void *);
 void		handler_expel(t_zs *, t_zc *, void *);
 void		handler_broadcast(t_zs *, t_zc *, const char *, void *);
