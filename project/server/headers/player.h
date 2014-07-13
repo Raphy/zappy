@@ -88,5 +88,14 @@ bool    find_by_uid(t_player *, unsigned int *);
 
 typedef void (*fct_direction)(t_player *, t_arg *);
 
+/*
+ ** Do not change this structure without controlling its result in handler_incantation.c
+ */
+
+struct s_elevation_condition
+{
+    unsigned int player_required;
+    t_items items;
+};
 
 #endif /* !PLAYER_H_ */

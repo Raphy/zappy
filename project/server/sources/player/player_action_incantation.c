@@ -7,11 +7,11 @@
 ** Started on  Sat Jul  5 17:51:21 2014 damien sauvalle
 ** Last update Sat Jul  5 17:51:28 2014 damien sauvalle
 */
-
+#include        "bundle.h"
 #include	"player.h"
 
 void player_action_incantation(t_player *player, void *data)
 {
 	(void)player;
-	(void)data;
+	(t_bundle *)data;
 }
