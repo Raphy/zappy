@@ -33,7 +33,6 @@ int	player_ctor(t_player *player, t_server *server,
   if ((player->team_name = strdup(team)) == NULL)
     return (RET_FAILURE);
   player->level = 1;
-  player->life = player_set_life(player);
   player->etat = NORMAL;
   player->zc = zc;
   return (RET_SUCCESS);

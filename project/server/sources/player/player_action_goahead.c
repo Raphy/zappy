@@ -46,23 +46,16 @@ static void	go_west(t_bundle *data)
 
 void		player_action_goahead(t_player *player, void *data)
 {
-  fct_direction	tab[4];
-  unsigned int	i;
-  t_bundle	*bundle;
-
-  (void)player;
+  fct_direction	tab[5];
+  t_bundle      *bundle;
+  
+  tab[1] = go_north;
+  tab[2] = go_est;
+  tab[3] = go_south;
+  tab[4] = go_west;
   bundle = (t_bundle *)data;
-  tab[0] = go_north;
-  tab[1] = go_est;
-  tab[2] = go_south;
-  tab[3] = go_west;
-  i = 0;
-  while (i < 4)
-    {
-      if (i == bundle->player->direction)
-	tab[i](bundle);
-      i++;
-    }
+  if (player->direction < 5 && player->direction > 0)
+    tab[player->direction](bundle);
   server_send_ppo_all_graphic(bundle);
   zs_send_ok(bundle->server->zs, bundle->player->zc);
 }
