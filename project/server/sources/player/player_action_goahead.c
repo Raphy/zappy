@@ -45,18 +45,12 @@ static void	go_west(t_player * player, t_arg *arg)
 
 void		player_action_goahead(t_player *player, t_bundle *data)
 {
-  fct_direction	tab[4];
-  unsigned int	i;
-
-  tab[0] = go_north;
-  tab[1] = go_est;
-  tab[2] = go_south;
-  tab[3] = go_west;
-  i = 0;
-  while (i < 4)
-    {
-      if (i == player->direction)
-	tab[i](player, data->server->arg);
-      i++;
-    }
+  fct_direction	tab[5];
+  
+  tab[1] = go_north;
+  tab[2] = go_est;
+  tab[3] = go_south;
+  tab[4] = go_west;
+  if (player->direction < 5 && player->direction > 0)
+    tab[player->direction](player, data->server->arg);
 }
