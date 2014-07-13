@@ -31,8 +31,8 @@ public:
     void    scaleOnCase();
 
     INodeObject*    getObjectFromNode(scene::ISceneNode const* node) const;
-    PlayerObject const*	getPlayerFromIndex(int index);
-    EggObject const*	getEggFromIndex(int index);
+    PlayerObject const*	getPlayerFromIndex(unsigned int index);
+    EggObject const*	getEggFromIndex(unsigned int index);
 
     bool    createGround(posi_t const& size);
     bool    movePlayer(int player_id, posi_t pos, Orientation orientation);
@@ -46,8 +46,8 @@ private:
     void		applyToAllCases(bool (CaseObject::*f)());
     void		initCases();
     CaseObject*		getCaseObject(posi_t const& pos);// const;
-    PlayerObject*	getPlayer(int index);// const;
-    EggObject*		getEgg(int index);// const;
+    PlayerObject*	getPlayer(unsigned int index);// const;
+    EggObject*		getEgg(unsigned int index);// const;
     
     scene::ITriangleSelector*		    _selector;
     std::vector<std::vector<CaseObject*>>   _cases;

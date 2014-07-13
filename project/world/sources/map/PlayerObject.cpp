@@ -44,27 +44,27 @@ bool	PlayerObject::init()
 }
 bool    PlayerObject::initWithLevel(int level)
 {
-//    IMesh* mesh = _assets->getMesh(PLAYER, MESH, 0);
-//    if (!mesh)
-//	return false;
-//
-//    IMeshSceneNode* node = _smgr->addMeshSceneNode(mesh);
-//    _node = node;
-//    if (node)
-//    {
-//	node->setMaterialFlag(EMF_LIGHTING, true);
-////	node->setMaterialFlag(EMF_FOG_ENABLE, true);
-//	    node->setMaterialTexture(0, _assets->getTexture(PLAYER, TEXTURE, 0));
-////	for (int i = 0; i < 9; i++)//TODO : comment faire pour ne pas mettre le nombre de textures en dur
-////	{
-////	    node->setMaterialTexture(0, _ressources->getTexture(PLAYER, TEXTURE, 0));
-////	}
-//
-//	this->scaleOnCase();
-//	this->updateNodePosition();
-//	return true;
-//    }    
-
+    //    IMesh* mesh = _assets->getMesh(PLAYER, MESH, 0);
+    //    if (!mesh)
+    //	return false;
+    //
+    //    IMeshSceneNode* node = _smgr->addMeshSceneNode(mesh);
+    //    _node = node;
+    //    if (node)
+    //    {
+    //	node->setMaterialFlag(EMF_LIGHTING, true);
+    ////	node->setMaterialFlag(EMF_FOG_ENABLE, true);
+    //	    node->setMaterialTexture(0, _assets->getTexture(PLAYER, TEXTURE, 0));
+    ////	for (int i = 0; i < 9; i++)//TODO : comment faire pour ne pas mettre le nombre de textures en dur
+    ////	{
+    ////	    node->setMaterialTexture(0, _ressources->getTexture(PLAYER, TEXTURE, 0));
+    ////	}
+    //
+    //	this->scaleOnCase();
+    //	this->updateNodePosition();
+    //	return true;
+    //    }    
+    
     _level = level;
     
     IAnimatedMesh* mesh = static_cast<IAnimatedMesh*>(_assets->getMesh(PLAYER, MESH, _level));
@@ -79,8 +79,8 @@ bool    PlayerObject::initWithLevel(int level)
 	//	node->setMaterialFlag(EMF_FOG_ENABLE, true);
 	startNewAnim(EMAT_STAND, REPEAT);
 	startNewAnim(EMAT_SALUTE, ONCE);
-//	node->setMD2Animation(EMAT_STAND);
-
+	//	node->setMD2Animation(EMAT_STAND);
+	
 	this->scaleOnCase();
 	this->updateNodePosition();
 	node->setMaterialTexture(0, _assets->getTexture(PLAYER, TEXTURE, _level));
@@ -94,7 +94,7 @@ int PlayerObject::getIndex() const
 {
     return _index;
 }
-void PlayerObject::setIndex(int index)
+void PlayerObject::setIndex(unsigned int index)
 {
     this->_index = index;
 }
@@ -127,6 +127,7 @@ void PlayerObject::setTeam(const std::string& _team)
 }
 bool PlayerObject::setLevel(int level)
 {
+    level = 3;//test
     if (level > _maxLevel)
 	return false;
     initWithLevel(_level);
@@ -135,6 +136,32 @@ bool PlayerObject::setLevel(int level)
     return true;
 }
 
+bool PlayerObject::expel()
+{
+    return startNewAnim(EMAT_ATTACK, ONCE);
+}
+bool PlayerObject::broadcast()
+{
+    return startNewAnim(EMAT_PAIN_A, ONCE);
+}
+bool PlayerObject::incant(bool begin)
+{
+    if (begin)
+        return startNewAnim(EMAT_JUMP, REPEAT_UNTIL_STOP_CALL);
+    return stopLastAnim();
+}
+bool PlayerObject::fork()
+{
+    return startNewAnim(EMAT_JUMP, ONCE);
+}
+bool PlayerObject::takeRessource()
+{
+    return startNewAnim(EMAT_CROUCH_STAND, ONCE);    
+}
+bool PlayerObject::throwRessource()
+{
+    return startNewAnim(EMAT_CROUCH_ATTACK, ONCE);
+}
 
 
 void PlayerObject::rotateOnNorth()
@@ -152,4 +179,38 @@ void PlayerObject::rotateOnSouth()
 void PlayerObject::rotateOnWest()
 {
     _node->setRotation(vector3df(0,180,0));
+}
+
+/* HANDLERS */
+bool PlayerObject::levelHandler(t_infos* infos)
+{
+    return setLevel(infos->level);
+}
+bool PlayerObject::inventoryHandler(t_infos* infos)
+{
+    return setInventory(infos->quantity);
+}
+bool PlayerObject::expelHandler(__attribute__((unused)) t_infos* infos)
+{
+    return expel();
+}
+bool PlayerObject::broadcastHandler(__attribute__((unused)) t_infos* infos)
+{
+    return broadcast();
+}
+bool PlayerObject::incantationHandler(t_infos* infos)
+{
+    return incant(infos->begin);
+}
+bool PlayerObject::forkHandler(__attribute__((unused)) t_infos* infos)
+{
+    return fork();
+}
+bool PlayerObject::takeHandler(__attribute__((unused)) t_infos* infos)
+{
+    return takeRessource();
+}
+bool PlayerObject::throwHandler(__attribute__((unused)) t_infos* infos)
+{
+    return throwRessource();
 }

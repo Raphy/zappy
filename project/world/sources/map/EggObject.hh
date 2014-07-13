@@ -33,14 +33,14 @@ public:
 	return true;
     }
 
-    void setIndex(int _index);
-    void setPlayerIndex(int _playerIndex);
-    int getIndex() const;
-    int getPlayerIndex() const;
+    void setIndex(unsigned int _index);
+    void setPlayerIndex(unsigned int _playerIndex);
+    unsigned int getIndex() const;
+    unsigned int getPlayerIndex() const;
     
 private:
-    int		_index;
-    int		_playerIndex;
+    unsigned int    _index;
+    unsigned int    _playerIndex;
 };
 
 #endif	/* EGGOBJECT_HH */

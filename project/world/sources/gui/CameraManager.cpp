@@ -114,8 +114,11 @@ bool CameraManager::addCollision(scene::ITriangleSelector* selector)
 {
     for (int i = 0; i < CAMERA_MODE_COUNT; i++)
     {
+//	scene::ISceneNodeAnimator* anim = _smgr->createCollisionResponseAnimator(
+//		selector, _camera[i], core::vector3df(30,5,30),
+//		core::vector3df(0), core::vector3df(0));
 	scene::ISceneNodeAnimator* anim = _smgr->createCollisionResponseAnimator(
-		selector, _camera[i], core::vector3df(30,5,30),
+		selector, _camera[i], core::vector3df(5,5,5),
 		core::vector3df(0), core::vector3df(0));
 	_camera[i]->addAnimator(anim);
 	anim->drop();

@@ -87,11 +87,13 @@ bool TeamManager::playerDeathHandler(t_infos* infos)
 bool TeamManager::eggHandler(t_infos* infos)
 {
     EggObject const*	egg = _mapObject->getEggFromIndex(infos->egg_id);
-    return addEggInTeam(static_cast<PlayerObject*>(egg->getParent())->getTeam());
+    PlayerObject const*	parent = _mapObject->getPlayerFromIndex(egg->getPlayerIndex());
+    return addEggInTeam(parent->getTeam());
 }
 bool TeamManager::eggDeathHandler(t_infos* infos)
 {
     EggObject const*	egg = _mapObject->getEggFromIndex(infos->egg_id);
-    return removeEggInTeam(static_cast<PlayerObject*>(egg->getParent())->getTeam());
+    PlayerObject const*	parent = _mapObject->getPlayerFromIndex(egg->getPlayerIndex());
+    return removeEggInTeam(parent->getTeam());
 }
 

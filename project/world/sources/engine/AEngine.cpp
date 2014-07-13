@@ -184,10 +184,10 @@ bool AEngine::handlerRelay(t_data* data)
 	    if (!data->mapviewer_handler_ptr)
 		break;
 	    return (_mapViewer->*(data->mapviewer_handler_ptr))(infos);
-//	case TEAM_MANAGER_CLASS:
-//	    if (!data->teammanager_handler_ptr)
-//		break;
-//	    return (_mapViewer->*(data->teammanager_handler_ptr))(infos);
+	case TEAM_MANAGER_CLASS:
+	    if (!data->teammanager_handler_ptr)
+		break;
+	    return (_teamManager->*(data->teammanager_handler_ptr))(infos);
 	default:
 	    break;
     }
