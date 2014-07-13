@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jul 11 23:53:57 2014 damien sauvalle
-** Last update Sat Jul 12 17:59:54 2014 damien sauvalle
+** Last update Sun Jul 13 09:43:37 2014 damien sauvalle
 */
 
 #include	"server.h"
@@ -20,7 +20,7 @@ void		server_bct(t_zs *zs, t_zc *zc,
        ((*position).y < ((t_server *)server)->arg->y_world))
     {
       bct.position = *position;
-      bct.items = ((t_server *)server)->map[position->x][position->y].inventory;
+      bct.items = ((t_server *)server)->map[position->y][position->x].inventory;
       zs_send_cmd_bct(zs, zc, &bct);
     }
   else
