@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul 12 20:56:14 2014 raphael defreitas
+** Last update Sun Jul 13 01:14:59 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -70,13 +70,18 @@ typedef	enum
     ZHT_CMD_WELCOME,
     ZHT_CMD_TEAM_NAME,
     ZHT_CMD_FORWARD,
-    ZHT_CMD_LEFT,
     ZHT_CMD_RIGHT,
+    ZHT_CMD_LEFT,
+    ZHT_CMD_LOOK,
+    ZHT_CMD_INVENTORY,
     ZHT_CMD_PICK,
     ZHT_CMD_THROW,
     ZHT_CMD_KICK,
     ZHT_CMD_BROADCAST,
+    ZHT_CMD_INVOCATION,
+    ZHT_CMD_PLAYER_LEVEL,
     ZHT_CMD_FORK,
+    ZHT_CMD_TEAM_SLOTS,
     ZHT_CMD_GRAPHIC,
     ZHT_CMD_MSZ,
     ZHT_CMD_BCT,

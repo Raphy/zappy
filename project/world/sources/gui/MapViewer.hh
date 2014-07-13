@@ -33,14 +33,18 @@ public:
     virtual const video::SMaterial & getMaterial () const { return _material; }
     virtual scene::IAnimatedMesh * getMesh () const { return _mapObject->getAnimatedMeshNode()->getMesh(); }
 
+    bool    setCameraMode(Ids id);
+    Ids	    getCameraMode();
+    CameraManager const& getCameraManager() const { return _cameraManager; }
+
+    MapObject const*	getMapObject() const { return _mapObject; }
+    
+    
     bool    handlerRelay(t_data * data);
     
     bool    createGround(posi_t const& size);
 //    bool    handlerRelayCreateMap(int x, int y);
     
-    bool    setCameraMode(Ids id);
-    Ids	    getCameraMode();
-    CameraManager const& getCameraManager() const { return _cameraManager; }
 
     bool    mapSizeHandler(t_infos * infos);
     

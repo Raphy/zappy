@@ -27,6 +27,9 @@ public:
     virtual void		    setPositionInMap(posi_t const& new_pos) = 0;
     virtual posi_t const&	    getPositionInMap() const = 0;    
     virtual void		    updateNodePosition() = 0;
+    
+    virtual bool    operator==(const scene::ISceneNode * node) const = 0;
+    virtual bool    operator==(INodeObject const* other) const = 0;
 };
 
 #endif	/* INODEOBJECT_HH */

@@ -18,7 +18,8 @@ PlayerObject::PlayerObject(scene::ISceneManager* smgr, INodeObject* parent, cons
 : AAnimatedMeshObject(smgr, parent, pos)
 {
     _scale = vector3df(0.4);//?
-//    std::vector<void (PlayerObject::*)()>	_rotateFuncs;
+    _type = PLAYER;
+    //    std::vector<void (PlayerObject::*)()>	_rotateFuncs;
     _rotateFuncs.insert(rotate_pair(NORTH, &PlayerObject::rotateOnNorth));
     _rotateFuncs.insert(rotate_pair(EAST, &PlayerObject::rotateOnEast));
     _rotateFuncs.insert(rotate_pair(SOUTH, &PlayerObject::rotateOnSouth));

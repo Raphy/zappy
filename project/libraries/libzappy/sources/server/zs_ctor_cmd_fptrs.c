@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:51:34 2014 raphael defreitas
-** Last update Sat Jul 12 19:35:19 2014 raphael defreitas
+** Last update Sun Jul 13 01:04:37 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -16,12 +16,17 @@ static int	player_cmd_fptrs(t_zs *this)
 {
   if (list_enqueue(this->cmd_fptrs, &zs_cmd_team_name) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_cmd_forward) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zs_cmd_left) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_cmd_right) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_left) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_look) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_inventory) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_cmd_pick) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_cmd_throw) == RET_FAILURE ||
       list_enqueue(this->cmd_fptrs, &zs_cmd_kick) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zs_cmd_fork) == RET_FAILURE)
+      list_enqueue(this->cmd_fptrs, &zs_cmd_broadcast) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_invocation) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_fork) == RET_FAILURE ||
+      list_enqueue(this->cmd_fptrs, &zs_cmd_team_slots) == RET_FAILURE)
     return (RET_FAILURE);
   return (RET_SUCCESS);
 

@@ -75,7 +75,6 @@ void MapObject::applyToAllCases(bool(CaseObject::*f)())
     };
 }
 
-
 void MapObject::scaleOnCase()
 {
     vector3df extent = _node->getTransformedBoundingBox().getExtent();
@@ -96,6 +95,17 @@ void MapObject::updateNodePosition()
     vector3df pos = _helper->mapToWorldCoordinates(real_pos);
     pos /= caseSize;
     _node->setPosition(pos);
+}
+
+INodeObject* MapObject::getObjectFromNode(const scene::ISceneNode* node) const
+{
+    for(std::vector<CaseObject*> const& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    INodeObject* obj = caseObj->getObjectFromNode(node);
+	    if (obj) return obj;
+	};
+    };
+    return nullptr;
 }
 
 

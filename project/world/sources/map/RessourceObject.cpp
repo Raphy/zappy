@@ -15,6 +15,7 @@ RessourceObject::RessourceObject(scene::ISceneManager* smgr, INodeObject* parent
 : AMeshObject(smgr, parent, pos), _quantity(0)
 {
     _scale = vector3df(1.f / RESSOURCE_TYPE_COUNT);
+    _type = RESSOURCE;
 }
 
 //RessourceObject::RessourceObject(RessourceObject const& orig)
