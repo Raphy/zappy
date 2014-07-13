@@ -82,7 +82,8 @@ int		main(int argc, char **argv)
     return (return_zs_fail(&zs, &arg));
 
   arg_dump(&arg);
-  server_ctor(&server, &arg, &zs);
+  if (server_ctor(&server, &arg, &zs) == RET_FAILURE)
+    return (EXIT_FAILURE);
   set_server_handlers(&zs, &server);
   generate_ressource(&server);
   zs_main(&zs);
