@@ -23,6 +23,6 @@ int	inventory_ctor(t_items *inventory)
   inventory->mendiane = 0;
   inventory->phiras = 0;
   inventory->thystame = 0;
-  inventory->food = 10;
+  inventory->food = 0;
   return (RET_SUCCESS);
 }

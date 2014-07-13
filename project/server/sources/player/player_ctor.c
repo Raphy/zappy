@@ -25,7 +25,6 @@ int	player_ctor(t_player *player, t_server *server,
   if (inventory_ctor(&(player->inventory)) == RET_FAILURE)
     return (RET_FAILURE);
   player->direction = rand()%(4) + 1;
-  printf("DIrection = %d\n", player->direction);
   player->x = rand()%server->arg->x_world;
   player->y = rand()%server->arg->y_world;
   if ((player->team_name = strdup(team)) == NULL)
@@ -33,5 +32,6 @@ int	player_ctor(t_player *player, t_server *server,
   player->level = 1;
   player->etat = NORMAL;
   player->zc = zc;
+  player->inventory.food = 10;
   return (RET_SUCCESS);
 }
