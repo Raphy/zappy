@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sat Jul 12 10:54:25 2014 damien sauvalle
-** Last update Sun Jul 13 14:49:34 2014 damien sauvalle
+** Last update Sun Jul 13 14:49:00 2014 damien sauvalle
 */
 
 
@@ -13,11 +13,12 @@
 #include	"zappy.h"
 #include	"player.h"
 
-void	server_pex(t_zs *zs, t_zc* zc, void *server)
+void	server_eht(t_zs *zs, t_zc* zc, void *server)
 {
   (void)zs;
   (void)zc;
   (void)server;
+
 
 
 }
