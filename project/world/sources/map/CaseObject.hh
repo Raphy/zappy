@@ -35,7 +35,7 @@ public:
 
     INodeObject*    getObjectFromNode(const scene::ISceneNode* node) const;
     
-    /* HANDLERS */
+    /* HANDLERS IMPLEMENTATION */
     bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);
     void	    removePlayer(int index);
     void	    registerPlayer(PlayerObject* player);

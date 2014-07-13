@@ -14,24 +14,32 @@
 
 using namespace irr;
 
-class GUIManager
+class IEngine;
+
+class GUIManager : public IObject
 {
 public:
-    GUIManager(gui::IGUIEnvironment* env, posi_t const& winSize);
+    GUIManager(gui::IGUIEnvironment* env, IEngine* engine, posi_t const& winSize);
     GUIManager(const GUIManager& orig);
     virtual ~GUIManager();
+    
+    bool    	init();
+    bool    	update();
     
     void updateDirection(f32 angle);
     void updateNodeInformation(INodeObject const* lastNodeClicked);
 private:
     gui::IGUIEnvironment*   _env;
     video::IVideoDriver*    _driver;
-//    Compass*	_compass;
-    int _x;
-    int _y;
-
-    gui::IGUIListBox* _information;
-    //...
+    IEngine*		    _engine;
+    unsigned int _x;
+    unsigned int _y;
+    
+    gui::IGUIListBox*	_information;
+    gui::IGUIWindow*	_help;
+    gui::IGUIListBox*	_menu;
+    gui::IGUIComboBox*	_camera;
+    gui::IGUIListBox*	_teams;
 };
 
 #endif	/* GUIMANAGER_HH */

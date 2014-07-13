@@ -197,6 +197,10 @@ void    world_pnw_handler(__attribute__((unused)) t_zc *zc, t_pnw *pnw, void *wo
     self->data->infos->team_name = pnw->team_name;
     
     self->cpp_world->push_callback(self->data);    
+
+    self->data->game_element_type = TEAM_MANAGER_CLASS;
+    self->data->teammanager_handler_ptr = &TeamManager::playerConnectionHandler;
+    self->cpp_world->push_callback(self->data);    
 }
 void    world_ppo_handler(__attribute__((unused)) t_zc *zc, t_ppo *ppo, void *world)
 {
@@ -338,6 +342,10 @@ void	world_pdi_handler(__attribute__((unused)) t_zc *zc, unsigned int uid, void 
     self->data->infos->player_id = uid;
 
     self->cpp_world->push_callback(self->data); 
+
+    self->data->game_element_type = TEAM_MANAGER_CLASS;
+    self->data->teammanager_handler_ptr = &TeamManager::playerDeathHandler;
+    self->cpp_world->push_callback(self->data);    
 }
 void    world_enw_handler(__attribute__((unused)) t_zc *zc, t_enw *enw, void *world)
 {
@@ -351,6 +359,10 @@ void    world_enw_handler(__attribute__((unused)) t_zc *zc, t_enw *enw, void *wo
     self->data->infos->pos.second = enw->position.y;
 
     self->cpp_world->push_callback(self->data); 
+
+    self->data->game_element_type = TEAM_MANAGER_CLASS;
+    self->data->teammanager_handler_ptr = &TeamManager::eggHandler;
+    self->cpp_world->push_callback(self->data);    
 }
 void    world_eht_handler(__attribute__((unused)) t_zc *zc, unsigned int eid, void *world)
 {
@@ -381,6 +393,10 @@ void    world_edi_handler(__attribute__((unused)) t_zc *zc, unsigned int eid, vo
     self->data->infos->egg_id = eid;
 
     self->cpp_world->push_callback(self->data); 
+
+    self->data->game_element_type = TEAM_MANAGER_CLASS;
+    self->data->teammanager_handler_ptr = &TeamManager::eggDeathHandler;
+    self->cpp_world->push_callback(self->data);    
 }
 
 //TODO : celles qui sont en dessous !

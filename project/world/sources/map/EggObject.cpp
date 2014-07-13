@@ -34,7 +34,7 @@ bool    EggObject::init()
     if (!mesh)
 	return false;
 
-    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode());
+    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode(), NODE_ID_EGG);
     _node = node;
     if (node)
     {

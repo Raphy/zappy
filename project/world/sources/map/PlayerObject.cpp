@@ -71,7 +71,7 @@ bool    PlayerObject::initWithLevel(int level)
     if (!mesh)
 	return false;
     
-    IAnimatedMeshSceneNode* node = _smgr->addAnimatedMeshSceneNode(mesh);
+    IAnimatedMeshSceneNode* node = _smgr->addAnimatedMeshSceneNode(mesh, getParentNode(), NODE_ID_PLAYER);
     _node = node;
     if (node)
     {

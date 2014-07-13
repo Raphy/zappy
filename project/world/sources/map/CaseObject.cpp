@@ -160,18 +160,18 @@ void CaseObject::removeEgg(int index)
 bool CaseObject::handlerRelay(t_data* data)
 {
     (void)data;
-    //    if (data->game_element_type == PLAYER_CLASS
-    //	    || data->game_element_type == RESSOURCE_CLASS
-    //	    || data->game_element_type == EGG_CLASS)
-    //    {
-    //	t_infos * infos = data->infos;
-    //	switch (data->event_type)
-    //	{
-    //	    default:
-    //		break;
-    //	}
-    //    }
-    //    std::cout << "UNKNOWN CASE EVENT !" << std::endl;
+//        if (data->game_element_type == PLAYER_CLASS
+//    	    || data->game_element_type == RESSOURCE_CLASS
+//    	    || data->game_element_type == EGG_CLASS)
+//        {
+//    	t_infos * infos = data->infos;
+//    	switch (data->event_type)
+//    	{
+//    	    default:
+//    		break;
+//    	}
+//        }
+//        std::cout << "UNKNOWN CASE EVENT !" << std::endl;
     return false;
 }
 
