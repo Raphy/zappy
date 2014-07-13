@@ -24,6 +24,6 @@ t_player	*player_new(t_server *server, t_zc *zc, const char *team)
       player_delete(new);
       return (NULL);
     }
-  list_enqueue(&(server->map[new->y][new->x].players), new);
+  list_push(&(server->map[new->y][new->x].players), new);
   return (new);
 }

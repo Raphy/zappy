@@ -12,12 +12,11 @@
 #include	"player_action.h"
 #include	"zappy.h"
 
-void	player_action_left(t_player *player, void *data)
+void	player_action_left(t_zc *zc, void *data)
 {
   t_bundle *bundle;
 
-  (void)player;
-
+  (void)zc;
   bundle = (t_bundle *)data;
   if (bundle->player->direction == ORIENTATION_NORTH)
     bundle->player->direction = ORIENTATION_WEST;

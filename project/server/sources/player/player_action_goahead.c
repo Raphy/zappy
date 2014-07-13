@@ -44,9 +44,15 @@ static void	go_west(t_bundle *data)
     data->player->x--;
 }
 
-void		player_action_goahead(t_player *player, void *data)
+static bool test(void *data, void *searched)
+{
+  return (data == searched);
+}
+
+void		player_action_goahead(t_zc *zc, void *data)
 {
   fct_direction	tab[5];
+  t_item        *item;
   t_bundle      *bundle;
   
   tab[1] = go_north;
@@ -54,8 +60,16 @@ void		player_action_goahead(t_player *player, void *data)
   tab[3] = go_south;
   tab[4] = go_west;
   bundle = (t_bundle *)data;
-  if (player->direction < 5 && player->direction > 0)
-    tab[player->direction](bundle);
+  item = list_find(&(bundle->server->map[bundle->player->y][bundle->player->x]).players, &test, bundle->player, IT_ITEM);
+  if (item != NULL)
+    printf("YOUPI! [%d]\n", item_data(item) == bundle->player);
+  list_unlink(&(bundle->server->map[bundle->player->y][bundle->player->x]).players, item);
+  if (bundle->player->direction < 5 && bundle->player->direction > 0)
+  {
+    printf("Je mouve!\n");
+    tab[bundle->player->direction](bundle);
+  }
+  list_push(&(bundle->server->map[bundle->player->y][bundle->player->x].players), bundle->player);
   server_send_ppo_all_graphic(bundle);
   zs_send_ok(bundle->server->zs, bundle->player->zc);
 }
