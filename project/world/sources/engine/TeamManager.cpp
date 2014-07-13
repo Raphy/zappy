@@ -37,7 +37,7 @@ bool TeamManager::addPlayerInTeam(const std::string& name, PlayerObject const* p
     Team team = _teams[name];
     team.players_by_level[player->getLevel()] += 1;
     for (int i = 0; i < RESSOURCE_TYPE_COUNT; i++)
-	team.resources[i] += inventory[i];
+	team.ressources[i] += inventory[i];
     return true;
 }
 bool TeamManager::removePlayerInTeam(const std::string& name, PlayerObject const* player)
@@ -46,7 +46,7 @@ bool TeamManager::removePlayerInTeam(const std::string& name, PlayerObject const
     Team team = _teams[name];
     team.players_by_level[player->getLevel()] -= 1;
     for (int i = 0; i < RESSOURCE_TYPE_COUNT; i++)
-	team.resources[i] -= inventory[i];
+	team.ressources[i] -= inventory[i];
 //    std::vector<PlayerObject*> team = _teams[name];
 //    std::vector<PlayerObject*>::iterator it = std::find(team.begin(), team.end(), player);
 //    team.erase(it);

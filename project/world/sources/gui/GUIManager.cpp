@@ -10,16 +10,25 @@
 #include "IEngine.hh"
 #include "enums.hh"
 #include "TeamManager.hh"
+#include "PlayerObject.hh"
+#include "RessourceObject.hh"
+#include "EggObject.hh"
+#include "CaseObject.hh"
 //#include "Compass.hh"
 
 using namespace irr;
 using namespace gui;
 using namespace core;
 using namespace video;
+using namespace scene;
 
 GUIManager::GUIManager(IGUIEnvironment* env, IEngine* engine, posi_t const& winSize)
 : _env(env), _driver(env->getVideoDriver()), _engine(engine), _x(winSize.first), _y(winSize.second)
 {
+    _objDisplayers.insert(std::pair<Ids, displayObjInfo_t>(NODE_ID_PLAYER, &GUIManager::displayPlayerInfo));
+    _objDisplayers.insert(std::pair<Ids, displayObjInfo_t>(NODE_ID_RESSOURCE, &GUIManager::displayRessourceInfo));
+    _objDisplayers.insert(std::pair<Ids, displayObjInfo_t>(NODE_ID_EGG, &GUIManager::displayEggInfo));
+    _objDisplayers.insert(std::pair<Ids, displayObjInfo_t>(NODE_ID_CASE, &GUIManager::displayCaseInfo));
 }
 
 //GUIManager::GUIManager(GUIManager const& orig)
@@ -54,15 +63,6 @@ bool GUIManager::init()
     //    _teams = _env->addListBox(_rectZero, nullptr, GUI_ID_TEAM_INFO, true);
     
     _teamTable = _env->addTable(_rectZero, nullptr/*, GUI_ID_TEAM_TABLE*/);
-    
-    //    TeamManager const* teamManager = _engine->getTeamManager();
-    //    std::map<std::string, TeamManager::Team> const& infos = teamManager->getTeamsInfo();
-    //    
-    //    for (std::pair<std::string, TeamManager::Team>&& info : infos) {
-    //	const std::string name = info.first;
-    //	const std::wstring wname(name.begin(), name.end());
-    //	_teams->addItem(wname.c_str());
-    //    }
     
     /* INFORMATION */
     
@@ -106,6 +106,16 @@ void GUIManager::resize()
     _information->setRelativePosition(recti((_x * 2./3.), (_y * 1./5.), _x, _y));
 }
 
+std::wstring intToWstring(int nb)
+{
+    std::stringstream stream;
+    stream << nb;
+    std::string str;
+    stream >> str;
+    std::wstring wstr(str.begin(), str.end());
+    return wstr;
+}
+
 void GUIManager::updateTeamsViewer()
 {
     TeamManager const* teamManager = _engine->getTeamManager();
@@ -142,6 +152,11 @@ void GUIManager::updateTeamsViewer()
     //skillTree->setColumnOrdering(0, EGCO_FLIP_ASCENDING_DESCENDING);
     //skillTree->setColumnOrdering(1, EGCO_FLIP_ASCENDING_DESCENDING);
     
+    s32 columnCount = _teamTable->getColumnCount();
+    float columnSize = (float)_x / (float)(columnCount) * (1.f/3.f);
+//    for (s32 i = 0; i < columnCount; i++)
+//	_teamTable->setColumnWidth(i, columnSize);
+    
     int i = 0;
     for (std::pair<std::string, TeamManager::Team>&& info : infos) {
 	const std::string name = info.first;
@@ -151,15 +166,16 @@ void GUIManager::updateTeamsViewer()
 	_teamTable->setCellText(i,0, wname.c_str());
 	for (int j = 1; j <= Assets::LEVEL_MAX; j++)
 	{
-	    _teamTable->setCellText(i,j, L"33");
+	    const std::wstring wlevel = intToWstring(info.second.players_by_level[j - 1]);
+	    _teamTable->setCellText(i,j, wlevel.c_str());
 	}
 	for (int j = Assets::LEVEL_MAX + 1; j < RESSOURCE_TYPE_COUNT + Assets::LEVEL_MAX; j++)
 	{
-	    _teamTable->setCellText(i,j, L"42");
+	    const std::wstring wressource = intToWstring(info.second.ressources[j - Assets::LEVEL_MAX - 1]);
+	    _teamTable->setCellText(i,j, wressource.c_str());
 	}
-	_teamTable->setCellText(i, RESSOURCE_TYPE_COUNT + Assets::LEVEL_MAX, "56");
-	
-	//	_teams->addItem(wname.c_str());
+	const std::wstring wegg = intToWstring(info.second.eggs);
+	_teamTable->setCellText(i,columnCount-1, wegg.c_str());
 	i++;
     }
 }
@@ -171,13 +187,40 @@ void GUIManager::updateTeamsViewer()
 //    //    _compass->SetCompassHeading(angle);
 //}
 
-void GUIManager::updateNodeInformation(const INodeObject* node)
+bool GUIManager::updateNodeInformation(const INodeObject* obj)
 {
-    (void)node;
-    //if node != currentNode
+    ISceneNode* node = nullptr;
+    if (!obj || !(node = obj->getNode())
+	    || _currentObj == obj)
+	return false;
+    _currentObj = obj;
+
     _information->clear();
-    //...
-    //_classNames[node->getId()];
+    //Check id ?
+    (this->*(_objDisplayers[static_cast<Ids>(node->getID())]))(obj);
+}
+
+void GUIManager::displayPlayerInfo(const INodeObject* obj)
+{
+    PlayerObject const* player = static_cast<PlayerObject const*>(obj);
     
-    //sinon juste update info
+    _information->addItem(L"Player");
+}
+void GUIManager::displayRessourceInfo(const INodeObject* obj)
+{
+    RessourceObject const* ressource = static_cast<RessourceObject const*>(obj);
+    
+    _information->addItem(L"Ressource");
+}
+void GUIManager::displayEggInfo(const INodeObject* obj)
+{
+    EggObject const* egg = static_cast<EggObject const*>(obj);
+    
+    _information->addItem(L"Egg");
+}
+void GUIManager::displayCaseInfo(const INodeObject* obj)
+{
+    CaseObject const* caseObj = static_cast<CaseObject const*>(obj);
+    
+    _information->addItem(L"Case");
 }
