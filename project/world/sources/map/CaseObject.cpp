@@ -107,7 +107,7 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
     return true;
 }
 
-bool CaseObject::addPlayer(int index, Orientation const& o, int level, const std::string& team)
+bool CaseObject::addPlayer(unsigned int index, Orientation const& o, int level, const std::string& team)
 {
     PlayerObject* player = new PlayerObject(_smgr, this, _pos);
     if (!player || !player->initWithLevel(level))
@@ -119,7 +119,7 @@ bool CaseObject::addPlayer(int index, Orientation const& o, int level, const std
     _players.insert(std::pair<int, PlayerObject*>(index, player));
     return true;
 }
-void CaseObject::removePlayer(int index)
+void CaseObject::removePlayer(unsigned int index)
 {
     std::map<int, PlayerObject*>::iterator it = _players.find(index);
     _players.erase(it);
@@ -130,7 +130,7 @@ void CaseObject::registerPlayer(PlayerObject* player)
 {
     _players.insert(std::pair<int, PlayerObject*>(player->getIndex(), player));
 }
-PlayerObject* CaseObject::unregisterPlayer(int index)
+PlayerObject* CaseObject::unregisterPlayer(unsigned int index)
 {
     std::map<int, PlayerObject*>::iterator it = _players.find(index);
     PlayerObject * player = it->second;
@@ -138,7 +138,7 @@ PlayerObject* CaseObject::unregisterPlayer(int index)
     return player;
 }
 
-bool CaseObject::addEgg(int index, int playerIndex)
+bool CaseObject::addEgg(unsigned int index, int playerIndex)
 {
     EggObject* egg = new EggObject(_smgr, this, _pos);
     if (!egg || !egg->init())
@@ -149,7 +149,7 @@ bool CaseObject::addEgg(int index, int playerIndex)
     return true;
 }
 
-void CaseObject::removeEgg(int index)
+void CaseObject::removeEgg(unsigned int index)
 {
     std::map<int, EggObject*>::iterator it = _eggs.find(index);
     _eggs.erase(it);

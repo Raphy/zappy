@@ -23,7 +23,7 @@ public:
     bool    init();
     bool    initWithLevel(int level);
 
-    void    setIndex(int index);
+    void    setIndex(unsigned int index);
     void    setOrientation(Orientation const& orientation);
     void    setTeam(std::string const& _team);
     bool    setLevel(int level);
@@ -33,17 +33,23 @@ public:
     Orientation const&	getOrientation() const;
     std::string const&	getTeam() const;
     std::array<int, RESSOURCE_TYPE_COUNT> const&    getInventory() const;
+
+    bool    expel();
+    bool    broadcast();
+    bool    fork();
+    bool    incant(bool begin);
+    bool    takeRessource();
+    bool    throwRessource();
     
     /* HANDLERS */
-    bool    levelHandler(t_infos *infos)
-    {
-	return setLevel(infos->level);
-    }
-    bool    inventoryHandler(t_infos *infos)
-    {
-	return setInventory(infos->quantity);
-    }
-
+    bool    levelHandler(t_infos *infos);
+    bool    inventoryHandler(t_infos *infos);
+    bool    expelHandler(__attribute__((unused))t_infos *infos);
+    bool    broadcastHandler(__attribute__((unused))t_infos *infos);
+    bool    incantationHandler(__attribute__((unused))t_infos *infos);
+    bool    forkHandler(__attribute__((unused))t_infos *infos);
+    bool    takeHandler(__attribute__((unused))t_infos *infos);
+    bool    throwHandler(__attribute__((unused))t_infos *infos);
 
 private:
     void    rotateOnNorth();

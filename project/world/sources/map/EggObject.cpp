@@ -34,7 +34,8 @@ bool    EggObject::init()
     if (!mesh)
 	return false;
 
-    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode(), NODE_ID_EGG);
+//    ISceneNode* node = _smgr->addCubeSceneNode(1.f, getParentNode(), NODE_ID_EGG);
+    ISceneNode* node = _smgr->addParticleSystemSceneNode(true, getParentNode(), NODE_ID_EGG);
     _node = node;
     if (node)
     {
@@ -56,22 +57,22 @@ bool EggObject::update()
 
 
 
-int EggObject::getPlayerIndex() const
+unsigned int EggObject::getPlayerIndex() const
 {
     return _playerIndex;
 }
 
-int EggObject::getIndex() const
+unsigned int EggObject::getIndex() const
 {
     return _index;
 }
 
-void EggObject::setPlayerIndex(int _playerIndex)
+void EggObject::setPlayerIndex(unsigned int _playerIndex)
 {
     this->_playerIndex = _playerIndex;
 }
 
-void EggObject::setIndex(int _index)
+void EggObject::setIndex(unsigned int _index)
 {
     this->_index = _index;
 }

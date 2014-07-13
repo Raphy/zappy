@@ -36,12 +36,12 @@ public:
     INodeObject*    getObjectFromNode(const scene::ISceneNode* node) const;
     
     /* HANDLERS IMPLEMENTATION */
-    bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);
-    void	    removePlayer(int index);
+    bool	    addPlayer(unsigned int index, Orientation const& o, int level, const std::string& team);
+    void	    removePlayer(unsigned int index);
     void	    registerPlayer(PlayerObject* player);
-    PlayerObject*   unregisterPlayer(int index);
-    bool	    addEgg(int index, int playerIndex);
-    void	    removeEgg(int index);
+    PlayerObject*   unregisterPlayer(unsigned int index);
+    bool	    addEgg(unsigned int index, int playerIndex);
+    void	    removeEgg(unsigned int index);
     bool	    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
     
     /* HANDLERS */

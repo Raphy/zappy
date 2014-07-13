@@ -113,6 +113,7 @@ bool MapObject::handlerRelay(t_data * data)
 {
     t_infos * infos = data->infos;
     PlayerObject* player = nullptr;
+    EggObject* egg = nullptr;
     CaseObject* caseObj = nullptr;
     
     switch(data->game_element_type)
@@ -124,6 +125,13 @@ bool MapObject::handlerRelay(t_data * data)
 	    if (!player)
 		return false;
 	    return (player->*(data->player_handler_ptr))(infos);
+	case EGG_CLASS:
+	    if (!data->egg_handler_ptr)
+		break;
+	    egg = getEgg(infos->egg_id);
+	    if (!egg)
+		return false;
+	    return (egg->*(data->egg_handler_ptr))(infos);
 	case CASE_CLASS:
 	    if (!data->case_handler_ptr)
 		break;
@@ -187,15 +195,15 @@ bool MapObject::movePlayer(int player_id, posi_t pos, Orientation orientation)
 
 
 
-PlayerObject const* MapObject::getPlayerFromIndex(int index)
+PlayerObject const* MapObject::getPlayerFromIndex(unsigned int index)
 {
     return getPlayer(index);
 }
-EggObject const* MapObject::getEggFromIndex(int index)
+EggObject const* MapObject::getEggFromIndex(unsigned int index)
 {
     return getEgg(index);
 }
-PlayerObject* MapObject::getPlayer(int index)
+PlayerObject* MapObject::getPlayer(unsigned int index)
 {
     for(std::vector<CaseObject*>& column : _cases) {
 	for(CaseObject* caseObj : column) {
@@ -207,7 +215,7 @@ PlayerObject* MapObject::getPlayer(int index)
     };
     return nullptr;
 }
-EggObject* MapObject::getEgg(int index)
+EggObject* MapObject::getEgg(unsigned int index)
 {
     for(std::vector<CaseObject*>& column : _cases) {
 	for(CaseObject* caseObj : column) {

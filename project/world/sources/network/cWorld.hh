@@ -130,6 +130,7 @@ struct s_infos
 	pos.second = -1;
 	orientation = NORTH;
 	level = -1;
+	begin = false;
 	quantity.fill(-1);
 	player_id = -1;//list ?
 	egg_id = -1;
@@ -142,10 +143,11 @@ struct s_infos
     std::pair<int,int>	pos;
     Orientation	    orientation;
     int	    level;
+    bool    begin;
     std::array<int, RESSOURCE_TYPE_COUNT>	    quantity;
-    int	    player_id;//list ?
-    int	    egg_id;
-    int	    ressource_id;
+    unsigned int	    player_id;//list ?
+    unsigned int	    egg_id;
+    unsigned int	    ressource_id;
     int	    time_unit;
     std::string  team_name;
     int	    err;
@@ -243,22 +245,23 @@ void	world_pnw_handler(t_zc *zc, t_pnw *pnw, void *world);
 void	world_ppo_handler(t_zc *zc, t_ppo *ppo, void *world);
 void	world_plv_handler(t_zc *zc, t_plv *plv, void *world);
 void	world_pin_handler(t_zc *zc, t_pin *pin, void *world);
-void	world_pex_handler(t_zc *zc, void *world);
+void	world_pex_handler(t_zc *zc, unsigned int uid, void *world);
 void	world_pbc_handler(t_zc *zc, t_pbc *pbc, void *world);
 void	world_pic_handler(t_zc *zc, t_pic *pic, void *world);
 void	world_pie_handler(t_zc *zc, t_pie *pie, void *world);
-void	world_pfk_handler(t_zc *zc, void *world);
+void	world_pfk_handler(t_zc *zc, unsigned int uid, void *world);
 void	world_pdr_handler(t_zc *zc, t_pdr *pdr, void *world);
-void	world_pgt_handler(t_zc *zc, t_pin *pin, void *world);
-void    world_enw_handler(t_zc *zc, const t_enw *enw);
-void    world_eht_handler(t_zc *zc, unsigned int eid);
-void    world_ebo_handler(t_zc *zc, unsigned int eid);
-void    world_edi_handler(t_zc *zc, unsigned int eid);
-void    world_sgt_handler(t_zc *zc, unsigned int time);
-void    world_seg_handler(t_zc *zc, const char *team_name);
-void    world_smg_handler(t_zc *zc, const char *message);
-void    world_suc_handler(t_zc *zc);
-void    world_sbp_handler(t_zc *zc);
+void	world_pgt_handler(t_zc *zc, t_pgt *pgt, void *world);
+void	world_pdi_handler(t_zc *zc, unsigned int uid, void *world);
+void    world_enw_handler(t_zc *zc, t_enw *enw, void *world);
+void    world_eht_handler(t_zc *zc, unsigned int eid, void *world);
+void    world_ebo_handler(t_zc *zc, unsigned int eid, void *world);
+void    world_edi_handler(t_zc *zc, unsigned int eid, void *world);
+void    world_sgt_handler(t_zc *zc, unsigned int time, void *world);
+void    world_seg_handler(t_zc *zc, const char *team_name, void *world);
+void    world_smg_handler(t_zc *zc, const char *message, void *world);
+void    world_suc_handler(t_zc *zc, void *world);
+void    world_sbp_handler(t_zc *zc, void *world);
 
 G_END_DECLS
 
