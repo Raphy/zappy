@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sat Jul 12 12:19:58 2014 raphael defreitas
+** Last update Sun Jul 13 05:39:00 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -17,43 +17,16 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static unsigned int get_next_token(char **ptr, bool *has_error)
-{
-  char		*tok;
-  char		*end;
-  unsigned int	res;
-
-  if (*has_error)
-    return (0);
-  tok = *ptr;
-  end = strchr(tok, ' ');
-  if (end == NULL)
-    {
-      *has_error = true;
-      return (0);
-    }
-  tok[end - tok] = 0;
-  end++;
-  *ptr = end;
-  if (!my_str_is_numeric(tok))
-    {
-      *has_error = true;
-      return (0);
-    }
-  res = strtoul(tok, NULL, 0);
-  return (res);
-}
-
 static bool	fill(char **ptr, t_pie *pie)
 {
   bool		has_error;
   unsigned int	result;
   has_error = false;
-  pie->position.x = get_next_token(ptr, &has_error);
-  pie->position.y = get_next_token(ptr, &has_error);
-  result = get_next_token(ptr, &has_error);
+  pie->position.x = zt_get_next_token(ptr, &has_error);
+  pie->position.y = zt_get_next_token(ptr, &has_error);
+  result = zt_get_next_token(ptr, &has_error);
   pie->result = result == 0 ? false : true;
-  return (has_error);
+  return (!has_error);
 }
 
 static bool	parse(const char *cmd, t_pie *pie)

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Fri Jul 11 20:13:33 2014 raphael defreitas
+** Last update Sun Jul 13 05:37:53 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -17,48 +17,21 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static unsigned int get_next_token(char **ptr, bool *has_error)
-{
-  char		*tok;
-  char		*end;
-  unsigned int	res;
-
-  if (*has_error)
-    return (0);
-  tok = *ptr;
-  end = strchr(tok, ' ');
-  if (end == NULL)
-    {
-      *has_error = true;
-      return (0);
-    }
-  tok[end - tok] = 0;
-  end++;
-  *ptr = end;
-  if (!my_str_is_numeric(tok))
-    {
-      *has_error = true;
-      return (0);
-    }
-  res = strtoul(tok, NULL, 0);
-  return (res);
-}
-
 static bool	fill(char **ptr, t_bct *bct)
 {
   bool		has_error;
 
   has_error = false;
-  bct->position.x = get_next_token(ptr, &has_error);
-  bct->position.y = get_next_token(ptr, &has_error);
-  bct->items.food = get_next_token(ptr, &has_error);
-  bct->items.linemate = get_next_token(ptr, &has_error);
-  bct->items.deraumere = get_next_token(ptr, &has_error);
-  bct->items.sibur = get_next_token(ptr, &has_error);
-  bct->items.mendiane = get_next_token(ptr, &has_error);
-  bct->items.phiras = get_next_token(ptr, &has_error);
-  bct->items.thystame = get_next_token(ptr, &has_error);
-  return (has_error);
+  bct->position.x = zt_get_next_token(ptr, &has_error);
+  bct->position.y = zt_get_next_token(ptr, &has_error);
+  bct->items.food = zt_get_next_token(ptr, &has_error);
+  bct->items.linemate = zt_get_next_token(ptr, &has_error);
+  bct->items.deraumere = zt_get_next_token(ptr, &has_error);
+  bct->items.sibur = zt_get_next_token(ptr, &has_error);
+  bct->items.mendiane = zt_get_next_token(ptr, &has_error);
+  bct->items.phiras = zt_get_next_token(ptr, &has_error);
+  bct->items.thystame = zt_get_next_token(ptr, &has_error);
+  return (!has_error);
 }
 
 static bool	parse(const char *cmd, t_bct *bct)

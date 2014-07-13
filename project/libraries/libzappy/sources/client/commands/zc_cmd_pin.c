@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Fri Jul 11 20:15:51 2014 raphael defreitas
+** Last update Sun Jul 13 05:35:35 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -17,49 +17,22 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-static unsigned int get_next_token(char **ptr, bool *has_error)
-{
-  char		*tok;
-  char		*end;
-  unsigned int	res;
-
-  if (*has_error)
-    return (0);
-  tok = *ptr;
-  end = strchr(tok, ' ');
-  if (end == NULL)
-    {
-      *has_error = true;
-      return (0);
-    }
-  tok[end - tok] = 0;
-  end++;
-  *ptr = end;
-  if (!my_str_is_numeric(tok))
-    {
-      *has_error = true;
-      return (0);
-    }
-  res = strtoul(tok, NULL, 0);
-  return (res);
-}
-
 static bool	fill(char **ptr, t_pin *pin)
 {
   bool		has_error;
 
   has_error = false;
-  pin->uid = get_next_token(ptr, &has_error);
-  pin->position.x = get_next_token(ptr, &has_error);
-  pin->position.y = get_next_token(ptr, &has_error);
-  pin->items.food = get_next_token(ptr, &has_error);
-  pin->items.linemate = get_next_token(ptr, &has_error);
-  pin->items.deraumere = get_next_token(ptr, &has_error);
-  pin->items.sibur = get_next_token(ptr, &has_error);
-  pin->items.mendiane = get_next_token(ptr, &has_error);
-  pin->items.phiras = get_next_token(ptr, &has_error);
-  pin->items.thystame = get_next_token(ptr, &has_error);
-  return (has_error);
+  pin->uid = zt_get_next_token(ptr, &has_error);
+  pin->position.x = zt_get_next_token(ptr, &has_error);
+  pin->position.y = zt_get_next_token(ptr, &has_error);
+  pin->items.food = zt_get_next_token(ptr, &has_error);
+  pin->items.linemate = zt_get_next_token(ptr, &has_error);
+  pin->items.deraumere = zt_get_next_token(ptr, &has_error);
+  pin->items.sibur = zt_get_next_token(ptr, &has_error);
+  pin->items.mendiane = zt_get_next_token(ptr, &has_error);
+  pin->items.phiras = zt_get_next_token(ptr, &has_error);
+  pin->items.thystame = zt_get_next_token(ptr, &has_error);
+  return (!has_error);
 }
 
 static bool	parse(const char *cmd, t_pin *pin)
