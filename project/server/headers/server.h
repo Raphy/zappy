@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Sun Jul 13 09:42:38 2014 damien sauvalle
+** Last update Sun Jul 13 11:15:45 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -17,13 +17,13 @@
 # include	"case.h"
 # include	"zappy.h"
 
-# define        TO_MAP(value, max) ((max + value) % max)
+# define	TO_MAP(value, max) ((max + value) % max)
 
 typedef struct	s_server
 {
   t_case	**map;
-  t_list        *players;
-  t_list        *events;
+  t_list	*players;
+  t_list	*events;
   t_list	*eggs;
   t_list	*graphic;
   t_list	*remote;
@@ -42,25 +42,22 @@ typedef struct	s_remote
 }		t_remote;
 
 int		graphic_ctor(t_graphic *, t_zc *);
-t_graphic       *graphic_new(t_zc *);
+t_graphic	*graphic_new(t_zc *);
 void		graphic_delete(t_graphic *);
 void		graphic_dtor(t_graphic *);
-
 int		remote_ctor(t_remote *, t_zc *);
-t_remote       *remote_new(t_zc *);
+t_remote	*remote_new(t_zc *);
 void		remote_delete(t_remote *);
 void		remote_dtor(t_remote *);
-
 int		server_ctor(t_server *, t_arg *, t_zs *);
 void		server_dtor(t_server *);
 
-typedef void (*fill)(t_case **, t_arg *, int);
+typedef void	(*fill)(t_case **, t_arg *, int);
 
 typedef struct	s_fill_map
 {
   fill		fill;
 }		t_fill_map;
-
 
 void	generate_ressource(t_server *);
 void	fill_linemate(t_case **, t_arg *, int);
@@ -77,17 +74,10 @@ void	server_mct(t_zs *, t_zc *, void *);
 void	server_sgt(t_zs *, t_zc *, void *);
 void	server_tna(t_zs *, t_zc *, void *);
 
-void    server_ppo(t_zs *, t_zc *, unsigned int, void *);
-void    server_plv(t_zs *, t_zc *, unsigned int, void *);
-void    server_pin(t_zs *, t_zc *, unsigned int, void *);
-void    server_sst(t_zs *, t_zc *, unsigned int, void *);
-
+void	server_ppo(t_zs *, t_zc *, unsigned int, void *);
+void	server_plv(t_zs *, t_zc *, unsigned int, void *);
+void	server_pin(t_zs *, t_zc *, unsigned int, void *);
+void	server_sst(t_zs *, t_zc *, unsigned int, void *);
 void	server_pnw(t_zs *, t_zc *, void *);
-
-
-/*
-** Fonction pour acceder au ressource d'une case definie
-** Pour les joueurs Finder via Id
-*/
 
 #endif /* !SERVER_H_ */
