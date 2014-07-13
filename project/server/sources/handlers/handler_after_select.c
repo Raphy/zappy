@@ -37,8 +37,8 @@ void	handler_after_select(__attribute__((unused))t_zs *zs,
     if ((bundle.player = event->player) != NULL
             && (bundle.server = server) != NULL)
       event->action(event->player->zc, &bundle);
+    iterator_next(&it);
     list_unlink(server->events, item);
     event_delete(event);
-    iterator_next(&it);
   }
 }
