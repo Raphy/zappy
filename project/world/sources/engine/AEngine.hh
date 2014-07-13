@@ -16,6 +16,7 @@
 #include "ISafeQueue.hh"
 #include "MapViewer.hh"
 #include "GUIManager.hh"
+#include "TeamManager.hh"
 
 using namespace irr;
 
@@ -35,25 +36,9 @@ public:
     virtual void sendCommand(t_data * data);
     
     /* HANDLERS */
-    bool    connectedHandler(t_infos * infos)
-    {
-	(void)infos;
-	std::cout << "Successful connection to server !" << std::endl;
-	return true;
-    }
-    bool    disconnectedHandler(t_infos * infos)
-    {
-	(void)infos;
-	std::cout << "Successful disconnection !" << std::endl;
-	return true;
-    }
-    bool    disconnectedHandler(t_infos * infos)
-    {
-	(void)infos;
-	//TODO
-	std::cout << "errno !" << std::endl;
-	return true;
-    }
+    bool    connectedHandler(t_infos * infos);
+    bool    disconnectedHandler(t_infos * infos);
+    bool    errnoHandler(t_infos * infos);
     
     /* SETTINGS */
     
@@ -98,12 +83,15 @@ protected:
     
     posi_t		    _winSize;
     MapViewer*		    _mapViewer;
+    TeamManager*	    _teamManager;
     
     Helper*		    _helper;
     Assets*		    _assets;
     IThread*		    _networkThread;
     ISafeQueue<t_data *>*   _eventQueue;
     ISafeQueue<t_data *>*   _commandQueue;
+    
+
 };
 
 #endif	/* AENGINE_HH */

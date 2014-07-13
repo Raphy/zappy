@@ -109,34 +109,6 @@ INodeObject* MapObject::getObjectFromNode(const scene::ISceneNode* node) const
 }
 
 
-//bool MapObject::handlerRelay(t_data * data)
-//{
-//    if (data->game_element_type == PLAYER_CLASS
-//	    || data->game_element_type == RESSOURCE_CLASS
-//	    || data->game_element_type == EGG_CLASS
-//	    || data->game_element_type == CASE_CLASS)
-//    {
-//	t_infos * infos = data->infos;
-//	posi_t	pos = infos->pos;
-//	CaseObject * caseObj = getCaseObject(pos);
-//	//	CaseObject& caseObj;
-//	//	tryGetCaseObject(pos, caseObj);
-//	switch (data->event_type)
-//	{
-//	    case PLAYER_CONNECTION_EVENT:
-//		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
-//		//	    case PLAYER_DEAD_EVENT:
-//		//		return caseObj->removePlayer(infos->player_id);
-//	    case CASE_CONTENT_EVENT:
-//		return caseObj->setCaseContent(infos->quantity);
-//	    default:
-//		break;
-//	}
-//    }
-//    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
-//    return false;
-//}
-
 bool MapObject::handlerRelay(t_data * data)
 {
     t_infos * infos = data->infos;
@@ -232,4 +204,9 @@ void MapObject::initCases()
 	}		
 	_cases.push_back(row);
     }
+}
+
+bool MapObject::playerPositionHandler(t_infos* infos)
+{
+    return movePlayer(infos->player_id, infos->pos, infos->orientation);
 }

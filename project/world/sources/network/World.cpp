@@ -29,10 +29,6 @@ World::World(ISafeQueue<t_data*>* eventQueue, ISafeQueue<t_data*>* commandQueue)
     int port = 4242;
     
     std::cout << "Connecting to" << host << port << std::endl;
-//    if (zc_connect(&_zc, host, port) == RET_FAILURE)
-//    {
-//	
-//    }
     if (zc_connect(&_zc, host, port) == RET_FAILURE)
     {
 	throw std::string("Connection failed");
