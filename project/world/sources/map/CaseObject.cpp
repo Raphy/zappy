@@ -121,7 +121,7 @@ bool CaseObject::addPlayer(int index, Orientation const& o, int level, const std
 }
 void CaseObject::removePlayer(int index)
 {
-    auto it = _players.find(index);
+    std::map<int, PlayerObject*>::iterator it = _players.find(index);
     _players.erase(it);
     delete it->second;
 }
@@ -136,6 +136,24 @@ PlayerObject* CaseObject::unregisterPlayer(int index)
     PlayerObject * player = it->second;
     _players.erase(it);
     return player;
+}
+
+bool CaseObject::addEgg(int index, int playerIndex)
+{
+    EggObject* egg = new EggObject(_smgr, this, _pos);
+    if (!egg || !egg->init())
+	return false;
+    egg->setIndex(index);
+    egg->setPlayerIndex(playerIndex);
+    _eggs.insert(std::pair<int, EggObject*>(index, egg));
+    return true;
+}
+
+void CaseObject::removeEgg(int index)
+{
+    std::map<int, EggObject*>::iterator it = _eggs.find(index);
+    _eggs.erase(it);
+    delete it->second;
 }
 
 
@@ -161,10 +179,25 @@ bool CaseObject::caseContentHandler(t_infos* infos)
 {
     return setCaseContent(infos->quantity);
 }
-
 bool CaseObject::playerConnectionHandler(t_infos* infos)
 {
-    return addPlayer(infos->index, infos->orientation, infos->level, infos->team);
+    return addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
+}
+
+bool CaseObject::playerDeathHandler(t_infos* infos)
+{
+    removePlayer(infos->player_id);
+    return true;
+}
+
+bool CaseObject::eggHandler(t_infos* infos)
+{
+    return addEgg(infos->egg_id, infos->player_id);
+}
+bool CaseObject::eggDeathHandler(t_infos* infos)
+{
+    removeEgg(infos->egg_id);
+    return true;
 }
 
 

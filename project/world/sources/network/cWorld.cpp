@@ -12,6 +12,7 @@
 #include "cWorld.hh"
 
 #include "IEngine.hh"
+#include "TeamManager.hh"
 #include "MapViewer.hh"
 #include "MapObject.hh"
 #include "CaseObject.hh"
@@ -44,23 +45,23 @@ void world_ctor(t_world * self, World * cpp_world)
     SET_CMD_HANDLER(ppo);
     SET_CMD_HANDLER(plv);
     SET_CMD_HANDLER(pin);
-    SET_CMD_HANDLER(pex);
-    SET_CMD_HANDLER(pbc);
-    SET_CMD_HANDLER(pic);
-    SET_CMD_HANDLER(pie);
-    SET_CMD_HANDLER(pfk);
-    SET_CMD_HANDLER(pdr);
-    SET_CMD_HANDLER(pgt);
-    SET_CMD_HANDLER(pdi);
-    SET_CMD_HANDLER(enw);
-    SET_CMD_HANDLER(eht);
-    SET_CMD_HANDLER(ebo);
-    SET_CMD_HANDLER(edi);
-    SET_CMD_HANDLER(sgt);
-    SET_CMD_HANDLER(seg);
-    SET_CMD_HANDLER(smg);
-    SET_CMD_HANDLER(suc);
-    SET_CMD_HANDLER(sbp);
+//    SET_CMD_HANDLER(pex);
+//    SET_CMD_HANDLER(pbc);
+//    SET_CMD_HANDLER(pic);
+//    SET_CMD_HANDLER(pie);
+//    SET_CMD_HANDLER(pfk);
+//    SET_CMD_HANDLER(pdr);
+//    SET_CMD_HANDLER(pgt);
+//    SET_CMD_HANDLER(pdi);
+//    SET_CMD_HANDLER(enw);
+//    SET_CMD_HANDLER(eht);
+//    SET_CMD_HANDLER(ebo);
+//    SET_CMD_HANDLER(edi);
+//    SET_CMD_HANDLER(sgt);
+//    SET_CMD_HANDLER(seg);
+//    SET_CMD_HANDLER(smg);
+//    SET_CMD_HANDLER(suc);
+//    SET_CMD_HANDLER(sbp);
  
 #undef SET_HANDLER
 }
@@ -125,7 +126,7 @@ void	world_before_select_data(__attribute__((unused)) t_zc *zc, void *world)
 //	}
 //    }    
 }
-void	world_after_select_data(t_zc *zc, void *world)
+void	world_after_select_data(__attribute__((unused)) t_zc *zc, void *world)
 {
     world_before_select_data(zc, world);
 }
@@ -177,30 +178,30 @@ void	world_bct_handler(__attribute__((unused)) t_zc *zc, t_bct *bct, void *world
 void	world_tna_handler(__attribute__((unused)) t_zc *zc, const char *team_name, void *world)
 {
     t_world * self = _init_handler(world, TEAM_MANAGER_CLASS);
-    self->data->case_handler_ptr = &CaseObject::teamNameHandler;
+    self->data->teammanager_handler_ptr = &TeamManager::teamNameHandler;
     
     self->data->infos->team_name = team_name;
     
     self->cpp_world->push_callback(self->data);
 }
-void    world_pnw_handler(t_zc *zc, t_pnw *pnw, void *world)
+void    world_pnw_handler(__attribute__((unused)) t_zc *zc, t_pnw *pnw, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerConnectionHandler;
+    self->data->case_handler_ptr = &CaseObject::playerConnectionHandler;
     
     self->data->infos->player_id = pnw->uid;
     self->data->infos->pos.first = pnw->position.x;
     self->data->infos->pos.second = pnw->position.y;
-    self->data->infos->orientation = pnw->orientation;//cast
+    self->data->infos->orientation = static_cast<Orientation>(pnw->orientation);
     self->data->infos->level = pnw->level;
     self->data->infos->team_name = pnw->team_name;
     
     self->cpp_world->push_callback(self->data);    
 }
-void    world_ppo_handler(t_zc *zc, t_ppo *ppo, void *world)
+void    world_ppo_handler(__attribute__((unused)) t_zc *zc, t_ppo *ppo, void *world)
 {
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    t_world * self = _init_handler(world, MAP_OBJECT_CLASS);
+    self->data->mapobject_handler_ptr = &MapObject::playerPositionHandler;
     
     self->data->infos->player_id = ppo->uid;
     self->data->infos->pos.first = ppo->position.x;
@@ -219,10 +220,10 @@ void	world_plv_handler(__attribute__((unused)) t_zc *zc, t_plv *plv, void *world
     self->cpp_world->push_callback(self->data);
 }
 
-void	world_pin_handler(t_zc *zc, t_pin *pin, void *world)
+void	world_pin_handler(__attribute__((unused)) t_zc *zc, t_pin *pin, void *world)
 {
     t_world * self = _init_handler(world, PLAYER_CLASS);
-    self->data->player_handler_ptr = &PlayerObject::levelHandler;
+    self->data->player_handler_ptr = &PlayerObject::inventoryHandler;
 
     self->data->infos->player_id = pin->uid;
     self->data->infos->pos.first = pin->position.x;
@@ -237,111 +238,111 @@ void	world_pin_handler(t_zc *zc, t_pin *pin, void *world)
 
     self->cpp_world->push_callback(self->data);    
 }
-void	world_pex_handler(t_zc *zc, unsigned int uid, void *world)
+//void	world_pex_handler(__attribute__((unused)) t_zc *zc, unsigned int uid, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &PlayerObject::expelHandler;
+//
+//    // joueur expulsé (animation d'un coup de pied ? :p)
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pbc_handler(__attribute__((unused)) t_zc *zc, t_pbc *pbc, void *world)
+//{
+//    t_world * self = _init_handler(world, CASE_CLASS);
+//    self->data->player_handler_ptr = &CaseObject::broadcastHandler;
+//
+//    // broadcast d'un joeur (une petite bulle comme les bande dessiné en haut de sa tête ?)
+//    self->data->infos->player_id = pbc->uid;
+//    // char * pbc->message => Message du broadcast (souvent chiffré)
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pic_handler(__attribute__((unused)) t_zc *zc, t_pic *pic, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &CaseObject::invocationBeginHandler;
+//
+//    // Incantation du premier joueur pour les autres joueurs de la liste
+//    // pic->nb_uids => le nombre de joueurs concernés pas l'incantation
+//    // pic->uids[0] => uid du joueur qui lance l'incantation
+//    self->data->infos->player_id = pic->uid;
+//    self->data->infos->pos.first = pic->position.x;
+//    self->data->infos->pos.second = pic->position.y;
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pie_handler(__attribute__((unused)) t_zc *zc, t_pie *pie, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &PlayerObject::invocationEndHandler;
+//
+//    // Fin de l'incantation
+//    // si pie->result == true => Incantation réussie, sinon non
+//    self->data->infos->player_id = pie->uid;
+//    // bool pie->result => Réussite ou non de l'incantation
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pfk_handler(__attribute__((unused)) t_zc *zc, unsigned int uid, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &PlayerObject::forkHandler;
+//
+//    // le joueur COMMENCE à chier un oeuf ! YOSHI!
+//    self->data->infos->player_id = uid;
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pdr_handler(__attribute__((unused)) t_zc *zc, t_pdr *pdr, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &PlayerObject::throwHandler;
+//
+//    // Le joeur jete une ressource
+//    self->data->infos->player_id = pdr->uid;
+//    self->data->infos->quantity[static_cast<int>(FOOD)] = pdr->resource == RESOURCE_FOOD ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(DERAUMERE)] = pdr->resource == RESOURCE_DERAUMERE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(LINEMATE)] = pdr->resource == RESOURCE_LINEMATE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(MENDIANE)] = pdr->resource == RESOURCE_MENDIANE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(PHIRAS)] = pdr->resource == RESOURCE_PHIRAS ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(SIBUR)] = pdr->resource == RESOURCE_SIBUR ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(THYSTAME)] = pdr->resource == RESOURCE_THYSTAME ? 1 : 0;
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+//void	world_pgt_handler(__attribute__((unused)) t_zc *zc, t_pin *pin, void *world)
+//{
+//    t_world * self = _init_handler(world, PLAYER_CLASS);
+//    self->data->player_handler_ptr = &PlayerObject::takeHandler;
+//
+//    // Le joueur prend une ressource
+//    self->data->infos->player_id = pgt->uid;
+//    self->data->infos->quantity[static_cast<int>(FOOD)] = pgt->resource == RESOURCE_FOOD ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(DERAUMERE)] = pgt->resource == RESOURCE_DERAUMERE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(LINEMATE)] = pgt->resource == RESOURCE_LINEMATE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(MENDIANE)] = pgt->resource == RESOURCE_MENDIANE ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(PHIRAS)] = pgt->resource == RESOURCE_PHIRAS ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(SIBUR)] = pgt->resource == RESOURCE_SIBUR ? 1 : 0;
+//    self->data->infos->quantity[static_cast<int>(THYSTAME)] = pgt->resource == RESOURCE_THYSTAME ? 1 : 0;
+//
+//
+//    self->cpp_world->push_callback(self->data); 
+//}
+void	world_pdi_handler(__attribute__((unused)) t_zc *zc, unsigned int uid, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // joueur expulsé (animation d'un coup de pied ? :p)
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pbc_handler(t_zc *zc, t_pbc *pbc, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // broadcast d'un joeur (une petite bulle comme les bande dessiné en haut de sa tête ?)
-    self->data->infos->player_id = pbc->uid;
-    // char * pbc->message => Message du broadcast (souvent chiffré)
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pic_handler(t_zc *zc, t_pic *pic, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // Incantation du premier joueur pour les autres joueurs de la liste
-    // pic->nb_uids => le nombre de joueurs concernés pas l'incantation
-    // pic->uids[0] => uid du joueur qui lance l'incantation
-    self->data->infos->player_id = pic->uid;
-    self->data->infos->pos.first = pic->position.x;
-    self->data->infos->pos.second = pic->position.y;
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pie_handler(t_zc *zc, t_pie *pie, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // Fin de l'incantation
-    // si pie->result == true => Incantation réussie, sinon non
-    self->data->infos->player_id = pie->uid;
-    // bool pie->result => Réussite ou non de l'incantation
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pfk_handler(t_zc *zc, unsigned int uid, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // le joueur COMMENCE à chier un oeuf ! YOSHI!
-    self->data->infos->player_id = uid;
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pdr_handler(t_zc *zc, t_pdr *pdr, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // Le joeur jete une ressource
-    self->data->infos->player_id = pdr->uid;
-    self->data->infos->quantity[static_cast<int>(FOOD)] = pdr->resource == RESOURCE_FOOD ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(DERAUMERE)] = pdr->resource == RESOURCE_DERAUMERE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(LINEMATE)] = pdr->resource == RESOURCE_LINEMATE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(MENDIANE)] = pdr->resource == RESOURCE_MENDIANE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(PHIRAS)] = pdr->resource == RESOURCE_PHIRAS ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(SIBUR)] = pdr->resource == RESOURCE_SIBUR ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(THYSTAME)] = pdr->resource == RESOURCE_THYSTAME ? 1 : 0;
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pgt_handler(t_zc *zc, t_pin *pin, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
-
-    // Le joueur prend une ressource
-    self->data->infos->player_id = pgt->uid;
-    self->data->infos->quantity[static_cast<int>(FOOD)] = pgt->resource == RESOURCE_FOOD ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(DERAUMERE)] = pgt->resource == RESOURCE_DERAUMERE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(LINEMATE)] = pgt->resource == RESOURCE_LINEMATE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(MENDIANE)] = pgt->resource == RESOURCE_MENDIANE ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(PHIRAS)] = pgt->resource == RESOURCE_PHIRAS ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(SIBUR)] = pgt->resource == RESOURCE_SIBUR ? 1 : 0;
-    self->data->infos->quantity[static_cast<int>(THYSTAME)] = pgt->resource == RESOURCE_THYSTAME ? 1 : 0;
-
-
-    self->cpp_world->push_callback(self->data); 
-}
-void	world_pdi_handler(t_zc *zc, unsigned int uid, void *world)
-{
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    self->data->case_handler_ptr = &CaseObject::playerDeathHandler;
 
     // Le joueur est mort
     self->data->infos->player_id = uid;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_enw_handler(t_zc *zc, t_enw *enw, void *world)
+void    world_enw_handler(__attribute__((unused)) t_zc *zc, t_enw *enw, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    self->data->case_handler_ptr = &CaseObject::eggHandler;
 
     // Le joeur a affranchi un noir dans une case
     self->data->infos->egg_id = enw->eid;
@@ -351,68 +352,71 @@ void    world_enw_handler(t_zc *zc, t_enw *enw, void *world)
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_eht_handler(t_zc *zc, unsigned int eid, void *world)
+void    world_eht_handler(__attribute__((unused)) t_zc *zc, unsigned int eid, void *world)
 {
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    t_world * self = _init_handler(world, EGG_CLASS);
+    self->data->egg_handler_ptr = &EggObject::hatchHandler;
 
     // L'oeuf a éclot
     self->data->infos->egg_id = eid;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_ebo_handler(t_zc *zc, unsigned int eid, void *world)
+void    world_ebo_handler(__attribute__((unused)) t_zc *zc, unsigned int eid, void *world)
 {
-    t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    t_world * self = _init_handler(world, EGG_CLASS);
+    self->data->egg_handler_ptr = &EggObject::connectedHandler;
 
     // Un joeur s'est connecté sur l'oeuf (on peut effacer l'oeuf)
     self->data->infos->egg_id = eid;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_edi_handler(t_zc *zc, unsigned int eid, void *world)
+void    world_edi_handler(__attribute__((unused)) t_zc *zc, unsigned int eid, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+    self->data->case_handler_ptr = &CaseObject::eggDeathHandler;
 
     // L'oeuf est mort (on peut l'effacer)
     self->data->infos->egg_id = eid;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_sgt_handler(t_zc *zc, unsigned int time, void *world)
+
+//TODO : celles qui sont en dessous !
+void    world_sgt_handler(__attribute__((unused)) t_zc *zc, unsigned int time, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+//    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
 
     // Réucpération du T du serveur... à quoi ça peut bien te servir ??
     self->data->infos->time_unit = time;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_seg_handler(t_zc *zc, const char *team_name, void *world)
+void    world_seg_handler(__attribute__((unused)) t_zc *zc, const char *team_name, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+//    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
 
     // fin du jeu
+    self->data->infos->team_name = team_name;
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_suc_handler(t_zc *zc, void *world)
+void    world_suc_handler(__attribute__((unused)) t_zc *zc, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+//    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
 
     // commande non connue
 
     self->cpp_world->push_callback(self->data); 
 }
-void    world_sbp_handler(t_zc *zc, void *world)
+void    world_sbp_handler(__attribute__((unused)) t_zc *zc, void *world)
 {
     t_world * self = _init_handler(world, CASE_CLASS);
-    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
+//    self->data->player_handler_ptr = &CaseObject::playerPositionHandler;
 
     // commande bad param
 

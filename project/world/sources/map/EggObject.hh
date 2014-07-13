@@ -19,8 +19,28 @@ public:
     virtual ~EggObject();
 
     bool    init();
-private:
+    bool    update();
 
+
+    bool    hatchHandler(t_infos * infos)
+    {
+	(void)infos;
+	return true;
+    }
+    bool    connectedHandler(t_infos * infos)
+    {
+	(void)infos;
+	return true;
+    }
+
+    void setIndex(int _index);
+    void setPlayerIndex(int _playerIndex);
+    int getIndex() const;
+    int getPlayerIndex() const;
+    
+private:
+    int		_index;
+    int		_playerIndex;
 };
 
 #endif	/* EGGOBJECT_HH */
