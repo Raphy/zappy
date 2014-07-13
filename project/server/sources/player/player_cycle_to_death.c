@@ -18,19 +18,22 @@ void player_cycle_to_death(t_zc *zc, void *data)
   t_scratch_event   bundle_event;
   
   bundle = (t_bundle*)data;
-  if (bundle->player->life == 0)
+  if (bundle->player->inventory.food == 0)
   {
-    zs_send_death(bundle->server->zs, zc);
-    /* CHECk CLIENT DISCONNECTED AND REMOVE T_PLAYER */
-    zc_disconnect(zc);
+    if (zc != NULL)
+    {
+      /* CHECk CLIENT DISCONNECTED AND REMOVE T_PLAYER */
+      zs_send_death(bundle->server->zs, zc);
+      zc_disconnect(zc);
+    }
     printf("Player dead...");
   }
   else
   {
-    bundle->player->life--;
+    bundle->player->inventory.food--;
     bundle_event.action = &player_cycle_to_death;
     bundle_event.cycle = 126;
-    printf("Player dying... [%s]", bundle->player->life);
+    printf("Player dying... [%d]", bundle->player->inventory.food);
     event_create_from_scratch(&bundle_event, (t_bundle*)data); 
   }
 }
