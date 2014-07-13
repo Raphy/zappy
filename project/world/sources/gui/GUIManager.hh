@@ -26,7 +26,9 @@ public:
     bool    	init();
     bool    	update();
     
-    void updateDirection(f32 angle);
+    void resize();
+//    void updateDirection(f32 angle);
+    void updateTeamsViewer();
     void updateNodeInformation(INodeObject const* lastNodeClicked);
 private:
     gui::IGUIEnvironment*   _env;
@@ -39,7 +41,9 @@ private:
     gui::IGUIWindow*	_help;
     gui::IGUIListBox*	_menu;
     gui::IGUIComboBox*	_camera;
-    gui::IGUIListBox*	_teams;
+//    gui::IGUIListBox*	_teams;
+    gui::IGUITable*	_teamTable;
+    core::recti		_rectZero;
 };
 
 #endif	/* GUIMANAGER_HH */

@@ -97,16 +97,17 @@ bool MyEventReceiver::OnLogEvent()
 }
 bool MyEventReceiver::OnGUIEvent()
 {
-    // we check for log message like "Resizing window (640 480)"
-    //    string b = "Resizing window (";
-    //    string s = evnt.Log.Text;
-    //    if (s.StartsWith(b))
-    //    {
-    //	s = s.Substring(b.Length, s.Length - b.Length - 1);
-    //	string[] v = s.Split(' ');
-    //	int w = int.Parse(v[0]);
-    //	int h = int.Parse(v[1]);
-    //	// HERE WE KNOW THAT WINDOW HAS BEEN RESIZED TO w x h
-    //    }
+//    _context.device->get
+////     we check for log message like "Resizing window (640 480)"
+//        std::string b = "Resizing window (";
+//        if (_event.GUIEvent.EventType == 
+//        if (s.StartsWith(b))
+//        {
+//	    s = s.Substring(b.Length, s.Length - b.Length - 1);
+//	    string[] v = s.Split(' ');
+//	    int w = int.Parse(v[0]);
+//	    int h = int.Parse(v[1]);
+//    	// HERE WE KNOW THAT WINDOW HAS BEEN RESIZED TO w x h
+//        }
     return false;
 }

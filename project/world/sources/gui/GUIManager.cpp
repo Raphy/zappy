@@ -33,76 +33,143 @@ GUIManager::~GUIManager()
 
 bool GUIManager::init()
 {
-    std::cout << "init gui with size x = " << _x * 2.0/3.0 << " and y = " << _y * 1.0/4.0 << std::endl;
     std::cout << "init gui with size x = " << _x << " and y = " << _y << std::endl;
     //    IGUIToolBar* menu = _env->addToolBar(nullptr, GUI_ID_MENU);
     
     /* MENU */
-        
-    recti   help_rect;
-    help_rect.UpperLeftCorner.X = _x * (1./5.) * (2./3.);
-    help_rect.UpperLeftCorner.Y = _y * (1./3.) * (3./4.);
-    help_rect.LowerRightCorner.X = _x * (4./5.) * (2./3.);
-    help_rect.LowerRightCorner.Y = _y * (2./3.) * (3./4.);
-    _help = _env->addWindow(help_rect, false, L"Help", nullptr, GUI_ID_HELP);
+    
+    _help = _env->addWindow(_rectZero, false, L"Help", nullptr, GUI_ID_HELP);
     
     _env->addStaticText(L"F3 - FPS/Classic Camera",
-	    recti(0,30,help_rect.LowerRightCorner.X,50), false, true, _help, -1/**/);
+	    recti(0,30,0,50), false, true, _help, -1/**/);
     
-    _menu = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_MENU, true);
-    _menu->setRelativePosition(recti((_x * 2./3.), 0, _x, (_y * 1./5.)));
-    //    _menu->setItemOverrideColor(0, SColor(255, 0, 0, 100));
-        
-    _camera = _env->addComboBox(recti(200,5, 200 + 100, 5 + 20), _menu, GUI_ID_MENU_CAMERA_CHOICE);
+    _menu = _env->addListBox(_rectZero, nullptr, GUI_ID_MENU, true);
+    
+    _camera = _env->addComboBox(_rectZero, _menu, GUI_ID_MENU_CAMERA_CHOICE);
     _camera->addItem(L"Classic", GUI_ID_MENU_CAMERA_CLASSIC_BUTTON);
     _camera->addItem(L"FPS", GUI_ID_MENU_CAMERA_FPS_BUTTON);
     
-    
     /* TEAMS */
     
-    _teams = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_TEAM_INFO, true);
-    _teams->setRelativePosition(recti(0, (_y * 3./4.), (_x * 2./3.), _y));
-
-    TeamManager const* teamManager = _engine->getTeamManager();
-    std::map<std::string, TeamManager::Team> const& infos = teamManager->getTeamsInfo();
-
-    for (std::pair<std::string, TeamManager::Team>&& info : infos) {
-	(void)infos;
-	_teams->addItem(L"toto");
-//	teams->addItem(info.first);
-    }
-        
+    //    _teams = _env->addListBox(_rectZero, nullptr, GUI_ID_TEAM_INFO, true);
+    
+    _teamTable = _env->addTable(_rectZero, nullptr/*, GUI_ID_TEAM_TABLE*/);
+    
+    //    TeamManager const* teamManager = _engine->getTeamManager();
+    //    std::map<std::string, TeamManager::Team> const& infos = teamManager->getTeamsInfo();
+    //    
+    //    for (std::pair<std::string, TeamManager::Team>&& info : infos) {
+    //	const std::string name = info.first;
+    //	const std::wstring wname(name.begin(), name.end());
+    //	_teams->addItem(wname.c_str());
+    //    }
+    
     /* INFORMATION */
     
-    _information = _env->addListBox(recti(0,0,0,0), nullptr, GUI_ID_INFORMATION, true);
-    _information->setRelativePosition(recti((_x * 2./3.), (_y * 1./5.), _x, _y));
+    _information = _env->addListBox(_rectZero, nullptr, GUI_ID_INFORMATION, true);
     
+    resize();
+    updateTeamsViewer();
     return true;
 }
 
 bool GUIManager::update()
 {
-    TeamManager const* teamManager = _engine->getTeamManager();
-    std::map<std::string, TeamManager::Team> const& infos = teamManager->getTeamsInfo();
-    
-    _teams->clear();
-
-    for (std::pair<std::string, TeamManager::Team>&& info : infos) {
-	(void)infos;
-	_teams->addItem(L"toto");
-//	teams->addItem(info.first);
+    dimension2du winSize = _driver->getScreenSize();
+    if (_x != winSize.Width || _y != winSize.Height)
+    {
+	_x = winSize.Width;
+	_y = winSize.Height;
+        resize();
     }
+    updateTeamsViewer();
     return true;
 }
 
-
-
-void GUIManager::updateDirection(f32 angle)
+void GUIManager::resize()
 {
-    (void)angle;
-    ////    _compass->updateDirection(angle);
-    //    _compass->SetCompassHeading(angle);
+    if (_help)
+    {
+	recti   help_rect;
+	help_rect.UpperLeftCorner.X = _x * (1./5.) * (2./3.);
+	help_rect.UpperLeftCorner.Y = _y * (1./3.) * (3./4.);
+	help_rect.LowerRightCorner.X = _x * (4./5.) * (2./3.);
+	help_rect.LowerRightCorner.Y = _y * (2./3.) * (3./4.);
+        _help->setRelativePosition(help_rect);
+    }
+    
+    _menu->setRelativePosition(recti((_x * 2./3.), 0, _x, (_y * 1./5.)));
+    _camera->setRelativePosition(recti(200,5, 200 + 100, 5 + 20));//l'echelle a prendre en compte
+    
+    _teamTable->setRelativePosition(recti(0, (_y * 3./4.), (_x * 2./3.), _y));
+    
+    _information->setRelativePosition(recti((_x * 2./3.), (_y * 1./5.), _x, _y));
 }
+
+void GUIManager::updateTeamsViewer()
+{
+    TeamManager const* teamManager = _engine->getTeamManager();
+    std::map<std::string, TeamManager::Team> const& infos = teamManager->getTeamsInfo();
+    
+    _teamTable->clear();
+    _teamTable->addColumn(L"Teams");
+    _teamTable->addColumn(L"1");
+    _teamTable->addColumn(L"2");
+    _teamTable->addColumn(L"3");
+    _teamTable->addColumn(L"4");
+    _teamTable->addColumn(L"5");
+    _teamTable->addColumn(L"6");
+    _teamTable->addColumn(L"7");
+    _teamTable->addColumn(L"8");
+    _teamTable->addColumn(L"Food");
+    _teamTable->addColumn(L"s1");
+    _teamTable->addColumn(L"s2");
+    _teamTable->addColumn(L"s3");
+    _teamTable->addColumn(L"s4");
+    _teamTable->addColumn(L"s5");
+    _teamTable->addColumn(L"Egg");
+    _teamTable->addRow(0);
+    
+    //    IGUIWindow * skillWindow = irrGui->addWindow(rect<s32>(30, 100, 330, 600), false, L"Skills");
+    //skillWindow->setVisible(false);
+    //IGUIStaticText * skillCat1 = irrGui->addStaticText(L"Gathering skills",rect<s32>(10, 30, 290, 45),false,true,skillWindow);
+    //skillCat1->setOverrideFont(bigFont);
+    //IGUITable * skillTree = irrGui->addTable(rect<s32>(10, 55, 290, 110),skillWindow, -1, false);
+    //skillTree->addColumn(L"Name");
+    //skillTree->addColumn(L"Skill");
+    //skillTree->setColumnWidth(0,220);
+    //skillTree->setColumnWidth(1,50);
+    //skillTree->setColumnOrdering(0, EGCO_FLIP_ASCENDING_DESCENDING);
+    //skillTree->setColumnOrdering(1, EGCO_FLIP_ASCENDING_DESCENDING);
+    
+    int i = 0;
+    for (std::pair<std::string, TeamManager::Team>&& info : infos) {
+	const std::string name = info.first;
+	const std::wstring wname(name.begin(), name.end());
+	if (_teamTable->getRowCount() == i)
+	    _teamTable->addRow(i);
+	_teamTable->setCellText(i,0, wname.c_str());
+	for (int j = 1; j <= Assets::LEVEL_MAX; j++)
+	{
+	    _teamTable->setCellText(i,j, L"33");
+	}
+	for (int j = Assets::LEVEL_MAX + 1; j < RESSOURCE_TYPE_COUNT + Assets::LEVEL_MAX; j++)
+	{
+	    _teamTable->setCellText(i,j, L"42");
+	}
+	_teamTable->setCellText(i, RESSOURCE_TYPE_COUNT + Assets::LEVEL_MAX, "56");
+	
+	//	_teams->addItem(wname.c_str());
+	i++;
+    }
+}
+
+//void GUIManager::updateDirection(f32 angle)
+//{
+//    (void)angle;
+//    ////    _compass->updateDirection(angle);
+//    //    _compass->SetCompassHeading(angle);
+//}
 
 void GUIManager::updateNodeInformation(const INodeObject* node)
 {
