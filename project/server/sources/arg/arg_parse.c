@@ -5,14 +5,13 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jun 27 19:00:24 2014 damien sauvalle
-** Last update Fri Jul 11 23:18:57 2014 damien sauvalle
+** Last update Sun Jul 13 11:25:06 2014 damien sauvalle
 */
 
 #define		_GNU_SOURCE
 #include	<stdlib.h>
 #include	<stdio.h>
 #include	<unistd.h>
-
 #include	"arg.h"
 #include	"my.h"
 
@@ -23,9 +22,9 @@ static int	usage(char *progname)
   return (RET_FAILURE);
 }
 
-static void     fill_map(t_parser_map *map)
+static void	fill_map(t_parser_map *map)
 {
-  int           i;
+  int		i;
 
   i = 0;
   map[i].index = 'p';

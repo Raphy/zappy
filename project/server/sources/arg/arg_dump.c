@@ -1,16 +1,15 @@
 /*
 ** arg_dump.c for Zappy in /home/raphy/Epitech/Tech_2/zappy/project/server/sources/arg
-** 
+**
 ** Made by raphael defreitas
 ** Login   <defrei_r@epitech.net>
-** 
+**
 ** Started on  Sun Jun 29 17:39:18 2014 raphael defreitas
-** Last update Sun Jun 29 17:43:42 2014 raphael defreitas
+** Last update Sun Jul 13 11:21:37 2014 damien sauvalle
 */
 
 #include	<stdio.h>
 #include	<stdlib.h>
-
 #include	"arg.h"
 #include	"list.h"
 
