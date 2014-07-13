@@ -31,14 +31,14 @@ static const struct s_elevation_condition g_conditions[7] = \
     }
 };
 
-int     verify_elevation_condition(const t_player *player, const t_case *current)
+int     verify_elevation_condition(t_player *player, t_case *current)
 {
     assert(sizeof(t_items) - sizeof(unsigned char) > 0);
-    if (player->level > 7 || current->players.length != g_conditions[player->level - 1].player_required)
-        return RET_FAILURE;
+    if (player->level > 7 || list_length(&current->players) != g_conditions[player->level - 1].player_required)
+        return (RET_FAILURE);
     if (memcmp(&(current->inventory) + sizeof(unsigned char), &(g_conditions->items) + sizeof(unsigned char), sizeof(t_items) - sizeof(unsigned char)))
-        return RET_FAILURE;
-    return RET_SUCCESS;
+        return (RET_FAILURE);
+    return (RET_SUCCESS);
 }
 
 void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
