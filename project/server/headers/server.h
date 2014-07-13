@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Thu Jul  3 23:21:49 2014 damien sauvalle
-** Last update Sat Jul 12 19:07:02 2014 damien sauvalle
+** Last update Sun Jul 13 09:42:38 2014 damien sauvalle
 */
 
 #ifndef SERVER_H_
@@ -53,7 +53,6 @@ void		remote_dtor(t_remote *);
 
 int		server_ctor(t_server *, t_arg *, t_zs *);
 void		server_dtor(t_server *);
-void		dump_map(t_server *, t_arg *);
 
 typedef void (*fill)(t_case **, t_arg *, int);
 
