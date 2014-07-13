@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:04:36 2014 raphael defreitas
-** Last update Sun Jul 13 00:39:07 2014 raphael defreitas
+** Last update Sun Jul 13 10:17:11 2014 Pelayo Parejo Pagador
 */
 
 #include	<stdio.h>
@@ -14,7 +14,7 @@
 #include	"zappy.h"
 #include	"_zappy.h"
 
-void		zs_send_level(t_zs *this, t_zc *zc, unsigned int level)
+void		zs_send_player_level(t_zs *this, t_zc *zc, unsigned int level)
 {
   char		buf[50];
 
