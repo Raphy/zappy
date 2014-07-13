@@ -15,6 +15,7 @@
 #include	"player.h"
 #include "handlers.h"
 #include	"bundle.h"
+#include "player_action.h"
 
 void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
         t_zc *zc, const char *team_name, void *data)
@@ -40,6 +41,7 @@ void		cmd_team_name_handler(__attribute__((unused))t_zs *zs,
   bundle = malloc(sizeof(*bundle));
   bundle->server = server;
   bundle->player = player;
+  player_cycle_to_death(zc, bundle);
   set_client_handlers(zc, bundle);
 
   /*if (player == NULL)

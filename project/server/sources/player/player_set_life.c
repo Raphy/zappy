@@ -13,10 +13,14 @@
 #include	"inventory.h"
 #include	"zappy.h"
 #include	"my.h"
+#include "player_action.h"
 
 int	player_set_life(t_player *player)
 {
-  assert(player != NULL);
-  player->life = 126;
-  return (RET_SUCCESS);
+  if (player != NULL)
+  {
+    player->inventory.food = 10;
+    return (RET_SUCCESS);
+  }
+  return (RET_FAILURE);
 }
