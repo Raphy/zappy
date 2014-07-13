@@ -18,7 +18,7 @@
 
 static int	usage(char *progname)
 {
-  fprintf(stderr, "Usage: %s -p port -x x_world] -y y_world \
+  fprintf(stderr, "Usage: %s -p port -x x_world -y y_world \
  -c limit_clients -t time -n team_name_1 team_name_2 ...\n", progname);
   return (RET_FAILURE);
 }

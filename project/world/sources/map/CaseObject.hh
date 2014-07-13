@@ -50,6 +50,7 @@ public:
     bool    handlerRelay(t_data * data);
 
     bool    caseContentHandler(t_infos *infos);
+    bool    playerConnectionHandler(t_infos *infos);
     
 
 private:

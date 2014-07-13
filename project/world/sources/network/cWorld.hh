@@ -229,7 +229,19 @@ void	world_errno_handler(t_zc *zc, int err, const char *msg, void *world);
 void	world_msz_handler(t_zc *zc, t_msz *msz, void *world);
 void	world_bct_handler(t_zc *zc, t_bct *bct, void *world);
 void	world_tna_handler(t_zc *zc, const char *team_name, void *world);
+
+void	world_pnw_handler(t_zc *zc, t_pnw *pnw, void *world);
+void	world_ppo_handler(t_zc *zc, t_ppo *ppo, void *world);
 void	world_plv_handler(t_zc *zc, t_plv *plv, void *world);
+void	world_pin_handler(t_zc *zc, t_pin *pin, void *world);
+//void	world_pex_handler(t_zc *zc, void *world);
+void	world_pbc_handler(t_zc *zc, t_pbc *pbc, void *world);
+void	world_pic_handler(t_zc *zc, t_pic *pic, void *world);
+void	world_pie_handler(t_zc *zc, t_pie *pie, void *world);
+//void	world_pfk_handler(t_zc *zc, void *world);
+void	world_pdr_handler(t_zc *zc, t_pdr *pdr, void *world);
+void	world_pgt_handler(t_zc *zc, t_pin *pin, void *world);
+//void	world_pdi_handler(t_zc *zc, void *world);
 
 G_END_DECLS
 

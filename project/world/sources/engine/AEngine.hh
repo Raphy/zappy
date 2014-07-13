@@ -41,6 +41,19 @@ public:
 	std::cout << "Successful connection to server !" << std::endl;
 	return true;
     }
+    bool    disconnectedHandler(t_infos * infos)
+    {
+	(void)infos;
+	std::cout << "Successful disconnection !" << std::endl;
+	return true;
+    }
+    bool    disconnectedHandler(t_infos * infos)
+    {
+	(void)infos;
+	//TODO
+	std::cout << "errno !" << std::endl;
+	return true;
+    }
     
     /* SETTINGS */
     
