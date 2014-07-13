@@ -17,7 +17,7 @@
 static inline char to_binary_mask(t_case *current)
 {
     char ret;
-            
+
     ret = 0;
     if (list_length(&current->players) > 0)
         ret |= 1;
@@ -35,7 +35,6 @@ static inline char to_binary_mask(t_case *current)
         ret |= 64;
     if (current->inventory.thystame > 0)
         ret |= 128;
-    printf("Server de merde: %x\n", (unsigned int)ret);
     return ret;
 }
 
@@ -71,18 +70,21 @@ static int fill_tab(char (*items)[81], t_player *player, t_server *server)
     t_position pos;
     
     it[0] = 0;
-    it[1] = -1;
-    while (++it[1] < player->level)
+    it[1] = 0;
+    while (it[1] <= (int)player->level)
     {
-        it[2] = -1;
-        while (++it[2] < it[1] * 2 + 1)
+        it[2] = 0;
+        while (it[2] < it[1] * 2 + 1)
         {
             if (player->direction == ORIENTATION_UNKNOWN)
                 return (RET_FAILURE);
             else
               get_position(&pos, &it, player, server->arg);
-            (*items)[it[0]++] = to_binary_mask(&(server->map[pos.y][pos.x]));
+            (*items)[it[0]] = to_binary_mask(&(server->map[pos.y][pos.x]));
+            it[0] += 1;
+            it[2] += 1;
         }
+        it[1] += 1;
     }
     return (RET_SUCCESS);
 }
@@ -93,6 +95,8 @@ static int fill_tab(char (*items)[81], t_player *player, t_server *server)
 
 void	player_action_see(t_zc *zc, void *data)
 {
+    int i;
+    int value;
     char items[81];
     
     if (RET_FAILURE == fill_tab(&items, ((t_bundle *)data)->player,
@@ -100,18 +104,13 @@ void	player_action_see(t_zc *zc, void *data)
         zs_send_ko(((t_bundle *)data)->server->zs, zc);
     else
     {
-        int value = 0;
-        int i = 0;
+        value = 0;
+        i = 0;
         while (i <= ((t_bundle *)data)->player->level)
         {
             value += i * 2 + 1;
             i++;
         }
-        printf("Server: ");
-        int x = 0;
-        while (x < value)
-            printf("%x ", (unsigned int)items[x++]);
-        printf("value: %d\n", value);
         zs_send_look(((t_bundle *)data)->server->zs, zc, &items, value);
     }
 }
