@@ -5,7 +5,7 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Sun Jun 29 11:57:43 2014 damien sauvalle
-** Last update Sat Jul 12 17:50:46 2014 damien sauvalle
+** Last update Sun Jul 13 00:45:24 2014 damien sauvalle
 */
 
 #ifndef		PLAYER_H_
@@ -85,8 +85,5 @@ bool    find_by_uid(t_player *, unsigned int *);
 /*
 ** Norme espace !!!
 */
-
-typedef void (*fct_direction)(t_player *, t_arg *);
-
 
 #endif /* !PLAYER_H_ */
