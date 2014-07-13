@@ -12,6 +12,7 @@
 #include "server.h"
 #include	"player.h"
 #include "bundle.h"
+#include "zappy.h"
 
 static inline char to_binary_mask(t_case *current)
 {
@@ -34,6 +35,7 @@ static inline char to_binary_mask(t_case *current)
         ret |= 64;
     if (current->inventory.thystame > 0)
         ret |= 128;
+    printf("Server de merde: %x\n", (unsigned int)ret);
     return ret;
 }
 
@@ -97,6 +99,19 @@ void	player_action_see(t_zc *zc, void *data)
             ((t_bundle *)data)->server))
         zs_send_ko(((t_bundle *)data)->server->zs, zc);
     else
-        zs_send_look((t_bundle *)data)->server->zs, items,\
-                (unsigned int)(((t_bundle *)data)->player->level * 2 + 1);
+    {
+        int value = 0;
+        int i = 0;
+        while (i <= ((t_bundle *)data)->player->level)
+        {
+            value += i * 2 + 1;
+            i++;
+        }
+        printf("Server: ");
+        int x = 0;
+        while (x < value)
+            printf("%x ", (unsigned int)items[x++]);
+        printf("value: %d\n", value);
+        zs_send_look(((t_bundle *)data)->server->zs, zc, &items, value);
+    }
 }

@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sun Jul 13 04:41:54 2014 raphael defreitas
+** Last update Sun Jul 13 06:09:48 2014 Pelayo Parejo Pagador
 */
 
 #ifndef		ZAPPY_COMMANDS_H_
@@ -160,7 +160,7 @@ void		zs_send_death(t_zs *, t_zc *zc);
 void		zs_send_broadcast(t_zs *, t_zc *zc,
 				  unsigned int where, const char *message);
 void		zs_send_look(t_zs *, t_zc *zc,
-			     const char *look[81], unsigned int sight);
+			     char (*look)[81], unsigned int sight);
 
 void		zs_send_rmt_pubkey(t_zs *, t_zc *zc);
 void		zs_send_rmt_authorized(t_zs *, t_zc *zc);

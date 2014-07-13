@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Fri Jun 27 19:04:36 2014 raphael defreitas
-** Last update Sun Jul 13 04:41:45 2014 raphael defreitas
+** Last update Sun Jul 13 06:09:39 2014 Pelayo Parejo Pagador
 */
 
 #include	<stdio.h>
@@ -32,7 +32,7 @@ static void	send_case(t_zs *this, t_zc *zc, char look)
 }
 
 void		zs_send_look(t_zs *this, t_zc *zc,
-			     const char *look[81], unsigned int sight)
+			     char (*look)[81], unsigned int sight)
 {
   unsigned int	i;
 
