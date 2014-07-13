@@ -1,3 +1,13 @@
+/*
+** handler_broadcast.c for zappy in /home/damien/zappy/project/server/sources/handlers
+**
+** Made by damien sauvalle
+** Login   <sauval_d@epitech.net>
+**
+** Started on  Sun Jul 13 14:30:46 2014 damien sauvalle
+** Last update Sun Jul 13 14:33:44 2014 damien sauvalle
+*/
+
 #include "zappy.h"
 #include  "player.h"
 #include "bundle.h"
