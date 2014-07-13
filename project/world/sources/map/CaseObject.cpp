@@ -162,4 +162,9 @@ bool CaseObject::caseContentHandler(t_infos* infos)
     return setCaseContent(infos->quantity);
 }
 
+bool CaseObject::playerConnectionHandler(t_infos* infos)
+{
+    return addPlayer(infos->index, infos->orientation, infos->level, infos->team);
+}
+
 
