@@ -5,7 +5,7 @@
 ## Login   <defrei_r@epitech.net>
 ## 
 ## Started on  Mon May 12 13:17:39 2014 raphael defreitas
-## Last update Wed Jul  2 16:13:43 2014 raphael defreitas
+## Last update Sun Jul 13 00:04:38 2014 raphael defreitas
 ##
 
 LIBS_PATH	=	./libraries/
@@ -13,16 +13,7 @@ LIBS		=	libmy liblist libsocket libzappy
 
 DIRECTORIES	=	./server ./remote ./world
 
-all		:	reminder norm zappy
-
-reminder	:
-			@echo "Ne pas oublier de remplacer les variables SOURCES des Makefile (au lieu des wildcards) avant de faire le rendu final !"
-			@sleep 3
-
-norm		:
-			@echo "Checking basic norm..."
-			@find -name "*.c" -exec ../tools/norme.py {} \;
-			@find -name "*.h" -exec ../tools/norme.py {} \;
+all		:	zappy
 
 libs		:
 			make -C $(LIBS_PATH)

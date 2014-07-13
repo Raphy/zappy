@@ -30,10 +30,18 @@ public:
     
     virtual irr::IrrlichtDevice* getDevice() const;
     
-    virtual bool callHandler(t_data * data);
-//    virtual bool callHandlerCreateMap(int x, int y);//VERSION SIMPLE
+    virtual bool handlerRelay(t_data * data);
+//    virtual bool handlerRelayCreateMap(int x, int y);//VERSION SIMPLE
     virtual void sendCommand(t_data * data);
 
+    /* HANDLERS */
+    bool    connectedHandler(t_infos * infos)
+    {
+	(void)infos;
+	std::cout << "Successful connection to server !" << std::endl;
+	return true;
+    }
+    
     /* SETTINGS */
 
     virtual void setLastNodeClicked(scene::ISceneNode const* node)//a acceder depuis l'eventReceiver
@@ -66,13 +74,10 @@ protected:
     io::IFileSystem*	    _fs;
     gui::ICursorControl*    _cursor;
 
-
-//    SAppContext		    _context;
     IEventReceiver*	    _eventReceiver;
     GUIManager*		    _guiManager;
     int			    _fps;
 
-//    gui::IGUIElement*	    _mapViewer;
     posi_t		    _winSize;
     MapViewer*		    _mapViewer;
     

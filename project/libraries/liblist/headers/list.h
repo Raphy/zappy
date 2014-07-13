@@ -5,13 +5,14 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Thu Apr 17 18:53:27 2014 raphael defreitas
-** Last update Fri Jul 11 17:23:08 2014 raphael defreitas
+** Last update Sat Jul 12 13:16:24 2014 raphael defreitas
 */
 
 #ifndef		LIST_H_
 # define	LIST_H_
 
 # include	<glib.h>
+# include	<stdbool.h>
 # include	<sys/types.h>
 
 G_BEGIN_DECLS
@@ -115,7 +116,11 @@ void		*list_pop(t_list *);
 int		list_enqueue(t_list *, void *);
 void		*list_dequeue(t_list *);
 void		*list_unlink(t_list *, t_item *);
-void		*list_find(t_list *, int (*)(), const void *, t_it_type);
+/*
+** The finder prototype « bool finder(xxx *data, xxx *searched) »
+** it returns true if « data == searched » otherwise, false
+*/
+void		*list_find(t_list *, bool (*)(), const void *, t_it_type);
 void		list_clear(t_list *);
 int		list_insert(t_list *, t_item *, void *, int);
 

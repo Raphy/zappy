@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Tue Jul  1 01:53:30 2014 raphael defreitas
-** Last update Sat Jul 12 00:17:31 2014 raphael defreitas
+** Last update Sat Jul 12 21:51:52 2014 raphael defreitas
 */
 
 #include	"list.h"
@@ -22,22 +22,31 @@ static int	player_cmd_fptrs(t_zc *this)
 
 static int	graphic_cmd_fptrs(t_zc *this)
 {
-  if (list_enqueue(this->cmd_fptrs, &zc_cmd_msz) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_bct) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_tna) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pnw) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_ppo) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_plv) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pin) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pex) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pbc) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pfk) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pdr) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pdr) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_pdi) == RET_FAILURE ||
-      list_enqueue(this->cmd_fptrs, &zc_cmd_sgt) == RET_FAILURE)
-    return (RET_FAILURE);
-  return (RET_SUCCESS);
+  return (list_enqueue(this->cmd_fptrs, &zc_cmd_msz) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_bct) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_tna) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pnw) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_ppo) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_plv) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pin) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pex) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pbc) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pic) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pie) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pfk) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pdr) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pgt) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_pdi) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_enw) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_eht) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_ebo) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_edi) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_sgt) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_seg) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_smg) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_suc) == RET_FAILURE ||
+	  list_enqueue(this->cmd_fptrs, &zc_cmd_sbp) == RET_FAILURE ?
+	  RET_SUCCESS : RET_SUCCESS);
 }
 
 static int	rmt_cmd_fptrs(t_zc *this)

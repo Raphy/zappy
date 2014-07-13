@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Mon May 12 14:06:41 2014 raphael defreitas
-** Last update Mon Jul  7 22:41:35 2014 damien sauvalle
+** Last update Sat Jul 12 19:13:04 2014 damien sauvalle
 */
 
 #include	<errno.h>
@@ -83,13 +83,11 @@ int		main(int argc, char **argv)
 
   arg_dump(&arg);
 
-  server_ctor(&server, &arg);
+  server_ctor(&server, &arg, &zs);
 
   set_server_handlers(&zs, &server);
 
   generate_ressource(&server);
-
-  /*  dump_map(&server, &arg);*/
 
   zs_main(&zs);
   server_dtor(&server);

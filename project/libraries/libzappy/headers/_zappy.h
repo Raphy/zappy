@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 13:13:50 2014 raphael defreitas
-** Last update Sat Jul 12 00:13:35 2014 raphael defreitas
+** Last update Sat Jul 12 20:45:47 2014 raphael defreitas
 */
 
 #ifndef		_ZAPPY_H_
@@ -33,6 +33,9 @@ G_BEGIN_DECLS
 int		zs_ctor_cmd_fptrs(t_zs *);
 
 void		zs_treat_fds(t_zs *);
+void		zs_treat_read_zc(t_zs *, t_zc *);
+void		zs_treat_write_zc(t_zs *, t_zc *);
+void		zs_treat_client_connection(t_zs *);
 void		zs_treat_zc(t_zs *, t_zc *);
 void		zs_send(t_zs *, t_zc *, const char *);
 void		zs_send_to_client(t_zs *, t_zc *, const char *);
@@ -48,6 +51,11 @@ bool		zs_cmd_team_name(t_zs *, t_zc *, const char *);
 bool		zs_cmd_forward(t_zs *, t_zc *, const char *);
 bool		zs_cmd_left(t_zs *, t_zc *, const char *);
 bool		zs_cmd_right(t_zs *, t_zc *, const char *);
+bool		zs_cmd_pick(t_zs *, t_zc *, const char *);
+bool		zs_cmd_throw(t_zs *, t_zc *, const char *);
+bool		zs_cmd_kick(t_zs *, t_zc *, const char *);
+bool		zs_cmd_broadcast(t_zs *, t_zc *, const char *);
+bool		zs_cmd_fork(t_zs *, t_zc *, const char *);
 
 bool		zs_cmd_graphic(t_zs *, t_zc *, const char *);
 bool		zs_cmd_msz(t_zs *, t_zc *, const char *);
@@ -82,6 +90,11 @@ void		zs_handle_cmd_team_name(t_zs *, t_zc *, const char *);
 void		zs_handle_cmd_forward(t_zs *, t_zc *);
 void		zs_handle_cmd_left(t_zs *, t_zc *);
 void		zs_handle_cmd_right(t_zs *, t_zc *);
+void		zs_handle_cmd_pick(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_throw(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_kick(t_zs *, t_zc *);
+void		zs_handle_cmd_broadcast(t_zs *, t_zc *, const char *);
+void		zs_handle_cmd_fork(t_zs *, t_zc *);
 
 void		zs_handle_cmd_graphic(t_zs *, t_zc *);
 void		zs_handle_cmd_msz(t_zs *, t_zc *);
@@ -131,10 +144,21 @@ bool		zc_cmd_plv(t_zc *, const char *);
 bool		zc_cmd_pin(t_zc *, const char *);
 bool		zc_cmd_pex(t_zc *, const char *);
 bool		zc_cmd_pbc(t_zc *, const char *);
+bool		zc_cmd_pic(t_zc *, const char *);
+bool		zc_cmd_pie(t_zc *, const char *);
 bool		zc_cmd_pfk(t_zc *, const char *);
 bool		zc_cmd_pdr(t_zc *, const char *);
 bool		zc_cmd_pdi(t_zc *, const char *);
 bool		zc_cmd_sgt(t_zc *, const char *);
+bool		zc_cmd_enw(t_zc *, const char *);
+bool		zc_cmd_eht(t_zc *, const char *);
+bool		zc_cmd_ebo(t_zc *, const char *);
+bool		zc_cmd_edi(t_zc *, const char *);
+bool		zc_cmd_suc(t_zc *, const char *);
+bool		zc_cmd_sbp(t_zc *, const char *);
+bool		zc_cmd_pgt(t_zc *, const char *);
+bool		zc_cmd_seg(t_zc *, const char *);
+bool		zc_cmd_smg(t_zc *, const char *);
 
 bool		zc_rmt_authorized(t_zc *, const char *);
 bool		zc_rmt_unauthorized(t_zc *, const char *);
@@ -168,11 +192,21 @@ void		zc_handle_cmd_plv(t_zc *, t_plv *);
 void		zc_handle_cmd_pin(t_zc *, t_pin *);
 void		zc_handle_cmd_pex(t_zc *, unsigned int);
 void		zc_handle_cmd_pbc(t_zc *, t_pbc *);
+void		zc_handle_cmd_pic(t_zc *, t_pic *);
+void		zc_handle_cmd_pie(t_zc *, t_pie *);
 void		zc_handle_cmd_pfk(t_zc *, unsigned int);
 void		zc_handle_cmd_pdr(t_zc *, t_pdr *);
 void		zc_handle_cmd_pgt(t_zc *, t_pgt *);
 void		zc_handle_cmd_pdi(t_zc *, unsigned int);
+void		zc_handle_cmd_enw(t_zc *, t_enw *);
+void		zc_handle_cmd_eht(t_zc *, unsigned int);
+void		zc_handle_cmd_ebo(t_zc *, unsigned int);
+void		zc_handle_cmd_edi(t_zc *, unsigned int);
 void		zc_handle_cmd_sgt(t_zc *, unsigned int);
+void		zc_handle_cmd_suc(t_zc *);
+void		zc_handle_cmd_sbp(t_zc *);
+void		zc_handle_cmd_seg(t_zc *, const char *);
+void		zc_handle_cmd_smg(t_zc *, const char *);
 
 void		zc_handle_rmt_pubkey(t_zc *, const char *);
 void		zc_handle_rmt_authorized(t_zc *);

@@ -5,18 +5,24 @@
 ** Login   <sauval_d@epitech.net>
 **
 ** Started on  Fri Jul 11 23:53:57 2014 damien sauvalle
-** Last update Sat Jul 12 11:17:47 2014 damien sauvalle
+** Last update Sat Jul 12 17:59:54 2014 damien sauvalle
 */
 
 #include	"server.h"
 #include	"zappy.h"
 
-void		server_bct(t_server *server, t_zc *zc,
-			   t_zs *zs, t_position position)
+void		server_bct(t_zs *zs, t_zc *zc,
+			   t_position *position, void *server)
 {
   t_bct		bct;
 
-  bct.position = position;
-  bct.items = server->map[position.x][position.y].inventory;
-  zs_send_cmd_bct(zs, zc, &bct);
+  if ( ((*position).x < ((t_server *)server)->arg->x_world) &&
+       ((*position).y < ((t_server *)server)->arg->y_world))
+    {
+      bct.position = *position;
+      bct.items = ((t_server *)server)->map[position->x][position->y].inventory;
+      zs_send_cmd_bct(zs, zc, &bct);
+    }
+  else
+    zs_send_cmd_sbp(zs, zc);
 }

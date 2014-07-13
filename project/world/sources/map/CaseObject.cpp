@@ -31,15 +31,15 @@ CaseObject::~CaseObject()
 //prendre des pointeurs sur fonctions ?
 bool CaseObject::init()
 {
-//    for (std::pair<int, INodeObject*>&& egg : _eggs) {
-//	egg.second->init();
-//    }
-//    for (std::pair<int, INodeObject*>&& player : _players) {
-//	player.second->init();
-//    }
-//    for (RessourceObject* ressource : _ressources) {
-//	ressource->init();
-//    }
+    //    for (std::pair<int, EggObject*>&& egg : _eggs) {
+    //	egg.second->init();
+    //    }
+    //    for (std::pair<int, PlayerObject*>&& player : _players) {
+    //	player.second->init();
+    //    }
+    //    for (RessourceObject* ressource : _ressources) {
+    //	ressource->init();
+    //    }
     return true;
 }
 bool CaseObject::update()
@@ -47,7 +47,7 @@ bool CaseObject::update()
     for (std::pair<int, INodeObject*>&& egg : _eggs) {
 	egg.second->update();
     }
-    for (std::pair<int, INodeObject*>&& player : _players) {
+    for (std::pair<int, PlayerObject*>&& player : _players) {
 	player.second->update();
     }
     for (RessourceObject* ressource : _ressources) {
@@ -57,23 +57,19 @@ bool CaseObject::update()
 }
 
 
-
-bool CaseObject::callHandler(t_data* data)
+const std::map<int, EggObject*>& CaseObject::getEggs() const
 {
-    if (data->game_element_type == PLAYER_CLASS
-	    || data->game_element_type == RESSOURCE_CLASS
-	    || data->game_element_type == EGG_CLASS)
-    {
-	t_infos * infos = data->infos;
-	switch (data->event_type)
-	{
-	    default:
-		break;
-	}
-    }
-    std::cout << "UNKNOWN CASE EVENT !" << std::endl;
-    return false;
+    return _eggs;
 }
+const std::map<int, PlayerObject*>& CaseObject::getPlayers() const
+{
+    return _players;
+}
+const std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>& CaseObject::getRessources() const
+{
+    return _ressources;
+}
+
 
 
 bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& quantity)
@@ -86,7 +82,9 @@ bool CaseObject::setCaseContent(const std::array<int, RESSOURCE_TYPE_COUNT>& qua
 	    return false;
 	ressource->setPositionInMap(_pos);
 	ressource->setLevel(i);
-	ressource->setQuantity(quantity.at(i));
+	int q = quantity.at(i);
+	ressource->setQuantity(q);
+	ressource->getNode()->setVisible(q > 0);
 	_ressources[i] = ressource;
     }
     return true;
@@ -101,7 +99,7 @@ bool CaseObject::addPlayer(int index, Orientation const& o, int level, const std
     player->setOrientation(o);
     player->setLevel(level);
     player->setTeam(team);
-    _players.insert(std::pair<int, INodeObject*>(index, player));
+    _players.insert(std::pair<int, PlayerObject*>(index, player));
     return true;
 }
 void CaseObject::removePlayer(int index)
@@ -113,26 +111,38 @@ void CaseObject::removePlayer(int index)
 
 void CaseObject::registerPlayer(PlayerObject* player)
 {
-    _players.insert(std::pair<int, INodeObject*>(player->getIndex(), player));
+    _players.insert(std::pair<int, PlayerObject*>(player->getIndex(), player));
 }
 PlayerObject* CaseObject::unregisterPlayer(int index)
 {
-    std::map<int, INodeObject*>::iterator it = _players.find(index);
-    PlayerObject * player = static_cast<PlayerObject*>(it->second);
+    std::map<int, PlayerObject*>::iterator it = _players.find(index);
+    PlayerObject * player = it->second;
     _players.erase(it);
     return player;
 }
 
-const std::map<int, INodeObject*>& CaseObject::getEggs() const
+
+bool CaseObject::handlerRelay(t_data* data)
 {
-    return _eggs;
+    (void)data;
+    //    if (data->game_element_type == PLAYER_CLASS
+    //	    || data->game_element_type == RESSOURCE_CLASS
+    //	    || data->game_element_type == EGG_CLASS)
+    //    {
+    //	t_infos * infos = data->infos;
+    //	switch (data->event_type)
+    //	{
+    //	    default:
+    //		break;
+    //	}
+    //    }
+    //    std::cout << "UNKNOWN CASE EVENT !" << std::endl;
+    return false;
 }
-const std::map<int, INodeObject*>& CaseObject::getPlayers() const
+
+bool CaseObject::caseContentHandler(t_infos* infos)
 {
-    return _players;
+    return setCaseContent(infos->quantity);
 }
-const std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>& CaseObject::getRessources() const
-{
-    return _ressources;
-}
+
 

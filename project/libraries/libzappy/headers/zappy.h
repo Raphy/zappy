@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Tue Jun 24 16:21:11 2014 raphael defreitas
-** Last update Sat Jul 12 00:14:30 2014 raphael defreitas
+** Last update Sat Jul 12 20:56:14 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_H_
@@ -72,6 +72,11 @@ typedef	enum
     ZHT_CMD_FORWARD,
     ZHT_CMD_LEFT,
     ZHT_CMD_RIGHT,
+    ZHT_CMD_PICK,
+    ZHT_CMD_THROW,
+    ZHT_CMD_KICK,
+    ZHT_CMD_BROADCAST,
+    ZHT_CMD_FORK,
     ZHT_CMD_GRAPHIC,
     ZHT_CMD_MSZ,
     ZHT_CMD_BCT,
@@ -95,6 +100,10 @@ typedef	enum
     ZHT_CMD_EHT,
     ZHT_CMD_EBO,
     ZHT_CMD_EDI,
+    ZHT_CMD_SUC,
+    ZHT_CMD_SBP,
+    ZHT_CMD_SEG,
+    ZHT_CMD_SMG,
     ZHT_CMD_RMT,
     ZHT_CMD_MAX,
     ZHT_RMT_MIN,
@@ -146,6 +155,7 @@ struct		s_zs
   char		*pubkey;
   RSA		*key_encrypt;
   RSA		*key_decrypt;
+  unsigned int	high_load_limit;
 };
 
 /*

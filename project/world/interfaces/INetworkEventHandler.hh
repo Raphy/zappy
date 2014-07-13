@@ -15,7 +15,7 @@ class	    INetworkEventHandler
 public:
     virtual ~INetworkEventHandler() {}
 
-    virtual bool    callHandler(t_data * data) = 0;
+    virtual bool    handlerRelay(t_data * data) = 0;
 };
 
 #endif	/* INETWORKEVENTHANDLER_HH */

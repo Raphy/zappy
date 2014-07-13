@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Mon Jul  7 18:00:37 2014 raphael defreitas
+** Last update Sat Jul 12 14:25:57 2014 raphael defreitas
 */
 
 #include	"zappy.h"
@@ -15,7 +15,7 @@ void		zs_handle_cmd_bct(t_zs *this, t_zc *zc, t_position *position)
 {
   t_zh		zh;
 
-  zh = this->hooks[ZHT_CMD_BCT];
+  zh = zc->hooks[ZHT_CMD_BCT];
   if (zh.handler)
     zh.handler(this, zc, position, zh.data);
   zs_handle_callback(this, ZHT_CMD_BCT);

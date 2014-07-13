@@ -102,12 +102,14 @@ GUIManager::~GUIManager()
 
 void GUIManager::updateDirection(f32 angle)
 {
+    (void)angle;
     ////    _compass->updateDirection(angle);
     //    _compass->SetCompassHeading(angle);
 }
 
 void GUIManager::updateNodeInformation(const INodeObject* node)
 {
+    (void)node;
     //if node != currentNode
     _information->clear();
     //...

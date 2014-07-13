@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 **
 ** Started on  Fri Jun 27 17:17:13 2014 raphael defreitas
-** Last update Sat Jul 12 00:12:55 2014 raphael defreitas
+** Last update Sat Jul 12 19:15:03 2014 raphael defreitas
 */
 
 #ifndef		ZAPPY_HOOKS_H_
@@ -50,6 +50,11 @@ void		zs_hook_cmd_team_name(t_zc *zc, t_zsh_str_basic h, void *d);
 void		zs_hook_cmd_forward(t_zc *, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_left(t_zc *, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_right(t_zc *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_pick(t_zc *zc, t_zsh_str_basic h, void *d);
+void		zs_hook_cmd_throw(t_zc *zc, t_zsh_str_basic h, void *d);
+void		zs_hook_cmd_kick(t_zc *, t_zsh_client_basic h, void *d);
+void		zs_hook_cmd_broadcast(t_zc *zc, t_zsh_str_basic h, void *d);
+void		zs_hook_cmd_fork(t_zc *, t_zsh_client_basic h, void *d);
 
 void		zs_hook_cmd_graphic(t_zc *zc, t_zsh_client_basic h, void *d);
 void		zs_hook_cmd_msz(t_zc *zc, t_zsh_client_basic h, void *d);
@@ -110,13 +115,25 @@ void		zc_hook_cmd_pin(t_zc *, t_zch_cmd_pin h, void *d);
 void		zc_hook_cmd_pex(t_zc *, t_zch_uint_basic h, void *d);
 typedef	void	(t_zch_cmd_pbc)(t_zc *zc, t_pbc *pbc, void *d);
 void		zc_hook_cmd_pbc(t_zc *, t_zch_cmd_pbc h, void *d);
+typedef	void	(t_zch_cmd_pic)(t_zc *zc, t_pic *pic, void *d);
+void		zc_hook_cmd_pic(t_zc *, t_zch_cmd_pic h, void *d);
+typedef	void	(t_zch_cmd_pie)(t_zc *zc, t_pie *pie, void *d);
+void		zc_hook_cmd_pie(t_zc *, t_zch_cmd_pie h, void *d);
 void		zc_hook_cmd_pfk(t_zc *, t_zch_uint_basic h, void *d);
 typedef	void	(t_zch_cmd_pdr)(t_zc *zc, t_pdr *pdr, void *d);
 void		zc_hook_cmd_pdr(t_zc *, t_zch_cmd_pdr h, void *d);
 typedef	void	(t_zch_cmd_pgt)(t_zc *zc, t_pgt *pgt, void *d);
 void		zc_hook_cmd_pgt(t_zc *, t_zch_cmd_pgt h, void *d);
 void		zc_hook_cmd_pdi(t_zc *, t_zch_uint_basic h, void *d);
+typedef	void	(t_zch_cmd_enw)(t_zc *zc, t_enw *enw, void *d);
+void		zc_hook_cmd_enw(t_zc *, t_zch_cmd_enw h, void *d);
+void		zc_hook_cmd_eht(t_zc *, t_zch_uint_basic h, void *d);
+void		zc_hook_cmd_ebo(t_zc *, t_zch_uint_basic h, void *d);
+void		zc_hook_cmd_edi(t_zc *, t_zch_uint_basic h, void *d);
 void		zc_hook_cmd_sgt(t_zc *, t_zch_uint_basic h, void *d);
+void		zc_hook_cmd_seg(t_zc *, t_zch_str_basic h, void *d);
+void		zc_hook_cmd_suc(t_zc *, t_zch_basic h, void *d);
+void		zc_hook_cmd_sbp(t_zc *, t_zch_basic h, void *d);
 
 void		zc_hook_rmt_pubkey(t_zc *, t_zch_str_basic h, void *d);
 void		zc_hook_rmt_authorized(t_zc *, t_zch_basic h, void *d);

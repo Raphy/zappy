@@ -14,6 +14,7 @@
 #include    "ANodeObject.hh"
 #include    "INetworkEventHandler.hh"
 
+#include    "EggObject.hh"
 #include    "PlayerObject.hh"
 #include    "RessourceObject.hh"
 
@@ -26,29 +27,32 @@ public:
 
     bool    init();
     bool    update();
-    
-    bool    callHandler(t_data * data);
 
+    /* GETTERS/SETTERS */
+    std::map<int, EggObject*> const&				getEggs() const;
+    std::map<int, PlayerObject*> const&				getPlayers() const;
+    std::array<RessourceObject*, RESSOURCE_TYPE_COUNT> const&	getRessources() const;
+    
     /* HANDLERS */
     bool	    addPlayer(int index, Orientation const& o, int level, const std::string& team);
     void	    removePlayer(int index);
 
     void	    registerPlayer(PlayerObject* player);
-    PlayerObject*    unregisterPlayer(int index);
+    PlayerObject*   unregisterPlayer(int index);
 
 //    bool	    addEgg(int index);
 //    INodeObject*    removeEgg(int index);
     bool    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
     
+    /* HANDLERS */
+    bool    handlerRelay(t_data * data);
+
+    bool    caseContentHandler(t_infos *infos);
     
-    /* GETTERS/SETTERS */
-    std::map<int, INodeObject*> const& getEggs() const;
-    std::map<int, INodeObject*> const& getPlayers() const;
-    std::array<RessourceObject*, RESSOURCE_TYPE_COUNT> const& getRessources() const;
 
 private:
-    std::map<int, INodeObject*>	_eggs;
-    std::map<int, INodeObject*>	_players;
+    std::map<int, EggObject*>				_eggs;
+    std::map<int, PlayerObject*>			_players;
     std::array<RessourceObject*, RESSOURCE_TYPE_COUNT>	_ressources;
 };
 

@@ -20,10 +20,10 @@ using namespace scene;
 
 AEngine::AEngine()
 {
-    //    _eventQueue = new SafeQueue<t_data *>();
-    //    _commandQueue = new SafeQueue<t_data *>();
-    //    _networkThread = new World(_eventQueue, _commandQueue);
-    //    _networkThread->start();
+        _eventQueue = new SafeQueue<t_data *>();
+        _commandQueue = new SafeQueue<t_data *>();
+        _networkThread = new World(_eventQueue, _commandQueue);
+        _networkThread->start();
     
     //    video::E_DRIVER_TYPE params.DriverType=driverChoiceConsole();
     //    if (params.DriverType==video::EDT_COUNT)
@@ -60,9 +60,9 @@ AEngine::AEngine()
 
 AEngine::~AEngine()
 {
-    //    delete _eventQueue;
-    //    delete _commandQueue;
-    //    delete _networkThread;
+        delete _eventQueue;
+        delete _commandQueue;
+        delete _networkThread;
     
     delete _guiManager;
     delete _mapViewer;
@@ -97,7 +97,7 @@ bool AEngine::init()
     
     _mapViewer->init();
     
-    _mapViewer->createGround(20,30);//debug
+//    _mapViewer->createGround(20,30);//debug
     
     return true;
 }
@@ -125,12 +125,12 @@ bool AEngine::mainLoop()
 {
     while (_device->run())
     {
-	//	while (!_eventQueue->isEmpty())
-	//	{
-	//	    t_data * data = _eventQueue->pop();
-	//	    this->callHandler(data);
-	//	    delete data;
-	//	}
+	while (!_eventQueue->isEmpty())
+	{
+	    t_data * data = _eventQueue->pop();
+	    this->handlerRelay(data);
+	    delete data;
+	}
 	if (_device->isWindowActive())
             this->update();
 	else
@@ -161,24 +161,40 @@ irr::IrrlichtDevice* AEngine::getDevice() const
 
 /* EVENT HANDLERS */
 
-bool AEngine::callHandler(t_data* data)
+bool AEngine::handlerRelay(t_data* data)
 {
-    if (data->game_element_type == ENGINE_CLASS
-	    || data->game_element_type == MAP_CLASS)
+    t_infos * infos = data->infos;
+
+    switch(data->game_element_type)
     {
-	switch (data->event_type)
-	{
-	    case MAP_SIZE_EVENT:
-		return _mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
-	    case CONNECTED_EVENT:
-		std::cout << "Connected event does nothing..." << std::endl;
-    		//_mapViewer->createGround(30,20);//debug
-		return true;
-	    default:
+	case ENGINE_CLASS:
+	    if (!data->engine_handler_ptr)
 		break;
-	}
+	    return (this->*(data->engine_handler_ptr))(infos);
+	case MAP_VIEWER_CLASS:
+	    if (!data->mapviewer_handler_ptr)
+		break;
+	    return (_mapViewer->*(data->mapviewer_handler_ptr))(infos);
+	default:
+	    break;
     }
-    return _mapViewer->callHandler(data);
+    return _mapViewer->handlerRelay(data);
+//    if (data->game_element_type == ENGINE_CLASS
+//	    || data->game_element_type == MAP_CLASS)
+//    {
+//	switch (data->event_type)
+//	{
+//	    case MAP_SIZE_EVENT:
+//		return _mapViewer->createGround(data->infos->pos.first, data->infos->pos.second);
+//	    case CONNECTED_EVENT:
+//		std::cout << "Connected event does nothing..." << std::endl;
+//    		//_mapViewer->createGround(30,20);//debug
+//		return true;
+//	    default:
+//		break;
+//	}
+//    }
+//    return _mapViewer->handlerRelay(data);
 }
 
 void AEngine::sendCommand(t_data* data)

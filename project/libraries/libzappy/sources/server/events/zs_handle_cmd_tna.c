@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 11:36:48 2014 raphael defreitas
-** Last update Wed Jul  9 18:48:05 2014 raphael defreitas
+** Last update Sat Jul 12 15:40:18 2014 raphael defreitas
 */
 
 #include	"zappy.h"
@@ -15,7 +15,7 @@ void		zs_handle_cmd_tna(t_zs *this, t_zc *zc)
 {
   t_zh		zh;
 
-  zh = this->hooks[ZHT_CMD_TNA];
+  zh = zc->hooks[ZHT_CMD_TNA];
   if (zh.handler)
     zh.handler(this, zc, zh.data);
   zs_handle_callback(this, ZHT_CMD_TNA);

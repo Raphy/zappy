@@ -36,42 +36,18 @@ MapObject::~MapObject()
 
 bool    MapObject::init()
 {
-    createGround(20,30);//test
-    
-    for (unsigned int x = 0; x < _mapSize.first; x++)
-    {
-        CaseObject *c = getCaseObject(posi_t(10,x));
-	c->init();
-	std::array<int, RESSOURCE_TYPE_COUNT> q;
-	q.fill(1);
-	c->setCaseContent(q);
-	c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
-    }
-    
-    
-    //    CaseObject *c = getCaseObject(posi_t(10,10));
-    //    CaseObject *c2 = getCaseObject(posi_t(10,11));
-    //    CaseObject *c3 = getCaseObject(posi_t(10,12));
-    //
-    //    c->init();
-    //    c2->init();
-    //    c3->init();
-    ////    bool    setCaseContent(std::array<int, RESSOURCE_TYPE_COUNT> const& quantity);
-    //    std::array<int, RESSOURCE_TYPE_COUNT> q;
-    //    q.fill(1);
-    //    c->setCaseContent(q);
-    //    c2->setCaseContent(q);
-    //    c3->setCaseContent(q);
-    
-    
-    ////    c->setPositionInMap(posi_t(10,10));
-    //    RessourceObject *r = new RessourceObject(_smgr, this, c->getPositionInMap());
-    //    r->setQuantity(10);
-    //    std::cout << r->getQuantity() << std::endl;
-    //    std::cout << r->getPositionInMap().first << std::endl;
-    //    std::cout << r->getPositionInMap().second << std::endl;
-    //    r->init();
-    //    //    delete c;
+    //    createGround(20,30);//test
+    //    
+    //    for (unsigned int x = 0; x < _mapSize.first; x++)
+    //    {
+    //        CaseObject *c = getCaseObject(posi_t(10,x));
+    //	c->init();
+    //	std::array<int, RESSOURCE_TYPE_COUNT> q;
+    //	q.fill(1);
+    //	c->setCaseContent(q);
+    //	if (x == _mapSize.first / 2 - 2)
+    //	    c->addPlayer(x, static_cast<Orientation>(x%4 + 1), x%8, "titi");
+    //    }
     
     if (_mapSize.first != 0)
 	applyToAllCases(&CaseObject::init);
@@ -87,14 +63,14 @@ bool MapObject::update()
 
 void MapObject::applyToAllCases(bool(CaseObject::*f)())
 {
-//    std::for_each(_cases.begin(), _cases.end(), [&f](std::vector<CaseObject> column){
-//	std::for_each(column.begin(), column.end(), [&f](CaseObject caseObj){
-//	    (caseObj.*f)();
-//	});
-//    });
-    for(std::vector<CaseObject>& column : _cases) {
-	for(CaseObject& caseObj : column) {
-	    (caseObj.*f)();
+    //    std::for_each(_cases.begin(), _cases.end(), [&f](std::vector<CaseObject> column){
+    //	std::for_each(column.begin(), column.end(), [&f](CaseObject caseObj){
+    //	    (caseObj.*f)();
+    //	});
+    //    });
+    for(std::vector<CaseObject*>& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    (caseObj->*f)();
 	};
     };
 }
@@ -123,43 +99,70 @@ void MapObject::updateNodePosition()
 }
 
 
-bool MapObject::callHandler(t_data * data)
+//bool MapObject::handlerRelay(t_data * data)
+//{
+//    if (data->game_element_type == PLAYER_CLASS
+//	    || data->game_element_type == RESSOURCE_CLASS
+//	    || data->game_element_type == EGG_CLASS
+//	    || data->game_element_type == CASE_CLASS)
+//    {
+//	t_infos * infos = data->infos;
+//	posi_t	pos = infos->pos;
+//	CaseObject * caseObj = getCaseObject(pos);
+//	//	CaseObject& caseObj;
+//	//	tryGetCaseObject(pos, caseObj);
+//	switch (data->event_type)
+//	{
+//	    case PLAYER_CONNECTION_EVENT:
+//		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
+//		//	    case PLAYER_DEAD_EVENT:
+//		//		return caseObj->removePlayer(infos->player_id);
+//	    case CASE_CONTENT_EVENT:
+//		return caseObj->setCaseContent(infos->quantity);
+//	    default:
+//		break;
+//	}
+//    }
+//    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
+//    return false;
+//}
+
+bool MapObject::handlerRelay(t_data * data)
 {
-    if (data->game_element_type == PLAYER_CLASS
-	    || data->game_element_type == RESSOURCE_CLASS
-	    || data->game_element_type == EGG_CLASS
-	    || data->game_element_type == CASE_CLASS)
+    t_infos * infos = data->infos;
+    PlayerObject* player = nullptr;
+    CaseObject* caseObj = nullptr;
+    
+    switch(data->game_element_type)
     {
-	t_infos * infos = data->infos;
-	posi_t	pos = infos->pos;
-	CaseObject * caseObj = getCaseObject(pos);
-	//	CaseObject& caseObj;
-	//	tryGetCaseObject(pos, caseObj);
-	switch (data->event_type)
-	{
-	    case PLAYER_CONNECTION_EVENT:
-		return caseObj->addPlayer(infos->player_id, infos->orientation, infos->level, infos->team_name);
-		//	    case PLAYER_DEAD_EVENT:
-		//		return caseObj->removePlayer(infos->player_id);
-	    case CASE_CONTENT_EVENT:
-		return caseObj->setCaseContent(infos->quantity);
-	    default:
+	case PLAYER_CLASS:
+	    if (!data->player_handler_ptr)
 		break;
-	}
+	    player = getPlayer(infos->player_id);
+	    if (!player)
+		return false;
+	    return (player->*(data->player_handler_ptr))(infos);
+	case CASE_CLASS:
+	    if (!data->case_handler_ptr)
+		break;
+	    caseObj = getCaseObject(infos->pos);
+	    if (!caseObj)
+		return false;
+	    return (caseObj->*(data->case_handler_ptr))(infos);
+	default:
+	    break;
     }
-    std::cout << "UNKNOWN MAP EVENT !" << std::endl;
+    std::cout << "UNHANDLED EVENT" << std::endl;
+    //    assert(false);
     return false;
 }
 
 
-
-
 /* HANDLERS */
 
-bool MapObject::createGround(int x, int y)
+bool MapObject::createGround(posi_t const& size)
 {
-    _mapSize.first = x;
-    _mapSize.second = y;
+    _mapSize = size;
     
     std::string const& heightmap = _assets->getFileName(MAP, HEIGHT_MAP, 0);
     ITerrainSceneNode* node = _smgr->addTerrainSceneNode(heightmap.c_str(), getParentNode(), NODE_ID_MAP);
@@ -174,8 +177,10 @@ bool MapObject::createGround(int x, int y)
     ////    _node->setMaterialFlag(EMF_FOG_ENABLE, true);
     ////    _node->setMaterialType(video::EMT_DETAIL_MAP);
     _node->setMaterialTexture(0, _assets->getTexture(MAP, TEXTURE, 0));
-    _node->setMaterialTexture(1, _assets->getTexture(MAP, TEXTURE, 1));        
-    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(x,y);
+    //    vector3df caseSize = _helper->getCaseSize();
+    //    posf_t  scaleTexture((float)x * caseSize.X, (float)y * caseSize.Z);
+    //    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(scaleTexture.first,scaleTexture.second);
+    _node->getMaterial(0).getTextureMatrix(0).setTextureScale(_mapSize.first*2, _mapSize.second*2); //TODO : rendre ça propre
     
     _selector = _smgr->createTerrainTriangleSelector(node);
     if (!_selector)
@@ -186,28 +191,34 @@ bool MapObject::createGround(int x, int y)
     return true;
 }
 
+PlayerObject* MapObject::getPlayer(int index)
+{
+    for(std::vector<CaseObject*>& column : _cases) {
+	for(CaseObject* caseObj : column) {
+	    auto players = caseObj->getPlayers();
+	    auto it = players.find(index);
+	    if (it != players.end())
+		return it->second;
+	};
+    };
+    return nullptr;
+}
 CaseObject* MapObject::getCaseObject(posi_t const& pos)// const
 {
-    return &_cases[pos.first][pos.second];
+    if (pos.first >= _mapSize.first
+	    || pos.second >= _mapSize.second)
+	return nullptr;
+    return _cases[pos.second][pos.first];
 }
-bool MapObject::tryGetCaseObject(const posi_t& pos, CaseObject* caseObject)// const
-{
-    if (false)//TODO : check pos
-	return false;
-    caseObject = &_cases[pos.first][pos.second];
-//    (void)caseObject;
-    return true;
-}
-
 
 void MapObject::initCases()
 {
     for (unsigned int i = 0; i < _mapSize.second; i++)
     {
-	std::vector<CaseObject>	row;
+	std::vector<CaseObject*>	row;
 	for (unsigned int j = 0; j < _mapSize.first; j++)
 	{
-	    row.push_back(CaseObject(_smgr, this, posi_t(j,i)));
+	    row.push_back(new CaseObject(_smgr, this, posi_t(j,i)));
 	}		
 	_cases.push_back(row);
     }

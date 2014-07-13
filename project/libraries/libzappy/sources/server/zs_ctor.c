@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 09:25:07 2014 raphael defreitas
-** Last update Wed Jul  9 18:58:25 2014 raphael defreitas
+** Last update Sat Jul 12 22:58:20 2014 raphael defreitas
 */
 
 #include	<stdbool.h>
@@ -41,6 +41,7 @@ static void	default_values(t_zs *this)
   this->pubkey = NULL;
   this->key_encrypt = NULL;
   this->key_decrypt = NULL;
+  this->high_load_limit = 30;
 }
 
 int		zs_ctor(t_zs *this, int port, t_list *team_names)

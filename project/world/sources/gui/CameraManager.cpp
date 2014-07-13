@@ -28,9 +28,7 @@ CameraManager::~CameraManager()
 
 bool CameraManager::init()
 {
-    //appeler initWithSize a la place;
-    assert(false);
-    return true;
+    return initWithSize(posi_t(10,10));
 }
 bool CameraManager::update()
 {
@@ -38,8 +36,10 @@ bool CameraManager::update()
 }
 
 
-bool CameraManager::initWithSize(int x, int y)
+bool CameraManager::initWithSize(posi_t const& size)
 {
+    _mapSize = size;
+
     // create skybox and skydome
     _driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
     /*scene::ISceneNode* skybox = */_smgr->addSkyBoxSceneNode(
@@ -63,10 +63,10 @@ bool CameraManager::initWithSize(int x, int y)
     
     for (int i = 0; i < CAMERA_MODE_COUNT; i++)
     {
-	vector3df pos = _helper->mapToWorldCoordinates(posf_t(x/2.0, y/2.0));
+	vector3df pos = _helper->mapToWorldCoordinates(posf_t(_mapSize.first/2.0, _mapSize.second/2.0));
 	pos.Y = 10;
 	_camera[i]->setPosition(pos);
-	_camera[i]->setTarget(vector3df(x/2.0, 0, y/2.0));
+	_camera[i]->setTarget(vector3df(_mapSize.first/2.0, 0, _mapSize.second/2.0));
 	_camera[i]->setFarValue(100.0f);
 	_camera[i]->setVisible(false);
 	_light[i]->setVisible(false);
