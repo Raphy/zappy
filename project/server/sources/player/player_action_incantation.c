@@ -9,9 +9,22 @@
 */
 #include        "bundle.h"
 #include	"player.h"
+#include        "handlers.h"
 
-void player_action_incantation(t_player *player, void *data)
+void player_action_incantation(t_zc *zc, void *data)
 {
-	(void)player;
-	(t_bundle *)data;
+  t_bundle *datas;
+  t_case *current;
+  
+  if (data == NULL)
+      return;
+  datas = (t_bundle *)data;
+  current = &(datas->server->map[datas->player->y][datas->player->x]);
+  if (verify_elevation_condition(datas->player, current) == RET_FAILURE)
+  {
+      zs_send_ko(datas->server->zs, zc);
+      return;
+  }
+  datas->player->etat = NORMAL;
+  datas->player->level++;
 }

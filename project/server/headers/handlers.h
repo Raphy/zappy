@@ -13,6 +13,7 @@
 
 # include	"zappy.h"
 # include       "server.h"
+# include       "player.h"
 
 /*
 ** Server handlers
@@ -52,5 +53,11 @@ void		cmd_rmt_handler(t_zs *, t_zc *, void *);
 void		rmt_pubkey_handler(t_zs *, t_zc *, const char *, void *);
 void		rmt_stop_handler(t_zs *, t_zc *, void *);
 void		rmt_teams_handler(t_zs *, t_zc *, void *);
+
+ /*
+ ** Handler extra functions
+ */
+
+int             verify_elevation_condition(t_player *, t_case *);
 
 #endif /* !HANDLERS_H_*/

@@ -41,6 +41,11 @@ int     verify_elevation_condition(t_player *player, t_case *current)
     return (RET_SUCCESS);
 }
 
+
+/*
+ * Modify status to incanting
+ */
+
 void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
 {
   t_scratch_event bundle;
@@ -48,7 +53,10 @@ void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
   t_case *current;
   
   if (data == NULL)
-    return;
+  {
+      zs_send_ko(zs, zc);
+      return;
+  }
   datas = (t_bundle *)data;
   current = &(datas->server->map[datas->player->y][datas->player->x]);
   if (verify_elevation_condition(datas->player, current) == RET_FAILURE)
@@ -56,6 +64,7 @@ void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
       zs_send_ko(zs, zc);
       return;
   }
+  datas->player->etat = INCANTATION;
   bundle.action = &player_action_incantation;
   bundle.cycle = 300;
   event_create_from_scratch(&bundle, (t_bundle*)data);
