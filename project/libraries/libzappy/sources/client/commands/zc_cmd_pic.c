@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Sun Jun 29 06:48:33 2014 raphael defreitas
-** Last update Sat Jul 12 12:16:29 2014 raphael defreitas
+** Last update Sun Jul 13 05:34:47 2014 raphael defreitas
 */
 
 #define		_GNU_SOURCE
@@ -16,33 +16,6 @@
 #include	"my.h"
 #include	"zappy.h"
 #include	"_zappy.h"
-
-static unsigned int get_next_token(char **ptr, bool *has_error)
-{
-  char		*tok;
-  char		*end;
-  unsigned int	res;
-
-  if (*has_error)
-    return (0);
-  tok = *ptr;
-  end = strchr(tok, ' ');
-  if (end == NULL)
-    {
-      *has_error = true;
-      return (0);
-    }
-  tok[end - tok] = 0;
-  end++;
-  *ptr = end;
-  if (!my_str_is_numeric(tok))
-    {
-      *has_error = true;
-      return (0);
-    }
-  res = strtoul(tok, NULL, 0);
-  return (res);
-}
 
 static unsigned int	count_elems(char **ptr)
 {
@@ -68,14 +41,14 @@ static bool	fill(char **ptr, t_pic *pic)
   unsigned int	*uids;
 
   has_error = false;
-  pic->position.x = get_next_token(ptr, &has_error);
-  pic->position.y = get_next_token(ptr, &has_error);
-  pic->level = get_next_token(ptr, &has_error);
+  pic->position.x = zt_get_next_token(ptr, &has_error);
+  pic->position.y = zt_get_next_token(ptr, &has_error);
+  pic->level = zt_get_next_token(ptr, &has_error);
   pic->nb_uids = count_elems(ptr);
   if ((uids = calloc(pic->nb_uids, sizeof(unsigned int))) == NULL)
     return (false);
   i = 0;
-  while (!has_error && (uid = get_next_token(ptr, &has_error)) != 0)
+  while (!has_error && (uid = zt_get_next_token(ptr, &has_error)) != 0)
     {
       uids[i] = uid;
       i++;

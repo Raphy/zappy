@@ -24,7 +24,8 @@ public:
     
 
     virtual bool    connectedHandler(t_infos * infos) = 0;
-
+    virtual bool    disconnectedHandler(t_infos * infos) = 0;
+    virtual bool    errnoHandler(t_infos * infos) = 0;
     
     virtual bool setCameraMode(Ids id) = 0;
     virtual bool setTheme(Ids id) = 0;

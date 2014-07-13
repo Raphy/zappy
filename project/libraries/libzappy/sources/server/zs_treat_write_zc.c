@@ -5,7 +5,7 @@
 ** Login   <defrei_r@epitech.net>
 ** 
 ** Started on  Thu Jun 26 14:29:15 2014 raphael defreitas
-** Last update Sat Jul 12 23:07:37 2014 raphael defreitas
+** Last update Sun Jul 13 03:50:37 2014 raphael defreitas
 */
 
 #include	<errno.h>
@@ -49,42 +49,29 @@ static void	low_load(t_zs *this, t_zc *zc)
     }
 }
 
-static bool	can_use_high_load(char **buf, size_t *buf_len)
-{
-  if (*buf == NULL)
-    *buf = calloc(SOCK_BUF_LEN + 1, sizeof(char));
-  if (*buf == NULL)
-    return (false);
-  (*buf)[0] = 0;
-  *buf_len = 0;
-  return (true);
-}
-
 static void	high_load(t_zs *this, t_zc *zc)
 {
-  static char	*buf = NULL;
+  char		buf[2 * SOCK_BUF_LEN + 1];
   char		*data;
-  size_t	buflen;
+  size_t	buf_len;
   size_t	data_len;
 
-  if (!can_use_high_load(&buf, &buflen))
-    {
-      low_load(this, zc);
-      return ;
-    }
+  buf[0] = 0;
+  buf_len = 0;
   while ((data = list_pop(zc->pckts_to_snd)))
     {
-      if ((data_len = strlen(data)) + buflen < SOCK_BUF_LEN && strcat(buf, data))
+      if ((data_len = strlen(data)) + buf_len < 2 * SOCK_BUF_LEN)
 	{
+	  strcat(buf, data);
 	  free(data);
-	  buflen += data_len;
+	  buf_len += data_len;
 	  continue ;
 	}
       list_push(zc->pckts_to_snd, data);
       break ;
     }
-  if (buf[0] && buflen > 0)
-    write_to_zc(this, zc, buf, buflen);
+  if (buf[0] && buf_len > 0)
+    write_to_zc(this, zc, buf, buf_len);
   else
     low_load(this, zc);
 }

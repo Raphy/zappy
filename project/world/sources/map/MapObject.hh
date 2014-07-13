@@ -30,14 +30,25 @@ public:
     void    updateNodePosition();
     void    scaleOnCase();
 
-    bool    createGround(posi_t const& size);
-
     INodeObject*    getObjectFromNode(scene::ISceneNode const* node) const;
+
+    bool    createGround(posi_t const& size);
+    bool    movePlayer(int player_id, posi_t pos, Orientation orientation)
+    {
+	PlayerObject* player = getPlayer(player_id);
+	CaseObject* lastCase = getCaseObject(player->getPositionInMap());
+	CaseObject* newCase = getCaseObject(pos);
+	lastCase->unregisterPlayer(player_id);
+	newCase->registerPlayer(player);
+	player->setPositionInMap(pos);
+	player->setOrientation(orientation);
+	return true;
+    }
     
     bool    handlerRelay(t_data * data);
 
     /* HANDLERS */
-    bool    mapSizeHandler(t_infos * infos);
+    bool    playerPositionHandler(t_infos * infos);
 
 private:
     void		applyToAllCases(bool (CaseObject::*f)());

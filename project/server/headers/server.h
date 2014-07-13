@@ -17,6 +17,8 @@
 # include	"case.h"
 # include	"zappy.h"
 
+# define        TO_MAP(value, max) ((max + value) % max)
+
 typedef struct	s_server
 {
   t_case	**map;
