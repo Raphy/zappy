@@ -46,6 +46,7 @@ AEngine::AEngine()
     _fs = _device->getFileSystem();
     _cursor = _device->getCursorControl();
     
+    _device->setResizable(true);
     _fps = -1;
     
     EventContext context;
