@@ -30,16 +30,18 @@ public:
     void    updateNodePosition();
     void    scaleOnCase();
 
-    INodeObject*    getObjectFromNode(scene::ISceneNode const* node) const;
-    PlayerObject const*	getPlayerFromIndex(unsigned int index);
-    EggObject const*	getEggFromIndex(unsigned int index);
+    INodeObject*	getObjectFromNode(scene::ISceneNode const* node) const;
+    CaseObject const*	getCaseObjectFromPos(posi_t const& pos) const;
+    PlayerObject const*	getPlayerFromIndex(unsigned int index);//const
+    EggObject const*	getEggFromIndex(unsigned int index);//const
 
+    /* HANDLERS IMPLEMENTATION */
     bool    createGround(posi_t const& size);
     bool    movePlayer(int player_id, posi_t pos, Orientation orientation);
     
+    /* HANDLERS */
     bool    handlerRelay(t_data * data);
 
-    /* HANDLERS */
     bool    playerPositionHandler(t_infos * infos);
 
 private:

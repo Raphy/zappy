@@ -193,8 +193,13 @@ bool MapObject::movePlayer(int player_id, posi_t pos, Orientation orientation)
     return true;
 }
 
-
-
+CaseObject const* MapObject::getCaseObjectFromPos(const posi_t& pos) const
+{
+    if (pos.first >= _mapSize.first
+	    || pos.second >= _mapSize.second)
+	return nullptr;
+    return _cases[pos.second][pos.first];
+}
 PlayerObject const* MapObject::getPlayerFromIndex(unsigned int index)
 {
     return getPlayer(index);

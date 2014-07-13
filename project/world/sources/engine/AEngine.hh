@@ -47,7 +47,9 @@ public:
     virtual bool setTimeUnit(int value);
     virtual bool setVolume(int value);
     virtual bool setMuteStatus(bool mute);
-    virtual void setLastNodeClicked(scene::ISceneNode const* node);
+    virtual void setLastNodeClicked(scene::ISceneNode const* node,
+	core::vector3df point = core::vector3df(),
+	core::triangle3df triangle = core::triangle3df());
     
     virtual Ids getCameraMode() const;
     virtual Ids getTheme() const;
@@ -71,7 +73,7 @@ protected:
     IEventReceiver*	    _eventReceiver;
     GUIManager*		    _guiManager;
     int			    _fps;
-    INodeObject*	    _lastNodeClicked;
+    INodeObject const*	    _lastNodeClicked;
     
     posi_t		    _winSize;
     MapViewer*		    _mapViewer;

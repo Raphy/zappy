@@ -81,25 +81,25 @@ bool AEngine::init()
     this->updateFPS();
     
     // FONT
-//    std::string font_path("bigfont.png");
-//    if (_fs->existFile(font_path.c_str()))
-//    {
-//	std::cout << "	Font loaded !" << std::endl;
-//	IGUISkin* skin = _env->getSkin();
-//	IGUIFont* font = _env->getFont(font_path.c_str());
-//	if (font)
-//	    skin->setFont(font);
-//	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
-//	//	skin->drop();
-//    }
+    //    std::string font_path("bigfont.png");
+    //    if (_fs->existFile(font_path.c_str()))
+    //    {
+    //	std::cout << "	Font loaded !" << std::endl;
+    //	IGUISkin* skin = _env->getSkin();
+    //	IGUIFont* font = _env->getFont(font_path.c_str());
+    //	if (font)
+    //	    skin->setFont(font);
+    //	skin->setFont(_env->getBuiltInFont(), EGDF_TOOLTIP);
+    //	//	skin->drop();
+    //    }
     _mapViewer = new MapViewer(_env, _smgr, _cursor);
     _teamManager = new TeamManager(_mapViewer->getMapObject());
     _guiManager = new GUIManager(_env, this, _winSize);
-	    
+    
     _mapViewer->init();//TODO : checker retour
     _guiManager->init();
     
-//    _mapViewer->createGround(20,30);//debug
+    //    _mapViewer->createGround(20,30);//debug
     
     return true;
 }
@@ -173,7 +173,7 @@ const TeamManager* AEngine::getTeamManager() const
 bool AEngine::handlerRelay(t_data* data)
 {
     t_infos * infos = data->infos;
-
+    
     switch(data->game_element_type)
     {
 	case ENGINE_CLASS:
@@ -228,13 +228,25 @@ bool AEngine::setMuteStatus(bool mute)
     std::cout << "Mute not implemented " << mute << std::endl;
     return false;
 }
-void AEngine::setLastNodeClicked(const scene::ISceneNode* node)
+void AEngine::setLastNodeClicked(const scene::ISceneNode* node,
+	core::vector3df point, core::triangle3df triangle)
 {
+    (void)triangle;
     MapObject const* mapObj = _mapViewer->getMapObject();
     if (mapObj)
-	_lastNodeClicked = mapObj->getObjectFromNode(node);
+    {
+	if (node->getID() == NODE_ID_MAP)
+	{
+	    posi_t pos = _helper->worldToMapCoordinates(point);
+	    _lastNodeClicked = mapObj->getCaseObjectFromPos(pos);
+	    std::cout << "Case " << pos.first << " " << pos.second << " selected !" << std::endl;
+	}
+	else
+	{
+	    _lastNodeClicked = mapObj->getObjectFromNode(node);
+	}
+    }
 }
-
 
 Ids AEngine::getCameraMode() const
 {

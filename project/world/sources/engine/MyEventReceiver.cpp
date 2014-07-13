@@ -11,6 +11,7 @@
 
 using namespace irr;
 using namespace scene;
+using namespace core;
 
 typedef std::pair<irr::EEVENT_TYPE, eventReceivers_t> receiverPair;
 typedef std::map<irr::EEVENT_TYPE, eventReceivers_t> receiverMap;
@@ -54,6 +55,14 @@ bool MyEventReceiver::OnMouseEvent()
 	    ISceneNode* node = pCollisionMgn->getSceneNodeFromRayBB(ray, 0, false/*, nullptr*/);
 	    if (node)
 	    {
+		if (node->getID() == NODE_ID_MAP)
+		{
+		    vector3df point;
+		    triangle3df triangle;
+		    pCollisionMgn->getCollisionPoint(ray, node->getTriangleSelector(), point, triangle, node);
+		    _context.engine->setLastNodeClicked(node, point, triangle);
+		    return false;
+		}
 		_context.engine->setLastNodeClicked(node);
 		return false;//true sauf si on est en mode gui
 	    }
