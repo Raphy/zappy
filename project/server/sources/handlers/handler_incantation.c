@@ -34,17 +34,13 @@ static const struct s_elevation_condition g_conditions[7] = \
 int     verify_elevation_condition(t_player *player, t_case *current)
 {
     assert(sizeof(t_items) - sizeof(unsigned char) > 0);
+    assert(player->level - 1 >= 0);
     if (player->level > 7 || list_length(&current->players) != g_conditions[player->level - 1].player_required)
         return (RET_FAILURE);
-    if (memcmp(&(current->inventory) + sizeof(unsigned char), &(g_conditions->items) + sizeof(unsigned char), sizeof(t_items) - sizeof(unsigned char)))
+    if (0 == memcmp(&(current->inventory) + sizeof(unsigned char), &(g_conditions[player->level - 1].items) + sizeof(unsigned char), sizeof(t_items) - sizeof(unsigned char)))
         return (RET_FAILURE);
     return (RET_SUCCESS);
 }
-
-
-/*
- * Modify status to incanting
- */
 
 void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
 {
@@ -68,4 +64,5 @@ void          handler_incantation(t_zs *zs, t_zc *zc, void *data)
   bundle.action = &player_action_incantation;
   bundle.cycle = 300;
   event_create_from_scratch(&bundle, (t_bundle*)data);
+  zs_send_invocation(zs, zc);
 }

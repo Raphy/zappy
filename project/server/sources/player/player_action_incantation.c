@@ -7,6 +7,7 @@
 ** Started on  Sat Jul  5 17:51:21 2014 damien sauvalle
 ** Last update Sat Jul  5 17:51:28 2014 damien sauvalle
 */
+#include        "zappy.h"
 #include        "bundle.h"
 #include	"player.h"
 #include        "handlers.h"
@@ -27,4 +28,5 @@ void player_action_incantation(t_zc *zc, void *data)
   }
   datas->player->etat = NORMAL;
   datas->player->level++;
+  zs_send_player_level(datas->server->zs, zc, (unsigned int)datas->player->level);
 }

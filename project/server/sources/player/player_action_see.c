@@ -35,7 +35,7 @@ static inline char to_binary_mask(t_case *current)
         ret |= 64;
     if (current->inventory.thystame > 0)
         ret |= 128;
-    return ret;
+    return (ret);
 }
 
 static void get_position(t_position *pos, int (*it)[3],
@@ -60,7 +60,7 @@ static void get_position(t_position *pos, int (*it)[3],
         (*pos).x = TO_MAP(player->x +\
                 or[player->direction - 1] * (*it)[1], max_map->x_world);
         (*pos).y = TO_MAP(player->y -\
-                or[player->direction - 1] * ((*it)[1] + (*it[2])), max_map->y_world);
+                or[player->direction - 1] * ((*it)[1] + (*it)[2]), max_map->y_world);
     }
 }
 
